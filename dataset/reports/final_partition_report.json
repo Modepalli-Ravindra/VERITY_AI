@@ -1,0 +1,72 @@
+{
+  "report_title": "VERITY Final Dataset Partition & Leakage Verification Report",
+  "timestamp": "2026-09-28 14:49:34",
+  "discrepancy_explanation": "The previous ~30,800 train / ~7,700 val estimate was produced by calculating 80%/20% splits based on 1 Human answer per question record (24,322 questions x ~1.6 answers approx 38,500) rather than including all 58,546 Human answers and 26,885 AI answers across the full dataset. This report corrects that issue by partitioning 100% of usable HC3 samples.",
+  "hc3_dataset_statistics": {
+    "raw_question_records": 24322,
+    "raw_human_text_samples": 58546,
+    "raw_ai_text_samples": 26903,
+    "raw_total_text_samples": 85449,
+    "exact_duplicate_samples_removed": 6096,
+    "cleaned_usable_text_samples": 79330,
+    "cleaned_human_samples": 53086,
+    "cleaned_ai_samples": 26244
+  },
+  "hc3_partition_splits": {
+    "split_methodology": "Prompt/Question-Level Stratified 80/20 Split (Zero Leakage)",
+    "leakage_verification": "VERIFIED (0 question overlap between train and val)",
+    "training_set": {
+      "question_count": 18793,
+      "total_text_samples": 63448,
+      "human_samples": 42501,
+      "ai_samples": 20947,
+      "percentage_of_usable_hc3": 79.98
+    },
+    "validation_set": {
+      "question_count": 4699,
+      "total_text_samples": 15882,
+      "human_samples": 10585,
+      "ai_samples": 5297,
+      "percentage_of_usable_hc3": 20.02
+    }
+  },
+  "raid_heldout_test_statistics": {
+    "status": "100% HELD-OUT (0 samples in train/val)",
+    "total_samples": 20000,
+    "human_samples": 10000,
+    "ai_samples": 10000,
+    "model_distribution": {
+      "human": 10000,
+      "llama-chat": 1320,
+      "mpt": 1320,
+      "mpt-chat": 1320,
+      "gpt2": 1320,
+      "mistral": 1320,
+      "mistral-chat": 1320,
+      "gpt3": 480,
+      "cohere": 480,
+      "chatgpt": 400,
+      "gpt4": 360,
+      "cohere-chat": 360
+    },
+    "attack_distribution": {
+      "none": 3086,
+      "whitespace": 3086,
+      "upper_lower": 3086,
+      "synonym": 2766,
+      "perplexity_misspelling": 1808,
+      "paraphrase": 2486,
+      "number": 802,
+      "insert_paragraphs": 720,
+      "homoglyph": 720,
+      "article_deletion": 720,
+      "alternative_spelling": 720
+    }
+  },
+  "total_project_samples": {
+    "hc3_train": 63448,
+    "hc3_val": 15882,
+    "raid_test": 20000,
+    "grand_total": 99330
+  }
+}

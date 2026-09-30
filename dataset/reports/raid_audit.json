@@ -1,0 +1,123 @@
+{
+  "dataset_name": "RAID (Robust AI Detection Benchmark Subset)",
+  "file_path": "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\dataset\\raid\\raid_subset.csv",
+  "total_samples": 20000,
+  "human_sample_count": 10000,
+  "ai_sample_count": 10000,
+  "fields_detected": [
+    "text",
+    "label",
+    "model",
+    "attack",
+    "domain",
+    "source_id"
+  ],
+  "label_verification": {
+    "human_condition": "model == 'human' -> label 0",
+    "ai_condition": "model != 'human' -> label 1",
+    "status": "VERIFIED"
+  },
+  "model_distribution": {
+    "human": 10000,
+    "llama-chat": 1320,
+    "mpt": 1320,
+    "mpt-chat": 1320,
+    "gpt2": 1320,
+    "mistral": 1320,
+    "mistral-chat": 1320,
+    "gpt3": 480,
+    "cohere": 480,
+    "chatgpt": 400,
+    "gpt4": 360,
+    "cohere-chat": 360
+  },
+  "attack_distribution_overall": {
+    "none": 3086,
+    "whitespace": 3086,
+    "upper_lower": 3086,
+    "synonym": 2766,
+    "perplexity_misspelling": 1808,
+    "paraphrase": 2486,
+    "number": 802,
+    "insert_paragraphs": 720,
+    "homoglyph": 720,
+    "article_deletion": 720,
+    "alternative_spelling": 720
+  },
+  "attack_distribution_ai_only": {
+    "none": 1320,
+    "whitespace": 1320,
+    "upper_lower": 1320,
+    "synonym": 1000,
+    "perplexity_misspelling": 720,
+    "paraphrase": 720,
+    "number": 720,
+    "insert_paragraphs": 720,
+    "homoglyph": 720,
+    "article_deletion": 720,
+    "alternative_spelling": 720
+  },
+  "domain_distribution": {
+    "abstracts": 20000
+  },
+  "source_id_statistics": {
+    "unique_source_ids": 1766,
+    "max_samples_per_source_id": 165,
+    "top_10_source_ids": {
+      "72c41b8d-0069-4886-b734-a4000ffca286": 165,
+      "0818a486-cec9-4668-bef1-e22e2f92b912": 164,
+      "24ad0185-90a9-47b6-a029-30b1d4f3c650": 164,
+      "d0064195-c22e-4550-a265-6b372deea3e0": 162,
+      "3f74bd45-21ac-4446-8591-88f32baafbaf": 161,
+      "9eda5549-966a-4eb7-bdbb-572dc585a4d3": 161,
+      "764ed713-72bd-43c1-85da-9b71c62bd873": 160,
+      "06bffeb2-bea0-4b0b-b60d-767ba9b660a7": 159,
+      "a957f241-6622-4b33-9d53-932c2c3ac2b6": 159,
+      "e9899aaa-4e38-408c-bc2c-7f1fb3cf934c": 159
+    }
+  },
+  "text_length_distribution": {
+    "human_words": {
+      "min": 1,
+      "max": 316,
+      "mean": 175.48,
+      "median": 171.0
+    },
+    "human_chars": {
+      "min": 3,
+      "max": 1998,
+      "mean": 1199.13,
+      "median": 1176.0
+    },
+    "ai_words": {
+      "min": 1,
+      "max": 453,
+      "mean": 207.79,
+      "median": 172.0
+    },
+    "ai_chars": {
+      "min": 11,
+      "max": 3460,
+      "mean": 1428.98,
+      "median": 1221.0
+    }
+  },
+  "length_categories": {
+    "Short (<50 words)": {
+      "human": 1,
+      "ai": 57,
+      "total": 58
+    },
+    "Medium (50-250 words)": {
+      "human": 9504,
+      "ai": 6415,
+      "total": 15919
+    },
+    "Long (>250 words)": {
+      "human": 495,
+      "ai": 3528,
+      "total": 4023
+    }
+  },
+  "exact_duplicates_within_raid": 0
+}

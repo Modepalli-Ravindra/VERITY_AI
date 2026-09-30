@@ -1,0 +1,39 @@
+# Node & Python
+node_modules/
+dist/
+__pycache__/
+*.pyc
+.env.local
+.env
+
+# InsForge & AI agent skills
+.insforge
+.agent
+.agents
+.augment
+.claude
+.cline
+.github/copilot*
+.kilocode
+.qoder
+.qwen
+.roo
+.trae
+.windsurf
+
+# ML Models & Caches
+.cache/
+huggingface/
+models/
+*.bin
+*.safetensors
+*.onnx
+*.pt
+*.pth
+
+
+*.csv
+*.jsonl
+dataset/hc3/
+dataset/raid/
+dataset/*.csv

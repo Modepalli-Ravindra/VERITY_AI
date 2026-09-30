@@ -1,0 +1,26 @@
+{
+  "hc3_total_unique_texts": 79331,
+  "raid_total_unique_texts": 20000,
+  "exact_matching_text_count": 0,
+  "exact_matching_examples": [],
+  "near_duplicate_matching_count": 0,
+  "near_duplicate_examples": [],
+  "domain_source_comparison": {
+    "hc3_sources": [
+      "reddit_eli5",
+      "open_qa",
+      "wiki_csai",
+      "finance",
+      "medicine"
+    ],
+    "raid_domains": [
+      "abstracts"
+    ],
+    "overlap_note": "HC3 contains QA domains (reddit_eli5, wiki_qa, medicine, finance, openkbase); RAID subset contains abstracts domain."
+  },
+  "leakage_risk_assessment": {
+    "exact_overlap_percentage": 0.0,
+    "contamination_risk": "LOW",
+    "recommendation": "Maintain complete separation of datasets. Use HC3 for primary model fine-tuning and in-domain validation, and hold out RAID strictly as an independent, out-of-distribution adversarial robustness test set."
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "dataset_name": "HC3 (Human ChatGPT Comparison Corpus)",
+  "file_path": "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\dataset\\hc3\\all.jsonl",
+  "total_question_records": 24322,
+  "total_human_samples": 58546,
+  "total_ai_samples": 26885,
+  "total_text_samples": 85431,
+  "fields_detected": [
+    "question",
+    "human_answers",
+    "chatgpt_answers",
+    "index",
+    "source"
+  ],
+  "label_verification": {
+    "human_label": 0,
+    "ai_label": 1,
+    "status": "VERIFIED (Human=0, AI=1)"
+  },
+  "source_distribution": {
+    "reddit_eli5": {
+      "total_questions": 17112,
+      "human_answers": 51336,
+      "ai_answers": 16660
+    },
+    "open_qa": {
+      "total_questions": 1187,
+      "human_answers": 1187,
+      "ai_answers": 3546
+    },
+    "wiki_csai": {
+      "total_questions": 842,
+      "human_answers": 842,
+      "ai_answers": 842
+    },
+    "finance": {
+      "total_questions": 3933,
+      "human_answers": 3933,
+      "ai_answers": 4503
+    },
+    "medicine": {
+      "total_questions": 1248,
+      "human_answers": 1248,
+      "ai_answers": 1334
+    }
+  },
+  "text_length_distribution": {
+    "human_words": {
+      "min": 1,
+      "max": 7904,
+      "mean": 133.86,
+      "median": 83.0
+    },
+    "human_chars": {
+      "min": 5,
+      "max": 36793,
+      "mean": 680.69,
+      "median": 422.0
+    },
+    "ai_words": {
+      "min": 1,
+      "max": 639,
+      "mean": 173.19,
+      "median": 174.0
+    },
+    "ai_chars": {
+      "min": 16,
+      "max": 3508,
+      "mean": 1011.18,
+      "median": 1012.0
+    }
+  },
+  "length_categories": {
+    "Short (<50 words)": {
+      "human": 17875,
+      "ai": 520,
+      "total": 18395
+    },
+    "Medium (50-250 words)": {
+      "human": 32795,
+      "ai": 23785,
+      "total": 56580
+    },
+    "Long (>250 words)": {
+      "human": 7876,
+      "ai": 2580,
+      "total": 10456
+    }
+  },
+  "empty_records_count": 18,
+  "exact_duplicates_within_hc3": 6100,
+  "suspicious_records_count": 13,
+  "suspicious_examples": [
+    {
+      "line": 17281,
+      "source": "open_qa",
+      "type": "human",
+      "text": "NassauFreeport, Bahamas",
+      "reason": "Extremely short (<5 words)"
+    },
+    {
+      "line": 17389,
+      "source": "open_qa",
+      "type": "ai",
+      "text": "!\\nnetwork error",
+      "reason": "Extremely short (<5 words)"
+    },
+    {
+      "line": 17504,
+      "source": "open_qa",
+      "type": "human",
+      "text": "Eric \"E.\"",
+      "reason": "Extremely short (<5 words)"
+    },
+    {
+      "line": 17892,
+      "source": "open_qa",
+      "type": "ai",
+      "text": "!\\nnetwork error",
+      "reason": "Extremely short (<5 words)"
+    },
+    {
+      "line": 17895,
+      "source": "open_qa",
+      "type": "ai",
+      "text": "!\\nnetwork error",
+      "reason": "Extremely short (<5 words)"
+    },
+    {
+      "line": 18202,
+      "source": "open_qa",
+      "type": "ai",
+      "text": "!\\nnetwork error",
+      "reason": "Extremely short (<5 words)"
+    },
+    {
+      "line": 18220,
+      "source": "open_qa",
+      "type": "ai",
+      "text": "!\\nnetwork error",
+      "reason": "Extremely short (<5 words)"
+    },
+    {
+      "line": 19520,
+      "source": "finance",
+      "type": "human",
+      "text": "Some ideas:",
+      "reason": "Extremely short (<5 words)"
+    },
+    {
+      "line": 19910,
+      "source": "finance",
+      "type": "ai",
+      "text": "\u8fd8\u6709\u5c31\u662f\u529e\u5361\u7684\u624b\u673a\u53f7\u7801\u6ca1\u7528\u4e86\u53ef\u6302\u5931\u4e0d\u5982\u679c\u60a8\u7684\u624b\u673a\u53f7\u7801\u6ca1\u6709\u7528\u4e86\uff0c\u60a8\u53ef\u4ee5\u8003\u8651\u6302\u5931\u60a8\u7684\u94f6\u884c\u5361\u3002\u6302\u5931\u662f\u4e3a\u4e86\u9632\u6b62\u60a8\u7684\u94f6\u884c\u5361\u88ab\u76d7\u7528\u6216",
+      "reason": "Extremely short (<5 words)"
+    },
+    {
+      "line": 21345,
+      "source": "finance",
+      "type": "human",
+      "text": "Here's a few things:",
+      "reason": "Extremely short (<5 words)"
+    }
+  ]
+}

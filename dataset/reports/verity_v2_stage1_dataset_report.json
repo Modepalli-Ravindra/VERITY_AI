@@ -1,0 +1,45 @@
+{
+  "report_title": "VERITY V2 Stage 1 Training Dataset Composition & Leakage Audit",
+  "timestamp": "2026-09-28 23:45:13",
+  "total_samples": 90813,
+  "human_count": 50748,
+  "ai_count": 40065,
+  "sources_distribution": {
+    "hc3_finance": 5662,
+    "raid_train": 40813,
+    "hc3_reddit_eli5": 38075,
+    "hc3_wiki_csai": 1085,
+    "hc3_open_qa": 3408,
+    "hc3_medicine": 1770
+  },
+  "model_distribution": {
+    "human": 21695,
+    "mistral-chat": 2562,
+    "mistral": 2602,
+    "mpt-chat": 2506,
+    "mpt": 2447,
+    "cohere": 900,
+    "gpt3": 900,
+    "gpt2": 2557,
+    "llama-chat": 2744,
+    "gpt4": 600,
+    "chatgpt": 700,
+    "cohere-chat": 600
+  },
+  "attack_distribution": {
+    "number": 1800,
+    "none": 5081,
+    "perplexity_misspelling": 2555,
+    "alternative_spelling": 2837,
+    "homoglyph": 5170,
+    "insert_paragraphs": 5278,
+    "synonym": 4277,
+    "paraphrase": 3581,
+    "article_deletion": 3397,
+    "upper_lower": 5071,
+    "zero_width_space": 1766
+  },
+  "stage1_duplicates_removed": 9187,
+  "heldout_raid_test_leakage_count": 0,
+  "leakage_status": "PASSED_STRICT_ZERO_LEAKAGE"
+}
