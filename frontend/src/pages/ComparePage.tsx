@@ -213,11 +213,11 @@ export const ComparePage: React.FC<ComparePageProps> = ({
               <div>
                 <span className="text-[9px] text-[var(--color-lime-sprout)]/80 font-mono tracking-widest uppercase flex items-center gap-2 mb-1">
                   <TrendingDown className="w-3 h-3 text-[var(--color-lime-sprout)]" />
-                  <span>Signal Degradation</span>
+                  <span>AI SIGNAL CHANGE</span>
                 </span>
                 <div className="text-2xl font-light text-[var(--color-lime-sprout)] mb-1 font-mono">
                   {aiProbDrop > 0 ? '-' : (aiProbDrop === 0 ? '' : '+')}
-                  {Math.abs(aiProbDrop)}%
+                  {Math.abs(aiProbDrop)} percentage points
                 </div>
               </div>
               <span className="text-[10px] text-[var(--color-lime-sprout)]/70 font-sans block uppercase tracking-widest">Word count delta: {humWords - origWords > 0 ? '+' : ''}{humWords - origWords}</span>

@@ -35,7 +35,7 @@ export const DemoVideoComposition: React.FC = () => {
           <h1 className="text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-[var(--color-lime-sprout)]">
             See Beyond the Words.
           </h1>
-          <p className="text-xl text-gray-400">DeBERTa Semantic Representation & Feature Fusion</p>
+          <p className="text-xl text-gray-400">VERITY Detection Engine & Feature Fusion</p>
         </div>
       )}
 

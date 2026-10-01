@@ -22,6 +22,17 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
     humanDetected: 0,
     paraphrases: 0,
   });
+  
+  const [chartData, setChartData] = useState<{label: string, count: number, height: number}[]>([
+    { label: 'Mon', count: 0, height: 10 },
+    { label: 'Tue', count: 0, height: 10 },
+    { label: 'Wed', count: 0, height: 10 },
+    { label: 'Thu', count: 0, height: 10 },
+    { label: 'Fri', count: 0, height: 10 },
+    { label: 'Sat', count: 0, height: 10 },
+    { label: 'Sun', count: 0, height: 10 },
+  ]);
+
   useEffect(() => {
     const fetchDashboardData = async () => {
       if (!user) return;
@@ -50,6 +61,41 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
             humanDetected,
             paraphrases: humanizationsData ? humanizationsData.length : 0,
           });
+
+          // Compute last 7 days volume
+          const now = new Date();
+          const last7Days = Array(7).fill(0).map((_, i) => {
+            const d = new Date(now);
+            d.setDate(d.getDate() - (6 - i));
+            return {
+              date: d,
+              label: d.toLocaleDateString('en-US', { weekday: 'short' }),
+              count: 0
+            };
+          });
+
+          logsData.forEach((log: any) => {
+            if (log.created_at) {
+              const logDate = new Date(log.created_at);
+              for (let i = 0; i < 7; i++) {
+                if (logDate.getDate() === last7Days[i].date.getDate() &&
+                    logDate.getMonth() === last7Days[i].date.getMonth() &&
+                    logDate.getFullYear() === last7Days[i].date.getFullYear()) {
+                  last7Days[i].count++;
+                  break;
+                }
+              }
+            }
+          });
+          
+          const maxCount = Math.max(...last7Days.map(d => d.count), 1);
+          const newChartData = last7Days.map(d => ({
+            label: d.label,
+            count: d.count,
+            height: Math.max((d.count / maxCount) * 100, 5) // Ensure at least a small blip
+          }));
+          
+          setChartData(newChartData);
         }
       } catch (err) {
         console.error('Failed to fetch dashboard data:', err);
@@ -238,21 +284,21 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                </div>
 
                {/* Bars */}
-               {[40, 70, 45, 90, 65, 85, 100].map((height, i) => (
+               {chartData.map((data, i) => (
                  <div key={i} className="flex-1 flex flex-col justify-end items-center gap-2 group z-10 h-full">
                    <div className="w-full flex justify-center h-[120px] items-end relative">
                      {/* Tooltip on hover */}
                      <div className="opacity-0 group-hover:opacity-100 absolute -top-8 bg-white text-black text-[10px] font-mono font-bold px-2 py-1 rounded transition-opacity">
-                        {height * 12}
+                        {data.count}
                      </div>
                      <motion.div 
                        initial={{ height: 0 }}
-                       animate={{ height: `${height}%` }}
+                       animate={{ height: `${data.height}%` }}
                        transition={{ duration: 0.8, delay: 0.4 + (i * 0.1) }}
                        className={`w-full max-w-[2.5rem] rounded-t-sm ${i === 6 ? 'bg-[var(--color-lime-sprout)] shadow-[0_0_15px_rgba(228,253,151,0.3)]' : 'bg-white/10 group-hover:bg-white/20 transition-colors'}`}
                      ></motion.div>
                    </div>
-                   <span className="text-[9px] font-mono text-gray-500 uppercase tracking-widest">{['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i]}</span>
+                   <span className="text-[9px] font-mono text-gray-500 uppercase tracking-widest">{data.label}</span>
                  </div>
                ))}
             </div>

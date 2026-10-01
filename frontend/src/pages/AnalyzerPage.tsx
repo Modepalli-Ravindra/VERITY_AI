@@ -296,7 +296,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                     <span className="text-[10px] font-mono tracking-[0.2em] text-[var(--color-lime-sprout)] uppercase">Detection Diagnostics</span>
                   </div>
                   <span className="px-3 py-1 rounded-full border border-[var(--color-lime-sprout)]/20 text-[9px] font-mono tracking-widest uppercase text-[var(--color-lime-sprout)] bg-[var(--color-lime-sprout)]/5 hidden sm:block">
-                    DeBERTa-v3 + Stylometrics
+                    VERITY Detection
                   </span>
                 </div>
 
