@@ -5,7 +5,8 @@ import {
   X, 
   LogOut,
   Search,
-  ChevronDown
+  ChevronDown,
+  Settings
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -182,6 +183,15 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                       <button
                         onClick={() => {
                           setProfileMenuOpen(false);
+                          handleNav('/settings');
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-white transition-colors flex items-center gap-2"
+                      >
+                        <Settings className="w-4 h-4" /> Settings
+                      </button>
+                      <button
+                        onClick={() => {
+                          setProfileMenuOpen(false);
                           signOut();
                         }}
                         className="w-full text-left px-4 py-2 text-sm text-rose-400 hover:bg-white/5 hover:text-rose-300 transition-colors flex items-center gap-2"
@@ -260,6 +270,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                     );
                   })}
                   <div className="w-full h-px bg-white/5 my-2" />
+                  <button
+                    onClick={() => handleNav('/settings')}
+                    className="flex items-center gap-3 py-3 text-sm font-medium tracking-wide text-gray-300 hover:text-white"
+                  >
+                    <Settings className="w-4 h-4" />
+                    <span>Settings</span>
+                  </button>
                   <button
                     onClick={signOut}
                     className="flex items-center gap-3 py-3 text-sm font-medium tracking-wide text-rose-400"

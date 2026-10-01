@@ -13,8 +13,8 @@ interface ParaphrasePageProps {
 
 export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, initialText = '', initialResult = null }) => {
   const { user } = useAuth();
-  const [originalText, setOriginalText] = useState(() => initialText || localStorage.getItem('verity_paraphrase_orig') || '');
-  const [paraphrasedText, setParaphrasedText] = useState(() => localStorage.getItem('verity_paraphrase_hum') || '');
+  const [originalText, setOriginalText] = useState(() => initialText || localStorage.getItem(user ? `verity_paraphrase_orig_${user.id}` : 'verity_paraphrase_orig') || '');
+  const [paraphrasedText, setParaphrasedText] = useState(() => localStorage.getItem(user ? `verity_paraphrase_hum_${user.id}` : 'verity_paraphrase_hum') || '');
   const [provider, setProvider] = useState('auto');
   const [usedProvider, setUsedProvider] = useState('');
   const [loading, setLoading] = useState(false);
@@ -22,14 +22,18 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
   const [copied, setCopied] = useState(false);
   const [copiedOrig, setCopiedOrig] = useState(false);
   const [recheckResult, setRecheckResult] = useState<any | null>(() => {
-    const saved = localStorage.getItem('verity_paraphrase_res');
+    const saved = localStorage.getItem(user ? `verity_paraphrase_res_${user.id}` : 'verity_paraphrase_res');
     return saved ? JSON.parse(saved) : null;
   });
   const [rechecking, setRechecking] = useState(false);
 
-  useEffect(() => { localStorage.setItem('verity_paraphrase_orig', originalText); }, [originalText]);
-  useEffect(() => { localStorage.setItem('verity_paraphrase_hum', paraphrasedText); }, [paraphrasedText]);
-  useEffect(() => { if (recheckResult) localStorage.setItem('verity_paraphrase_res', JSON.stringify(recheckResult)); else localStorage.removeItem('verity_paraphrase_res'); }, [recheckResult]);
+  useEffect(() => { localStorage.setItem(user ? `verity_paraphrase_orig_${user.id}` : 'verity_paraphrase_orig', originalText); }, [originalText, user]);
+  useEffect(() => { localStorage.setItem(user ? `verity_paraphrase_hum_${user.id}` : 'verity_paraphrase_hum', paraphrasedText); }, [paraphrasedText, user]);
+  useEffect(() => { 
+    const key = user ? `verity_paraphrase_res_${user.id}` : 'verity_paraphrase_res';
+    if (recheckResult) localStorage.setItem(key, JSON.stringify(recheckResult)); 
+    else localStorage.removeItem(key); 
+  }, [recheckResult, user]);
 
   const paraphraseStages = [
     'Parsing original structure',

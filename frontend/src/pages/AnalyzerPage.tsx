@@ -11,28 +11,30 @@ interface AnalyzerPageProps {
 
 export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
   const { user } = useAuth();
-  const [text, setText] = useState(() => localStorage.getItem('verity_analyze_text') || '');
+  const [text, setText] = useState(() => localStorage.getItem(user ? `verity_analyze_text_${user.id}` : 'verity_analyze_text') || '');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [result, setResult] = useState<any | null>(() => {
-    const saved = localStorage.getItem('verity_analyze_result');
+    const saved = localStorage.getItem(user ? `verity_analyze_result_${user.id}` : 'verity_analyze_result');
     return saved ? JSON.parse(saved) : null;
   });
   const [copied, setCopied] = useState(false);
   const [copiedInput, setCopiedInput] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem('verity_analyze_text', text);
-  }, [text]);
+    const key = user ? `verity_analyze_text_${user.id}` : 'verity_analyze_text';
+    localStorage.setItem(key, text);
+  }, [text, user]);
 
   useEffect(() => {
+    const key = user ? `verity_analyze_result_${user.id}` : 'verity_analyze_result';
     if (result) {
-      localStorage.setItem('verity_analyze_result', JSON.stringify(result));
+      localStorage.setItem(key, JSON.stringify(result));
     } else {
-      localStorage.removeItem('verity_analyze_result');
+      localStorage.removeItem(key);
     }
-  }, [result]);
+  }, [result, user]);
 
   const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
   const charCount = text.length;

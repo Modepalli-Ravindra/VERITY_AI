@@ -119,6 +119,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         const { data } = await insforge.auth.getCurrentUser();
         if (data?.user) {
+          // If we have a pending name in local storage for this email, try to apply it
+          const email = data.user.email;
+          if (email) {
+            await applyPendingNameIfAny(data.user.id, email);
+          }
           const fullUser = await fetchUserProfile(data.user);
           setUser(fullUser);
         } else {
@@ -134,6 +139,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     getInitialSession();
   }, []);
 
+  const applyPendingNameIfAny = async (userId: string, email: string) => {
+    try {
+      const pendingName = localStorage.getItem(`verity_pending_name_${email}`);
+      if (pendingName) {
+        try {
+           await insforge.database.from('profiles').upsert([{
+              user_id: userId,
+              email,
+              full_name: pendingName,
+              display_name: pendingName
+           }]);
+        } catch (err) {
+           console.warn('Upsert profile post-verify failed', err);
+        }
+        try {
+           localStorage.setItem(`verity_profile_${userId}`, JSON.stringify({
+             full_name: pendingName,
+             display_name: pendingName
+           }));
+           localStorage.removeItem(`verity_pending_name_${email}`);
+        } catch {}
+        
+        try {
+           if ((insforge.auth as any).updateUser) {
+              await (insforge.auth as any).updateUser({ data: { full_name: pendingName, name: pendingName } });
+           }
+        } catch {}
+      }
+    } catch (err) {}
+  };
+
   const signUp = async (email: string, password: string, displayName?: string) => {
     try {
       const nameVal = (displayName && displayName.trim()) || email.split('@')[0];
@@ -141,6 +177,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         email,
         password,
         name: nameVal,
+        data: {
+          full_name: nameVal,
+          display_name: nameVal,
+          name: nameVal
+        },
+        options: {
+          data: {
+            full_name: nameVal,
+            display_name: nameVal,
+            name: nameVal
+          }
+        }
       });
 
       if (res.data?.user) {
@@ -168,6 +216,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const fullUser = await fetchUserProfile(res.data.user);
         setUser(fullUser);
       }
+      
+      try {
+        localStorage.setItem(`verity_pending_name_${email}`, nameVal);
+      } catch {}
+
       return res;
     } catch (error: any) {
       return { error };
@@ -178,6 +231,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const res = await insforge.auth.signInWithPassword({ email, password });
       if (res.data?.user) {
+        await applyPendingNameIfAny(res.data.user.id, email);
         const fullUser = await fetchUserProfile(res.data.user);
         setUser(fullUser);
       }
@@ -191,6 +245,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const res = await insforge.auth.verifyEmail({ email, otp });
       if (res.data?.user) {
+        await applyPendingNameIfAny(res.data.user.id, email);
         const fullUser = await fetchUserProfile(res.data.user);
         setUser(fullUser);
       }

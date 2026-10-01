@@ -11,6 +11,7 @@ import { ParaphrasePage } from './pages/ParaphrasePage';
 import { ComparePage } from './pages/ComparePage';
 import { HistoryPage } from './pages/HistoryPage';
 import { DocumentationPage } from './pages/DocumentationPage';
+import { SettingsPage } from './pages/SettingsPage';
 import { X, Play } from 'lucide-react';
 import { Player } from '@remotion/player';
 import { DemoVideoComposition } from './components/RemotionDemoVideo';
@@ -70,7 +71,7 @@ const MainRouter: React.FC = () => {
   }
 
   // 1. Unauthenticated users attempting to access protected routes -> Redirect to /login
-  const protectedRoutes = ['/dashboard', '/analyze', '/paraphrase', '/compare', '/history'];
+  const protectedRoutes = ['/dashboard', '/analyze', '/paraphrase', '/compare', '/history', '/settings'];
   if (protectedRoutes.includes(currentRoute) && !user) {
     return <LoginPage onNavigate={navigate} />;
   }
@@ -104,6 +105,8 @@ const MainRouter: React.FC = () => {
                />;
       case '/history':
         return <HistoryPage onNavigate={navigate} initialSearch={routeState?.search || ''} />;
+      case '/settings':
+        return <SettingsPage onNavigate={navigate} />;
       case '/docs':
         return <DocumentationPage onNavigate={navigate} />;
       default:

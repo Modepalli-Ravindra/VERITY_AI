@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Activity, TrendingDown, RotateCcw } from 'lucide-react';
 import { ThinkingOrbs } from '../components/ThinkingOrbs';
+import { useAuth } from '../context/AuthContext';
 
 interface ComparePageProps {
   onNavigate?: (route: string, state?: any) => void;
@@ -17,24 +18,33 @@ export const ComparePage: React.FC<ComparePageProps> = ({
   initialOrigResult = null,
   initialHumResult = null
 }) => {
-  const [originalText, setOriginalText] = useState(() => initialOriginal || localStorage.getItem('verity_compare_orig') || '');
-  const [humanizedText, setHumanizedText] = useState(() => initialHumanized || localStorage.getItem('verity_compare_hum') || '');
+  const { user } = useAuth();
+  const [originalText, setOriginalText] = useState(() => initialOriginal || localStorage.getItem(user ? `verity_compare_orig_${user.id}` : 'verity_compare_orig') || '');
+  const [humanizedText, setHumanizedText] = useState(() => initialHumanized || localStorage.getItem(user ? `verity_compare_hum_${user.id}` : 'verity_compare_hum') || '');
   const [origResult, setOrigResult] = useState<any | null>(() => {
-    const saved = localStorage.getItem('verity_compare_ores');
+    const saved = localStorage.getItem(user ? `verity_compare_ores_${user.id}` : 'verity_compare_ores');
     return saved ? JSON.parse(saved) : null;
   });
   const [humResult, setHumResult] = useState<any | null>(() => {
-    const saved = localStorage.getItem('verity_compare_hres');
+    const saved = localStorage.getItem(user ? `verity_compare_hres_${user.id}` : 'verity_compare_hres');
     return saved ? JSON.parse(saved) : null;
   });
   const [loading, setLoading] = useState(false);
   const [copiedOrig, setCopiedOrig] = useState(false);
   const [copiedHum, setCopiedHum] = useState(false);
 
-  useEffect(() => { localStorage.setItem('verity_compare_orig', originalText); }, [originalText]);
-  useEffect(() => { localStorage.setItem('verity_compare_hum', humanizedText); }, [humanizedText]);
-  useEffect(() => { if (origResult) localStorage.setItem('verity_compare_ores', JSON.stringify(origResult)); else localStorage.removeItem('verity_compare_ores'); }, [origResult]);
-  useEffect(() => { if (humResult) localStorage.setItem('verity_compare_hres', JSON.stringify(humResult)); else localStorage.removeItem('verity_compare_hres'); }, [humResult]);
+  useEffect(() => { localStorage.setItem(user ? `verity_compare_orig_${user.id}` : 'verity_compare_orig', originalText); }, [originalText, user]);
+  useEffect(() => { localStorage.setItem(user ? `verity_compare_hum_${user.id}` : 'verity_compare_hum', humanizedText); }, [humanizedText, user]);
+  useEffect(() => { 
+    const key = user ? `verity_compare_ores_${user.id}` : 'verity_compare_ores';
+    if (origResult) localStorage.setItem(key, JSON.stringify(origResult)); 
+    else localStorage.removeItem(key); 
+  }, [origResult, user]);
+  useEffect(() => { 
+    const key = user ? `verity_compare_hres_${user.id}` : 'verity_compare_hres';
+    if (humResult) localStorage.setItem(key, JSON.stringify(humResult)); 
+    else localStorage.removeItem(key); 
+  }, [humResult, user]);
 
   const compareStages = [
     'Parsing original semantic representation',
