@@ -50,9 +50,14 @@ class FeatureFusionDetector:
 
     @classmethod
     def get_active_model_dir(cls) -> str:
+        v4b_dir = os.path.join(root_dir, "experiments", "verity_v4", "v4b", "model")
         v2_dir = os.path.join(root_dir, "backend", "models", "verity_detector_v2")
         v1_dir = os.path.join(root_dir, "backend", "models", "verity_detector")
         
+        v4b_model = os.path.join(v4b_dir, "best_model.pt")
+        if os.path.exists(v4b_model):
+            return v4b_dir
+            
         v2_model = os.path.join(v2_dir, "best_model.pt")
         v2_config = os.path.join(v2_dir, "config.json")
         v2_scaler = os.path.join(v2_dir, "stylometric_scaler.json")

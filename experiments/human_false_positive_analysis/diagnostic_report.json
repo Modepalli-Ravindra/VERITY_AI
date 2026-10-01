@@ -1,0 +1,62 @@
+{
+  "buckets": {
+    "Total": {
+      "total": 1000,
+      "fp": 60
+    },
+    "Len:medium": {
+      "total": 621,
+      "fp": 50
+    },
+    "Lex:medium": {
+      "total": 471,
+      "fp": 43
+    },
+    "Rep:normal": {
+      "total": 760,
+      "fp": 54
+    },
+    "Formality:formal_technical": {
+      "total": 256,
+      "fp": 59
+    },
+    "Source:raid": {
+      "total": 162,
+      "fp": 36
+    },
+    "Formality:informal_natural": {
+      "total": 744,
+      "fp": 1
+    },
+    "Source:hc3": {
+      "total": 838,
+      "fp": 24
+    },
+    "Lex:high": {
+      "total": 440,
+      "fp": 10
+    },
+    "Len:short": {
+      "total": 260,
+      "fp": 2
+    },
+    "Rep:high_repetition": {
+      "total": 240,
+      "fp": 6
+    },
+    "Len:long": {
+      "total": 119,
+      "fp": 8
+    },
+    "Lex:low": {
+      "total": 89,
+      "fp": 7
+    }
+  },
+  "false_positives_stats": {
+    "avg_word_count": 193.21666666666667,
+    "avg_ttr": 0.6193177403977875,
+    "avg_sent_len_var": 65.40507170627073,
+    "avg_pred_prob": 0.8284908890724182
+  }
+}

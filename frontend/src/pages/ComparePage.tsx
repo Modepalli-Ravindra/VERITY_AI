@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Activity, TrendingDown, RotateCcw } from 'lucide-react';
 import { ThinkingOrbs } from '../components/ThinkingOrbs';
 import { useAuth } from '../context/AuthContext';
+import { getAuthToken } from '../lib/insforge';
 
 interface ComparePageProps {
   onNavigate?: (route: string, state?: any) => void;
@@ -70,15 +71,22 @@ export const ComparePage: React.FC<ComparePageProps> = ({
     
     const startTime = Date.now();
     try {
+      const token = await getAuthToken();
+      
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
       const [resOrig, resHum] = await Promise.all([
         fetch('/api/analyze', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers,
           body: JSON.stringify({ text: orig })
         }).then(r => r.json()),
         fetch('/api/analyze', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers,
           body: JSON.stringify({ text: hum })
         }).then(r => r.json())
       ]);

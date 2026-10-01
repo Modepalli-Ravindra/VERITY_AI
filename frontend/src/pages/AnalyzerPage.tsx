@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
-import { insforge } from '../lib/insforge';
+import { insforge, getAuthToken } from '../lib/insforge';
 import { Search, RotateCcw, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { ThinkingOrbs } from '../components/ThinkingOrbs';
 
@@ -68,9 +68,16 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
     const startTime = Date.now();
 
     try {
+      const token = await getAuthToken();
+      
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
       const resp = await fetch('/api/analyze', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ text })
       });
 

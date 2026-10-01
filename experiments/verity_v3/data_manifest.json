@@ -1,0 +1,15 @@
+{
+  "source": "ASAP 2.0 (https://github.com/scrosseye/ASAP_2.0)",
+  "license": "CC BY 4.0",
+  "original_sample_count": 17307,
+  "selected_sample_count": 5000,
+  "filtering_rules": [
+    "non-empty",
+    ">50 words",
+    "deduplicated against V2 train"
+  ],
+  "class_counts": {
+    "human": 16177,
+    "ai": 8823
+  }
+}

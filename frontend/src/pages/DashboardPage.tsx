@@ -20,6 +20,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
     totalAnalyses: 0,
     aiDetected: 0,
     humanDetected: 0,
+    paraphrases: 0,
   });
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -27,14 +28,16 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
 
       try {
         const { data: logsData } = await insforge.database
-          .from('analysis_logs')
+          .from('analyses')
           .select('*')
-          .eq('user_id', user.id)
-          .order('created_at', { ascending: false })
-          .limit(4);
+          .eq('user_id', user.id);
+
+        const { data: humanizationsData } = await insforge.database
+          .from('humanizations')
+          .select('*')
+          .eq('user_id', user.id);
 
         if (logsData) {
-
           const totalAnalyses = logsData.length;
           const aiDetected = logsData.filter((l: any) => 
             l.classification?.toLowerCase().includes('ai') || l.ai_probability > 0.5
@@ -45,6 +48,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
             totalAnalyses,
             aiDetected,
             humanDetected,
+            paraphrases: humanizationsData ? humanizationsData.length : 0,
           });
         }
       } catch (err) {
@@ -127,7 +131,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
             </div>
             <div>
               <div className="text-[9px] text-gray-400 font-sans mb-0.5 uppercase tracking-widest">Paraphrases</div>
-              <div className="text-xl text-white font-sans font-medium">0</div>
+              <div className="text-xl text-white font-sans font-medium">{stats.paraphrases}</div>
             </div>
           </div>
         </motion.div>

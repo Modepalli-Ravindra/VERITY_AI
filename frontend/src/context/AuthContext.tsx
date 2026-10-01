@@ -176,19 +176,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const res = await insforge.auth.signUp({
         email,
         password,
-        name: nameVal,
-        data: {
-          full_name: nameVal,
-          display_name: nameVal,
-          name: nameVal
-        },
-        options: {
-          data: {
-            full_name: nameVal,
-            display_name: nameVal,
-            name: nameVal
-          }
-        }
+        name: nameVal
       });
 
       if (res.data?.user) {
@@ -363,6 +351,34 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signOut = async () => {
     try {
+      if (user) {
+        const keysToRemove = [
+          `verity_analyze_text_${user.id}`,
+          `verity_analyze_result_${user.id}`,
+          `verity_paraphrase_orig_${user.id}`,
+          `verity_paraphrase_hum_${user.id}`,
+          `verity_paraphrase_res_${user.id}`,
+          `verity_compare_orig_${user.id}`,
+          `verity_compare_hum_${user.id}`,
+          `verity_compare_ores_${user.id}`,
+          `verity_compare_hres_${user.id}`
+        ];
+        keysToRemove.forEach(k => localStorage.removeItem(k));
+      }
+      
+      const genericKeysToRemove = [
+        'verity_analyze_text',
+        'verity_analyze_result',
+        'verity_paraphrase_orig',
+        'verity_paraphrase_hum',
+        'verity_paraphrase_res',
+        'verity_compare_orig',
+        'verity_compare_hum',
+        'verity_compare_ores',
+        'verity_compare_hres'
+      ];
+      genericKeysToRemove.forEach(k => localStorage.removeItem(k));
+
       await insforge.auth.signOut();
       setUser(null);
     } catch (err) {

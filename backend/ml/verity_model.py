@@ -98,3 +98,32 @@ class VerityStylometricOnlyClassifier(nn.Module):
         sty_feat = self.stylometric_proj(stylometric_x)
         logits = self.classifier(sty_feat)
         return logits.squeeze(-1)
+
+from transformers import AutoModel
+
+class VerityV4Model(nn.Module):
+    def __init__(self, transformer_name="distilroberta-base", unfreeze_layers=1):
+        super().__init__()
+        self.transformer = AutoModel.from_pretrained(transformer_name)
+        for param in self.transformer.parameters():
+            param.requires_grad = False
+        if unfreeze_layers > 0:
+            layers = self.transformer.encoder.layer
+            for i in range(len(layers) - unfreeze_layers, len(layers)):
+                for param in layers[i].parameters():
+                    param.requires_grad = True
+        self.fusion_head = VerityFusionClassifier(
+            semantic_dim=768, stylometric_dim=20, sem_proj_dim=256, sty_proj_dim=64
+        )
+
+    def extract_semantic_embedding(self, input_ids, attention_mask):
+        outputs = self.transformer(input_ids=input_ids, attention_mask=attention_mask)
+        last_hidden = outputs.last_hidden_state
+        mask = attention_mask.unsqueeze(-1)
+        sem_emb = (last_hidden * mask).sum(dim=1) / mask.sum(dim=1).clamp(min=1e-9)
+        return sem_emb
+
+    def forward(self, input_ids, attention_mask, stylometric_x):
+        sem_emb = self.extract_semantic_embedding(input_ids, attention_mask)
+        logits = self.fusion_head(sem_emb, stylometric_x)
+        return logits

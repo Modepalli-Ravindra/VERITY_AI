@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
-import { insforge } from '../lib/insforge';
+import { insforge, getAuthToken } from '../lib/insforge';
 import { Wand2, Sparkles, AlertCircle, RefreshCw, Activity } from 'lucide-react';
 import { ThinkingOrbs } from '../components/ThinkingOrbs';
 
@@ -63,9 +63,16 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
     const startTime = Date.now();
 
     try {
+      const token = await getAuthToken();
+      
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
       const resp = await fetch('/api/humanize', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ text: originalText, provider })
       });
 
@@ -131,9 +138,16 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
     if (!paraphrasedText) return;
     setRechecking(true);
     try {
+      const token = await getAuthToken();
+      
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
       const resp = await fetch('/api/recheck', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ text: paraphrasedText })
       });
       const data = await resp.json();

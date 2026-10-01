@@ -36,6 +36,18 @@ const MainRouter: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const protectedRoutes = ['/dashboard', '/analyze', '/paraphrase', '/compare', '/history', '/settings'];
+
+  useEffect(() => {
+    if (!loading) {
+      if (user && (currentRoute === '/' || currentRoute === '/login' || currentRoute === '/signup')) {
+        navigate('/dashboard');
+      } else if (!user && protectedRoutes.includes(currentRoute)) {
+        navigate('/');
+      }
+    }
+  }, [user, loading, currentRoute]);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-[var(--bg-base)] flex items-center justify-center font-sans">
@@ -70,14 +82,13 @@ const MainRouter: React.FC = () => {
     );
   }
 
-  // 1. Unauthenticated users attempting to access protected routes -> Redirect to /login
-  const protectedRoutes = ['/dashboard', '/analyze', '/paraphrase', '/compare', '/history', '/settings'];
+  // 1. Unauthenticated users are redirected by useEffect, but render nothing or a loader momentarily
   if (protectedRoutes.includes(currentRoute) && !user) {
-    return <LoginPage onNavigate={navigate} />;
+    return <LandingPage onNavigate={navigate} />;
   }
 
-  // 2. Authenticated users visiting /login or /signup -> Redirect to /dashboard
-  if (user && (currentRoute === '/login' || currentRoute === '/signup')) {
+  // 2. Authenticated users are redirected by useEffect, but render nothing or dashboard momentarily
+  if (user && (currentRoute === '/login' || currentRoute === '/signup' || currentRoute === '/')) {
     return <DashboardPage onNavigate={navigate} />;
   }
 

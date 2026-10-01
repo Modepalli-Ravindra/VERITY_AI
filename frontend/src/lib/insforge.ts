@@ -7,3 +7,12 @@ export const insforge = createClient({
   baseUrl: INSFORGE_URL,
   anonKey: INSFORGE_ANON_KEY,
 });
+
+export const getAuthToken = async () => {
+  try {
+    return await insforge.getHttpClient().getValidAccessToken();
+  } catch (err) {
+    return null;
+  }
+};
+

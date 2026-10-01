@@ -1,6 +1,6 @@
 # VERITY — Combined Dataset Strategy & Partition Architecture
 
-**Date:** 2026-09-28  
+**Date:** 2026-10-01  
 **Audit Target:** HC3 (`all.jsonl`) & RAID (`raid_subset.csv`)  
 **Status:** Audit Complete — No Model Training Executed  
 

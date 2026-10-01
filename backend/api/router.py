@@ -1,9 +1,10 @@
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, Depends
 from pydantic import BaseModel
 from typing import Optional, Dict, Any
 from backend.ml.fusion_model import FeatureFusionDetector
 from backend.services.llm_providers import LLMProviderService
 from backend.services.provider_manager import ProviderManager
+from backend.api.auth import get_current_user
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 
@@ -49,7 +50,7 @@ async def run_benchmark(request: Request):
 
 @router.post("/analyze")
 @limiter.limit("20/minute")
-async def analyze_text(req: TextAnalysisRequest, request: Request):
+async def analyze_text(req: TextAnalysisRequest, request: Request, user=Depends(get_current_user)):
     if not req.text or not req.text.strip():
         raise HTTPException(status_code=400, detail="Text cannot be empty.")
     if len(req.text) > 20000:
@@ -60,7 +61,7 @@ async def analyze_text(req: TextAnalysisRequest, request: Request):
 
 @router.post("/humanize")
 @limiter.limit("15/minute")
-async def humanize_text(req: HumanizeRequest, request: Request):
+async def humanize_text(req: HumanizeRequest, request: Request, user=Depends(get_current_user)):
     if not req.text or not req.text.strip():
         raise HTTPException(status_code=400, detail="Text cannot be empty.")
     if len(req.text) > 15000:
@@ -70,7 +71,7 @@ async def humanize_text(req: HumanizeRequest, request: Request):
     return res
 
 @router.post("/recheck")
-async def recheck_text(req: TextAnalysisRequest):
+async def recheck_text(req: TextAnalysisRequest, request: Request, user=Depends(get_current_user)):
     if not req.text or not req.text.strip():
         raise HTTPException(status_code=400, detail="Text cannot be empty.")
     

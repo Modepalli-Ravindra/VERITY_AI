@@ -63,7 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
     { name: 'History', route: '/history' }
   ];
 
-  const navLinks = user ? appLinks : publicLinks;
+  const navLinks = (user && currentRoute !== '/') ? appLinks : publicLinks;
 
   return (
     <div className="fixed top-0 w-full z-50 flex flex-col items-center pt-6 px-4 pointer-events-none">
@@ -133,6 +133,14 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
             </>
           ) : (
             <div className="flex items-center gap-4">
+              {currentRoute === '/' ? (
+                <button
+                  onClick={() => handleNav('/dashboard')}
+                  className="px-6 py-2 text-sm font-bold bg-[var(--color-lime-sprout)] hover:brightness-110 text-gray-950 rounded-full transition-all shadow-[0_0_20px_rgba(228,253,151,0.15)] cursor-pointer"
+                >
+                  Go to Dashboard
+                </button>
+              ) : (
               <div className="hidden lg:flex relative items-center">
                 <Search className="w-4 h-4 text-gray-400 absolute left-3" />
                 <input 
@@ -158,6 +166,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                   Enter
                 </button>
               </div>
+              )}
 
               <div className="relative">
                 <button
@@ -251,6 +260,37 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                     className="w-full py-3 mt-2 text-sm font-semibold bg-white text-black rounded-xl shadow-lg"
                   >
                     Get Started
+                  </button>
+                </>
+              ) : currentRoute === '/' ? (
+                <>
+                  {navLinks.map((link) => {
+                    const isActive = currentRoute === link.route;
+                    return (
+                      <button
+                        key={link.name}
+                        onClick={() => handleNav(link.route)}
+                        className={`text-left text-sm font-medium tracking-wide py-2 ${
+                          isActive ? 'text-[var(--color-lime-sprout)] drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]' : 'text-gray-400 hover:text-white'
+                        }`}
+                      >
+                        {link.name}
+                      </button>
+                    );
+                  })}
+                  <div className="w-full h-px bg-white/5 my-2" />
+                  <button
+                    onClick={() => handleNav('/dashboard')}
+                    className="w-full py-3 mt-2 text-sm font-semibold bg-[var(--color-lime-sprout)] text-black rounded-xl shadow-lg"
+                  >
+                    Go to Dashboard
+                  </button>
+                  <button
+                    onClick={signOut}
+                    className="flex items-center justify-center gap-3 w-full py-3 text-sm font-medium tracking-wide text-rose-400 mt-2 border border-rose-400/20 rounded-xl"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Sign Out</span>
                   </button>
                 </>
               ) : (
