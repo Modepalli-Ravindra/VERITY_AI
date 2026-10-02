@@ -29,7 +29,7 @@ class SimpleScaler:
     def transform(self, vector: list[float]) -> list[float]:
         scaled = []
         for v, m, s in zip(vector, self.mean, self.std):
-            denom = s if s > 1e-7 else 1.0
+            denom = s if abs(s) > 1e-7 else 1.0
             scaled.append((v - m) / denom)
         return scaled
 
@@ -55,7 +55,9 @@ class FeatureFusionDetector:
         v1_dir = os.path.join(root_dir, "backend", "models", "verity_detector")
         
         v4b_model = os.path.join(v4b_dir, "best_model.pt")
-        if os.path.exists(v4b_model):
+        v4b_config = os.path.join(v4b_dir, "config.json")
+        v4b_scaler = os.path.join(v4b_dir, "stylometric_scaler.json")
+        if os.path.exists(v4b_model) and os.path.exists(v4b_config) and os.path.exists(v4b_scaler):
             return v4b_dir
             
         v2_model = os.path.join(v2_dir, "best_model.pt")

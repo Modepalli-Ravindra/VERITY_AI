@@ -68,7 +68,7 @@ class VerityTransformerOnlyClassifier(nn.Module):
             nn.Linear(128, 1)
         )
 
-    def forward(self, semantic_x: torch.Tensor, stylometric_x: torch.Tensor = None) -> torch.Tensor:
+    def forward(self, semantic_x: torch.Tensor, stylometric_x: torch.Tensor = None, **kwargs) -> torch.Tensor:
         sem_feat = self.semantic_proj(semantic_x)
         logits = self.classifier(sem_feat)
         return logits.squeeze(-1)
@@ -94,7 +94,7 @@ class VerityStylometricOnlyClassifier(nn.Module):
             nn.Linear(32, 1)
         )
 
-    def forward(self, stylometric_x: torch.Tensor, semantic_x: torch.Tensor = None) -> torch.Tensor:
+    def forward(self, stylometric_x: torch.Tensor, semantic_x: torch.Tensor = None, **kwargs) -> torch.Tensor:
         sty_feat = self.stylometric_proj(stylometric_x)
         logits = self.classifier(sty_feat)
         return logits.squeeze(-1)

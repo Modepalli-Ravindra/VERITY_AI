@@ -102,7 +102,7 @@ class TransformerModelManager:
             return False
 
     @classmethod
-    def extract_features(cls, text: str, max_length: int = 256) -> Dict[str, Any]:
+    def extract_features(cls, text: str, max_length: int = 512) -> Dict[str, Any]:
         """
         Extracts 768-D contextual semantic representation vector.
         Uses exact attention-mask mean pooling matching training (train_verity.py).

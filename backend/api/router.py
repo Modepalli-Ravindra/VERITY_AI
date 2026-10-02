@@ -53,6 +53,8 @@ async def run_benchmark(request: Request):
 async def analyze_text(req: TextAnalysisRequest, request: Request, user=Depends(get_current_user)):
     if not req.text or not req.text.strip():
         raise HTTPException(status_code=400, detail="Text cannot be empty.")
+    if len(req.text.strip()) < 50:
+        raise HTTPException(status_code=400, detail="Text is too short for meaningful analysis (minimum 50 characters required).")
     if len(req.text) > 20000:
         raise HTTPException(status_code=400, detail="Text length exceeds 20,000 character limit.")
     
@@ -64,6 +66,8 @@ async def analyze_text(req: TextAnalysisRequest, request: Request, user=Depends(
 async def humanize_text(req: HumanizeRequest, request: Request, user=Depends(get_current_user)):
     if not req.text or not req.text.strip():
         raise HTTPException(status_code=400, detail="Text cannot be empty.")
+    if len(req.text.strip()) < 50:
+        raise HTTPException(status_code=400, detail="Text is too short (minimum 50 characters required).")
     if len(req.text) > 15000:
         raise HTTPException(status_code=400, detail="Text length exceeds 15,000 character limit.")
 

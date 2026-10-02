@@ -89,55 +89,47 @@ class ProviderManager:
             logger.warning("[VERITY] ML detector failed")
             
             # --- FALLBACK LOGIC ---
-            fallback_providers = ["google", "groq", "openrouter"]
-            for fallback_name in fallback_providers:
-                if fallback_name in PROVIDERS_MAP:
-                    provider_cls = PROVIDERS_MAP[fallback_name]
-                    if provider_cls.is_available() and LLMRateLimiter.is_ready(fallback_name):
-                        try:
-                            logger.info(f"[VERITY] Falling back to {fallback_name.capitalize()}")
-                            llm_result = await provider_cls.analyze_text(text, timeout=5.0, retries=0)
-                            if llm_result:
-                                logger.info(f"[VERITY] Detection method: LLM fallback")
-                                logger.info(f"[VERITY] Provider: {fallback_name.capitalize()}")
-                                
-                                # Attempt to get stylometrics, but don't crash if it fails
-                                try:
-                                    stylometrics = StylometricExtractor.extract_features(text)
-                                except Exception as e:
-                                    logger.warning(f"Stylometrics extraction failed during fallback: {e}")
-                                    stylometrics = {
-                                        "sentence_length": 0.0,
-                                        "vocabulary_diversity": 0.0,
-                                        "punctuation_score": 0.0,
-                                        "pos_features": {"nouns": 0, "verbs": 0, "adjectives": 0, "transitions": 0},
-                                        "stylometric_summary": "Features unavailable in fallback mode.",
-                                        "word_count": 0,
-                                        "character_count": 0,
-                                        "feature_vector": [0.0] * 20
+            if cls.is_fallback_enabled():
+                fallback_providers = ["google", "groq", "openrouter"]
+                for fallback_name in fallback_providers:
+                    if fallback_name in PROVIDERS_MAP:
+                        provider_cls = PROVIDERS_MAP[fallback_name]
+                        if provider_cls.is_available() and LLMRateLimiter.is_ready(fallback_name):
+                            try:
+                                logger.info(f"[VERITY] Falling back to {fallback_name.capitalize()}")
+                                llm_result = await provider_cls.analyze_text(text, timeout=5.0, retries=0)
+                                if llm_result:
+                                    logger.info(f"[VERITY] Detection method: LLM fallback")
+                                    logger.info(f"[VERITY] Provider: {fallback_name.capitalize()}")
+                                    
+                                    # Attempt to get stylometrics, but don't crash if it fails
+                                    try:
+                                        stylometrics = StylometricExtractor.extract_features(text)
+                                    except Exception as e:
+                                        logger.warning(f"Stylometrics extraction failed during fallback: {e}")
+                                        stylometrics = None
+                                    
+                                    return {
+                                        "classification": llm_result["classification"],
+                                        "ai_probability": llm_result["ai_probability"],
+                                        "human_probability": llm_result["human_probability"],
+                                        "confidence": llm_result["confidence"],
+                                        "explanation": llm_result["explanation"],
+                                        "stylometric_features": stylometrics,
+                                        "provider": "local_transformer", # Keep original API contract
+                                        "status": "success",
+                                        "semantic_available": True,
+                                        "detection_engine": "local_transformer",
+                                        "selected_engine": selected_engine,
+                                        "actual_engine": fallback_name,
+                                        "fallback_reason": "ML detector failed, used LLM fallback",
+                                        "detection_method": "llm_fallback",
+                                        "llm_provider": fallback_name
                                     }
-                                
-                                return {
-                                    "classification": llm_result["classification"],
-                                    "ai_probability": llm_result["ai_probability"],
-                                    "human_probability": llm_result["human_probability"],
-                                    "confidence": llm_result["confidence"],
-                                    "explanation": llm_result["explanation"],
-                                    "stylometric_features": stylometrics,
-                                    "provider": "local_transformer", # Keep original API contract
-                                    "status": "success",
-                                    "semantic_available": True,
-                                    "detection_engine": "local_transformer",
-                                    "selected_engine": selected_engine,
-                                    "actual_engine": fallback_name,
-                                    "fallback_reason": "ML detector failed, used LLM fallback",
-                                    "detection_method": "llm_fallback",
-                                    "llm_provider": fallback_name
-                                }
-                        except Exception as e:
-                            logger.warning(f"Fallback provider '{fallback_name}' exception: {e}")
+                            except Exception as e:
+                                logger.warning(f"Fallback provider '{fallback_name}' exception: {e}")
             
-            # If all fallbacks fail, or none were available, raise HTTP 503
+            # If fallback is disabled or all fallbacks fail, or none were available
             if res and res.get("status") == "unavailable":
                 raise HTTPException(
                     status_code=503,

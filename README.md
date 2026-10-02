@@ -10,6 +10,12 @@
 
 **VERITY** is a premium, full-stack SaaS application designed to accurately detect AI-generated text and optionally paraphrase (humanize) it to read naturally. Built on cutting-edge research in NLP, VERITY moves beyond simple LLM wrappers by utilizing a hybrid approach: **Transformer semantic features + stylometric features + feature fusion + paraphrase-aware robustness evaluation.**
 
+## ✨ Latest Updates
+- **Robust Model Loading:** Enforced strict validation for V4-B configuration and scaler files.
+- **Improved Fallback Logic:** Safe fallback handling with null stylometric data to prevent schema corruption.
+- **Enhanced Feature Extraction:** Expanded transformer sequence limits for more accurate long-document analysis.
+- **API Guardrails:** Implemented strict length validation to prevent junk predictions.
+
 ## ✨ Core Features
 
 *   **Advanced AI Text Detection**: Leverages `distilroberta-base` (or DeBERTa) to extract deep semantic representations and classify text as human or AI-generated.
