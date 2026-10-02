@@ -61,9 +61,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     // 1. Check local storage cache for user profile
     try {
+      const cachedNameByEmail = authUser.email ? localStorage.getItem(`verity_saved_name_${authUser.email}`) : null;
+      if (cachedNameByEmail) {
+        profile = { ...profile, full_name: cachedNameByEmail, display_name: cachedNameByEmail };
+      }
+      
       const cached = localStorage.getItem(`verity_profile_${authUser.id}`);
       if (cached) {
-        profile = JSON.parse(cached);
+        const parsed = JSON.parse(cached);
+        profile = { ...profile, ...parsed };
       }
     } catch {
       // ignore
@@ -207,6 +213,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       try {
         localStorage.setItem(`verity_pending_name_${email}`, nameVal);
+        localStorage.setItem(`verity_saved_name_${email}`, nameVal);
       } catch {}
 
       return res;
@@ -315,6 +322,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       // 3. Cache to localStorage
       try {
+        if (user.email) {
+          localStorage.setItem(`verity_saved_name_${user.email}`, cleanName);
+        }
         localStorage.setItem(`verity_profile_${user.id}`, JSON.stringify({
           full_name: cleanName,
           display_name: cleanName

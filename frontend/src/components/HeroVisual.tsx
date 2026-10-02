@@ -1,15 +1,80 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const FULL_PARAPHRASE = "Artificial intelligence has rapidly transformed the way people work, learn, and solve problems across different industries. Although AI was created by humans, modern systems can process large amounts of information, generate content, analyze patterns, and automate many tasks. Its influence can already be seen across healthcare, finance, agriculture, education, technology, communication, transportation, and other sectors.";
 
 export const HeroVisual: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [activeStep, setActiveStep] = useState<number>(0); // 0: Analyze, 1: Detection Result, 2: Paraphrased
+  
+  // Explicit state management for the demo timeline
+  const [demoStep, setDemoStep] = useState<number>(0);
+  const [paraphraseText, setParaphraseText] = useState("");
+  const [isParaphrasing, setIsParaphrasing] = useState(false);
+  const [isParaphraseComplete, setIsParaphraseComplete] = useState(false);
 
+  const typingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const startTyping = () => {
+    setIsParaphrasing(true);
+    setIsParaphraseComplete(false);
+    setParaphraseText("");
+    
+    let index = 0;
+    typingIntervalRef.current = setInterval(() => {
+      if (index < FULL_PARAPHRASE.length) {
+        setParaphraseText(FULL_PARAPHRASE.substring(0, index + 1));
+        index++;
+      } else {
+        // Typing finished
+        if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
+        setIsParaphrasing(false);
+        setIsParaphraseComplete(true);
+        
+        // Hold for 3 seconds, then move to step 2
+        holdTimeoutRef.current = setTimeout(() => {
+          setDemoStep(2);
+        }, 3000);
+      }
+    }, 15); // Fast typing speed
+  };
+
+  const handleStepChange = (step: number) => {
+    // Clear all existing timeouts/intervals when manually or automatically changing steps
+    if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
+    if (holdTimeoutRef.current) clearTimeout(holdTimeoutRef.current);
+
+    setDemoStep(step);
+
+    if (step === 0) {
+      // Step 0: Detect -> wait 4s then go to Paraphrase
+      holdTimeoutRef.current = setTimeout(() => {
+        setDemoStep(1);
+      }, 4000);
+    } else if (step === 1) {
+      // Step 1: Paraphrase -> Typewriter -> Hold -> Step 2
+      startTyping();
+    } else if (step === 2) {
+      // Step 2: Re-verify -> wait 3s then go to Compare
+      holdTimeoutRef.current = setTimeout(() => {
+        setDemoStep(3);
+      }, 3000);
+    } else if (step === 3) {
+      // Step 3: Compare -> wait 5s then restart
+      holdTimeoutRef.current = setTimeout(() => {
+        setDemoStep(0);
+      }, 5000);
+    }
+  };
+
+  // Initial start
   useEffect(() => {
-    // Step rotation timer for interactive product preview
-    const interval = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % 3);
-    }, 4500);
-    return () => clearInterval(interval);
+    handleStepChange(0);
+    return () => {
+      if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
+      if (holdTimeoutRef.current) clearTimeout(holdTimeoutRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -30,66 +95,27 @@ export const HeroVisual: React.FC = () => {
 
     window.addEventListener('resize', handleResize);
 
-    const tokens = [
-      'perplexity', 'burstiness', 'ttr_diversity', 'pos_syntax',
-      'formal_transition', 'nominalization', 'semantic_vec', 'ai_prob_0.87',
-      'human_variance', 'entropy', 'token_prob', 'stylometric_trace'
-    ];
-
-    const particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      label: string;
-      size: number;
-      alpha: number;
-      color: string;
-    }> = [];
-
-    const numParticles = Math.min(24, Math.floor(width / 35));
-
-    for (let i = 0; i < numParticles; i++) {
+    const tokens = ['perplexity', 'ttr_diversity', 'burstiness', 'stylometric', 'ai_prob', 'variance'];
+    const particles: any[] = [];
+    for (let i = 0; i < 15; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * 0.4,
         vy: (Math.random() - 0.5) * 0.4,
         label: tokens[i % tokens.length],
-        size: Math.random() * 2 + 1.5,
-        alpha: Math.random() * 0.4 + 0.3,
-        color: i % 2 === 0 ? '#6366f1' : '#10b981'
+        size: Math.random() * 1.5 + 1,
+        color: i % 2 === 0 ? '#E4FD97' : '#10b981'
       });
     }
 
     let time = 0;
-
     const render = () => {
       time += 0.015;
       ctx.clearRect(0, 0, width, height);
 
-      // Subtle editorial data grid
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
-      ctx.lineWidth = 1;
-      const gridSize = 50;
-
-      for (let x = 0; x < width; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
-        ctx.stroke();
-      }
-
-      for (let y = 0; y < height; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(width, y);
-        ctx.stroke();
-      }
-
-      // Stylometric wave trace
       ctx.beginPath();
-      ctx.strokeStyle = activeStep === 2 ? 'rgba(16, 185, 129, 0.18)' : 'rgba(99, 102, 241, 0.15)';
+      ctx.strokeStyle = 'rgba(228, 253, 151, 0.1)';
       ctx.lineWidth = 1.5;
       for (let x = 0; x < width; x += 10) {
         const y = height / 2 + Math.sin(x * 0.012 + time) * 30 + Math.cos(x * 0.02 + time * 0.8) * 12;
@@ -98,133 +124,174 @@ export const HeroVisual: React.FC = () => {
       }
       ctx.stroke();
 
-      // Node connections
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 130) {
-            const lineAlpha = (1 - dist / 130) * 0.12;
-            ctx.strokeStyle = `rgba(99, 102, 241, ${lineAlpha})`;
-            ctx.lineWidth = 0.8;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Particles & labels
       particles.forEach((p) => {
         p.x += p.vx;
         p.y += p.vy;
-
         if (p.x < 0 || p.x > width) p.vx *= -1;
         if (p.y < 0 || p.y > height) p.vy *= -1;
 
         ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
+        ctx.globalAlpha = 0.3;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
-
-        ctx.font = '9px "JetBrains Mono", monospace, sans-serif';
-        ctx.fillStyle = 'rgba(165, 180, 252, 0.6)';
-        ctx.fillText(p.label, p.x + 8, p.y + 3);
       });
 
-      ctx.globalAlpha = 1.0;
       animationFrameId = requestAnimationFrame(render);
     };
 
     render();
-
     return () => {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [activeStep]);
+  }, []);
 
   return (
-    <div className="relative w-full h-full min-h-[440px] rounded-2xl overflow-hidden border border-white/10 bg-[#06070a]/95 backdrop-blur-md shadow-2xl p-5 flex flex-col justify-between">
+    <div className="relative w-full h-full min-h-[440px] rounded-2xl overflow-hidden border border-white/10 bg-[#06070a]/95 backdrop-blur-md shadow-2xl p-6 flex flex-col justify-between">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full block pointer-events-none" />
 
       {/* Top Header Badge */}
-      <div className="relative z-10 flex items-center justify-between border-b border-white/10 pb-3">
-        <div className="flex items-center gap-2 px-3 py-1 rounded-md bg-white/[0.04] border border-white/10 text-[10px] font-mono text-gray-300 tracking-wider">
+      <div className="relative z-10 flex items-center justify-between border-b border-white/10 pb-4">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/[0.04] border border-white/10 text-[10px] font-mono text-gray-300 tracking-wider">
           <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-lime-sprout)] animate-pulse" />
-          <span>INTERACTIVE PRODUCT PREVIEW</span>
+          <span>VERITY CORE ENGINE</span>
         </div>
         <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest">
-          SIMULATION DEMO
+          LIVE DEMO
         </span>
       </div>
 
       {/* Dynamic Simulated Preview Cards */}
-      <div className="relative z-10 my-4 space-y-3">
-        {activeStep === 0 && (
-          <div className="p-4 rounded-xl bg-black/70 border border-white/10 space-y-2 backdrop-blur-md animate-fade-in">
-            <div className="flex justify-between items-center text-[11px] font-mono text-gray-400 border-b border-white/10 pb-1.5">
-              <span>INPUT SAMPLE</span>
-              <span className="text-[var(--color-lime-sprout)] font-bold">ANALYZING...</span>
-            </div>
-            <p className="text-xs font-mono text-gray-300 leading-relaxed italic">
-              "Furthermore, it is imperative to delve into the intricate tapestry of machine learning algorithms..."
-            </p>
-          </div>
-        )}
-
-        {activeStep === 1 && (
-          <div className="p-4 rounded-xl bg-black/80 border border-[var(--color-lime-sprout)]/30 space-y-3 backdrop-blur-md animate-fade-in">
-            <div className="flex justify-between items-center text-[11px] font-mono text-gray-300 border-b border-white/10 pb-1.5">
-              <span>DETECTION RESULT</span>
-              <span className="px-2 py-0.5 rounded-full text-[10px] bg-[var(--color-lime-sprout)]/20 text-purple-300 border border-[var(--color-lime-sprout)]/30">
-                HIGH CONFIDENCE
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="text-2xl font-bold text-purple-300 block">AI GENERATED</span>
-                <span className="text-xs text-gray-400 font-mono">87% AI Probability &bull; 13% Human</span>
+      <div className="relative z-10 my-4 flex-1 flex flex-col justify-center">
+        <AnimatePresence mode="wait">
+          {demoStep === 0 && (
+            <motion.div 
+              key="detect"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="p-5 rounded-2xl bg-[#090b09]/80 border border-white/10 space-y-4 backdrop-blur-xl shadow-lg"
+            >
+              <div className="flex justify-between items-center text-[10px] font-mono text-gray-400 border-b border-white/10 pb-2">
+                <span>AI DETECTION SCAN</span>
+                <span className="px-2 py-0.5 rounded text-[9px] bg-red-500/20 text-red-400 border border-red-500/30">
+                  AI DETECTED
+                </span>
               </div>
-              <div className="w-12 h-12 rounded-full border-2 border-[var(--color-lime-sprout)] flex items-center justify-center text-xs font-bold text-white bg-purple-900/30">
-                87%
+              <div className="flex items-center gap-6">
+                <div className="relative w-16 h-16 shrink-0 flex items-center justify-center rounded-full border-4 border-red-500/30 border-t-red-500">
+                  <span className="text-white font-bold text-sm">94%</span>
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-white mb-1">Highly likely AI-generated</h4>
+                  <p className="text-[11px] text-gray-400 leading-relaxed">
+                    <span className="bg-red-500/20 text-red-200 px-1 rounded">Furthermore, it is imperative</span> to analyze the algorithmic constraints...
+                  </p>
+                </div>
               </div>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )}
 
-        {activeStep === 2 && (
-          <div className="p-4 rounded-xl bg-black/80 border border-[var(--color-lime-sprout)]/30 space-y-3 backdrop-blur-md animate-fade-in">
-            <div className="flex justify-between items-center text-[11px] font-mono text-gray-300 border-b border-white/10 pb-1.5">
-              <span>HUMANIZATION PREVIEW</span>
-              <span className="text-emerald-400 font-bold">HUMAN RHYTHM</span>
-            </div>
-            <p className="text-xs font-mono text-emerald-200/90 leading-relaxed">
-              "We should explore how machine learning models actually process data in practice."
-            </p>
-            <div className="flex justify-between items-center text-[10px] font-mono text-gray-400 pt-1">
-              <span>Re-check Score: <strong className="text-emerald-400">94% Human</strong></span>
-              <span className="text-gray-500">Stylometrics: Verified</span>
-            </div>
-          </div>
-        )}
+          {demoStep === 1 && (
+            <motion.div 
+              key="paraphrase"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="p-5 rounded-2xl bg-[#090b09]/80 border border-[var(--color-lime-sprout)]/30 space-y-4 backdrop-blur-xl shadow-[0_0_15px_rgba(228,253,151,0.05)] relative overflow-hidden"
+            >
+              {isParaphrasing && (
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--color-lime-sprout)]/5 to-transparent translate-x-[-100%] animate-[shimmer_2s_infinite]" />
+              )}
+              <div className="flex justify-between items-center text-[10px] font-mono text-gray-400 border-b border-white/10 pb-2 relative z-10">
+                <span className="flex items-center gap-2">
+                  <span className={`w-1.5 h-1.5 rounded-full bg-[var(--color-lime-sprout)] ${isParaphrasing ? 'animate-pulse' : ''}`}></span> 
+                  {isParaphraseComplete ? 'PARAPHRASE COMPLETE' : 'PROCESSING PARAPHRASE...'}
+                </span>
+                <span className="text-[var(--color-lime-sprout)]">
+                  {isParaphraseComplete ? 'DONE' : 'REWRITING TEXT'}
+                </span>
+              </div>
+              <div className="relative z-10 py-1 min-h-[4rem]">
+                <p className="text-[12px] font-mono text-emerald-100 leading-relaxed">
+                  {paraphraseText}
+                  {(isParaphrasing || isParaphraseComplete) && (
+                    <span className="inline-block w-1.5 h-3.5 ml-1 bg-[var(--color-lime-sprout)] animate-pulse align-middle"></span>
+                  )}
+                </p>
+              </div>
+            </motion.div>
+          )}
+
+          {demoStep === 2 && (
+            <motion.div 
+              key="reverify"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="p-5 rounded-2xl bg-black/80 border border-[var(--color-lime-sprout)]/30 space-y-3 backdrop-blur-md shadow-[0_0_20px_rgba(228,253,151,0.05)] relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 mix-blend-overlay"></div>
+              <div className="flex justify-between items-center text-[11px] font-mono text-gray-300 border-b border-white/10 pb-2">
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  RE-VERIFYING AI DETECTION SCORE...
+                </span>
+                <span className="text-emerald-400 font-bold tracking-wide">HUMAN RHYTHM ACHIEVED</span>
+              </div>
+              <p className="text-xs font-mono text-emerald-200/90 leading-relaxed py-1 line-clamp-2">
+                {FULL_PARAPHRASE}
+              </p>
+              <div className="flex justify-between items-center text-[10px] font-mono text-gray-400 pt-2 border-t border-white/5">
+                <span>Re-check Score: <strong className="text-emerald-400">98% Human</strong></span>
+                <span className="text-[var(--color-lime-sprout)]">Stylometrics: Passed</span>
+              </div>
+            </motion.div>
+          )}
+
+          {demoStep === 3 && (
+            <motion.div 
+              key="compare"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="p-5 rounded-2xl bg-[#090b09]/80 border border-white/10 space-y-4 backdrop-blur-xl shadow-lg"
+            >
+              <div className="flex justify-between items-center text-[10px] font-mono text-gray-400 border-b border-white/10 pb-2">
+                <span>SIDE-BY-SIDE COMPARE</span>
+                <span className="text-emerald-400 font-bold tracking-wide">SIMILARITY: 25%</span>
+              </div>
+              <div className="flex gap-3">
+                <div className="flex-1 space-y-1">
+                  <span className="text-[9px] font-mono text-gray-500 uppercase">Original Text</span>
+                  <div className="h-[4.5rem] p-2 rounded-lg bg-red-500/5 border border-red-500/10 text-[10px] text-gray-400 line-through decoration-red-500/50 overflow-hidden">
+                    Furthermore, it is imperative to elucidate the intricate algorithmic constraints...
+                  </div>
+                </div>
+                <div className="flex-1 space-y-1">
+                  <span className="text-[9px] font-mono text-[var(--color-lime-sprout)] uppercase">Paraphrased Text</span>
+                  <div className="h-[4.5rem] p-2 rounded-lg bg-[var(--color-lime-sprout)]/5 border border-[var(--color-lime-sprout)]/20 text-[10px] text-emerald-100 overflow-hidden">
+                    Artificial intelligence has rapidly transformed the way people work, learn...
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Bottom Step Indicator Bar */}
-      <div className="relative z-10 flex items-center justify-between pt-3 border-t border-white/10 text-[10px] font-mono text-gray-400">
+      <div className="relative z-10 flex items-center justify-between pt-4 border-t border-white/10 text-[10px] font-mono text-gray-400">
         <div className="flex gap-2">
-          {['1. Sample', '2. Detect', '3. Paraphrase'].map((label, idx) => (
+          {['1. Detect', '2. Paraphrase', '3. Re-Verify', '4. Compare'].map((label, idx) => (
             <button
               key={label}
-              onClick={() => setActiveStep(idx)}
-              className={`px-2.5 py-1 rounded-md transition cursor-pointer ${
-                activeStep === idx 
-                  ? 'bg-[var(--color-lime-sprout)]/20 text-[var(--color-lime-sprout)] border border-[var(--color-lime-sprout)]/30 font-bold' 
-                  : 'hover:text-gray-200'
+              onClick={() => handleStepChange(idx)}
+              className={`px-3 py-1.5 rounded-lg transition-all duration-300 cursor-pointer ${
+                demoStep === idx 
+                  ? 'bg-[var(--color-lime-sprout)] text-black font-bold shadow-[0_0_15px_rgba(228,253,151,0.3)]' 
+                  : 'bg-white/5 hover:bg-white/10 hover:text-white'
               }`}
             >
               {label}
@@ -235,3 +302,4 @@ export const HeroVisual: React.FC = () => {
     </div>
   );
 };
+

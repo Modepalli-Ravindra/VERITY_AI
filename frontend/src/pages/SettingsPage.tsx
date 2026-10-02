@@ -75,7 +75,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = () => {
           <h2 className="text-lg font-medium text-white tracking-tight">Profile Information</h2>
         </div>
 
-        <div className="bg-white/5 backdrop-blur-2xl p-8 sm:p-10 rounded-2xl border border-white/5 shadow-2xl relative overflow-hidden">
+        <div className="bg-[#162719]/60 backdrop-blur-2xl p-8 sm:p-10 rounded-2xl border border-white/5 shadow-2xl relative overflow-hidden">
           {/* Subtle ambient gradient */}
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[var(--color-lime-sprout)]/[0.02] to-transparent pointer-events-none" />
           
@@ -113,7 +113,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = () => {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="Enter your display name"
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white focus:outline-none focus:border-[var(--color-lime-sprout)]/50 focus:bg-[var(--color-lime-sprout)]/5 transition-all"
+                className="w-full px-4 py-3 bg-black/40 border border-white/5 rounded-xl text-sm text-white focus:outline-none focus:border-[var(--color-lime-sprout)]/50 focus:bg-black/60 transition-all"
               />
             </div>
 
@@ -125,7 +125,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = () => {
                 type="email"
                 disabled
                 value={user?.email || ''}
-                className="w-full px-4 py-3 bg-white/10 border border-white/5 rounded-xl text-sm text-gray-600 cursor-not-allowed"
+                className="w-full px-4 py-3 bg-black/20 border border-white/5 rounded-xl text-sm text-gray-600 cursor-not-allowed"
               />
               <p className="text-[11px] text-gray-600 mt-2 font-medium">Email address is bound to identity and cannot be changed.</p>
             </div>
@@ -164,7 +164,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = () => {
           <h2 className="text-lg font-medium text-white tracking-tight">Security & Access</h2>
         </div>
 
-        <div className="bg-white/5 backdrop-blur-2xl p-8 sm:p-10 rounded-2xl border border-white/5 shadow-xl">
+        <div className="bg-[#162719]/60 backdrop-blur-2xl p-8 sm:p-10 rounded-2xl border border-white/5 shadow-xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-4">
               <h3 className="text-sm font-medium text-white">InsForge Authentication</h3>

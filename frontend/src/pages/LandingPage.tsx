@@ -15,7 +15,12 @@ import {
   Briefcase,
   ChevronDown
 } from 'lucide-react';
-import { FlowingBackground } from '../components/FlowingBackground';
+
+// Lazy loading heavy 3D components for performance
+const LazyFlowingBackground = React.lazy(() => 
+
+  import('../components/FlowingBackground').then(module => ({ default: module.FlowingBackground }))
+);
 
 const SAMPLE_TEXT = "Quantum computing relies on qubits, which can exist in multiple states simultaneously due to superposition. Unlike classical bits that are strictly 0 or 1, qubits enable quantum computers to process vast amounts of data in parallel, solving complex cryptography problems exponentially faster.";
 const PARAPHRASED_TEXT = "Quantum computing uses qubits to exist in several states at the same time because of superposition. In contrast to traditional bits that are only 0 or 1, qubits allow quantum machines to handle huge datasets at once, making it possible to solve difficult encryption challenges much more rapidly.";
@@ -49,7 +54,14 @@ const LiveDemo = () => {
 
         if (isCancelled) return;
         setState('paraphrasing');
-        await new Promise(r => setTimeout(r, 2500));
+        setTypedText('');
+        const paraphraseTypeSpeed = 1500 / PARAPHRASED_TEXT.length;
+        for (let i = 0; i <= PARAPHRASED_TEXT.length; i++) {
+          if (isCancelled) return;
+          await new Promise(r => setTimeout(r, paraphraseTypeSpeed));
+          setTypedText(PARAPHRASED_TEXT.substring(0, i));
+        }
+        await new Promise(r => setTimeout(r, 2800)); // Hold completed text
 
         if (isCancelled) return;
         setState('recheck_analyzing');
@@ -150,22 +162,31 @@ const LiveDemo = () => {
         </motion.div>
       ) : (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col flex-1 relative z-10 min-h-[280px]">
-          <div className="flex-1 bg-[var(--bg-dark)]/60 rounded-2xl border border-[var(--color-lime-sprout)]/10 p-6 mb-4 shadow-inner transition-colors relative overflow-hidden">
+          <div className="flex-1 bg-[var(--bg-dark)]/60 rounded-2xl border border-[var(--color-lime-sprout)]/10 p-6 mb-4 shadow-inner transition-colors relative overflow-hidden flex flex-col">
             
-            {(state === 'analyzing' || state === 'paraphrasing' || state === 'recheck_analyzing') && (
+            {(state === 'analyzing' || state === 'recheck_analyzing') && (
                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute inset-0 bg-[var(--bg-card)]/90 backdrop-blur-md flex flex-col items-center justify-center z-20">
                  <div className="w-10 h-10 border-[3px] border-[var(--color-lime-sprout)]/20 rounded-full animate-spin mb-6 border-t-[var(--color-lime-sprout)] shadow-[0_0_20px_rgba(228,253,151,0.5)]" />
                  <p className="text-base font-bold tracking-wide animate-pulse text-[var(--color-lime-sprout)]">
                    {state === 'analyzing' && "Analyzing semantic signals..."}
-                   {state === 'paraphrasing' && "Restructuring and paraphrasing text..."}
                    {state === 'recheck_analyzing' && "Re-verifying AI detection score..."}
                  </p>
                </motion.div>
             )}
 
-            <div className="w-full h-full bg-transparent text-gray-200 text-base leading-relaxed break-words pt-2">
+            {state === 'paraphrasing' && (
+               <div className="flex flex-col mb-4 border-b border-white/10 pb-3">
+                 <span className="text-[10px] text-gray-500 font-mono tracking-widest uppercase mb-1">PARAPHRASING</span>
+                 <div className="flex items-center gap-2">
+                   <span className="w-2 h-2 rounded-full bg-[var(--color-lime-sprout)] animate-pulse" />
+                   <span className="text-xs font-bold tracking-wide text-[var(--color-lime-sprout)] uppercase">Restructuring text...</span>
+                 </div>
+               </div>
+            )}
+
+            <div className="w-full h-full bg-transparent text-gray-200 text-base leading-relaxed break-words pt-2 flex-1">
               {currentText}
-              {state === 'typing' && <span className="inline-block w-1.5 h-4 ml-1 bg-[var(--color-lime-sprout)] animate-pulse" />}
+              {(state === 'typing' || state === 'paraphrasing') && <span className="inline-block w-1.5 h-4 ml-1 bg-[var(--color-lime-sprout)] animate-pulse" />}
             </div>
           </div>
 
@@ -221,34 +242,76 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
   return (
     <div className="min-h-screen bg-[var(--bg-dark)] text-[var(--text-primary)] font-sans overflow-x-hidden selection:bg-[var(--color-lime-sprout)]/30">
 
-      {/* Minimalist Background (Apple-level simplicity) */}
-      <div className="absolute inset-0 z-0 pointer-events-none bg-[#0a150c] overflow-hidden">
+      {/* Minimalist Background restricted to Hero Section */}
+      <div className="absolute top-0 left-0 right-0 h-[100vh] z-0 pointer-events-none bg-[#0a150c] overflow-hidden">
         
         {/* Massive Green Glow */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,rgba(228,253,151,0.15)_0%,rgba(10,21,12,1)_80%)]"></div>
         
-        {/* Animated Glowing Orbs */}
-        <motion.div 
-          animate={{ x: [0, 100, -50, 0], y: [0, -100, 50, 0], scale: [1, 1.2, 0.8, 1] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[-10%] left-[-5%] w-[800px] h-[800px] bg-[var(--color-lime-sprout)]/20 rounded-full blur-[150px]"
-        />
-        <motion.div 
-          animate={{ x: [0, -80, 80, 0], y: [0, 120, -80, 0], scale: [1, 0.9, 1.1, 1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[20%] right-[-5%] w-[600px] h-[600px] bg-emerald-600/20 rounded-full blur-[150px]"
-        />
-        
-        {/* Flowing Grid Background */}
-        <div className="opacity-50 mix-blend-screen">
-          <FlowingBackground />
+        {/* Floating Text Files Background with Light Splashes */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Ambient Light Splashes */}
+          <motion.div
+            className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--color-lime-sprout)]/10 rounded-full blur-[120px]"
+            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.div
+            className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-emerald-600/10 rounded-full blur-[150px]"
+            animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.5, 0.2] }}
+            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          {/* Document 1 */}
+          <motion.div
+            className="absolute top-[20%] left-[5%] w-32 h-40 bg-[var(--bg-card)] border border-white/10 rounded-xl p-3 shadow-2xl flex flex-col gap-2 opacity-40 rotate-[-12deg]"
+            animate={{ y: [0, -30, 0], rotate: [-12, -8, -12] }}
+            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <div className="w-full h-2 bg-white/20 rounded-full" />
+            <div className="w-3/4 h-2 bg-white/20 rounded-full" />
+            <div className="w-5/6 h-2 bg-white/10 rounded-full mt-2" />
+            <div className="w-full h-2 bg-white/10 rounded-full" />
+            <div className="w-1/2 h-2 bg-white/10 rounded-full" />
+            <div className="mt-auto w-8 h-8 rounded bg-[var(--color-lime-sprout)]/20 border border-[var(--color-lime-sprout)]/40 self-end flex items-center justify-center">
+              <div className="w-2 h-2 bg-[var(--color-lime-sprout)] rounded-full" />
+            </div>
+          </motion.div>
+
+          {/* Document 2 */}
+          <motion.div
+            className="absolute top-[40%] right-[8%] w-40 h-48 bg-[var(--bg-card)] border border-emerald-500/20 rounded-xl p-4 shadow-2xl flex flex-col gap-2 opacity-30 rotate-[8deg]"
+            animate={{ y: [0, 40, 0], rotate: [8, 14, 8] }}
+            transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <div className="flex items-center gap-2 mb-2">
+               <div className="w-4 h-4 rounded-full bg-emerald-500/50" />
+               <div className="w-16 h-2 bg-white/20 rounded-full" />
+            </div>
+            <div className="w-full h-2 bg-white/10 rounded-full" />
+            <div className="w-full h-2 bg-white/10 rounded-full" />
+            <div className="w-3/4 h-2 bg-white/10 rounded-full" />
+            <div className="w-5/6 h-2 bg-white/10 rounded-full" />
+            <div className="w-1/2 h-2 bg-[var(--color-lime-sprout)]/40 rounded-full mt-2" />
+          </motion.div>
+          
+          {/* Document 3 */}
+          <motion.div
+            className="absolute bottom-[15%] left-[25%] w-36 h-32 bg-[var(--bg-card)] border border-white/5 rounded-xl p-3 shadow-2xl flex flex-col gap-2 opacity-20 rotate-[-5deg]"
+            animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
+            transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <div className="w-full h-2 bg-[var(--color-lime-sprout)]/30 rounded-full" />
+            <div className="w-4/5 h-2 bg-[var(--color-lime-sprout)]/30 rounded-full" />
+            <div className="w-full h-2 bg-white/10 rounded-full mt-4" />
+            <div className="w-full h-2 bg-white/10 rounded-full" />
+          </motion.div>
         </div>
         
         {/* Premium subtle noise for texture */}
         <div className="absolute inset-0 opacity-[0.04] bg-[url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png')] mix-blend-overlay pointer-events-none" />
         
         {/* Soft bottom horizon fade to blend into the rest of the dark page */}
-        <div className="absolute bottom-0 left-0 right-0 h-[40vh] bg-gradient-to-t from-[var(--bg-dark)] via-[var(--bg-dark)]/80 to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-[30vh] bg-gradient-to-t from-[#0a150c] to-transparent pointer-events-none" />
       </div>
 
       <main id="home" className="relative z-10 pt-32 lg:pt-40 pb-24 max-w-7xl mx-auto px-6 lg:px-8">
@@ -507,22 +570,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             </button>
           </div>
           <div className="w-full lg:w-2/3">
-            <div className="flex justify-between relative mt-8">
-              {/* Connecting line */}
-              <div className="absolute top-4 left-4 right-4 h-px bg-white/10 z-0" />
-
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
               {[
                 { step: '01', title: 'Paste Text', desc: 'Add your text or document.', icon: FileText },
                 { step: '02', title: 'Analyze', desc: 'Our AI models detect patterns.', icon: Search },
                 { step: '03', title: 'Get Results', desc: 'View detailed analysis.', icon: FileText },
                 { step: '04', title: 'Paraphrase', desc: 'Convert text with one click.', icon: Wand2 },
               ].map((s, i) => (
-                <div key={i} className="relative z-10 flex flex-col items-center text-center max-w-[120px]">
-                  <span className="text-xs font-mono text-gray-400 mb-2">{s.step}</span>
-                  <div className="w-8 h-8 rounded-full bg-[var(--bg-dark)] border-2 border-[var(--color-lime-sprout)]/50 flex items-center justify-center mb-4">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-lime-sprout)]" />
-                  </div>
-                  <div className="w-12 h-12 rounded-full border border-[var(--color-lime-sprout)]/20 bg-[var(--bg-card)] flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(228,253,151,0.1)]">
+                <div key={i} className="relative z-10 flex flex-col items-center text-center bg-[var(--bg-card)] border border-white/5 rounded-2xl p-6 hover:border-[var(--color-lime-sprout)]/30 transition-colors">
+                  <span className="text-[10px] font-mono text-[var(--color-lime-sprout)] mb-4 bg-[var(--color-lime-sprout)]/10 px-2 py-1 rounded">STEP {s.step}</span>
+                  <div className="w-12 h-12 rounded-full border border-[var(--color-lime-sprout)]/20 bg-[#161a14] flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(228,253,151,0.1)]">
                     <s.icon className="w-5 h-5 text-[var(--color-lime-sprout)]" />
                   </div>
                   <h4 className="text-sm font-medium mb-2">{s.title}</h4>
@@ -619,7 +676,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
       {/* FOOTER */}
       <footer className="relative z-10 border-t border-white/5 bg-[var(--bg-dark)]/80 backdrop-blur-3xl py-8 px-6 lg:px-8 text-center">
         <div className="max-w-7xl mx-auto flex justify-center items-center">
-          <p className="text-xs text-gray-600">&copy; {new Date().getFullYear()} VERITY AI. All rights reserved.</p>
+          <p className="text-xs text-white">&copy; {new Date().getFullYear()} VERITY AI. All rights reserved.</p>
         </div>
       </footer>
     </div>

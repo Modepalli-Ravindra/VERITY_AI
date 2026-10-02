@@ -27,6 +27,9 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
   });
   const [rechecking, setRechecking] = useState(false);
 
+  const [displayedText, setDisplayedText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+
   useEffect(() => { localStorage.setItem(user ? `verity_paraphrase_orig_${user.id}` : 'verity_paraphrase_orig', originalText); }, [originalText, user]);
   useEffect(() => { localStorage.setItem(user ? `verity_paraphrase_hum_${user.id}` : 'verity_paraphrase_hum', paraphrasedText); }, [paraphrasedText, user]);
   useEffect(() => { 
@@ -34,6 +37,29 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
     if (recheckResult) localStorage.setItem(key, JSON.stringify(recheckResult)); 
     else localStorage.removeItem(key); 
   }, [recheckResult, user]);
+
+  useEffect(() => {
+    if (paraphrasedText) {
+      setIsTyping(true);
+      setDisplayedText("");
+      let i = 0;
+      const maxSpeed = 10;
+      const speed = Math.max(maxSpeed, Math.min(20, 1500 / Math.max(1, paraphrasedText.length)));
+      const interval = setInterval(() => {
+        if (i < paraphrasedText.length) {
+          setDisplayedText(paraphrasedText.substring(0, i + 1));
+          i++;
+        } else {
+          clearInterval(interval);
+          setIsTyping(false);
+        }
+      }, speed);
+      return () => clearInterval(interval);
+    } else {
+      setDisplayedText("");
+      setIsTyping(false);
+    }
+  }, [paraphrasedText]);
 
   const paraphraseStages = [
     'Parsing original structure',
@@ -324,7 +350,12 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                         </span>
                       </div>
                     ) : (
-                      <div className="whitespace-pre-wrap">{paraphrasedText}</div>
+                      <div className="whitespace-pre-wrap">
+                        {displayedText}
+                        {isTyping && (
+                          <span className="inline-block w-1.5 h-4 ml-1 bg-[var(--color-lime-sprout)] animate-pulse align-middle" />
+                        )}
+                      </div>
                     )}
                   </motion.div>
                 )}

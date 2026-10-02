@@ -15,8 +15,8 @@
   }
   
   :root {
-    --bg-dark: #2D3E2C;
-    --bg-card: #202c1f;
+    --bg-dark: #0a150c;
+    --bg-card: #112114;
     --border-subtle: rgba(228, 253, 151, 0.1);
     --border-hover: rgba(228, 253, 151, 0.4);
     --accent-purple: #E4FD97; /* Keeping var name for compat, but using Lime Sprout */
