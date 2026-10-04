@@ -12,8 +12,8 @@ export const HeroVisual: React.FC = () => {
   const [isParaphrasing, setIsParaphrasing] = useState(false);
   const [isParaphraseComplete, setIsParaphraseComplete] = useState(false);
 
-  const typingIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const typingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const holdTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const startTyping = () => {
     setIsParaphrasing(true);

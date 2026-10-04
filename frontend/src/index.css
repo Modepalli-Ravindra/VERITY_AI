@@ -60,6 +60,7 @@
 .text-gradient-purple {
   background: linear-gradient(135deg, #e9d5ff 0%, #c084fc 60%, #a855f7 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

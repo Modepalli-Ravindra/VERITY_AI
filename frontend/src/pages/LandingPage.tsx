@@ -16,11 +16,7 @@ import {
   ChevronDown
 } from 'lucide-react';
 
-// Lazy loading heavy 3D components for performance
-const LazyFlowingBackground = React.lazy(() => 
 
-  import('../components/FlowingBackground').then(module => ({ default: module.FlowingBackground }))
-);
 
 const SAMPLE_TEXT = "Quantum computing relies on qubits, which can exist in multiple states simultaneously due to superposition. Unlike classical bits that are strictly 0 or 1, qubits enable quantum computers to process vast amounts of data in parallel, solving complex cryptography problems exponentially faster.";
 const PARAPHRASED_TEXT = "Quantum computing uses qubits to exist in several states at the same time because of superposition. In contrast to traditional bits that are only 0 or 1, qubits allow quantum machines to handle huge datasets at once, making it possible to solve difficult encryption challenges much more rapidly.";
