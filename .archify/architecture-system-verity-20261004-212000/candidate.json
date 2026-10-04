@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "VERITY Overall System Architecture",
+    "output": "system-verity.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "users", "type": "external", "label": "End Users", "sublabel": "Browser", "pos": [40, 300], "size": [120, 60] },
+    { "id": "frontend", "type": "frontend", "label": "VERITY Client", "sublabel": "React + Vite", "pos": [250, 300], "size": [130, 60] },
+    { "id": "insforge", "type": "backend", "label": "InsForge BaaS", "sublabel": "PostgreSQL & Auth", "pos": [480, 300], "size": [140, 64], "tag": "Primary DB / Auth" },
+    { "id": "ml_backend", "type": "backend", "label": "ML Backend", "sublabel": "Python Transformer", "pos": [250, 460], "size": [130, 64], "tag": "distilroberta-base" },
+    { "id": "llm", "type": "external", "label": "LLM Providers", "sublabel": "Google / Groq / NVIDIA", "pos": [480, 460], "size": [140, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "VERITY Infrastructure", "wraps": ["frontend", "insforge", "ml_backend"] }
+  ],
+  "connections": [
+    { "id": "user-to-front", "from": "users", "to": "frontend", "label": "HTTPS", "variant": "emphasis" },
+    { "id": "front-to-baas", "from": "frontend", "to": "insforge", "label": "API / Realtime" },
+    { "id": "front-to-ml", "from": "frontend", "to": "ml_backend", "label": "Analysis Request", "fromSide": "bottom", "toSide": "top", "labelDy": 58 },
+    { "id": "ml-to-llm", "from": "ml_backend", "to": "llm", "label": "Humanizer Prompts" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Frontend", "items": ["Vite/React single page application", "Tailwind styling & Framer Motion animations"] },
+    { "dot": "emerald", "title": "InsForge Backend", "items": ["Handles user authentication", "Provides PostgreSQL database", "Realtime syncing and file storage"] },
+    { "dot": "violet", "title": "AI Engines", "items": ["Local distilroberta-base transformer for analysis", "External LLM providers for the Humanizer Engine"] }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "running",
+  "type": "architecture",
+  "quality": "showcase",
+  "startedAt": "2026-10-04T15:52:21.505Z",
+  "specification": {
+    "path": "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\.archify\\architecture-system-verity-20261004-212000\\candidate.json",
+    "sha256": "6264798197ce6dfd5f497b7a26522f77b90eaf421b71d2f57e8b6627c28fa2c5",
+    "bytes": 2054
+  },
+  "artifact": {
+    "path": "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\.archify\\architecture-system-verity-20261004-212000\\system-verity.html"
+  },
+  "stages": {},
+  "diagnostics": [],
+  "evidence": {
+    "receipt": "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\.archify\\architecture-system-verity-20261004-212000\\system-verity.finalize.json",
+    "summaryReceipt": "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\.archify\\architecture-system-verity-20261004-212000\\system-verity.finalize-summary.json"
+  },
+  "visualReview": "not-requested"
+}

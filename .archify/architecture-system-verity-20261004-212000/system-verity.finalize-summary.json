@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\.archify\\architecture-system-verity-20261004-212000\\candidate.json",
+    "sha256": "d290e9f2bda7318011f759b16e7473924c165f25a0df2eacceb098a363918214",
+    "bytes": 2054
+  },
+  "artifact": {
+    "path": "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\.archify\\architecture-system-verity-20261004-212000\\system-verity.html"
+  },
+  "gates": {
+    "validate": "fail",
+    "deliver": "not-run",
+    "check": "not-run",
+    "browser-check": "not-run"
+  },
+  "failedStage": "validate",
+  "diagnostics": [
+    {
+      "code": "schema/enum",
+      "severity": "error",
+      "message": "/cards/2/dot must be equal to one of the allowed values {\"allowedValues\":[\"cyan\",\"emerald\",\"violet\",\"amber\",\"rose\",\"orange\",\"slate\"]}",
+      "subject": {
+        "diagramType": "architecture",
+        "path": "/cards/2/dot"
+      },
+      "evidence": {
+        "keyword": "enum",
+        "allowedValues": [
+          "cyan",
+          "emerald",
+          "violet",
+          "amber",
+          "rose",
+          "orange",
+          "slate"
+        ]
+      },
+      "supportedFixes": [
+        "choose one of [\"cyan\",\"emerald\",\"violet\",\"amber\",\"rose\",\"orange\",\"slate\"]"
+      ]
+    }
+  ],
+  "diagnosticSummary": {
+    "total": 1,
+    "shown": 1,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\.archify\\architecture-system-verity-20261004-212000\\system-verity.finalize.json",
+    "summaryReceipt": "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\.archify\\architecture-system-verity-20261004-212000\\system-verity.finalize-summary.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.0.1",
+    "availableVersion": "3.0.1",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-04T15:51:53.399Z",
+    "source": "network",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 1279,
+  "nextAction": {
+    "action": "edit-in-place",
+    "candidate": "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\.archify\\architecture-system-verity-20261004-212000\\candidate.json",
+    "constraint": "Preserve all semantics and user-fixed geometry. Use references/architecture-layout-repair.md to choose a local repair or connected-scene reflow; edit the existing candidate.",
+    "then": "finalize-once"
+  }
+}

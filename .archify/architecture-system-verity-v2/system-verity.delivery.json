@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "f9d752f0-34e2-4640-b561-8acaa8cf833b",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\.archify\\architecture-system-verity-v2\\candidate.json",
+  "output": "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\.archify\\architecture-system-verity-v2\\system-verity.html",
+  "specification": {
+    "sha256": "6264798197ce6dfd5f497b7a26522f77b90eaf421b71d2f57e8b6627c28fa2c5",
+    "bytes": 2054
+  },
+  "artifact": {
+    "sha256": "f642034cd8418647baaca541ced76a6afd7a42c68ff2f9ccc90ea2b224d81f92",
+    "bytes": 751715
+  }
+}

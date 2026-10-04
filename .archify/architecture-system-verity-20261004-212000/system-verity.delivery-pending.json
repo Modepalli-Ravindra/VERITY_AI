@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "command": "deliver",
+  "status": "pending",
+  "receiptId": "4cfbf5bf-f902-449c-bbc0-12aa868f1164",
+  "input": "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\.archify\\architecture-system-verity-20261004-212000\\candidate.json",
+  "output": "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\.archify\\architecture-system-verity-20261004-212000\\system-verity.html"
+}
