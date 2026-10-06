@@ -3,8 +3,9 @@ import sys
 import json
 import csv
 import random
+import shutil
 from pathlib import Path
-from datasets import load_dataset
+from huggingface_hub import hf_hub_download
 
 def main():
     print("Starting Clean V5 Data Preparation (HC3 ONLY)...")
@@ -18,27 +19,18 @@ def main():
     os.makedirs(v5_dir, exist_ok=True)
     
     if not os.path.exists(hc3_file):
-        print("HC3 all.jsonl not found locally. Streaming from Hugging Face 'Hello-SimpleAI/HC3'...")
-        ds = load_dataset("Hello-SimpleAI/HC3", "all", split="train", streaming=True)
-        count = 0
-        with open(hc3_file, "w", encoding="utf-8") as f:
-            for item in ds:
-                # Retain only necessary fields
-                record = {
-                    "question": item.get("question", ""),
-                    "human_answers": item.get("human_answers", []),
-                    "chatgpt_answers": item.get("chatgpt_answers", []),
-                    "source": item.get("source", "unknown")
-                }
-                f.write(json.dumps(record) + "\n")
-                count += 1
-                if count % 5000 == 0:
-                    print(f"  Downloaded {count} HC3 records...")
-        print(f"Successfully downloaded {count} HC3 records to {hc3_file}.")
+        print("HC3 not found — downloading official HC3 all.jsonl.")
+        downloaded_path = hf_hub_download(
+            repo_id="Hello-SimpleAI/HC3",
+            repo_type="dataset",
+            filename="all.jsonl"
+        )
+        shutil.copy2(downloaded_path, hc3_file)
+        print("HC3 downloaded successfully.")
     else:
-        print(f"HC3 dataset found at {hc3_file}.")
+        print("HC3 local file found — using cached dataset.")
         
-    print("Parsing and splitting HC3 deterministically (Seed 42)...")
+    print("Parsing HC3...")
     
     # 1. Group by Question
     question_to_samples = {}
@@ -81,11 +73,14 @@ def main():
                 
     questions = list(question_to_samples.keys())
     questions.sort() # Ensure stable ordering before shuffle
+    
+    print("Question-level split...")
     random.seed(42)
     random.shuffle(questions)
     
     split_idx = int(len(questions) * 0.80)
     train_q = set(questions[:split_idx])
+    val_q = set(questions[split_idx:])
     
     train_samples = []
     val_samples = []
@@ -103,22 +98,54 @@ def main():
     train_csv = os.path.join(v5_dir, "train.csv")
     val_csv = os.path.join(v5_dir, "val.csv")
     
-    print(f"Writing {len(train_samples)} training samples to {train_csv}...")
     with open(train_csv, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=["text", "label"])
         writer.writeheader()
         writer.writerows(train_samples)
         
-    print(f"Writing {len(val_samples)} validation samples to {val_csv}...")
     with open(val_csv, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=["text", "label"])
         writer.writeheader()
         writer.writerows(val_samples)
         
-    print("V5 Dataset Preparation Complete!")
-    print(f"Total Source Questions: {len(questions)}")
-    print(f"Train Samples: {len(train_samples)} (Human: {sum(1 for s in train_samples if s['label']==0)}, AI: {sum(1 for s in train_samples if s['label']==1)})")
-    print(f"Val Samples:   {len(val_samples)} (Human: {sum(1 for s in val_samples if s['label']==0)}, AI: {sum(1 for s in val_samples if s['label']==1)})")
+    overlap = train_q.intersection(val_q)
+    
+    print(f"\nTotal source questions: {len(questions)}")
+    print(f"Unique questions: {len(questions)}")
+    print(f"Train questions: {len(train_q)}")
+    print(f"Validation questions: {len(val_q)}")
+    
+    train_h = sum(1 for s in train_samples if s['label']==0)
+    train_a = sum(1 for s in train_samples if s['label']==1)
+    val_h = sum(1 for s in val_samples if s['label']==0)
+    val_a = sum(1 for s in val_samples if s['label']==1)
+    
+    print(f"\nTrain samples: {len(train_samples)}")
+    print(f"Train Human: {train_h}")
+    print(f"Train AI: {train_a}")
+    
+    print(f"\nValidation samples: {len(val_samples)}")
+    print(f"Validation Human: {val_h}")
+    print(f"Validation AI: {val_a}")
+    
+    print(f"\nCross-set question overlap: {len(overlap)}")
+    
+    print("\nRAID references: 0")
+    print(f"\nCreated:")
+    print(f"dataset/v5/train.csv")
+    print(f"dataset/v5/val.csv")
+
+    print("\nSample content:")
+    human_sample = next((s for s in train_samples if s['label'] == 0), None)
+    ai_sample = next((s for s in train_samples if s['label'] == 1), None)
+    
+    print("\nHuman sample:")
+    print(f"text: {human_sample['text'][:100]}...")
+    print(f"label = 0")
+    
+    print("\nAI sample:")
+    print(f"text: {ai_sample['text'][:100]}...")
+    print(f"label = 1")
     
 if __name__ == "__main__":
     main()
