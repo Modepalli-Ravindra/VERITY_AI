@@ -124,20 +124,30 @@ def load_and_split_data(train_paths, val_paths, seed=42, max_train=None, max_val
     val_texts = val_h + val_a
     val_labels = [0]*len(val_h) + [1]*len(val_a)
     
-    train_hashes = set(normalize_text_hash(t) for t in train_texts)
+    train_hashes = {}
+    for t in train_texts:
+        train_hashes[normalize_text_hash(t)] = t
     
     clean_val_texts = []
     clean_val_labels = []
-    overlap = 0
+    overlap_count = 0
+    exact_duplicates = 0
+    
     for t, l in zip(val_texts, val_labels):
-        if normalize_text_hash(t) in train_hashes:
-            overlap += 1
+        h = normalize_text_hash(t)
+        if h in train_hashes:
+            overlap_count += 1
+            if train_hashes[h] == t:
+                exact_duplicates += 1
         else:
             clean_val_texts.append(t)
             clean_val_labels.append(l)
             
-    print(f"Total Samples Loaded (Before Limiting): Train={len(train_texts)}, Val={len(clean_val_texts)}")
-    print(f"Leakage check: {overlap} overlapping validation samples found and removed.")
+    print(f"Total original validation CSV: {len(val_texts)}")
+    print(f"Exact text overlaps detected: {overlap_count}")
+    print(f"  Of those, {exact_duplicates} were exact string duplicates after hashing.")
+    print(f"  (This indicates the same answer texts were duplicated under different questions in the raw data).")
+    print(f"Clean validation: {len(clean_val_texts)}")
     
     if max_train and len(train_texts) > max_train:
         combined = list(zip(train_texts, train_labels))
@@ -208,7 +218,45 @@ def main():
     criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
     print(f"BCEWithLogitsLoss Positive Weight: {pos_weight.item():.4f}")
     
-    encoder_params = list(model.encoder.parameters())
+    # FREEZE/UNFREEZE LOGIC
+    total_encoder_params = sum(p.numel() for p in model.encoder.parameters())
+    
+    if args.freeze_mode == 'frozen':
+        for p in model.encoder.parameters():
+            p.requires_grad = False
+    elif args.freeze_mode == 'last_n':
+        for p in model.encoder.parameters():
+            p.requires_grad = False
+        try:
+            layers = model.encoder.model.layers
+            if args.unfreeze_layers > 0:
+                for layer in layers[-args.unfreeze_layers:]:
+                    for p in layer.parameters():
+                        p.requires_grad = True
+        except AttributeError:
+            print("Warning: Could not locate model.encoder.model.layers. All layers remain frozen.")
+    elif args.freeze_mode == 'full':
+        for p in model.encoder.parameters():
+            p.requires_grad = True
+            
+    trainable_encoder_params = sum(p.numel() for p in model.encoder.parameters() if p.requires_grad)
+    print(f"Total encoder parameters: {total_encoder_params:,}")
+    print(f"Trainable encoder parameters: {trainable_encoder_params:,}")
+    print(f"Trainable percentage: {trainable_encoder_params/total_encoder_params:.2%}")
+    
+    if args.freeze_mode == 'last_n':
+        try:
+            layers = model.encoder.model.layers
+            print("Layer Freezing Status:")
+            for i, layer in enumerate(layers):
+                frozen = not any(p.requires_grad for p in layer.parameters())
+                print(f"  Layer {i}: requires_grad={not frozen}")
+        except:
+            pass
+            
+    print(f"Fusion head: requires_grad=True")
+    
+    encoder_params = [p for p in model.encoder.parameters() if p.requires_grad]
         
     optimizer = torch.optim.AdamW([
         {'params': encoder_params, 'lr': args.transformer_learning_rate},
@@ -252,6 +300,64 @@ def main():
             
         print(f"Epoch {epoch+1}/{args.epochs} - Train Loss: {total_loss / len(train_loader):.4f}")
         
+        # VALIDATION EVALUATION
+        model.eval()
+        val_preds = []
+        val_targets = []
+        with torch.no_grad():
+            for batch in val_loader:
+                input_ids = batch['input_ids'].to(device)
+                attention_mask = batch['attention_mask'].to(device)
+                stylo = batch['stylometric_x'].to(device)
+                labels = batch['label'].cpu().numpy()
+                
+                try:
+                    with torch.amp.autocast('cuda', enabled=(device.type == 'cuda')):
+                        logits = model(input_ids, attention_mask, stylo)
+                except AttributeError:
+                    with torch.cuda.amp.autocast(enabled=(device.type == 'cuda')):
+                        logits = model(input_ids, attention_mask, stylo)
+                        
+                probs = torch.sigmoid(logits).cpu().numpy()
+                preds = (probs >= 0.50).astype(int)
+                val_preds.extend(preds)
+                val_targets.extend(labels)
+                
+        val_targets = np.array(val_targets)
+        val_preds = np.array(val_preds)
+        
+        if len(val_targets) > 0:
+            print(f"Validation samples evaluated: {len(val_targets)} (duplicate-text filtering WAS applied)")
+            acc = accuracy_score(val_targets, val_preds)
+            prec = precision_score(val_targets, val_preds, zero_division=0)
+            
+            # AI Recall is class 1, Human Recall is class 0
+            human_mask = (val_targets == 0)
+            ai_mask = (val_targets == 1)
+            
+            human_recall = np.sum((val_preds == 0) & human_mask) / np.sum(human_mask) if np.sum(human_mask) > 0 else 0
+            ai_recall = np.sum((val_preds == 1) & ai_mask) / np.sum(ai_mask) if np.sum(ai_mask) > 0 else 0
+            
+            f1 = f1_score(val_targets, val_preds, zero_division=0)
+            mcc = matthews_corrcoef(val_targets, val_preds)
+            
+            try:
+                auroc = roc_auc_score(val_targets, val_preds)
+            except ValueError:
+                auroc = 0.0
+                
+            cm = confusion_matrix(val_targets, val_preds)
+            
+            print(f"Validation Metrics:")
+            print(f"  Accuracy: {acc:.4f}")
+            print(f"  Precision: {prec:.4f}")
+            print(f"  AI Recall: {ai_recall:.4f}")
+            print(f"  Human Recall: {human_recall:.4f}")
+            print(f"  F1 Score: {f1:.4f}")
+            print(f"  MCC: {mcc:.4f}")
+            print(f"  AUROC: {auroc:.4f}")
+            print(f"  Confusion Matrix:\n{cm}")
+            
     print("Saving checkpoint...")
     ckpt_path = os.path.join(args.output_dir, "best_model.pt")
     checkpoint_data = {
