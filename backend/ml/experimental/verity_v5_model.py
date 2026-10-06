@@ -23,11 +23,6 @@ class VerityV5Model(nn.Module):
         )
 
     def forward(self, input_ids, attention_mask, stylometric_x):
-        """
-        Future implementation:
-        sem_emb = self.encoder.encode(input_ids, attention_mask)
-        """
-        # Placeholder output to preserve dimension tests
-        sem_emb = torch.zeros((input_ids.size(0), self.config.semantic_dimension), device=input_ids.device)
+        sem_emb = self.encoder(input_ids, attention_mask)
         logits = self.fusion_head(sem_emb, stylometric_x)
         return logits
