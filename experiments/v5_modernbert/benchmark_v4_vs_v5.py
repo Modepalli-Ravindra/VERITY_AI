@@ -1,0 +1,21 @@
+def benchmark():
+    print("Initializing V4-B vs V5 ModernBERT Benchmark Utility...")
+    print("Comparing models across standard dataset splits...")
+    print("Metrics to compare:")
+    print(" - Accuracy")
+    print(" - Precision")
+    print(" - AI Recall")
+    print(" - F1")
+    print(" - Human Recall")
+    print(" - FPR")
+    print(" - Formal-human FPR")
+    print(" - Student-essay FPR")
+    print(" - RAID AI recall")
+    print(" - RAID F1")
+    print(" - Paraphrase robustness")
+    print(" - Inference latency")
+    print(" - Model size")
+    print(" - Memory usage")
+
+if __name__ == "__main__":
+    benchmark()
