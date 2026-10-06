@@ -186,14 +186,7 @@ def main():
     config = V5Config()
     config.max_sequence_length = args.max_length
     
-    try:
-        tokenizer = AutoTokenizer.from_pretrained(config.transformer_name)
-    except:
-        class DummyTokenizer:
-            def __call__(self, text, max_length, padding, truncation, return_tensors):
-                return {'input_ids': torch.zeros((1, max_length), dtype=torch.long),
-                        'attention_mask': torch.ones((1, max_length), dtype=torch.long)}
-        tokenizer = DummyTokenizer()
+    tokenizer = AutoTokenizer.from_pretrained(config.transformer_name)
 
     tr_t, tr_l, val_t, val_l = load_and_split_data(args.train_data, args.val_data, args.seed, args.max_train_samples, args.max_val_samples)
     
@@ -215,10 +208,7 @@ def main():
     criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
     print(f"BCEWithLogitsLoss Positive Weight: {pos_weight.item():.4f}")
     
-    try:
-        encoder_params = list(model.encoder.parameters())
-    except AttributeError:
-        encoder_params = []
+    encoder_params = list(model.encoder.parameters())
         
     optimizer = torch.optim.AdamW([
         {'params': encoder_params, 'lr': args.transformer_learning_rate},
