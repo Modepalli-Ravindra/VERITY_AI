@@ -78,10 +78,19 @@ def compute_metrics(targets, probs, preds):
         'confusion_matrix': [[int(tn), int(fp)], [int(fn), int(tp)]]
     }
 
-def evaluate_dataset(model, tokenizer, device, max_length, df, text_col, label_col, attack_col, thresholds, batch_size=16):
+def evaluate_dataset(model, tokenizer, device, max_length, df, text_col, label_col, attack_col, thresholds, batch_size=16, max_samples=None):
+    if max_samples and len(df) > max_samples:
+        if attack_col and attack_col in df.columns:
+            # Stratified sampling by attack category
+            df = df.groupby(attack_col, group_keys=False).apply(
+                lambda x: x.sample(n=int(np.ceil(max_samples * len(x) / len(df))), random_state=42)
+            ).head(max_samples)
+        else:
+            df = df.sample(n=max_samples, random_state=42)
+            
     texts = df[text_col].tolist()
     labels = df[label_col].tolist()
-    attacks = df[attack_col].tolist() if attack_col else ['none'] * len(texts)
+    attacks = df[attack_col].tolist() if attack_col and attack_col in df.columns else ['none'] * len(texts)
     
     dataset = InferenceDataset(texts, labels, tokenizer, max_length)
     loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False)
@@ -147,6 +156,14 @@ def evaluate():
     parser = argparse.ArgumentParser()
     parser.add_argument('--checkpoint', type=str, default='experiments/v5_modernbert/checkpoints/best_model.pt')
     parser.add_argument('--smoke_test', action='store_true', help='Run on a tiny subset')
+    parser.add_argument('--max_samples', type=int, default=None, help='Limit evaluation to a maximum number of samples per dataset (stratified)')
+    
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
+    parser.add_argument('--raid_path', type=str, default=os.path.join(project_root, 'dataset/raid/raid_subset.csv'))
+    parser.add_argument('--hc3_path', type=str, default=os.path.join(project_root, 'dataset/v5/val.csv'))
+    parser.add_argument('--asap_path', type=str, default=os.path.join(project_root, 'dataset/asap_2.0/test/ASAP_2_Final_github_test.csv'))
+    parser.add_argument('--formal_path', type=str, default=os.path.join(project_root, 'dataset/formal/formal_subsets.csv'))
+    
     args = parser.parse_args()
     
     print("=== V5 ModernBERT Evaluation Pipeline ===")
@@ -194,41 +211,38 @@ def evaluate():
     
     # 1. RAID UNSEEN BENCHMARK
     print("\n=== RAID UNSEEN BENCHMARK ===")
-    raid_path = 'dataset/raid/raid_subset.csv'
-    if os.path.exists(raid_path):
-        df_raid = pd.read_csv(raid_path)
+    if os.path.exists(args.raid_path):
+        df_raid = pd.read_csv(args.raid_path)
         if args.smoke_test: df_raid = df_raid.head(100)
-        res = evaluate_dataset(model, tokenizer, device, max_length, df_raid, 'text', 'label', 'attack', thresholds)
+        res = evaluate_dataset(model, tokenizer, device, max_length, df_raid, 'text', 'label', 'attack', thresholds, max_samples=args.max_samples)
         results['RAID'] = res
         print(f"Inference latency: {res['performance']['ms_per_sample']:.2f} ms/sample")
         print(f"Metrics at base threshold {base_threshold}:")
         print(json.dumps(res['thresholds'][str(base_threshold)]['overall'], indent=2))
     else:
-        print("NOT FOUND")
+        print(f"NOT FOUND: {args.raid_path}")
         
     # 2. HC3 VALIDATION
     print("\n=== HC3 VALIDATION ===")
-    hc3_path = 'dataset/v5/val.csv'
-    if os.path.exists(hc3_path):
-        df_hc3 = pd.read_csv(hc3_path)
+    if os.path.exists(args.hc3_path):
+        df_hc3 = pd.read_csv(args.hc3_path)
         if args.smoke_test: df_hc3 = df_hc3.head(100)
-        res = evaluate_dataset(model, tokenizer, device, max_length, df_hc3, 'text', 'label', None, thresholds)
+        res = evaluate_dataset(model, tokenizer, device, max_length, df_hc3, 'text', 'label', None, thresholds, max_samples=args.max_samples)
         results['HC3'] = res
         print(f"Inference latency: {res['performance']['ms_per_sample']:.2f} ms/sample")
         print(f"Metrics at base threshold {base_threshold}:")
         print(json.dumps(res['thresholds'][str(base_threshold)]['overall'], indent=2))
     else:
-        print("NOT FOUND")
+        print(f"NOT FOUND: {args.hc3_path}")
         
     # 3. ASAP 2.0
     print("\n=== ASAP 2.0 ===")
-    asap_path = 'dataset/asap_2.0/test/ASAP_2_Final_github_test.csv'
-    if os.path.exists(asap_path):
-        df_asap = pd.read_csv(asap_path, encoding='ISO-8859-1') # Handle potentially weird encodings
+    if os.path.exists(args.asap_path):
+        df_asap = pd.read_csv(args.asap_path, encoding='ISO-8859-1') # Handle potentially weird encodings
         if 'full_text' in df_asap.columns:
             df_asap['label'] = 0 # All human
             if args.smoke_test: df_asap = df_asap.head(100)
-            res = evaluate_dataset(model, tokenizer, device, max_length, df_asap, 'full_text', 'label', None, thresholds)
+            res = evaluate_dataset(model, tokenizer, device, max_length, df_asap, 'full_text', 'label', None, thresholds, max_samples=args.max_samples)
             results['ASAP_2.0'] = res
             print(f"Inference latency: {res['performance']['ms_per_sample']:.2f} ms/sample")
             print(f"Metrics at base threshold {base_threshold}:")
@@ -236,21 +250,20 @@ def evaluate():
         else:
             print("ASAP_2.0 missing full_text column")
     else:
-        print("NOT FOUND")
+        print(f"NOT FOUND: {args.asap_path}")
         
     # 4. FORMAL HUMAN/AI
     print("\n=== FORMAL HUMAN/AI ===")
-    formal_path = 'dataset/formal/formal_subsets.csv'
-    if os.path.exists(formal_path):
-        df_formal = pd.read_csv(formal_path)
+    if os.path.exists(args.formal_path):
+        df_formal = pd.read_csv(args.formal_path)
         if args.smoke_test: df_formal = df_formal.head(100)
-        res = evaluate_dataset(model, tokenizer, device, max_length, df_formal, 'text', 'label', None, thresholds)
+        res = evaluate_dataset(model, tokenizer, device, max_length, df_formal, 'text', 'label', None, thresholds, max_samples=args.max_samples)
         results['Formal'] = res
         print(f"Inference latency: {res['performance']['ms_per_sample']:.2f} ms/sample")
         print(f"Metrics at base threshold {base_threshold}:")
         print(json.dumps(res['thresholds'][str(base_threshold)]['overall'], indent=2))
     else:
-        print("NOT FOUND")
+        print(f"NOT FOUND: {args.formal_path}")
         
     os.makedirs('experiments/v5_modernbert/results', exist_ok=True)
     with open('experiments/v5_modernbert/results/v5_evaluation_results.json', 'w') as f:
