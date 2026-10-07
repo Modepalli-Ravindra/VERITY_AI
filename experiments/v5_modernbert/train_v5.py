@@ -11,6 +11,7 @@ import random
 import numpy as np
 import hashlib
 import time
+from tqdm import tqdm
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, matthews_corrcoef, roc_auc_score, confusion_matrix
 from transformers import AutoTokenizer, AutoModel
 from backend.ml.experimental.v5_config import V5Config
@@ -231,6 +232,7 @@ def get_args():
     parser.add_argument('--max_val_samples', type=int, default=None)
     parser.add_argument('--num_workers', type=int, default=0, help="Number of workers for DataLoader")
     parser.add_argument('--smoke_test', action='store_true', help="Run in pipeline smoke test mode")
+    parser.add_argument('--debug_smoke', action='store_true', help="Run 1-2 batch diagnostic test with timings")
     return parser.parse_args()
 
 def main():
@@ -339,33 +341,89 @@ def main():
         epoch_start = time.time()
         model.train()
         total_loss = 0
-        for step, batch in enumerate(train_loader):
+        
+        dl_start = time.time()
+        
+        train_iterator = tqdm(train_loader, desc=f"Epoch {epoch+1}/{args.epochs}") if not args.debug_smoke else train_loader
+        
+        for step, batch in enumerate(train_iterator):
+            dl_time = time.time() - dl_start
+            
+            h2d_start = time.time()
             input_ids = batch['input_ids'].to(device, non_blocking=True)
             attention_mask = batch['attention_mask'].to(device, non_blocking=True)
             stylo = batch['stylometric_x'].to(device, non_blocking=True)
             labels = batch['label'].to(device, non_blocking=True)
             
+            # Ensure synchronization for accurate timing if on CUDA
+            if device.type == 'cuda':
+                torch.cuda.synchronize()
+            h2d_time = time.time() - h2d_start
+            
+            forward_start = time.time()
             try:
                 with torch.amp.autocast('cuda', enabled=(device.type == 'cuda')):
                     logits = model(input_ids, attention_mask, stylo)
-                    loss = criterion(logits, labels)
-                    loss = loss / args.gradient_accumulation_steps
             except AttributeError:
                 with torch.cuda.amp.autocast(enabled=(device.type == 'cuda')):
                     logits = model(input_ids, attention_mask, stylo)
-                    loss = criterion(logits, labels)
-                    loss = loss / args.gradient_accumulation_steps
-                
-            scaler.scale(loss).backward()
+            if device.type == 'cuda':
+                torch.cuda.synchronize()
+            forward_time = time.time() - forward_start
             
+            loss_start = time.time()
+            with torch.amp.autocast('cuda', enabled=(device.type == 'cuda')) if hasattr(torch, 'amp') else torch.cuda.amp.autocast(enabled=(device.type == 'cuda')):
+                loss = criterion(logits, labels)
+                loss = loss / args.gradient_accumulation_steps
+            if device.type == 'cuda':
+                torch.cuda.synchronize()
+            loss_time = time.time() - loss_start
+                
+            backward_start = time.time()
+            scaler.scale(loss).backward()
+            if device.type == 'cuda':
+                torch.cuda.synchronize()
+            backward_time = time.time() - backward_start
+            
+            opt_start = time.time()
             if (step + 1) % args.gradient_accumulation_steps == 0:
                 scaler.step(optimizer)
                 scaler.update()
                 optimizer.zero_grad()
+            if device.type == 'cuda':
+                torch.cuda.synchronize()
+            opt_time = time.time() - opt_start
                 
             total_loss += loss.item()
             
+            if args.debug_smoke:
+                print(f"--- BATCH {step+1} TIMINGS ---")
+                print(f"DataLoader: {dl_time:.4f}s")
+                print(f"H2D Transfer: {h2d_time:.4f}s")
+                print(f"Forward Pass: {forward_time:.4f}s")
+                print(f"Loss Calc: {loss_time:.4f}s")
+                print(f"Backward Pass: {backward_time:.4f}s")
+                print(f"Optimizer Step: {opt_time:.4f}s")
+                
+                print(f"input_ids shape: {input_ids.shape}")
+                print(f"attention_mask shape: {attention_mask.shape}")
+                print(f"stylometric_x shape: {stylo.shape}")
+                print(f"labels shape: {labels.shape}")
+                if device.type == 'cuda':
+                    print(f"GPU Allocated: {torch.cuda.memory_allocated(0)/1e9:.2f} GB")
+                    print(f"GPU Reserved: {torch.cuda.memory_reserved(0)/1e9:.2f} GB")
+                print(f"------------------------------")
+                if step >= 1:
+                    print("Debug smoke test completed 2 batches. Exiting.")
+                    sys.exit(0)
+                    
+            if (step + 1) % 500 == 0:
+                print(f"Epoch {epoch+1} - Batch {step+1}/{len(train_loader)} processed.")
+                
+            dl_start = time.time()
+            
         print(f"Epoch {epoch+1}/{args.epochs} - Train Loss: {total_loss / len(train_loader):.4f} - Epoch Time: {time.time() - epoch_start:.2f}s")
+
         
         # VALIDATION EVALUATION
         model.eval()
