@@ -5,6 +5,7 @@ from backend.ml.fusion_model import FeatureFusionDetector
 from backend.services.llm_providers import LLMProviderService
 from backend.services.provider_manager import ProviderManager
 from backend.api.auth import get_current_user
+from backend.ml.experimental.v5_inference import V5InferenceService
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 
@@ -81,4 +82,15 @@ async def recheck_text(req: TextAnalysisRequest, request: Request, user=Depends(
     
     result = await ProviderManager.analyze(req.text)
     return result
+
+@router.post("/experimental/v5/analyze")
+@limiter.limit("20/minute")
+async def analyze_v5(req: TextAnalysisRequest, request: Request):
+    if not req.text or not req.text.strip():
+        raise HTTPException(status_code=400, detail="Text cannot be empty.")
+    if len(req.text.strip()) < 50:
+        raise HTTPException(status_code=400, detail="Text is too short for meaningful analysis.")
+        
+    service = V5InferenceService.get_instance()
+    return service.analyze(req.text)
 
