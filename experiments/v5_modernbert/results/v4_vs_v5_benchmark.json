@@ -1,0 +1,237 @@
+{
+  "models": {
+    "v4b": {
+      "threshold": 0.7
+    },
+    "v5": {
+      "threshold": 0.7,
+      "max_sequence_length": 1024
+    }
+  },
+  "datasets": {
+    "HC3 Validation": {
+      "domain": "in-domain (v5)",
+      "samples": 10,
+      "v4b": {
+        "overall": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "ai_recall": 1.0,
+          "human_recall": 1.0,
+          "f1": 1.0,
+          "mcc": 1.0,
+          "auroc": 1.0,
+          "human_fpr": 0.0,
+          "confusion_matrix": [
+            [
+              7,
+              0
+            ],
+            [
+              0,
+              3
+            ]
+          ]
+        },
+        "latency_mean_ms": 496.596360206604,
+        "latency_median_ms": 450.7850408554077,
+        "latency_p95_ms": 756.1320185661315,
+        "throughput_samples_per_sec": 2.013707872494192
+      },
+      "v5": {
+        "overall": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "ai_recall": 1.0,
+          "human_recall": 1.0,
+          "f1": 1.0,
+          "mcc": 1.0,
+          "auroc": 1.0,
+          "human_fpr": 0.0,
+          "confusion_matrix": [
+            [
+              7,
+              0
+            ],
+            [
+              0,
+              3
+            ]
+          ]
+        },
+        "latency_mean_ms": 2918.6861515045166,
+        "latency_median_ms": 2864.6373748779297,
+        "latency_p95_ms": 3138.827633857727,
+        "throughput_samples_per_sec": 0.3426199146093603
+      }
+    },
+    "RAID 20K Unseen": {
+      "domain": "unseen/out-of-domain",
+      "samples": 10,
+      "v4b": {
+        "overall": {
+          "accuracy": 0.8,
+          "precision": 0.875,
+          "ai_recall": 0.875,
+          "human_recall": 0.5,
+          "f1": 0.875,
+          "mcc": 0.375,
+          "auroc": 0.875,
+          "human_fpr": 0.5,
+          "confusion_matrix": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              7
+            ]
+          ]
+        },
+        "latency_mean_ms": 510.29443740844727,
+        "latency_median_ms": 455.00457286834717,
+        "latency_p95_ms": 784.4602346420287,
+        "throughput_samples_per_sec": 1.9596529507132079
+      },
+      "v5": {
+        "overall": {
+          "accuracy": 0.6,
+          "precision": 1.0,
+          "ai_recall": 0.5,
+          "human_recall": 1.0,
+          "f1": 0.6666666666666666,
+          "mcc": 0.4082482904638631,
+          "auroc": 0.625,
+          "human_fpr": 0.0,
+          "confusion_matrix": [
+            [
+              2,
+              0
+            ],
+            [
+              4,
+              4
+            ]
+          ]
+        },
+        "latency_mean_ms": 2960.8269453048706,
+        "latency_median_ms": 2926.07319355011,
+        "latency_p95_ms": 3273.193895816803,
+        "throughput_samples_per_sec": 0.337743481288479
+      }
+    },
+    "Formal Human": {
+      "domain": "in-domain (v5) / formal",
+      "samples": 10,
+      "v4b": {
+        "overall": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "ai_recall": 1.0,
+          "human_recall": 1.0,
+          "f1": 1.0,
+          "mcc": 1.0,
+          "auroc": 1.0,
+          "human_fpr": 0.0,
+          "confusion_matrix": [
+            [
+              5,
+              0
+            ],
+            [
+              0,
+              5
+            ]
+          ]
+        },
+        "latency_mean_ms": 459.3630313873291,
+        "latency_median_ms": 468.9427614212036,
+        "latency_p95_ms": 591.181230545044,
+        "throughput_samples_per_sec": 2.1769274662348974
+      },
+      "v5": {
+        "overall": {
+          "accuracy": 0.9,
+          "precision": 0.8333333333333334,
+          "ai_recall": 1.0,
+          "human_recall": 0.8,
+          "f1": 0.9090909090909091,
+          "mcc": 0.816496580927726,
+          "auroc": 1.0,
+          "human_fpr": 0.2,
+          "confusion_matrix": [
+            [
+              4,
+              1
+            ],
+            [
+              0,
+              5
+            ]
+          ]
+        },
+        "latency_mean_ms": 2826.8479347229004,
+        "latency_median_ms": 2869.3370819091797,
+        "latency_p95_ms": 3086.009740829468,
+        "throughput_samples_per_sec": 0.35375089962100287
+      }
+    },
+    "ASAP 2.0 Essays": {
+      "domain": "unseen/out-of-domain (human only)",
+      "samples": 10,
+      "v4b": {
+        "overall": {
+          "accuracy": 0.7,
+          "precision": 0.0,
+          "ai_recall": 0.0,
+          "human_recall": 0.7,
+          "f1": 0.0,
+          "mcc": 0.0,
+          "auroc": NaN,
+          "human_fpr": 0.3,
+          "confusion_matrix": [
+            [
+              7,
+              3
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "latency_mean_ms": 494.52712535858154,
+        "latency_median_ms": 424.89850521087646,
+        "latency_p95_ms": 751.2273669242859,
+        "throughput_samples_per_sec": 2.022133769254619
+      },
+      "v5": {
+        "overall": {
+          "accuracy": 0.4,
+          "precision": 0.0,
+          "ai_recall": 0.0,
+          "human_recall": 0.4,
+          "f1": 0.0,
+          "mcc": 0.0,
+          "auroc": NaN,
+          "human_fpr": 0.6,
+          "confusion_matrix": [
+            [
+              4,
+              6
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "latency_mean_ms": 2968.0749654769897,
+        "latency_median_ms": 3038.4708642959595,
+        "latency_p95_ms": 3296.896255016327,
+        "throughput_samples_per_sec": 0.3369187138571122
+      }
+    }
+  }
+}

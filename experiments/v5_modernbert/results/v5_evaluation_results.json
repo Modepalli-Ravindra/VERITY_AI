@@ -1,0 +1,482 @@
+{
+  "RAID": {
+    "performance": {
+      "total_time_sec": 384.4432623386383,
+      "samples_per_sec": 0.26011640675318853,
+      "ms_per_sample": 3844.432623386383,
+      "total_samples": 100
+    },
+    "thresholds": {
+      "0.4": {
+        "overall": {
+          "accuracy": 0.0,
+          "precision": 0.0,
+          "ai_recall": 0,
+          "human_recall": 0.0,
+          "f1": 0.0,
+          "mcc": 0.0,
+          "auroc": NaN,
+          "human_fpr": 1.0,
+          "confusion_matrix": [
+            [
+              0,
+              100
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "categories": {
+          "none": {
+            "accuracy": 0.0,
+            "precision": 0.0,
+            "ai_recall": 0,
+            "human_recall": 0.0,
+            "f1": 0.0,
+            "mcc": 0.0,
+            "auroc": NaN,
+            "human_fpr": 1.0,
+            "confusion_matrix": [
+              [
+                0,
+                100
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      },
+      "0.5": {
+        "overall": {
+          "accuracy": 0.35,
+          "precision": 0.0,
+          "ai_recall": 0,
+          "human_recall": 0.35,
+          "f1": 0.0,
+          "mcc": 0.0,
+          "auroc": NaN,
+          "human_fpr": 0.65,
+          "confusion_matrix": [
+            [
+              35,
+              65
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "categories": {
+          "none": {
+            "accuracy": 0.35,
+            "precision": 0.0,
+            "ai_recall": 0,
+            "human_recall": 0.35,
+            "f1": 0.0,
+            "mcc": 0.0,
+            "auroc": NaN,
+            "human_fpr": 0.65,
+            "confusion_matrix": [
+              [
+                35,
+                65
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      },
+      "0.6": {
+        "overall": {
+          "accuracy": 1.0,
+          "precision": 0.0,
+          "ai_recall": 0,
+          "human_recall": 1.0,
+          "f1": 0.0,
+          "mcc": 0.0,
+          "auroc": NaN,
+          "human_fpr": 0.0,
+          "confusion_matrix": [
+            [
+              100,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "categories": {
+          "none": {
+            "accuracy": 1.0,
+            "precision": 0.0,
+            "ai_recall": 0,
+            "human_recall": 1.0,
+            "f1": 0.0,
+            "mcc": 0.0,
+            "auroc": NaN,
+            "human_fpr": 0.0,
+            "confusion_matrix": [
+              [
+                100,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      },
+      "0.7": {
+        "overall": {
+          "accuracy": 1.0,
+          "precision": 0.0,
+          "ai_recall": 0,
+          "human_recall": 1.0,
+          "f1": 0.0,
+          "mcc": 0.0,
+          "auroc": NaN,
+          "human_fpr": 0.0,
+          "confusion_matrix": [
+            [
+              100,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "categories": {
+          "none": {
+            "accuracy": 1.0,
+            "precision": 0.0,
+            "ai_recall": 0,
+            "human_recall": 1.0,
+            "f1": 0.0,
+            "mcc": 0.0,
+            "auroc": NaN,
+            "human_fpr": 0.0,
+            "confusion_matrix": [
+              [
+                100,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      },
+      "0.8": {
+        "overall": {
+          "accuracy": 1.0,
+          "precision": 0.0,
+          "ai_recall": 0,
+          "human_recall": 1.0,
+          "f1": 0.0,
+          "mcc": 0.0,
+          "auroc": NaN,
+          "human_fpr": 0.0,
+          "confusion_matrix": [
+            [
+              100,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "categories": {
+          "none": {
+            "accuracy": 1.0,
+            "precision": 0.0,
+            "ai_recall": 0,
+            "human_recall": 1.0,
+            "f1": 0.0,
+            "mcc": 0.0,
+            "auroc": NaN,
+            "human_fpr": 0.0,
+            "confusion_matrix": [
+              [
+                100,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      }
+    }
+  },
+  "HC3": {
+    "performance": {
+      "total_time_sec": 328.2700629234314,
+      "samples_per_sec": 0.3046272301209656,
+      "ms_per_sample": 3282.700629234314,
+      "total_samples": 100
+    },
+    "thresholds": {
+      "0.4": {
+        "overall": {
+          "accuracy": 0.29,
+          "precision": 0.29,
+          "ai_recall": 1.0,
+          "human_recall": 0.0,
+          "f1": 0.4496124031007752,
+          "mcc": 0.0,
+          "auroc": 0.9164643030597377,
+          "human_fpr": 1.0,
+          "confusion_matrix": [
+            [
+              0,
+              71
+            ],
+            [
+              0,
+              29
+            ]
+          ]
+        },
+        "categories": {}
+      },
+      "0.5": {
+        "overall": {
+          "accuracy": 0.8,
+          "precision": 0.8,
+          "ai_recall": 0.41379310344827586,
+          "human_recall": 0.9577464788732394,
+          "f1": 0.5454545454545454,
+          "mcc": 0.47214801640259935,
+          "auroc": 0.9164643030597377,
+          "human_fpr": 0.04225352112676056,
+          "confusion_matrix": [
+            [
+              68,
+              3
+            ],
+            [
+              17,
+              12
+            ]
+          ]
+        },
+        "categories": {}
+      },
+      "0.6": {
+        "overall": {
+          "accuracy": 0.71,
+          "precision": 0.0,
+          "ai_recall": 0.0,
+          "human_recall": 1.0,
+          "f1": 0.0,
+          "mcc": 0.0,
+          "auroc": 0.9164643030597377,
+          "human_fpr": 0.0,
+          "confusion_matrix": [
+            [
+              71,
+              0
+            ],
+            [
+              29,
+              0
+            ]
+          ]
+        },
+        "categories": {}
+      },
+      "0.7": {
+        "overall": {
+          "accuracy": 0.71,
+          "precision": 0.0,
+          "ai_recall": 0.0,
+          "human_recall": 1.0,
+          "f1": 0.0,
+          "mcc": 0.0,
+          "auroc": 0.9164643030597377,
+          "human_fpr": 0.0,
+          "confusion_matrix": [
+            [
+              71,
+              0
+            ],
+            [
+              29,
+              0
+            ]
+          ]
+        },
+        "categories": {}
+      },
+      "0.8": {
+        "overall": {
+          "accuracy": 0.71,
+          "precision": 0.0,
+          "ai_recall": 0.0,
+          "human_recall": 1.0,
+          "f1": 0.0,
+          "mcc": 0.0,
+          "auroc": 0.9164643030597377,
+          "human_fpr": 0.0,
+          "confusion_matrix": [
+            [
+              71,
+              0
+            ],
+            [
+              29,
+              0
+            ]
+          ]
+        },
+        "categories": {}
+      }
+    }
+  },
+  "ASAP_2.0": {
+    "performance": {
+      "total_time_sec": 191.31361031532288,
+      "samples_per_sec": 0.522701964774906,
+      "ms_per_sample": 1913.1361031532288,
+      "total_samples": 100
+    },
+    "thresholds": {
+      "0.4": {
+        "overall": {
+          "accuracy": 0.03,
+          "precision": 0.0,
+          "ai_recall": 0,
+          "human_recall": 0.03,
+          "f1": 0.0,
+          "mcc": 0.0,
+          "auroc": NaN,
+          "human_fpr": 0.97,
+          "confusion_matrix": [
+            [
+              3,
+              97
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "categories": {}
+      },
+      "0.5": {
+        "overall": {
+          "accuracy": 0.89,
+          "precision": 0.0,
+          "ai_recall": 0,
+          "human_recall": 0.89,
+          "f1": 0.0,
+          "mcc": 0.0,
+          "auroc": NaN,
+          "human_fpr": 0.11,
+          "confusion_matrix": [
+            [
+              89,
+              11
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "categories": {}
+      },
+      "0.6": {
+        "overall": {
+          "accuracy": 1.0,
+          "precision": 0.0,
+          "ai_recall": 0,
+          "human_recall": 1.0,
+          "f1": 0.0,
+          "mcc": 0.0,
+          "auroc": NaN,
+          "human_fpr": 0.0,
+          "confusion_matrix": [
+            [
+              100,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "categories": {}
+      },
+      "0.7": {
+        "overall": {
+          "accuracy": 1.0,
+          "precision": 0.0,
+          "ai_recall": 0,
+          "human_recall": 1.0,
+          "f1": 0.0,
+          "mcc": 0.0,
+          "auroc": NaN,
+          "human_fpr": 0.0,
+          "confusion_matrix": [
+            [
+              100,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "categories": {}
+      },
+      "0.8": {
+        "overall": {
+          "accuracy": 1.0,
+          "precision": 0.0,
+          "ai_recall": 0,
+          "human_recall": 1.0,
+          "f1": 0.0,
+          "mcc": 0.0,
+          "auroc": NaN,
+          "human_fpr": 0.0,
+          "confusion_matrix": [
+            [
+              100,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "categories": {}
+      }
+    }
+  }
+}
