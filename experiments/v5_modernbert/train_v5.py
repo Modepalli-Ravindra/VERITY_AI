@@ -10,6 +10,7 @@ import json
 import random
 import numpy as np
 import hashlib
+import time
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, matthews_corrcoef, roc_auc_score, confusion_matrix
 from transformers import AutoTokenizer, AutoModel
 from backend.ml.experimental.v5_config import V5Config
@@ -26,23 +27,56 @@ def set_seed(seed):
 def normalize_text_hash(text):
     return hashlib.md5(text.strip().lower().encode('utf-8')).hexdigest()
 
-class VerityDataset(Dataset):
-    def __init__(self, texts, labels, tokenizer, max_length):
-        self.texts = texts
+class PrecomputedVerityDataset(Dataset):
+    def __init__(self, input_ids, attention_masks, stylometric_xs, labels):
+        self.input_ids = input_ids
+        self.attention_masks = attention_masks
+        self.stylometric_xs = stylometric_xs
         self.labels = labels
-        self.tokenizer = tokenizer
-        self.max_length = max_length
         
     def __len__(self):
-        return len(self.texts)
+        return len(self.labels)
         
     def __getitem__(self, idx):
-        text = str(self.texts[idx])
-        label = float(self.labels[idx])
+        return {
+            'input_ids': self.input_ids[idx],
+            'attention_mask': self.attention_masks[idx],
+            'stylometric_x': self.stylometric_xs[idx],
+            'label': self.labels[idx]
+        }
+
+def get_cache_hash(texts, max_length, transformer_name):
+    h = hashlib.md5()
+    h.update(str(len(texts)).encode())
+    if len(texts) > 0:
+        h.update(texts[0].encode())
+        h.update(texts[-1].encode())
+    h.update(str(max_length).encode())
+    h.update(transformer_name.encode())
+    return h.hexdigest()
+
+def preprocess_and_cache(texts, labels, tokenizer, max_length, cache_path):
+    if os.path.exists(cache_path):
+        print(f"Loading cache from {cache_path}...")
+        start_time = time.time()
+        cache = torch.load(cache_path)
+        print(f"Cache loaded in {time.time() - start_time:.2f} seconds.")
+        return cache['input_ids'], cache['attention_masks'], cache['stylometric_xs'], cache['labels']
         
-        tokens = self.tokenizer(
+    start_time = time.time()
+    
+    input_ids_list = []
+    attention_masks_list = []
+    stylometric_xs_list = []
+    labels_list = []
+    
+    for i, (text, label) in enumerate(zip(texts, labels)):
+        if (i + 1) % 5000 == 0:
+            print(f"Tokenization & stylometric feature progress: {i+1}/{len(texts)}")
+            
+        tokens = tokenizer(
             text,
-            max_length=self.max_length,
+            max_length=max_length,
             padding='max_length',
             truncation=True,
             return_tensors='pt'
@@ -55,12 +89,28 @@ class VerityDataset(Dataset):
         except:
             stylo = [0.0] * 20
             
-        return {
-            'input_ids': tokens['input_ids'].squeeze(0),
-            'attention_mask': tokens['attention_mask'].squeeze(0),
-            'stylometric_x': torch.tensor(stylo, dtype=torch.float32),
-            'label': torch.tensor(label, dtype=torch.float32)
-        }
+        input_ids_list.append(tokens['input_ids'].squeeze(0))
+        attention_masks_list.append(tokens['attention_mask'].squeeze(0))
+        stylometric_xs_list.append(torch.tensor(stylo, dtype=torch.float32))
+        labels_list.append(torch.tensor(float(label), dtype=torch.float32))
+        
+    input_ids = torch.stack(input_ids_list)
+    attention_masks = torch.stack(attention_masks_list)
+    stylometric_xs = torch.stack(stylometric_xs_list)
+    labels_tensor = torch.stack(labels_list)
+    
+    print(f"Preprocessing completed in {time.time() - start_time:.2f} seconds.")
+    print("Saving cache...")
+    os.makedirs(os.path.dirname(cache_path), exist_ok=True)
+    torch.save({
+        'input_ids': input_ids,
+        'attention_masks': attention_masks,
+        'stylometric_xs': stylometric_xs,
+        'labels': labels_tensor
+    }, cache_path)
+    print("Cache saved.")
+    
+    return input_ids, attention_masks, stylometric_xs, labels_tensor
 
 def parse_hc3_jsonl(file_path):
     human_texts = []
@@ -179,6 +229,7 @@ def get_args():
     parser.add_argument('--output_dir', type=str, default='experiments/v5_modernbert/checkpoints')
     parser.add_argument('--max_train_samples', type=int, default=None)
     parser.add_argument('--max_val_samples', type=int, default=None)
+    parser.add_argument('--num_workers', type=int, default=0, help="Number of workers for DataLoader")
     parser.add_argument('--smoke_test', action='store_true', help="Run in pipeline smoke test mode")
     return parser.parse_args()
 
@@ -203,11 +254,26 @@ def main():
     print(f"Train Human: {tr_l.count(0)} | Train AI: {tr_l.count(1)}")
     print(f"Val Human: {val_l.count(0)} | Val AI: {val_l.count(1)}")
     
-    train_ds = VerityDataset(tr_t, tr_l, tokenizer, args.max_length)
-    val_ds = VerityDataset(val_t, val_l, tokenizer, args.max_length)
+    cache_dir = "experiments/v5_modernbert/cache"
+    train_cache_hash = get_cache_hash(tr_t, args.max_length, config.transformer_name)
+    val_cache_hash = get_cache_hash(val_t, args.max_length, config.transformer_name)
     
-    train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True)
-    val_loader = DataLoader(val_ds, batch_size=args.batch_size)
+    train_cache_path = os.path.join(cache_dir, f"train_{train_cache_hash}.pt")
+    val_cache_path = os.path.join(cache_dir, f"val_{val_cache_hash}.pt")
+    
+    print("Preprocessing train set...")
+    tr_input_ids, tr_attn_masks, tr_stylo, tr_labels = preprocess_and_cache(tr_t, tr_l, tokenizer, args.max_length, train_cache_path)
+    
+    print("Preprocessing validation set...")
+    val_input_ids, val_attn_masks, val_stylo, val_labels = preprocess_and_cache(val_t, val_l, tokenizer, args.max_length, val_cache_path)
+    
+    train_ds = PrecomputedVerityDataset(tr_input_ids, tr_attn_masks, tr_stylo, tr_labels)
+    val_ds = PrecomputedVerityDataset(val_input_ids, val_attn_masks, val_stylo, val_labels)
+    
+    train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True, pin_memory=True if device.type == 'cuda' else False, num_workers=args.num_workers)
+    val_loader = DataLoader(val_ds, batch_size=args.batch_size, pin_memory=True if device.type == 'cuda' else False, num_workers=args.num_workers)
+    
+    print("Starting GPU training...")
 
     model = VerityV5Model(config).to(device)
     
@@ -270,13 +336,14 @@ def main():
     
     best_f1 = 0
     for epoch in range(args.epochs):
+        epoch_start = time.time()
         model.train()
         total_loss = 0
         for step, batch in enumerate(train_loader):
-            input_ids = batch['input_ids'].to(device)
-            attention_mask = batch['attention_mask'].to(device)
-            stylo = batch['stylometric_x'].to(device)
-            labels = batch['label'].to(device)
+            input_ids = batch['input_ids'].to(device, non_blocking=True)
+            attention_mask = batch['attention_mask'].to(device, non_blocking=True)
+            stylo = batch['stylometric_x'].to(device, non_blocking=True)
+            labels = batch['label'].to(device, non_blocking=True)
             
             try:
                 with torch.amp.autocast('cuda', enabled=(device.type == 'cuda')):
@@ -298,7 +365,7 @@ def main():
                 
             total_loss += loss.item()
             
-        print(f"Epoch {epoch+1}/{args.epochs} - Train Loss: {total_loss / len(train_loader):.4f}")
+        print(f"Epoch {epoch+1}/{args.epochs} - Train Loss: {total_loss / len(train_loader):.4f} - Epoch Time: {time.time() - epoch_start:.2f}s")
         
         # VALIDATION EVALUATION
         model.eval()
@@ -306,9 +373,9 @@ def main():
         val_targets = []
         with torch.no_grad():
             for batch in val_loader:
-                input_ids = batch['input_ids'].to(device)
-                attention_mask = batch['attention_mask'].to(device)
-                stylo = batch['stylometric_x'].to(device)
+                input_ids = batch['input_ids'].to(device, non_blocking=True)
+                attention_mask = batch['attention_mask'].to(device, non_blocking=True)
+                stylo = batch['stylometric_x'].to(device, non_blocking=True)
                 labels = batch['label'].cpu().numpy()
                 
                 try:
