@@ -206,8 +206,10 @@ def main():
     train_ds = PrecomputedVerityDataset(tr_input_ids, tr_attn_masks, tr_stylo, tr_labels)
     val_ds = PrecomputedVerityDataset(val_input_ids, val_attn_masks, val_stylo, val_labels)
     
-    train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True, pin_memory=True if device.type == 'cuda' else False, num_workers=args.num_workers)
-    val_loader = DataLoader(val_ds, batch_size=args.batch_size, pin_memory=True if device.type == 'cuda' else False, num_workers=args.num_workers)
+    train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True, drop_last=True, pin_memory=True if device.type == 'cuda' else False, num_workers=args.num_workers)
+    val_loader = DataLoader(val_ds, batch_size=args.batch_size, drop_last=False, pin_memory=True if device.type == 'cuda' else False, num_workers=args.num_workers)
+    
+    print(f"Effective training batches per epoch (drop_last=True): {len(train_loader)}")
     
     print("Starting GPU training...")
 
