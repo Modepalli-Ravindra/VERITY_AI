@@ -62,8 +62,19 @@ def run_benchmark():
     print(f"V5 Original Threshold: {v5_orig_thresh}")
     
     # Init V5-Robust
-    # We will instantiate a new service directly from the new checkpoint
-    v5_robust = V5InferenceService(checkpoint_path=os.path.join(project_root, 'experiments/v5_robust/checkpoints/best_model.pt'))
+    # Instantiate the service without arguments, then load the robust checkpoint manually
+    v5_robust = V5InferenceService()
+    v5_robust_ckpt_path = os.path.join(project_root, 'experiments/v5_robust/checkpoints/best_model.pt')
+    if os.path.exists(v5_robust_ckpt_path):
+        checkpoint = torch.load(v5_robust_ckpt_path, map_location=v5_robust.device)
+        state_dict = checkpoint.get('model_state_dict', checkpoint) if isinstance(checkpoint, dict) else checkpoint
+        if isinstance(checkpoint, dict) and 'threshold' in checkpoint:
+            v5_robust.config.threshold = checkpoint['threshold']
+        if isinstance(checkpoint, dict) and 'max_length' in checkpoint:
+            v5_robust.config.max_sequence_length = checkpoint['max_length']
+        v5_robust.model.load_state_dict(state_dict)
+        v5_robust.model.eval()
+        
     v5_robust_thresh = v5_robust.config.threshold
     print(f"V5 Robust Threshold: {v5_robust_thresh}")
     
