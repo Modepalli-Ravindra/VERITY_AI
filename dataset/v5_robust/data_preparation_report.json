@@ -1,0 +1,76 @@
+{
+  "seed": 42,
+  "source_files": [
+    "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\dataset\\hc3\\all.jsonl",
+    "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\dataset\\formal\\formal_subsets.csv",
+    "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\dataset\\raid\\raid_train_subset.csv",
+    "C:\\Users\\user\\OneDrive\\Desktop\\VERITY\\dataset\\raid\\raid_subset.csv"
+  ],
+  "datasets": {
+    "train": {
+      "total": 39201,
+      "human": 21826,
+      "ai": 17375,
+      "hc3": 15002,
+      "formal": 9199,
+      "raid": 15000
+    },
+    "validation": {
+      "total": 6312,
+      "human": 4028,
+      "ai": 2284,
+      "hc3": 5002,
+      "formal": 1150,
+      "raid": 1000
+    },
+    "test": {
+      "hc3": {
+        "human": 44778,
+        "ai": 20620,
+        "total": 65398
+      },
+      "formal": {
+        "human": 488,
+        "ai": 662,
+        "total": 1150
+      },
+      "raid": {
+        "total": 20000,
+        "human": 10000,
+        "ai": 10000
+      }
+    },
+    "raid_train_attacks": {
+      "synonym": 1590,
+      "insert_paragraphs": 1902,
+      "perplexity_misspelling": 907,
+      "zero_width_space": 615,
+      "article_deletion": 1254,
+      "whitespace": 1866,
+      "alternative_spelling": 1032,
+      "homoglyph": 1911,
+      "none": 1889,
+      "paraphrase": 1357,
+      "number": 677
+    }
+  },
+  "leakage_checks": {
+    "hc3_question_overlap": {
+      "train_intersect_val": 0,
+      "train_intersect_test": 0,
+      "val_intersect_test": 0
+    },
+    "formal_exact_text_overlap": {
+      "train_intersect_val": 0,
+      "train_intersect_test": 0,
+      "val_intersect_test": 0
+    },
+    "raid_exact_text_overlap": {
+      "train_intersect_val": 0,
+      "train_intersect_test": 0,
+      "val_intersect_test": 0,
+      "initial_overlap_found_and_removed": 494
+    },
+    "cross_domain_overlap": 837
+  }
+}
