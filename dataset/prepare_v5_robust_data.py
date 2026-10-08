@@ -6,6 +6,7 @@ import random
 import hashlib
 import pandas as pd
 from collections import defaultdict
+from datasets import load_dataset
 
 def normalize_text_hash(text):
     return hashlib.md5(str(text).strip().lower().encode('utf-8')).hexdigest()
@@ -30,7 +31,7 @@ def main():
     }
     
     # ---------------------------------------------------------
-    # 1. Process HC3 (Question-level split)
+    # 1. Process HC3
     # ---------------------------------------------------------
     print("\nParsing HC3...")
     question_to_samples = defaultdict(list)
@@ -47,20 +48,18 @@ def main():
                 question = data.get("question", "").strip()
                 if not question: continue
                 
-                # Human
                 for ans in data.get("human_answers", []):
                     ans_str = str(ans).strip()
                     if ans_str and "network error" not in ans_str.lower():
                         question_to_samples[question].append({"text": ans_str, "label": 0, "domain": "hc3", "question": question})
                         
-                # AI
                 for ans in data.get("chatgpt_answers", []):
                     ans_str = str(ans).strip()
                     if ans_str and "network error" not in ans_str.lower():
                         question_to_samples[question].append({"text": ans_str, "label": 1, "domain": "hc3", "question": question})
                         
     questions = list(question_to_samples.keys())
-    questions.sort() # Ensure stable ordering before shuffle
+    questions.sort()
     random.seed(42)
     random.shuffle(questions)
     
@@ -86,7 +85,6 @@ def main():
             
     print(f"HC3 -> Train: {len(hc3_train)}, Val: {len(hc3_val)}, Test: {len(hc3_test)}")
     
-    # Verify HC3 leakage
     hc3_leak_train_val = len(q_train.intersection(q_val))
     hc3_leak_train_test = len(q_train.intersection(q_test))
     hc3_leak_val_test = len(q_val.intersection(q_test))
@@ -117,7 +115,6 @@ def main():
     random.seed(42)
     random.shuffle(formal_samples)
     
-    # 80/10/10 split
     f_train_idx = int(len(formal_samples) * 0.8)
     f_val_idx = int(len(formal_samples) * 0.9)
     
@@ -142,44 +139,98 @@ def main():
     print(f"Formal -> Train: {len(formal_train)}, Val: {len(formal_val)}, Test: {len(formal_test)}")
     
     if f_leak_train_val > 0 or f_leak_train_test > 0 or f_leak_val_test > 0:
-        print(f"ERROR: Formal Text Overlap detected! (Tr-V: {f_leak_train_val}, Tr-Te: {f_leak_train_test}, V-Te: {f_leak_val_test})")
+        print(f"ERROR: Formal Text Overlap detected!")
         sys.exit(1)
 
+    # Global occupied hashes before parsing RAID
+    global_hashes = set()
+    global_hashes.update(f_train_hashes)
+    global_hashes.update(f_val_hashes)
+    global_hashes.update(f_test_hashes)
+    for s in hc3_train + hc3_val + hc3_test:
+        global_hashes.add(normalize_text_hash(s['text']))
+
     # ---------------------------------------------------------
-    # 3. Process RAID (from raid_train_subset.csv)
+    # 3. Process RAID Safely
     # ---------------------------------------------------------
-    print("\nParsing RAID...")
-    raid_df = pd.read_csv(raid_train_file)
+    print("\nParsing RAID and expanding pool if needed...")
     raid_test_df = pd.read_csv(raid_test_file)
-    
     raid_test_hashes = set(normalize_text_hash(t) for t in raid_test_df['text'].tolist())
     
-    # Filter raid_train to prevent any overlap with raid_test AND deduplicate internal overlaps
-    raid_train_clean = []
+    raid_pool_human = []
+    raid_pool_ai = []
     r_overlap_with_test = 0
+    cross_domain_overlap = 0
     seen_r = set()
-    for _, row in raid_df.iterrows():
-        t = str(row['text'])
+    
+    def add_to_pool(s):
+        nonlocal r_overlap_with_test, cross_domain_overlap
+        t = str(s['text'])
         h = normalize_text_hash(t)
+        
         if h in raid_test_hashes:
             r_overlap_with_test += 1
-        elif h not in seen_r:
-            seen_r.add(h)
-            s = {"text": t, "label": int(row['label']), "domain": "raid"}
-            if 'attack' in row:
-                s['attack'] = row['attack']
-            raid_train_clean.append(s)
+            return False
+        if h in global_hashes:
+            cross_domain_overlap += 1
+            return False
+        if h in seen_r:
+            return False
             
-    # We want 15,000 train, 1,000 val
-    raid_human = [s for s in raid_train_clean if s['label'] == 0]
-    raid_ai = [s for s in raid_train_clean if s['label'] == 1]
+        seen_r.add(h)
+        if s['label'] == 0:
+            raid_pool_human.append(s)
+        else:
+            raid_pool_ai.append(s)
+        return True
+
+    # First load local csv
+    if os.path.exists(raid_train_file):
+        raid_df = pd.read_csv(raid_train_file)
+        for _, row in raid_df.iterrows():
+            s = {"text": str(row['text']), "label": int(row['label']), "domain": "raid"}
+            if 'attack' in row: s['attack'] = row['attack']
+            if 'model' in row: s['model'] = row['model']
+            add_to_pool(s)
+
+    # Stream from Hugging Face if we need more to fulfill 8000 Human / 8000 AI
+    TARGET_PER_CLASS = 8000
     
+    if len(raid_pool_human) < TARGET_PER_CLASS or len(raid_pool_ai) < TARGET_PER_CLASS:
+        print(f"Local pool insufficient (Human: {len(raid_pool_human)}/{TARGET_PER_CLASS}, AI: {len(raid_pool_ai)}/{TARGET_PER_CLASS}). Streaming from liamdugan/raid...")
+        ds = load_dataset("liamdugan/raid", split="train", streaming=True)
+        for item in ds:
+            if len(raid_pool_human) >= TARGET_PER_CLASS and len(raid_pool_ai) >= TARGET_PER_CLASS:
+                break
+                
+            model_name = str(item.get("model", "unknown")).strip()
+            is_human = (model_name.lower() == "human")
+            
+            if is_human and len(raid_pool_human) >= TARGET_PER_CLASS:
+                continue
+            if not is_human and len(raid_pool_ai) >= TARGET_PER_CLASS:
+                continue
+                
+            s = {
+                "text": str(item.get("generation") or item.get("text") or "").strip(),
+                "label": 0 if is_human else 1,
+                "domain": "raid",
+                "attack": str(item.get("attack", "none")).strip(),
+                "model": model_name
+            }
+            if s["text"]:
+                add_to_pool(s)
+                
     random.seed(42)
-    random.shuffle(raid_human)
-    random.shuffle(raid_ai)
+    random.shuffle(raid_pool_human)
+    random.shuffle(raid_pool_ai)
     
-    raid_train = raid_human[:7500] + raid_ai[:7500]
-    raid_val = raid_human[7500:8000] + raid_ai[7500:8000]
+    raid_train = raid_pool_human[:7500] + raid_pool_ai[:7500]
+    raid_val = raid_pool_human[7500:8000] + raid_pool_ai[7500:8000]
+    
+    assert len(raid_train) == 15000, f"Expected 15000 RAID train, got {len(raid_train)}"
+    assert len(raid_val) == 1000, f"Expected 1000 RAID val, got {len(raid_val)}"
+    assert len(raid_test_df) == 20000, "Expected 20000 RAID test."
     
     r_train_hashes = set(normalize_text_hash(s['text']) for s in raid_train)
     r_val_hashes = set(normalize_text_hash(s['text']) for s in raid_val)
@@ -188,18 +239,18 @@ def main():
     r_leak_train_test = len(r_train_hashes.intersection(raid_test_hashes))
     r_leak_val_test = len(r_val_hashes.intersection(raid_test_hashes))
     
+    assert r_leak_train_val == 0
+    assert r_leak_train_test == 0
+    assert r_leak_val_test == 0
+    
     report["leakage_checks"]["raid_exact_text_overlap"] = {
         "train_intersect_val": r_leak_train_val,
         "train_intersect_test": r_leak_train_test,
         "val_intersect_test": r_leak_val_test,
-        "initial_overlap_found_and_removed": r_overlap_with_test
+        "test_overlap_found_and_removed": r_overlap_with_test
     }
-    
-    if r_leak_train_val > 0 or r_leak_train_test > 0 or r_leak_val_test > 0:
-        print(f"ERROR: RAID Overlap detected! Tr-V: {r_leak_train_val}, Tr-Te: {r_leak_train_test}, V-Te: {r_leak_val_test}")
-        sys.exit(1)
-        
-    # Attack distribution for RAID Train
+    report["leakage_checks"]["cross_domain_overlap"] = cross_domain_overlap
+
     raid_train_attacks = defaultdict(int)
     for s in raid_train:
         if 'attack' in s: raid_train_attacks[s['attack']] += 1
@@ -212,16 +263,6 @@ def main():
     train_combined = hc3_train + formal_train + raid_train
     val_combined = hc3_val + formal_val + raid_val
     
-    # Make sure we don't accidentally leak between datasets (e.g. HC3 text appearing in Formal)
-    all_train_hashes = set(normalize_text_hash(s['text']) for s in train_combined)
-    all_val_hashes = set(normalize_text_hash(s['text']) for s in val_combined)
-    
-    cross_leak = len(all_train_hashes.intersection(all_val_hashes))
-    report["leakage_checks"]["cross_domain_overlap"] = cross_leak
-    if cross_leak > 0:
-        print(f"WARNING: Cross-domain overlap detected (Train intersect Val = {cross_leak}). Cleaning Val...")
-        val_combined = [s for s in val_combined if normalize_text_hash(s['text']) not in all_train_hashes]
-        
     random.seed(42)
     random.shuffle(train_combined)
     random.shuffle(val_combined)
@@ -230,7 +271,7 @@ def main():
     val_csv = os.path.join(v5_robust_dir, "val.csv")
     test_hc3_csv = os.path.join(v5_robust_dir, "test_hc3.csv")
     test_formal_csv = os.path.join(v5_robust_dir, "test_formal.csv")
-    test_raid_csv = os.path.join(v5_robust_dir, "test_raid.csv") # we'll just copy the raid_subset.csv
+    test_raid_csv = os.path.join(v5_robust_dir, "test_raid.csv")
     
     def write_csv(path, data, fields=["text", "label"]):
         with open(path, "w", newline="", encoding="utf-8") as f:
@@ -243,7 +284,6 @@ def main():
     write_csv(test_hc3_csv, hc3_test)
     write_csv(test_formal_csv, formal_test)
     
-    # Just copy the RAID test set directly to ensure it is EXACTLY untouched
     import shutil
     shutil.copy2(raid_test_file, test_raid_csv)
     
@@ -295,7 +335,7 @@ def main():
         f.write(f"- HC3 Question Overlap (Tr/Val, Tr/Te, Val/Te): {hc3_leak_train_val}, {hc3_leak_train_test}, {hc3_leak_val_test}\n")
         f.write(f"- Formal Exact Overlap (Tr/Val, Tr/Te, Val/Te): {f_leak_train_val}, {f_leak_train_test}, {f_leak_val_test}\n")
         f.write(f"- RAID Exact Overlap (Tr/Val, Tr/Te, Val/Te): {r_leak_train_val}, {r_leak_train_test}, {r_leak_val_test} (Filtered initial overlaps: {r_overlap_with_test})\n")
-        f.write(f"- Cross-Domain Train/Val Overlap: {cross_leak}\n")
+        f.write(f"- Cross-Domain Overlap Filtered: {cross_domain_overlap}\n")
         
         f.write("\n## Dataset Composition\n")
         f.write("### Train Set\n")

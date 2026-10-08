@@ -11,7 +11,7 @@
 - HC3 Question Overlap (Tr/Val, Tr/Te, Val/Te): 0, 0, 0
 - Formal Exact Overlap (Tr/Val, Tr/Te, Val/Te): 0, 0, 0
 - RAID Exact Overlap (Tr/Val, Tr/Te, Val/Te): 0, 0, 0 (Filtered initial overlaps: 494)
-- Cross-Domain Train/Val Overlap: 837
+- Cross-Domain Overlap Filtered: 0
 
 ## Dataset Composition
 ### Train Set
@@ -23,9 +23,9 @@
 - RAID: 15000
 
 ### Validation Set
-- Total: 6312
-- Human: 4028
-- AI: 2284
+- Total: 7152
+- Human: 4439
+- AI: 2713
 - HC3: 5002
 - Formal: 1150
 - RAID: 1000

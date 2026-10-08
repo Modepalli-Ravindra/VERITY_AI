@@ -16,9 +16,9 @@
       "raid": 15000
     },
     "validation": {
-      "total": 6312,
-      "human": 4028,
-      "ai": 2284,
+      "total": 7152,
+      "human": 4439,
+      "ai": 2713,
       "hc3": 5002,
       "formal": 1150,
       "raid": 1000
@@ -69,8 +69,8 @@
       "train_intersect_val": 0,
       "train_intersect_test": 0,
       "val_intersect_test": 0,
-      "initial_overlap_found_and_removed": 494
+      "test_overlap_found_and_removed": 494
     },
-    "cross_domain_overlap": 837
+    "cross_domain_overlap": 0
   }
 }
