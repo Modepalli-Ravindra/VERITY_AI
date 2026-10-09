@@ -349,7 +349,8 @@ def main():
     except AttributeError:
         scaler = torch.cuda.amp.GradScaler(enabled=(device.type == 'cuda'))
     
-    best_f1 = 0
+    best_f1 = -1.0
+    best_epoch = -1
     for epoch in range(args.epochs):
         epoch_start = time.time()
         model.train()
@@ -435,11 +436,19 @@ def main():
                 
             dl_start = time.time()
             
+        if len(train_loader) % args.gradient_accumulation_steps != 0:
+            scaler.step(optimizer)
+            scaler.update()
+            optimizer.zero_grad()
+            if device.type == 'cuda':
+                torch.cuda.synchronize()
+            
         print(f"Epoch {epoch+1}/{args.epochs} - Train Loss: {total_loss / len(train_loader):.4f} - Epoch Time: {time.time() - epoch_start:.2f}s")
 
         
         # VALIDATION EVALUATION
         model.eval()
+        val_probs = []
         val_preds = []
         val_targets = []
         with torch.no_grad():
@@ -458,11 +467,13 @@ def main():
                         
                 probs = torch.sigmoid(logits).cpu().numpy()
                 preds = (probs >= 0.50).astype(int)
+                val_probs.extend(probs)
                 val_preds.extend(preds)
                 val_targets.extend(labels)
                 
         val_targets = np.array(val_targets)
         val_preds = np.array(val_preds)
+        val_probs = np.array(val_probs)
         
         if len(val_targets) > 0:
             print(f"Validation samples evaluated: {len(val_targets)} (duplicate-text filtering WAS applied)")
@@ -480,7 +491,7 @@ def main():
             mcc = matthews_corrcoef(val_targets, val_preds)
             
             try:
-                auroc = roc_auc_score(val_targets, val_preds)
+                auroc = roc_auc_score(val_targets, val_probs)
             except ValueError:
                 auroc = 0.0
                 
@@ -496,19 +507,39 @@ def main():
             print(f"  AUROC: {auroc:.4f}")
             print(f"  Confusion Matrix:\n{cm}")
             
-    print("Saving checkpoint...")
-    ckpt_path = os.path.join(args.output_dir, "best_model.pt")
-    checkpoint_data = {
-        'model_state_dict': model.state_dict(),
-        'optimizer_state_dict': optimizer.state_dict(),
-        'epoch': epoch,
-        'seed': args.seed,
-        'config': config.dict(),
-        'freeze_mode': args.freeze_mode,
-        'max_length': args.max_length,
-        'threshold': config.threshold
-    }
-    torch.save(checkpoint_data, ckpt_path)
-    
+            if f1 > best_f1:
+                best_f1 = f1
+                best_epoch = epoch
+                print(f"  >>> New best validation F1! Saving checkpoint...")
+                ckpt_path = os.path.join(args.output_dir, "best_model.pt")
+                checkpoint_data = {
+                    'model_state_dict': model.state_dict(),
+                    'optimizer_state_dict': optimizer.state_dict(),
+                    'epoch': epoch,
+                    'seed': args.seed,
+                    'config': config.dict(),
+                    'freeze_mode': args.freeze_mode,
+                    'max_length': args.max_length,
+                    'threshold': config.threshold,
+                    'val_f1': best_f1,
+                    'val_auroc': auroc
+                }
+                torch.save(checkpoint_data, ckpt_path)
+                
+                metrics_path = os.path.join(args.output_dir, "training_results.json")
+                with open(metrics_path, "w") as f:
+                    json.dump({
+                        "best_epoch": int(best_epoch),
+                        "best_f1": float(best_f1),
+                        "auroc": float(auroc),
+                        "accuracy": float(acc),
+                        "precision": float(prec),
+                        "ai_recall": float(ai_recall),
+                        "human_recall": float(human_recall),
+                        "confusion_matrix": cm.tolist()
+                    }, f, indent=2)
+                    
+    print(f"Training complete. Best epoch: {best_epoch+1} with F1: {best_f1:.4f}")
+
 if __name__ == "__main__":
     main()
