@@ -285,7 +285,7 @@ def main():
     train_ds = PrecomputedVerityDataset(tr_input_ids, tr_attn_masks, tr_stylo, tr_labels, scaler=scaler)
     val_ds = PrecomputedVerityDataset(val_input_ids, val_attn_masks, val_stylo, val_labels, scaler=scaler)
     
-    train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True, pin_memory=True if device.type == 'cuda' else False, num_workers=args.num_workers)
+    train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True, drop_last=True, pin_memory=True if device.type == 'cuda' else False, num_workers=args.num_workers)
     val_loader = DataLoader(val_ds, batch_size=args.batch_size, pin_memory=True if device.type == 'cuda' else False, num_workers=args.num_workers)
     
     print("Starting GPU training...")
@@ -436,14 +436,16 @@ def main():
                 
             dl_start = time.time()
             
-        if len(train_loader) % args.gradient_accumulation_steps != 0:
+        train_loader_len = len(train_loader)
+        if train_loader_len > 0 and train_loader_len % args.gradient_accumulation_steps != 0:
             scaler.step(optimizer)
             scaler.update()
             optimizer.zero_grad()
             if device.type == 'cuda':
                 torch.cuda.synchronize()
             
-        print(f"Epoch {epoch+1}/{args.epochs} - Train Loss: {total_loss / len(train_loader):.4f} - Epoch Time: {time.time() - epoch_start:.2f}s")
+        avg_loss = total_loss / train_loader_len if train_loader_len > 0 else 0.0
+        print(f"Epoch {epoch+1}/{args.epochs} - Train Loss: {avg_loss:.4f} - Epoch Time: {time.time() - epoch_start:.2f}s")
 
         
         # VALIDATION EVALUATION

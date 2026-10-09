@@ -78,5 +78,29 @@ class TestV5TrainingLogic(unittest.TestCase):
         scaler_file = os.path.join(self.output_dir, "v5_scaler.json")
         self.assertTrue(os.path.exists(scaler_file), "v5_scaler.json was not saved")
 
+    def test_singleton_batch_does_not_crash(self):
+        root_dir = Path(__file__).resolve().parent.parent
+        script_path = os.path.join(root_dir, "experiments", "v5_modernbert", "train_v5.py")
+        
+        # We have 6 total samples (3 human, 3 AI).
+        # Using a batch size of 5 will leave 1 sample in the final batch.
+        # Without drop_last=True, BatchNorm1d would crash during model.train().
+        cmd = [
+            sys.executable, script_path,
+            "--train_data", self.train_data,
+            "--val_data", self.val_data,
+            "--epochs", "1",
+            "--batch_size", "5",
+            "--output_dir", self.output_dir,
+            "--max_train_samples", "6",
+            "--max_val_samples", "6"
+        ]
+        
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        if result.returncode != 0:
+            print(result.stdout)
+            print(result.stderr)
+        self.assertEqual(result.returncode, 0, "Training crashed on singleton batch!")
+
 if __name__ == "__main__":
     unittest.main()
