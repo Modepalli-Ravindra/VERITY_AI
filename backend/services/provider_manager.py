@@ -192,8 +192,29 @@ class ProviderManager:
     @classmethod
     def _try_local_transformer(cls, text: str) -> Dict[str, Any]:
         """
-        Runs prediction through trained FeatureFusionDetector.
+        Runs prediction through trained FeatureFusionDetector or V5 ModernBERT.
         """
+        model_name = cls.get_primary_model_name().lower()
+        if "modernbert" in model_name or "v5" in model_name:
+            try:
+                from backend.ml.experimental.v5_inference import V5InferenceService
+                service = V5InferenceService.get_instance()
+                res = service.analyze(text)
+                return {
+                    "classification": res["predicted_class"],
+                    "ai_probability": res["ai_probability"],
+                    "human_probability": 1.0 - res["ai_probability"],
+                    "confidence": "high",
+                    "explanation": f"VERITY {res['model_version']} model analysis",
+                    "stylometric_features": None,
+                    "provider": "local_transformer",
+                    "status": "success",
+                    "semantic_available": True,
+                    "detection_engine": res["model_version"]
+                }
+            except Exception as e:
+                logger.warning(f"V5 ModernBERT evaluation exception: {e}. Falling back to V2.")
+
         try:
             return FeatureFusionDetector.evaluate(text)
         except Exception as e:

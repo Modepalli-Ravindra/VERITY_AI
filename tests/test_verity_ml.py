@@ -15,10 +15,18 @@ from backend.ml.fusion_model import FeatureFusionDetector
 from backend.ml.transformer_model import TransformerModelManager
 from backend.services.provider_manager import ProviderManager
 from backend.app.main import app
+from backend.api.auth import get_current_user
 
 class TestVerityMLV2Detector(unittest.TestCase):
     def setUp(self):
+        class FakeUser:
+            def __init__(self, id):
+                self.id = id
+        app.dependency_overrides[get_current_user] = lambda: FakeUser("test-123")
         self.client = TestClient(app)
+
+    def tearDown(self):
+        app.dependency_overrides.clear()
 
     def test_01_nfkc_normalization(self):
         text_fullwidth = "Ｈｅｌｌｏ Ｗｏｒｌｄ！" # Fullwidth unicode

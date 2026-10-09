@@ -17,6 +17,7 @@ from transformers import AutoTokenizer, AutoModel
 from backend.ml.experimental.v5_config import V5Config
 from backend.ml.experimental.verity_v5_model import VerityV5Model
 from backend.ml.stylometrics import StylometricExtractor
+from backend.ml.train_v2_stage1 import SimpleScaler
 
 def set_seed(seed):
     random.seed(seed)
@@ -29,10 +30,14 @@ def normalize_text_hash(text):
     return hashlib.md5(text.strip().lower().encode('utf-8')).hexdigest()
 
 class PrecomputedVerityDataset(Dataset):
-    def __init__(self, input_ids, attention_masks, stylometric_xs, labels):
+    def __init__(self, input_ids, attention_masks, stylometric_xs, labels, scaler=None):
         self.input_ids = input_ids
         self.attention_masks = attention_masks
-        self.stylometric_xs = stylometric_xs
+        if scaler is not None:
+            scaled_stylo = [scaler.transform(x.tolist()) for x in stylometric_xs]
+            self.stylometric_xs = torch.tensor(scaled_stylo, dtype=torch.float32)
+        else:
+            self.stylometric_xs = stylometric_xs
         self.labels = labels
         
     def __len__(self):
@@ -269,8 +274,16 @@ def main():
     print("Preprocessing validation set...")
     val_input_ids, val_attn_masks, val_stylo, val_labels = preprocess_and_cache(val_t, val_l, tokenizer, args.max_length, val_cache_path)
     
-    train_ds = PrecomputedVerityDataset(tr_input_ids, tr_attn_masks, tr_stylo, tr_labels)
-    val_ds = PrecomputedVerityDataset(val_input_ids, val_attn_masks, val_stylo, val_labels)
+    print("Fitting stylometric feature scaler...")
+    scaler = SimpleScaler()
+    scaler.fit(tr_stylo.tolist())
+    scaler_path = os.path.join(args.output_dir, "v5_scaler.json")
+    with open(scaler_path, "w", encoding="utf-8") as f:
+        json.dump(scaler.to_dict(), f, indent=2)
+    print(f"Scaler saved to {scaler_path}")
+    
+    train_ds = PrecomputedVerityDataset(tr_input_ids, tr_attn_masks, tr_stylo, tr_labels, scaler=scaler)
+    val_ds = PrecomputedVerityDataset(val_input_ids, val_attn_masks, val_stylo, val_labels, scaler=scaler)
     
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True, pin_memory=True if device.type == 'cuda' else False, num_workers=args.num_workers)
     val_loader = DataLoader(val_ds, batch_size=args.batch_size, pin_memory=True if device.type == 'cuda' else False, num_workers=args.num_workers)

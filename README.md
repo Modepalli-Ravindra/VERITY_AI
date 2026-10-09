@@ -124,6 +124,28 @@ npm run test:e2e
 ### ML Robustness & Evaluation
 Scripts for training, evaluating, and diagnosing model accuracy on short texts and paraphrased datasets are located in `backend/ml/` and `scripts/`.
 
+### V5 ModernBERT Kaggle GPU Training Pipeline
+To retrain the experimental V5 ModernBERT model on a Kaggle GPU instance:
+1. **Setup**: Clone the repo and install dependencies (`transformers`, `torch`, `scikit-learn`, `pandas`).
+2. **Strict Deduplication**: Run `verify_raid_split.py` or manually remove overlapping hashes between `dataset/raid/raid_train_subset.csv` and `dataset/raid/raid_subset.csv` to create `dataset/raid/raid_train_clean.csv`.
+3. **Training Command**:
+```bash
+python experiments/v5_modernbert/train_v5.py \
+  --train_data dataset/hc3/all.jsonl dataset/raid/raid_train_clean.csv \
+  --val_data dataset/hc3/val.jsonl \
+  --epochs 3 \
+  --batch_size 16 \
+  --learning_rate 1e-4 \
+  --transformer_learning_rate 2e-5 \
+  --max_length 1024 \
+  --output_dir backend/ml/experimental/model
+```
+4. **Evaluation Command**: Evaluate V5 against V2 strictly on untouched validation data:
+```bash
+python experiments/v5_modernbert/benchmark_v4_vs_v5.py
+```
+5. **Durable Backup**: Kaggle ephemeral storage will delete your checkpoints. You must download `backend/ml/experimental/model/best_model.pt` and `v5_scaler.json` locally or upload them to a private Hugging Face Model Hub repository. Do not commit large `.pt` checkpoints directly to the GitHub repository.
+
 ---
 
 ## 📜 License & Usage
