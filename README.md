@@ -4,6 +4,31 @@
   <p><i>An advanced AI-generated text detection and humanization platform featuring transformer semantic representation and stylometric feature fusion.</i></p>
 </div>
 
+## 📚 Technical Documentation & ML Learning Guide
+
+For complete, line-by-line architectural breakdowns, forensic evidence, and Machine Learning fundamentals written in conversational Telugu-English (Tenglish) with standard English terminology:
+
+- 📖 **[VERITY AI Complete Technical Guide](docs/VERITY_AI_COMPLETE_TECHNICAL_GUIDE.md)**: Exhaustive A-to-Z textbook and architectural forensic audit covering all 18 phases:
+  - Phase 1: Forensic Evidence & Repository Inventory
+  - Phase 2: Project Overview & Core Philosophy
+  - Phase 3: Complete Frontend Architecture (React 18, Vite, TypeScript, Tailwind)
+  - Phase 4: Backend Engineering & FastAPI Lifecycle
+  - Phase 5: Database & Persistence Architecture (InsForge BaaS PostgreSQL)
+  - Phase 6: Machine Learning Fundamentals from Absolute Zero
+  - Phase 7: Detection Models: ModernBERT V5 vs DistilRoBERTa V2
+  - Phase 8: The 20 Stylometric & Linguistic Features Deep Dive
+  - Phase 9: Feature Fusion Mathematics (768-D + 20-D → 320-D Joint Space)
+  - Phase 10: Training Pipeline, HC3/RAID Datasets & Leakage Prevention
+  - Phase 11: Model Evaluation, Metrics & Real-World Accuracy
+  - Phase 12: Pin-to-Pin Inference Pipeline Walkthrough
+  - Phase 13: Document Intelligence (PDF, DOCX, TXT bounded chunking)
+  - Phase 14: Comparison Engine & Adversarial Robustness Lab
+  - Phase 15: Paraphrasing, Humanization & Section 9/24 Preservation
+  - Phase 16: Complete Audit of All 22 Platform Capabilities
+  - Phase 17: Security, Rate Limiting, Redaction & Reliability
+  - Phase 18: Technical Glossary (A to Z) & Master Interview Preparation
+- ⚡ **[VERITY AI Quick Interview Revision](docs/VERITY_AI_INTERVIEW_REVISION.md)**: High-yield cheat sheet with 30-second and 2-minute elevator pitches, key architectural numbers (768-D + 20-D → 320-D, thresholds 0.70 / 0.50), top 10 technical interview Q&As, and quick mental flashcards.
+
 ---
 
 ## 📖 Overview
@@ -20,8 +45,6 @@
 - **Verifiable Content Provenance**: SHA-256 document hashing, immutable Verification IDs, signed QR codes, and privacy-safe public verification portal.
 
 ---
-
-## 🏗️ Architecture & Technology Stack
 
 VERITY maintains strict separation of concerns across its frontend, backend services, and machine learning pipelines.
 
