@@ -1,9 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Activity, TrendingDown, RotateCcw } from 'lucide-react';
+import { 
+  ChartBarSquareIcon as Activity, 
+  ArrowTrendingDownIcon as TrendingDown, 
+  ArrowPathIcon as RotateCcw, 
+  ExclamationTriangleIcon as AlertTriangle, 
+  DocumentDuplicateIcon as Copy, 
+  CheckIcon as Check 
+} from '@heroicons/react/24/outline';
 import { ThinkingOrbs } from '../components/ThinkingOrbs';
 import { useAuth } from '../context/AuthContext';
 import { getAuthToken } from '../lib/insforge';
+import { computeComparisonMetrics, countWords } from '../utils/probability';
+import { HistoryService } from '../services/historyService';
 
 interface ComparePageProps {
   onNavigate?: (route: string, state?: any) => void;
@@ -20,31 +29,98 @@ export const ComparePage: React.FC<ComparePageProps> = ({
   initialHumResult = null
 }) => {
   const { user } = useAuth();
-  const [originalText, setOriginalText] = useState(() => initialOriginal || localStorage.getItem(user ? `verity_compare_orig_${user.id}` : 'verity_compare_orig') || '');
-  const [humanizedText, setHumanizedText] = useState(() => initialHumanized || localStorage.getItem(user ? `verity_compare_hum_${user.id}` : 'verity_compare_hum') || '');
+
+  const [originalText, setOriginalText] = useState(() => {
+    if (initialOriginal) return initialOriginal;
+    return (
+      (user ? localStorage.getItem(`verity_compare_orig_${user.id}`) : null) ||
+      localStorage.getItem('verity_compare_orig') ||
+      ''
+    );
+  });
+
+  const [humanizedText, setHumanizedText] = useState(() => {
+    if (initialHumanized) return initialHumanized;
+    return (
+      (user ? localStorage.getItem(`verity_compare_hum_${user.id}`) : null) ||
+      localStorage.getItem('verity_compare_hum') ||
+      ''
+    );
+  });
+
   const [origResult, setOrigResult] = useState<any | null>(() => {
-    const saved = localStorage.getItem(user ? `verity_compare_ores_${user.id}` : 'verity_compare_ores');
-    return saved ? JSON.parse(saved) : null;
+    if (initialOrigResult) return initialOrigResult;
+    try {
+      const saved = (user ? localStorage.getItem(`verity_compare_ores_${user.id}`) : null) ||
+        localStorage.getItem('verity_compare_ores');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
   });
+
   const [humResult, setHumResult] = useState<any | null>(() => {
-    const saved = localStorage.getItem(user ? `verity_compare_hres_${user.id}` : 'verity_compare_hres');
-    return saved ? JSON.parse(saved) : null;
+    if (initialHumResult) return initialHumResult;
+    try {
+      const saved = (user ? localStorage.getItem(`verity_compare_hres_${user.id}`) : null) ||
+        localStorage.getItem('verity_compare_hres');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
   });
+
   const [loading, setLoading] = useState(false);
+  const [compareError, setCompareError] = useState<string | null>(null);
   const [copiedOrig, setCopiedOrig] = useState(false);
   const [copiedHum, setCopiedHum] = useState(false);
 
-  useEffect(() => { localStorage.setItem(user ? `verity_compare_orig_${user.id}` : 'verity_compare_orig', originalText); }, [originalText, user]);
-  useEffect(() => { localStorage.setItem(user ? `verity_compare_hum_${user.id}` : 'verity_compare_hum', humanizedText); }, [humanizedText, user]);
-  useEffect(() => { 
-    const key = user ? `verity_compare_ores_${user.id}` : 'verity_compare_ores';
-    if (origResult) localStorage.setItem(key, JSON.stringify(origResult)); 
-    else localStorage.removeItem(key); 
+  // Restore cached results if user was resolved after mount
+  useEffect(() => {
+    if (user) {
+      if (!origResult) {
+        try {
+          const saved = localStorage.getItem(`verity_compare_ores_${user.id}`);
+          if (saved) setOrigResult(JSON.parse(saved));
+        } catch {}
+      }
+      if (!humResult) {
+        try {
+          const saved = localStorage.getItem(`verity_compare_hres_${user.id}`);
+          if (saved) setHumResult(JSON.parse(saved));
+        } catch {}
+      }
+    }
+  }, [user]);
+
+  // Persist inputs to localStorage
+  useEffect(() => {
+    const key = user ? `verity_compare_orig_${user.id}` : 'verity_compare_orig';
+    localStorage.setItem(key, originalText);
+    localStorage.setItem('verity_compare_orig', originalText);
+  }, [originalText, user]);
+
+  useEffect(() => {
+    const key = user ? `verity_compare_hum_${user.id}` : 'verity_compare_hum';
+    localStorage.setItem(key, humanizedText);
+    localStorage.setItem('verity_compare_hum', humanizedText);
+  }, [humanizedText, user]);
+
+  // Persist results to localStorage safely without wiping on unmount
+  useEffect(() => {
+    if (origResult) {
+      const key = user ? `verity_compare_ores_${user.id}` : 'verity_compare_ores';
+      localStorage.setItem(key, JSON.stringify(origResult));
+      localStorage.setItem('verity_compare_ores', JSON.stringify(origResult));
+    }
   }, [origResult, user]);
-  useEffect(() => { 
-    const key = user ? `verity_compare_hres_${user.id}` : 'verity_compare_hres';
-    if (humResult) localStorage.setItem(key, JSON.stringify(humResult)); 
-    else localStorage.removeItem(key); 
+
+  useEffect(() => {
+    if (humResult) {
+      const key = user ? `verity_compare_hres_${user.id}` : 'verity_compare_hres';
+      localStorage.setItem(key, JSON.stringify(humResult));
+      localStorage.setItem('verity_compare_hres', JSON.stringify(humResult));
+    }
   }, [humResult, user]);
 
   const compareStages = [
@@ -55,251 +131,413 @@ export const ComparePage: React.FC<ComparePageProps> = ({
     'Finalizing robustness check'
   ];
 
-  useEffect(() => {
-    if (initialOrigResult && initialHumResult) {
-      setOrigResult(initialOrigResult);
-      setHumResult(initialHumResult);
-    } else if (initialOriginal && initialHumanized) {
-      runComparison(initialOriginal, initialHumanized, true);
-    }
-    // eslint-disable-next-line
-  }, [initialOriginal, initialHumanized, initialOrigResult, initialHumResult]);
+  const lastEvaluatedOrigRef = useRef<string>('');
+  const lastEvaluatedHumRef = useRef<string>('');
 
   const runComparison = async (orig: string, hum: string, skipDelay: boolean = false) => {
-    if (!orig.trim() || !hum.trim()) return;
+    const oTrim = orig.trim();
+    const hTrim = hum.trim();
+    if (!oTrim || !hTrim) return;
+
+    if (oTrim.length < 50 || hTrim.length < 50) {
+      setCompareError('Both sequences require at least 50 characters (approx. 10 words) for neural stylometric evaluation.');
+      return;
+    }
+
     setLoading(true);
+    setCompareError(null);
     
     const startTime = Date.now();
     try {
       const token = await getAuthToken();
-      
-      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json'
+      };
       if (token) {
         headers['Authorization'] = `Bearer ${token}`;
       }
 
+      // Parallel concurrent execution for original and humanized text analysis (cuts wait time by 50%)
       const [resOrig, resHum] = await Promise.all([
         fetch('/api/analyze', {
           method: 'POST',
           headers,
-          body: JSON.stringify({ text: orig })
-        }).then(r => r.json()),
+          body: JSON.stringify({ text: oTrim, detailed: false })
+        }),
         fetch('/api/analyze', {
           method: 'POST',
           headers,
-          body: JSON.stringify({ text: hum })
-        }).then(r => r.json())
+          body: JSON.stringify({ text: hTrim, detailed: false })
+        })
       ]);
+
+      const [origJson, humJson] = await Promise.all([
+        resOrig.ok ? resOrig.json().catch(() => null) : null,
+        resHum.ok ? resHum.json().catch(() => null) : null
+      ]);
+
+      if (!resOrig.ok || !resHum.ok || !origJson || !humJson) {
+        let errorDetail = '';
+        if (!resOrig.ok) {
+          try {
+            const errObj = await resOrig.json();
+            errorDetail = errObj.detail || errObj.message || '';
+          } catch {
+            errorDetail = await resOrig.text().catch(() => '');
+          }
+        } else if (!resHum.ok) {
+          try {
+            const errObj = await resHum.json();
+            errorDetail = errObj.detail || errObj.message || '';
+          } catch {
+            errorDetail = await resHum.text().catch(() => '');
+          }
+        }
+        if (!errorDetail) {
+          errorDetail = 'Detection engine returned an unparseable response';
+        }
+        setCompareError(`Comparison incomplete: ${errorDetail}`);
+      }
 
       if (!skipDelay) {
         const elapsed = Date.now() - startTime;
-        const minLoadingTime = 4500; 
+        const minLoadingTime = 500; 
         if (elapsed < minLoadingTime) {
           await new Promise(r => setTimeout(r, minLoadingTime - elapsed));
         }
       }
 
-      setOrigResult(resOrig);
-      setHumResult(resHum);
-    } catch (err) {
+      if (origJson) {
+        setOrigResult(origJson);
+        lastEvaluatedOrigRef.current = oTrim;
+      }
+      if (humJson) {
+        setHumResult(humJson);
+        lastEvaluatedHumRef.current = hTrim;
+      }
+
+      // Record in unified history if both valid
+      if (origJson && humJson) {
+        const m = computeComparisonMetrics(origJson, humJson);
+        if (m.canCompare) {
+          HistoryService.recordComparison({
+            userId: user?.id,
+            originalSnippet: oTrim.slice(0, 100),
+            origAiProbability: m.originalScore.probability,
+            adversarialAiProbability: m.adversarialScore.probability,
+            deltaPoints: m.signalChange,
+            modelUsed: m.originalScore.activeModel || 'ModernBERT-V5'
+          });
+        }
+      }
+    } catch (err: any) {
       console.error('Comparison error:', err);
+      setCompareError(err.message || 'Unable to execute comparative analysis');
     } finally {
       setLoading(false);
     }
   };
 
-  const origWords = originalText.trim().split(/\s+/).filter(Boolean).length;
-  const humWords = humanizedText.trim().split(/\s+/).filter(Boolean).length;
+  // Initial mount trigger: ONLY run if handed off explicitly from Paraphrase with initial inputs
+  useEffect(() => {
+    if (initialOrigResult && initialHumResult) {
+      setOrigResult(initialOrigResult);
+      setHumResult(initialHumResult);
+      lastEvaluatedOrigRef.current = initialOriginal.trim();
+      lastEvaluatedHumRef.current = initialHumanized.trim();
+    } else if (initialOriginal && initialHumanized) {
+      // User explicitly clicked "Compare" in Paraphrase section
+      runComparison(initialOriginal, initialHumanized, true);
+    }
+    // eslint-disable-next-line
+  }, [initialOriginal, initialHumanized, initialOrigResult, initialHumResult]);
 
-  const origAiProb = origResult ? Math.round(origResult.ai_probability * 100) : 0;
-  const humAiProb = humResult ? Math.round(humResult.ai_probability * 100) : 0;
-  const aiProbDrop = origAiProb - humAiProb;
+  // Word counts independently calculated directly from text sequences
+  const origWords = countWords(originalText);
+  const humWords = countWords(humanizedText);
+  const wordCountDelta = humWords - origWords;
+
+  // Authoritative probability normalization & delta computation
+  const metrics = useMemo(() => {
+    return computeComparisonMetrics(origResult, humResult);
+  }, [origResult, humResult]);
 
   return (
-    <div className="h-[calc(100vh-10rem)] text-[#f4f4f5] px-6 lg:px-12 pt-0 pb-0 relative overflow-hidden font-sans bg-transparent flex flex-col">
+    <div className="flex-1 min-h-0 h-full text-[#F3F8F8] px-3 sm:px-6 lg:px-8 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#00C9D8]/30">
       
       {/* Background Glows */}
-      <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-[var(--color-lime-sprout)]/5 rounded-full blur-[150px] pointer-events-none -z-10"></div>
-      <div className="absolute top-[20%] left-[-10%] w-[600px] h-[600px] bg-emerald-900/10 rounded-full blur-[150px] pointer-events-none -z-10"></div>
+      <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-[#00C9D8]/5 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-[#008FA3]/5 rounded-full blur-[140px] pointer-events-none -z-10" />
 
-      <div className="max-w-[1440px] w-full mx-auto flex flex-col flex-1 relative z-10 min-h-0 gap-4">
-      
-      {/* Header & Controls */}
-      <motion.div 
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 shrink-0"
-      >
-        <div className="flex flex-col gap-2">
-          <span className="text-[10px] font-semibold text-[var(--color-lime-sprout)] uppercase tracking-[0.2em]">
-            SIGNAL COMPARISON
-          </span>
-          <h1 className="text-3xl sm:text-4xl font-serif text-white tracking-tight">COMPARE TEXT</h1>
-          <p className="text-gray-400 text-sm mt-1">Evaluate AI probability drop across original and adversarial text sequences.</p>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => {
-              setOriginalText('');
-              setHumanizedText('');
-              setOrigResult(null);
-              setHumResult(null);
-            }}
-            className="px-4 py-2 text-[10px] font-mono tracking-widest uppercase text-white/40 hover:text-white transition-colors cursor-pointer flex items-center gap-2"
-          >
-            <RotateCcw className="w-3.5 h-3.5" />
-            <span>Clear</span>
-          </button>
-
-          <button
-            onClick={() => runComparison(originalText, humanizedText)}
-            disabled={loading || !originalText || !humanizedText}
-            className="px-6 py-2.5 bg-[var(--color-lime-sprout)] hover:brightness-110 text-gray-950 font-bold text-xs rounded-full flex items-center gap-2 transition-all disabled:opacity-50 disabled:hover:brightness-100 cursor-pointer shadow-[0_0_20px_rgba(228,253,151,0.2)]"
-          >
-            {loading ? (
-              <>
-                <div className="w-3.5 h-3.5 border border-black/30 border-t-black rounded-full animate-spin" />
-                <span>Processing</span>
-              </>
-            ) : (
-              <>
-                <Activity className="w-3.5 h-3.5" />
-                <span>Run Comparison</span>
-              </>
-            )}
-          </button>
-        </div>
-      </motion.div>
-
-      {/* Loading ThinkingOrbs Banner */}
-      <AnimatePresence>
-        {loading && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#0a0f0a]/80 backdrop-blur-md"
-          >
-            <div className="bg-white/5 backdrop-blur-2xl p-8 rounded-3xl border border-[var(--color-lime-sprout)]/10 flex items-center justify-center shadow-2xl">
-              <ThinkingOrbs title="EVALUATING DEGRADATION" stages={compareStages} durationMs={900} />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Delta Stats Bar */}
-      <AnimatePresence>
-        {!loading && origResult && humResult && (
-          <motion.div 
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4 shrink-0"
-          >
-            <div className="bg-[#121812]/80 backdrop-blur-xl p-4 rounded-2xl border border-white/5 shadow-lg relative overflow-hidden group">
-              <span className="text-[9px] text-gray-500 font-mono tracking-widest uppercase block mb-1">Original AI Probability</span>
-              <div className="text-2xl font-light text-[var(--color-lime-sprout)] mb-1 font-mono">{origAiProb}%</div>
-              <span className="text-xs text-[var(--color-lime-sprout)]/70 font-sans block">{origResult.classification}</span>
-            </div>
-
-            <div className="bg-[#121812]/80 backdrop-blur-xl p-4 rounded-2xl border border-white/5 shadow-lg relative overflow-hidden group">
-              <span className="text-[9px] text-gray-500 font-mono tracking-widest uppercase block mb-1">Adversarial AI Probability</span>
-              <div className="text-2xl font-light text-emerald-400 mb-1 font-mono">{humAiProb}%</div>
-              <span className="text-xs text-emerald-300/70 font-sans block">{humResult.classification}</span>
-            </div>
-
-            <div className="bg-[#121812]/80 backdrop-blur-xl p-4 rounded-2xl border border-[var(--color-lime-sprout)]/20 shadow-lg relative overflow-hidden group flex flex-col justify-between">
-              <div>
-                <span className="text-[9px] text-[var(--color-lime-sprout)]/80 font-mono tracking-widest uppercase flex items-center gap-2 mb-1">
-                  <TrendingDown className="w-3 h-3 text-[var(--color-lime-sprout)]" />
-                  <span>AI SIGNAL CHANGE</span>
-                </span>
-                <div className="text-2xl font-light text-[var(--color-lime-sprout)] mb-1 font-mono">
-                  {aiProbDrop > 0 ? '-' : (aiProbDrop === 0 ? '' : '+')}
-                  {Math.abs(aiProbDrop)} percentage points
-                </div>
-              </div>
-              <span className="text-[10px] text-[var(--color-lime-sprout)]/70 font-sans block uppercase tracking-widest">Word count delta: {humWords - origWords > 0 ? '+' : ''}{humWords - origWords}</span>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Side-by-side / Stacked Cards */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-1 min-h-0 pb-2">
+      <div className="max-w-[1600px] w-full mx-auto flex flex-col flex-1 relative z-10 min-h-0 gap-3">
         
-        {/* Original Text Box */}
-        <motion.div 
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="bg-[#121812]/80 backdrop-blur-xl rounded-3xl border border-white/5 flex flex-col h-full shadow-lg relative overflow-hidden"
-        >
-          <div className="flex items-center justify-between px-8 py-5 bg-white/[0.01] border-b border-white/5">
-            <span className="text-[10px] font-mono tracking-[0.2em] text-gray-500 uppercase">Original Sequence</span>
-            <div className="flex items-center gap-4 text-[10px] font-mono text-gray-600 tracking-widest uppercase">
-              <span>W: <strong className="text-gray-300 font-medium">{origWords}</strong></span>
+        {/* Workspace Toolbar / Header */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shrink-0 py-1.5 border-b border-[rgba(0,201,216,0.15)]">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="text-xs sm:text-sm font-mono font-bold text-[#00C9D8] tracking-[0.25em] uppercase">
+              COMPARE WORKSPACE
+            </span>
+            <span className="text-[#00C9D8]/30 text-xs">•</span>
+            <div className="flex items-center gap-2 text-xs font-mono text-[#9BB2B7]">
+              <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#00C9D8] animate-pulse" />
+              <span>ModernBERT V5</span>
+            </div>
+            <span className="text-[#00C9D8]/30 text-xs">•</span>
+            <span className="text-xs font-mono text-[#6F8B91]">Threshold: 0.70</span>
+          </div>
+
+          <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+            <button
+              onClick={() => {
+                setOriginalText('');
+                setHumanizedText('');
+                setOrigResult(null);
+                setHumResult(null);
+                setCompareError(null);
+                const uKey = user ? `_${user.id}` : '';
+                localStorage.removeItem(`verity_compare_orig${uKey}`);
+                localStorage.removeItem(`verity_compare_hum${uKey}`);
+                localStorage.removeItem(`verity_compare_ores${uKey}`);
+                localStorage.removeItem(`verity_compare_hres${uKey}`);
+                localStorage.removeItem('verity_compare_orig');
+                localStorage.removeItem('verity_compare_hum');
+                localStorage.removeItem('verity_compare_ores');
+                localStorage.removeItem('verity_compare_hres');
+              }}
+              className="px-3.5 py-2 text-xs font-mono tracking-widest uppercase text-[#9BB2B7] hover:text-[#F3F8F8] transition-colors cursor-pointer flex items-center gap-1.5 rounded-xl border border-[rgba(0,201,216,0.15)] bg-[#030B0D]/80 hover:border-[#00C9D8]/40"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Clear Both</span>
+            </button>
+
+            <button
+              onClick={() => runComparison(originalText, humanizedText)}
+              disabled={loading || !originalText.trim() || !humanizedText.trim()}
+              id="compare-run-btn"
+              className="px-6 py-2.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] hover:brightness-110 text-[#061416] font-bold text-xs sm:text-sm font-mono uppercase tracking-widest rounded-xl flex items-center gap-2.5 transition-all disabled:opacity-40 disabled:hover:brightness-100 cursor-pointer shadow-[0_0_24px_rgba(0,201,216,0.25)]"
+            >
+              {loading ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-[#061416]/30 border-t-[#061416] rounded-full animate-spin" />
+                  <span>Evaluating...</span>
+                </>
+              ) : (
+                <>
+                  <Activity className="w-4 h-4 text-[#061416]" />
+                  <span>Run Comparison</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Loading ThinkingOrbs Overlay */}
+        <AnimatePresence>
+          {loading && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-[#061416]/80 backdrop-blur-md"
+            >
+              <div className="bg-[#0A2023] p-8 rounded-2xl border border-[rgba(0,201,216,0.25)] flex items-center justify-center shadow-2xl">
+                <ThinkingOrbs title="EVALUATING SIGNAL DIFFERENTIAL" stages={compareStages} durationMs={450} />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Comparison Telemetry Strip */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 shrink-0">
+          {/* Card 1: Original Probability */}
+          <div className="bg-[#0A2023]/80 backdrop-blur-xl border border-[rgba(0,201,216,0.18)] rounded-2xl p-4 flex flex-col justify-between shadow-[0_16px_40px_rgba(0,0,0,0.4)] hover:border-[#00C9D8]/40 transition-all relative overflow-hidden group">
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
+            <div>
+              <span className="text-xs text-[#9BB2B7] font-mono tracking-widest uppercase block font-semibold leading-tight">Original Text AI Score</span>
+              <span className="text-[10px] text-[#6F8B91] font-sans block mt-0.5 leading-tight">Likelihood original was AI</span>
+            </div>
+            <div className="flex items-baseline gap-1.5 mt-2 flex-wrap">
+              {loading ? (
+                <span className="text-xs font-mono text-[#00C9D8] animate-pulse">EVALUATING...</span>
+              ) : (
+                <>
+                  <span className="text-2xl sm:text-3xl font-bold text-[#00C9D8] font-mono tracking-tight">
+                    {metrics.originalScore.formattedPercentage}
+                  </span>
+                  {metrics.originalScore.isValid && origResult?.classification && (
+                    <span className="text-xs text-[#9BB2B7] truncate font-sans">
+                      {origResult.classification}
+                    </span>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Card 2: Adversarial / Rewritten Probability */}
+          <div className="bg-[#0A2023]/80 backdrop-blur-xl border border-[rgba(0,201,216,0.18)] rounded-2xl p-4 flex flex-col justify-between shadow-[0_16px_40px_rgba(0,0,0,0.4)] hover:border-[#00C9D8]/40 transition-all relative overflow-hidden group">
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
+            <div>
+              <span className="text-xs text-[#9BB2B7] font-mono tracking-widest uppercase block font-semibold leading-tight">Rewritten Text AI Score</span>
+              <span className="text-[10px] text-[#6F8B91] font-sans block mt-0.5 leading-tight">Likelihood rewrite is AI</span>
+            </div>
+            <div className="flex items-baseline gap-1.5 mt-2 flex-wrap">
+              {loading ? (
+                <span className="text-xs font-mono text-[#00C9D8] animate-pulse">EVALUATING...</span>
+              ) : (
+                <>
+                  <span className="text-2xl sm:text-3xl font-bold text-[#00C9D8] font-mono tracking-tight">
+                    {metrics.adversarialScore.formattedPercentage}
+                  </span>
+                  {metrics.adversarialScore.isValid && humResult?.classification && (
+                    <span className="text-xs text-[#9BB2B7] truncate font-sans">
+                      {humResult.classification}
+                    </span>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Card 3: Signal Change */}
+          <div className="bg-[#0A2023]/80 backdrop-blur-xl border border-[#00C9D8]/30 rounded-2xl p-4 flex flex-col justify-between shadow-[0_16px_40px_rgba(0,0,0,0.4)] hover:border-[#00C9D8]/50 transition-all relative overflow-hidden group">
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/40 to-transparent" />
+            <div>
+              <span className="text-xs text-[#00C9D8] font-mono tracking-widest uppercase flex items-center gap-1.5 font-semibold leading-tight">
+                <TrendingDown className="w-3.5 h-3.5 text-[#00C9D8]" />
+                <span>AI Score Reduction</span>
+              </span>
+              <span className="text-[10px] text-[#00C9D8]/70 font-sans block mt-0.5 leading-tight">AI detection dropped</span>
+            </div>
+            <div className="text-xl sm:text-2xl font-bold text-[#00C9D8] font-mono tracking-tight mt-2">
+              {loading ? (
+                <span className="text-xs font-mono text-[#00C9D8] animate-pulse">CALCULATING...</span>
+              ) : (
+                metrics.formattedSignalChange
+              )}
+            </div>
+          </div>
+
+          {/* Card 4: Word Count Delta */}
+          <div className="bg-[#0A2023]/80 backdrop-blur-xl border border-[rgba(0,201,216,0.18)] rounded-2xl p-4 flex flex-col justify-between shadow-[0_16px_40px_rgba(0,0,0,0.4)] hover:border-[#00C9D8]/40 transition-all relative overflow-hidden group">
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
+            <div>
+              <span className="text-xs text-[#9BB2B7] font-mono tracking-widest uppercase block font-semibold leading-tight">Word Count Difference</span>
+              <span className="text-[10px] text-[#6F8B91] font-sans block mt-0.5 leading-tight">Change after rewrite</span>
+            </div>
+            <div className="flex items-baseline gap-1.5 mt-2 flex-wrap">
+              <span className="text-2xl sm:text-3xl font-bold text-[#F3F8F8] font-mono tracking-tight">
+                {wordCountDelta > 0 ? `+${wordCountDelta}` : wordCountDelta}
+              </span>
+              <span className="text-xs text-[#9BB2B7] font-sans font-medium uppercase tracking-wider">
+                ({humWords} vs {origWords} words)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Unavailable Notice / Warning Banner */}
+        {(!metrics.canCompare && (origResult || humResult || compareError)) && (
+          <div className="px-5 py-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs sm:text-sm flex items-center gap-2.5 font-mono shrink-0">
+            <AlertTriangle className="w-4.5 h-4.5 shrink-0 text-amber-400" />
+            <span>
+              {compareError || metrics.errorMessage || 'Unable to calculate comparison: detection score unavailable'}
+            </span>
+          </div>
+        )}
+
+        {/* Split-Screen Editors */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-1 min-h-[520px]">
+          
+          {/* Left Pane: Original Sequence */}
+          <div className="bg-[#0A2023]/80 backdrop-blur-xl rounded-2xl border border-[rgba(0,201,216,0.18)] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
+            <div className="flex items-center justify-between px-5 py-3.5 bg-[#030B0D]/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
+              <div className="flex items-center gap-2.5">
+                <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#F3F8F8] uppercase font-bold">ORIGINAL SEQUENCE</span>
+                <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#00C9D8]/10 text-[#00C9D8] border border-[#00C9D8]/20">
+                  {origWords} words
+                </span>
+              </div>
               <div className="flex items-center gap-2">
-                <button onClick={() => { navigator.clipboard.writeText(originalText); setCopiedOrig(true); setTimeout(() => setCopiedOrig(false), 2000); }} className="hover:text-white transition-colors uppercase">
-                  {copiedOrig ? 'COPIED' : 'COPY'}
+                <button 
+                  onClick={() => { navigator.clipboard.writeText(originalText); setCopiedOrig(true); setTimeout(() => setCopiedOrig(false), 2000); }} 
+                  className="px-3 py-1.5 text-xs font-mono text-[#9BB2B7] hover:text-[#00C9D8] transition-colors uppercase tracking-widest flex items-center gap-1 cursor-pointer"
+                >
+                  {copiedOrig ? <Check className="w-3.5 h-3.5 text-[#00C9D8]" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedOrig ? 'COPIED' : 'COPY'}</span>
                 </button>
-                <button onClick={() => { setOriginalText(''); setOrigResult(null); }} className="hover:text-white transition-colors uppercase">
+                <button 
+                  onClick={() => { 
+                    setOriginalText(''); 
+                    setOrigResult(null); 
+                    const uKey = user ? `_${user.id}` : '';
+                    localStorage.removeItem(`verity_compare_orig${uKey}`);
+                    localStorage.removeItem(`verity_compare_ores${uKey}`);
+                    localStorage.removeItem('verity_compare_orig');
+                    localStorage.removeItem('verity_compare_ores');
+                  }} 
+                  className="px-3 py-1.5 text-xs font-mono text-[#6F8B91] hover:text-[#F3F8F8] transition-colors uppercase tracking-widest cursor-pointer"
+                >
                   CLEAR
                 </button>
               </div>
             </div>
+
+            <textarea
+              value={originalText}
+              onChange={(e) => setOriginalText(e.target.value)}
+              placeholder="Paste or type original sequence here..."
+              className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#F3F8F8] text-base leading-relaxed resize-none placeholder-[#6F8B91] focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[340px]"
+            />
           </div>
 
-          <div className="flex-1 p-4 bg-transparent flex flex-col min-h-0">
-            <div className="bg-[rgba(20,35,22,0.65)] border border-[var(--color-lime-sprout)]/20 shadow-[inset_0_0_20px_rgba(228,253,151,0.02)] rounded-2xl p-4 flex-1 relative">
-              <textarea
-                value={originalText}
-                onChange={(e) => setOriginalText(e.target.value)}
-                placeholder="Input original text..."
-                className="w-full h-full bg-transparent focus:outline-none text-white/80 text-lg font-sans leading-relaxed resize-none placeholder-gray-600 transition-colors"
-              />
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Paraphrased Text Box */}
-        <motion.div 
-          initial={{ opacity: 0, x: 10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-[#121812]/80 backdrop-blur-xl rounded-3xl border border-[var(--color-lime-sprout)]/10 flex flex-col h-full shadow-lg relative overflow-hidden"
-        >
-          <div className="flex items-center justify-between px-8 py-5 bg-white/[0.01] border-b border-white/5">
-            <span className="text-[10px] font-mono tracking-[0.2em] text-[var(--color-lime-sprout)] uppercase">Adversarial Sequence</span>
-            <div className="flex items-center gap-4 text-[10px] font-mono text-gray-600 tracking-widest uppercase">
-              <span>W: <strong className="text-gray-300 font-medium">{humWords}</strong></span>
+          {/* Right Pane: Adversarial Sequence */}
+          <div className="bg-[#0A2023]/80 backdrop-blur-xl rounded-2xl border border-[rgba(0,201,216,0.18)] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
+            <div className="flex items-center justify-between px-5 py-3.5 bg-[#030B0D]/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
+              <div className="flex items-center gap-2.5">
+                <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#00C9D8] uppercase font-bold">ADVERSARIAL SEQUENCE</span>
+                <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#00C9D8]/10 text-[#00C9D8] border border-[#00C9D8]/20">
+                  {humWords} words
+                </span>
+              </div>
               <div className="flex items-center gap-2">
-                <button onClick={() => { navigator.clipboard.writeText(humanizedText); setCopiedHum(true); setTimeout(() => setCopiedHum(false), 2000); }} className="hover:text-white transition-colors uppercase">
-                  {copiedHum ? 'COPIED' : 'COPY'}
+                <button 
+                  onClick={() => { navigator.clipboard.writeText(humanizedText); setCopiedHum(true); setTimeout(() => setCopiedHum(false), 2000); }} 
+                  className="px-3 py-1.5 text-xs font-mono text-[#9BB2B7] hover:text-[#00C9D8] transition-colors uppercase tracking-widest flex items-center gap-1 cursor-pointer"
+                >
+                  {copiedHum ? <Check className="w-3.5 h-3.5 text-[#00C9D8]" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedHum ? 'COPIED' : 'COPY'}</span>
                 </button>
-                <button onClick={() => { setHumanizedText(''); setHumResult(null); }} className="hover:text-white transition-colors uppercase">
+                <button 
+                  onClick={() => { 
+                    setHumanizedText(''); 
+                    setHumResult(null); 
+                    const uKey = user ? `_${user.id}` : '';
+                    localStorage.removeItem(`verity_compare_hum${uKey}`);
+                    localStorage.removeItem(`verity_compare_hres${uKey}`);
+                    localStorage.removeItem('verity_compare_hum');
+                    localStorage.removeItem('verity_compare_hres');
+                  }} 
+                  className="px-3 py-1.5 text-xs font-mono text-[#6F8B91] hover:text-[#F3F8F8] transition-colors uppercase tracking-widest cursor-pointer"
+                >
                   CLEAR
                 </button>
               </div>
             </div>
+
+            <textarea
+              value={humanizedText}
+              onChange={(e) => setHumanizedText(e.target.value)}
+              placeholder="Paste or type transformed adversarial sequence here..."
+              className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#F3F8F8] text-base leading-relaxed resize-none placeholder-[#6F8B91] focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[340px]"
+            />
           </div>
 
-          <div className="flex-1 p-4 bg-transparent flex flex-col min-h-0">
-            <div className="bg-[rgba(20,35,22,0.65)] border border-[var(--color-lime-sprout)]/20 shadow-[inset_0_0_20px_rgba(228,253,151,0.02)] rounded-2xl p-4 flex-1 relative">
-              <textarea
-                value={humanizedText}
-                onChange={(e) => setHumanizedText(e.target.value)}
-                placeholder="Input adversarial text variation..."
-                className="w-full h-full bg-transparent focus:outline-none text-white/80 text-lg font-sans leading-relaxed resize-none placeholder-gray-600 transition-colors"
-              />
-            </div>
-          </div>
-        </motion.div>
+        </div>
 
       </div>
-
-    </div>
     </div>
   );
 };

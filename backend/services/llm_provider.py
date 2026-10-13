@@ -3,7 +3,7 @@ import re
 import json
 import logging
 import httpx
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 
 logger = logging.getLogger("verity.llm_provider")
 
@@ -70,8 +70,8 @@ class LLMRateLimiter:
     providing round-robin provider rotation.
     """
     WINDOW_SECONDS = 10.0   # Sliding window size in seconds
-    MAX_REQUESTS_PER_WINDOW = 5  # Max requests per provider in sliding window
-    DEFAULT_COOLDOWN = 60.0  # Cooldown period in seconds when 429 occurs
+    MAX_REQUESTS_PER_WINDOW = 30  # Max requests per provider in sliding window
+    DEFAULT_COOLDOWN = 10.0  # Cooldown period in seconds when 429 occurs
 
     _lock = threading.Lock()
     _request_history: Dict[str, deque] = defaultdict(deque)

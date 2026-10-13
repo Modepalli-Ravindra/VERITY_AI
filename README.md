@@ -10,92 +10,84 @@
 
 **VERITY** is a premium, full-stack SaaS application designed to accurately detect AI-generated text and optionally paraphrase (humanize) it to read naturally. Built on cutting-edge research in NLP, VERITY moves beyond simple LLM wrappers by utilizing a hybrid approach: **Transformer semantic features + stylometric features + feature fusion + paraphrase-aware robustness evaluation.**
 
-## ✨ Latest Updates
-- **Robust Model Loading:** Enforced strict validation for V4-B configuration and scaler files.
-- **Improved Fallback Logic:** Safe fallback handling with null stylometric data to prevent schema corruption.
-- **Enhanced Feature Extraction:** Expanded transformer sequence limits for more accurate long-document analysis.
-- **API Guardrails:** Implemented strict length validation to prevent junk predictions.
-
-## ✨ Core Features
-
-*   **Advanced AI Text Detection**: Leverages `distilroberta-base` (or DeBERTa) to extract deep semantic representations and classify text as human or AI-generated.
-*   **Stylometric Feature Analysis**: Evaluates writing characteristics such as sentence length, vocabulary diversity, Part-of-Speech (POS) distribution, and punctuation patterns.
-*   **Text Humanization**: Uses integrated LLM APIs (Google, NVIDIA, Groq, OpenRouter) to paraphrase AI-generated text, improving natural flow while preserving original meaning, facts, and terminology.
-*   **Side-by-Side Comparison**: Visually compare original and humanized texts, including probability shifts and word count differences.
-*   **History & Analytics**: Save, review, and manage past analyses directly from your authenticated dashboard.
-*   **Paraphrase Robustness**: Evaluates detection accuracy even after text has been altered by paraphrasers.
-*   **Premium Interface**: A responsive, dark-mode cinematic interface featuring glassmorphism, smooth animations, and high-end SaaS visual hierarchy.
+## ✨ Primary Detection Engine & Dual-Engine Architecture
+- **Primary Detector: ModernBERT V5**: Powered by `answerdotai/ModernBERT-base` (768-D contextual semantic embeddings with 1024-token sequence context) fused with 20-dimensional syntactic burstiness and stylometric density features into a 320-D classification head (`backend/ml/experimental/model/best_model.pt`, 679 MB).
+  - Calibrated Decision Boundary: `0.70` (Empirically tuned to eliminate False Positives).
+  - Benchmark Performance: `0.998 F1` on HC3 in-domain dataset; `0.645 F1` on RAID out-of-domain evaluation.
+- **Validated Rollback: DistilRoBERTa V2**: Standby fallback engine (`backend/models/verity_detector_v2/best_model.pt`) with calibrated threshold `0.50`, `1.000 F1` in-domain, `0.875 F1` out-of-domain, and `<500ms` CPU latency. Switchable instantly without server restarts.
+- **Decoupled LLM Writing Intelligence**: ModernBERT and DistilRoBERTa are classification models, not text-generation engines. Humanization is executed by dedicated external LLM services across 4 calibrated tone profiles (`Natural`, `Professional`, `Academic`, `Casual`) with automatic failover, Retry-After rate-limit management, and 100% document structure preservation.
+- **Document Intelligence & Full Text Preservation**: Complete DOCX, PDF, and TXT parsing with magic-byte validation, bounded multi-chunk processing ($\le 50$ evaluation segments), and strict guarantees preserving 100% of extracted text (verified on 7,784-word documents, 57,902 characters without truncation).
+- **Verifiable Content Provenance**: SHA-256 document hashing, immutable Verification IDs, signed QR codes, and privacy-safe public verification portal.
 
 ---
 
 ## 🏗️ Architecture & Technology Stack
 
-VERITY maintains a strict separation of concerns between its user interface, backend services, and machine learning models.
+VERITY maintains strict separation of concerns across its frontend, backend services, and machine learning pipelines.
 
 ### Frontend
-*   **Framework**: React, Vite
-*   **Styling**: Tailwind CSS, Framer Motion (for animations)
-*   **Video/Renderings**: Remotion
+*   **Framework**: React 18, Vite (Proxy routing `/api` to port 8001)
+*   **Styling**: Vanilla CSS, Tailwind CSS, Framer Motion
+*   **Aesthetics**: VERITY dark forest-green/black theme (`#0a150c`) with lime sprout accents (`var(--color-lime-sprout)`)
 
 ### Backend API
-*   **Framework**: Python, FastAPI
-*   **Role**: Handles ML model inference, feature extraction, and orchestrates LLM humanization requests.
-
-### Machine Learning (AI Service)
-*   **Transformer Models**: HuggingFace (`distilroberta-base`)
-*   **Execution**: Auto-detects and supports both CPU and CUDA.
-*   **Pipeline**: Input Text → Preprocessing → Transformer Encoder → Semantic + Stylometric Extraction → Feature Fusion → Classification.
-
-### Database & Authentication
-*   **BaaS**: [InsForge](https://insforge.dev)
-*   **Features Used**: Postgres database, secure user authentication, role-level security (RLS), and session management.
+*   **Framework**: FastAPI, Python 3.13 / 3.12 / 3.11, Uvicorn (Port 8001)
+*   **ML Engine**: PyTorch, HuggingFace Transformers (`answerdotai/ModernBERT-base`, `distilroberta-base`)
+*   **Security & Rate Limiting**: SlowAPI, InsForge JWT Authentication, Zip-bomb / Decompression ratio defense
 
 ---
 
-## 🚀 Installation & Setup
-
-### Prerequisites
-*   **Node.js** (v16+ recommended)
-*   **Python** (3.9+ recommended)
-*   **InsForge CLI** configured and linked to a project.
+## 🚀 Local Development Workflow
 
 ### 1. Environment Configuration
-Create a `.env` file in the root of the project (you can copy `.env.example`).
+Create `.env` in the repository root:
 ```ini
-# Machine Learning
+# Primary Detection Engine ('modernbert' or 'distilroberta-base')
+VERITY_PRIMARY_MODEL=modernbert
+
+# Standby Transformer Model
 VERITY_TRANSFORMER_MODEL=distilroberta-base
 
-# LLM Providers for Humanization
-GOOGLE_API_KEY=your_key_here
-NVIDIA_API_KEY=your_key_here
-GROQ_API_KEY=your_key_here
-OPENROUTER_API_KEY=your_key_here
+# Humanization LLM Providers
+GOOGLE_API_KEY=your_google_key
+GROQ_API_KEY=your_groq_key
+OPENROUTER_API_KEY=your_openrouter_key
+NVIDIA_API_KEY=your_nvidia_key
 ```
-*(Note: InsForge backend keys should be configured via the InsForge CLI and stored in `.env.local`)*
 
-### 2. Backend & ML Model Setup
+### 2. Backend Startup (Port 8001)
+The Vite frontend dev server proxies all `/api` calls to port `8001`. Always start the backend on port `8001`:
 ```bash
-# Install Python dependencies
-pip install -r backend/requirements.txt
+# Windows (PowerShell / Command Prompt)
+.venv\Scripts\python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8001 --reload
 
-# Pre-download and cache the HuggingFace transformer model (Recommended)
-python scripts/setup-model.py
-
-# Start the FastAPI server (Runs on port 8000 by default)
-python -m uvicorn backend.app.main:app --port 8000
+# Linux / macOS
+source .venv/bin/activate
+uvicorn backend.app.main:app --host 127.0.0.1 --port 8001 --reload
 ```
-*Note: If the setup script is skipped, the model will automatically download on the first API request.*
 
-### 3. Frontend Setup
+#### Resolving Port 8001 Conflicts (WinError 10048)
+If you see `ERROR: [Errno 10048] error while attempting to bind on address ('127.0.0.1', 8001)`:
+```powershell
+# 1. Identify the process holding port 8001:
+netstat -ano | findstr :8001
+
+# 2. Check the process name using the PID from the last column:
+tasklist /FI "PID eq <PID>"
+
+# 3. If stale, terminate the process:
+taskkill /F /PID <PID>
+
+# 4. Restart the backend:
+.venv\Scripts\python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8001
+```
+
+### 3. Frontend Startup
 ```bash
-# Navigate to the frontend directory
 cd frontend
-
-# Install Node dependencies
 npm install
-
-# Start the Vite development server
 npm run dev
+# Vite runs at http://localhost:5173 with automatic proxying to backend:8001
 ```
 
 ---
@@ -112,17 +104,32 @@ VERITY utilizes a relational schema to manage user data securely:
 
 ---
 
-## 🧪 Testing
+## 🧪 Testing Suites & Verification
 
-### End-to-End (E2E) Testing
-VERITY includes a suite of E2E tests for the frontend to ensure UI reliability and authentication flows.
+### Complete Backend Automated Test Suite
 ```bash
-cd frontend
-npm run test:e2e
+# 1. Full Document Humanizer & Regression Suite (7,784 words, chunking, Section 9 fix)
+.venv\Scripts\python -m pytest tests/test_full_document_humanizer.py -v
+
+# 2. ModernBERT V5 Architecture & Inference Tests
+.venv\Scripts\python -m pytest tests/test_v5_architecture.py tests/test_v5_experimental.py -v
+
+# 3. Document Intelligence (PDF, DOCX, TXT bounded parsing & defenses)
+.venv\Scripts\python -m pytest tests/test_document_intelligence.py -v
+
+# 4. Humanizer 2.0 (4 tone profiles, entity preservation, validation bounds)
+.venv\Scripts\python -m pytest tests/test_humanizer_v2.py -v
+
+# 5. Security, Auth, Rate Limits & Privacy Redaction Tests
+.venv\Scripts\python -m pytest tests/test_security_slice4.py -v
 ```
 
-### ML Robustness & Evaluation
-Scripts for training, evaluating, and diagnosing model accuracy on short texts and paraphrased datasets are located in `backend/ml/` and `scripts/`.
+### End-to-End (E2E) Browser Testing (Playwright)
+```bash
+cd frontend
+# Run Full Document & Platform E2E Tests
+npx playwright test e2e/document_humanizer.spec.ts --project="Desktop Chrome 1440x900"
+```
 
 ### V5 ModernBERT Kaggle GPU Training Pipeline
 To retrain the experimental V5 ModernBERT model on a Kaggle GPU instance:

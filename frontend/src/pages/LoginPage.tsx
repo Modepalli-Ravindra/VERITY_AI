@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { ArrowRight, ArrowLeft, Lock, Mail, Eye, EyeOff, ShieldCheck } from 'lucide-react';
+import { 
+  ArrowRightIcon as ArrowRight, 
+  ArrowLeftIcon as ArrowLeft, 
+  LockClosedIcon as Lock, 
+  EnvelopeIcon as Mail, 
+  EyeIcon as Eye, 
+  EyeSlashIcon as EyeOff
+} from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
+import { VerityLogo } from '../components/VerityLogo';
 
 interface LoginPageProps {
   onNavigate: (route: string) => void;
@@ -30,9 +38,13 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
     if (res.error) {
       const errMsg = res.error.message || 'Invalid credentials';
       setError(errMsg);
-      if (errMsg.toLowerCase().includes('verify') || errMsg.toLowerCase().includes('verification') || errMsg.toLowerCase().includes('confirm')) {
+      if (
+        errMsg.toLowerCase().includes('verify') || 
+        errMsg.toLowerCase().includes('verification') || 
+        errMsg.toLowerCase().includes('confirm')
+      ) {
         setIsVerifying(true);
-        setInfoMessage('Account verification required. Check your inbox.');
+        setInfoMessage('Account verification required. Check your inbox for the code.');
       }
     } else {
       onNavigate('/dashboard');
@@ -44,7 +56,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
     setError('');
     setInfoMessage('');
     if (!otp.trim()) {
-      setError('Required');
+      setError('Verification code is required');
       return;
     }
 
@@ -53,131 +65,139 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
     setLoading(false);
 
     if (res.error) {
-      setError(res.error.message || 'Invalid code.');
+      setError(res.error.message || 'Invalid verification code.');
     } else {
       onNavigate('/dashboard');
     }
   };
 
-
-
   return (
-    <div className="min-h-screen bg-[var(--bg-dark)] text-[#f4f4f5] flex flex-col md:flex-row relative overflow-hidden font-sans selection:bg-[var(--color-lime-sprout)]/30">
+    <div className="min-h-screen bg-[#061416] text-[#F3F8F8] flex flex-col justify-between relative overflow-hidden font-sans selection:bg-[#00C9D8]/30">
       
-      {/* Left Column - Visuals & Marketing (Hidden on mobile) */}
-      <div className="hidden md:flex flex-1 relative flex-col justify-between p-12 lg:p-16 overflow-hidden">
-        {/* Blurred Background Image */}
-        <div className="absolute inset-0 bg-[url('/auth-bg-custom.jpg')] bg-cover bg-center blur-[4px] scale-105"></div>
-        {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-black/60 mix-blend-multiply"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-dark)] via-transparent to-transparent opacity-90"></div>
-        
-        <div className="relative flex flex-col justify-between h-full z-10">
-          <div>
-            <div 
-              onClick={() => onNavigate('/')}
-              className="flex items-center gap-3 cursor-pointer group w-fit hover:bg-white/5 p-2 -ml-2 rounded-xl transition-all"
-            >
-              <ArrowLeft className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
-              <img src="/v-logo.png" alt="V" className="h-10 object-contain drop-shadow-[0_0_15px_rgba(228,253,151,0.2)] group-hover:drop-shadow-[0_0_15px_rgba(228,253,151,0.5)] transition-all" />
-              <span className="font-display tracking-[0.15em] text-white text-2xl group-hover:text-[var(--color-lime-sprout)] transition-colors">VERITY</span>
-            </div>
-            
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="mt-24">
-              <h1 className="text-4xl lg:text-6xl font-display uppercase tracking-widest text-white leading-[1.1] mb-6 drop-shadow-xl">
-                See Beyond <br />
-                <span className="text-[var(--color-lime-sprout)] drop-shadow-[0_0_15px_rgba(228,253,151,0.3)]">The Words.</span>
-              </h1>
-              <p className="text-base text-gray-300 font-medium max-w-md leading-relaxed drop-shadow-md">
-                Robust AI text detection built around semantic and stylometric signals.
-              </p>
-            </motion.div>
-          </div>
+      {/* Background treatment: blurred application intelligence imagery, teal radial glow & vignette */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        {/* Full-bleed blurred application background image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110 filter blur-[8px] opacity-45 transform-gpu"
+          style={{ backgroundImage: `url('/auth-bg.jpg')` }}
+        />
+        {/* Softening tint overlay to maintain crisp card contrast while revealing rich ambient art */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#061416]/75 via-[#061416]/55 to-[#061416]/85" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_25%,#061416_80%)]" />
 
-          <div className="flex flex-wrap items-center gap-8 text-[10px] font-mono tracking-widest uppercase text-gray-400">
-            <div className="flex items-center gap-3 bg-black/20 px-4 py-2 rounded-full border border-white/5 backdrop-blur-md">
-               <div className="w-5 h-5 flex items-center justify-center text-[var(--color-lime-sprout)]">
-                 <ShieldCheck className="w-4 h-4" />
-               </div>
-               Semantic Signals
-            </div>
-            <div className="flex items-center gap-3 bg-black/20 px-4 py-2 rounded-full border border-white/5 backdrop-blur-md">
-               <div className="w-5 h-5 flex items-center justify-center text-[var(--color-lime-sprout)]">
-                 <Lock className="w-4 h-4" />
-               </div>
-               Stylometric Analysis
-            </div>
-            <div className="flex items-center gap-3 bg-black/20 px-4 py-2 rounded-full border border-white/5 backdrop-blur-md">
-               <div className="w-5 h-5 flex items-center justify-center text-[var(--color-lime-sprout)]">
-                 <ShieldCheck className="w-4 h-4" />
-               </div>
-               Robustness
-            </div>
-          </div>
-        </div>
+        {/* Soft radial illumination behind form */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[52rem] h-[40rem] bg-[radial-gradient(ellipse_at_center,rgba(0,201,216,0.18)_0%,rgba(0,143,163,0.06)_50%,transparent_75%)] blur-[80px]" />
+        
+        {/* Ambient top light streak */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[32rem] h-[1px] bg-gradient-to-r from-transparent via-[rgba(0,201,216,0.3)] to-transparent" />
+        
+        {/* Subtle geometric technical grid */}
+        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#00C9D8_1px,transparent_1px)] [background-size:32px_32px]" />
       </div>
 
-      {/* Right Column - Form */}
-      <div className="w-full md:w-[500px] lg:w-[650px] flex flex-col justify-center relative p-6 md:p-12 lg:p-16 z-10 overflow-y-auto bg-gradient-to-br from-[#111811] to-[#080b08]">
-        {/* Soft green glow in the background */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--color-fresh-canopy)]/20 rounded-full blur-[100px] pointer-events-none"></div>
-        
-        {/* Top left back button */}
-        <div className="absolute top-8 left-8 md:hidden text-sm">
+      {/* Top Header: Logo & Back on left, Sign Up on right */}
+      <header className="relative z-20 w-full max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+        <div className="flex items-center gap-4">
           <button 
-            onClick={() => onNavigate('/')} 
-            className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors cursor-pointer font-medium"
+            onClick={() => onNavigate('/')}
+            className="flex items-center gap-2 text-xs font-medium text-[#9BB2B7] hover:text-[#00C9D8] transition-colors p-1.5 -ml-1.5 rounded-lg hover:bg-[#0A2023]/60 cursor-pointer"
+            title="Return to Home"
           >
-            <ArrowLeft className="w-4 h-4" /> Home
+            <ArrowLeft className="w-4 h-4" />
+            <span className="hidden sm:inline">Back to Home</span>
           </button>
-        </div>
-        
-        {/* Top right link */}
-        <div className="absolute top-8 right-8 md:right-16 text-sm text-gray-300">
-          New to VERITY?{' '}
-          <button onClick={() => onNavigate('/signup')} className="text-[var(--color-lime-sprout)] hover:brightness-110 transition-colors cursor-pointer font-medium ml-1">
-            Create Account
-          </button>
+          
+          <div className="h-4 w-px bg-[rgba(0,201,216,0.22)] hidden sm:block" />
+
+          <div 
+            onClick={() => onNavigate('/')}
+            className="flex items-center gap-2.5 cursor-pointer group"
+          >
+            <VerityLogo className="h-7 w-auto" />
+            <span className="font-display tracking-[0.14em] text-[#F3F8F8] text-lg font-bold group-hover:text-[#00C9D8] transition-colors">
+              VERITY
+            </span>
+          </div>
         </div>
 
-        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} className="w-full max-w-md mx-auto relative z-10">
-          {/* Main Card */}
-          <div className="p-8 md:p-10 rounded-[2rem] border border-white/10 bg-[#161D15]/40 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+        <div className="text-xs text-[#9BB2B7] flex items-center gap-1.5">
+          <span className="hidden sm:inline">New to VERITY?</span>
+          <button 
+            onClick={() => onNavigate('/signup')}
+            className="text-[#00C9D8] hover:text-[#F3F8F8] font-medium transition-colors cursor-pointer px-2.5 py-1 rounded-full border border-[rgba(0,201,216,0.22)] hover:border-[#00C9D8]/50 hover:bg-[#0A2023]/80"
+          >
+            Create an Account
+          </button>
+        </div>
+      </header>
+
+      {/* Main Centered Form Container */}
+      <main className="relative z-10 flex-1 flex items-center justify-center px-4 sm:px-6 py-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: 'easeOut' }}
+          className="w-full max-w-[440px]"
+        >
+          {/* Main Form Surface */}
+          <div className="bg-[#0A2023]/90 backdrop-blur-xl border border-[rgba(0,201,216,0.22)] rounded-3xl p-7 sm:p-9 shadow-[0_24px_54px_rgba(0,0,0,0.65)] relative overflow-hidden">
             
-            <div className="mb-8">
-              <p className="text-[10px] font-mono tracking-widest uppercase text-gray-400 mb-3">Verity Analysis Workspace</p>
-              <h2 className="text-3xl md:text-4xl font-display uppercase tracking-widest text-white mb-2">
-                Welcome <span className="text-[var(--color-lime-sprout)]">Back</span>
-              </h2>
-              <p className="text-sm text-gray-300">
-                Continue your AI text analysis and robustness research.
+            {/* Top decorative subtle hairline glow */}
+            <div className="absolute top-0 left-12 right-12 h-[1px] bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent pointer-events-none" />
+
+            {/* Form Header */}
+            <div className="mb-7">
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#0D282B] border border-[rgba(0,201,216,0.22)] text-[#00C9D8] text-[10px] font-mono tracking-widest uppercase mb-3 font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00C9D8] shadow-[0_0_8px_#00C9D8]" />
+                <span>VERITY WORKSPACE</span>
+              </div>
+              
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F3F8F8] mb-2 font-display">
+                Welcome back.
+              </h1>
+              
+              <p className="text-xs sm:text-sm text-[#9BB2B7] leading-relaxed">
+                Continue your work in AI text detection and document intelligence.
               </p>
             </div>
 
+            {/* Error & Info Banners */}
             {error && (
-              <div className="mb-6 p-4 rounded-xl bg-red-900/10 border border-red-500/20 text-red-400 text-xs font-mono tracking-wide text-center">
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                className="mb-5 p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/35 text-rose-300 text-xs font-mono tracking-wide leading-relaxed"
+              >
                 {error}
-              </div>
+              </motion.div>
             )}
+            
             {infoMessage && (
-              <div className="mb-6 p-4 rounded-xl bg-white/[0.02] border border-white/10 text-gray-300 text-xs font-mono tracking-wide text-center">
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                className="mb-5 p-3.5 rounded-xl bg-[#0D282B] border border-[#00C9D8]/35 text-[#00C9D8] text-xs font-mono tracking-wide leading-relaxed"
+              >
                 {infoMessage}
-              </div>
+              </motion.div>
             )}
 
+            {/* Form Mode: OTP Verification or Standard Email/Password */}
             {isVerifying ? (
-              <form onSubmit={handleVerifyOtp} className="space-y-6">
+              <form onSubmit={handleVerifyOtp} className="space-y-5">
                 <div>
-                  <label className="block text-[11px] font-mono text-gray-300 uppercase tracking-widest mb-3">Verification Code</label>
+                  <label className="block text-[11px] font-mono uppercase tracking-wider text-[#9BB2B7] mb-2 font-medium">
+                    Verification Code
+                  </label>
                   <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6F8B91]" />
                     <input
                       type="text"
                       required
                       value={otp}
                       onChange={(e) => setOtp(e.target.value)}
                       placeholder="000000"
-                      className="w-full pl-12 pr-4 py-3 bg-black/20 border border-white/10 rounded-xl focus:border-[var(--color-lime-sprout)]/50 focus:bg-black/40 focus:outline-none text-white tracking-[0.3em] font-mono text-center text-xl transition-all placeholder-gray-500"
+                      className="w-full pl-11 pr-4 py-3 bg-[#061416] border border-[rgba(0,201,216,0.22)] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#F3F8F8] tracking-[0.3em] font-mono text-center text-lg transition-all placeholder-[#6F8B91]"
                     />
                   </div>
                 </div>
@@ -185,69 +205,101 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3.5 bg-[var(--color-lime-sprout)] hover:brightness-110 text-gray-950 font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(228,253,151,0.2)] disabled:opacity-50 cursor-pointer"
+                  className="w-full py-3 px-4 bg-[#00C9D8] hover:bg-[#00D4E5] active:bg-[#008FA3] text-[#061416] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_4px_18px_rgba(0,201,216,0.3)] hover:shadow-[0_6px_22px_rgba(0,201,216,0.4)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
-                  {loading ? 'Verifying...' : 'Verify Session'}
+                  <span>{loading ? 'Verifying Session...' : 'Verify & Enter Workspace'}</span>
                   {!loading && <ArrowRight className="w-4 h-4" />}
                 </button>
               </form>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Email Field */}
                 <div>
-                  <label className="block text-[11px] font-mono text-gray-300 uppercase tracking-widest mb-3">Email Address</label>
+                  <label className="block text-[11px] font-mono uppercase tracking-wider text-[#9BB2B7] mb-1.5 font-medium">
+                    Email Address
+                  </label>
                   <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6F8B91]" />
                     <input
                       type="email"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="researcher@institute.edu"
-                      className="w-full pl-12 pr-4 py-3.5 bg-black/20 border border-white/10 rounded-xl focus:border-[var(--color-lime-sprout)]/50 focus:bg-black/40 focus:outline-none text-white placeholder-gray-500 text-sm transition-all"
+                      placeholder="researcher@organization.org"
+                      className="w-full pl-10 pr-4 py-2.5 bg-[#061416] border border-[rgba(0,201,216,0.22)] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#F3F8F8] placeholder-[#6F8B91] text-xs sm:text-sm transition-all"
                     />
                   </div>
                 </div>
 
+                {/* Password Field */}
                 <div>
-                  <label className="block text-[11px] font-mono text-gray-300 uppercase tracking-widest mb-3">Password</label>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="block text-[11px] font-mono uppercase tracking-wider text-[#9BB2B7] font-medium">
+                      Password
+                    </label>
+                    <button 
+                      type="button" 
+                      onClick={() => setError('Password reset instructions will be sent if the email exists in our records.')}
+                      className="text-[11px] text-[#6F8B91] hover:text-[#00C9D8] transition-colors cursor-pointer"
+                    >
+                      Forgot password?
+                    </button>
+                  </div>
                   <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6F8B91]" />
                     <input
                       type={showPassword ? 'text' : 'password'}
                       required
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full pl-12 pr-12 py-3.5 bg-black/20 border border-white/10 rounded-xl focus:border-[var(--color-lime-sprout)]/50 focus:bg-black/40 focus:outline-none text-white placeholder-gray-500 text-sm transition-all"
+                      className="w-full pl-10 pr-10 py-2.5 bg-[#061416] border border-[rgba(0,201,216,0.22)] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#F3F8F8] placeholder-[#6F8B91] text-xs sm:text-sm transition-all"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors cursor-pointer"
+                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#6F8B91] hover:text-[#00C9D8] transition-colors cursor-pointer"
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
                   </div>
-                  <div className="flex justify-end mt-3">
-                    <button type="button" className="text-xs text-gray-500 hover:text-white transition-colors cursor-pointer">
-                      Forgot password?
-                    </button>
-                  </div>
                 </div>
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full py-3.5 mt-2 bg-[var(--color-lime-sprout)] hover:brightness-110 text-gray-950 font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(228,253,151,0.2)] disabled:opacity-50 cursor-pointer"
-                >
-                  {loading ? 'Authenticating...' : 'Sign In'}
-                  {!loading && <ArrowRight className="w-4 h-4" />}
-                </button>
+                {/* Sign In Button */}
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full py-3 px-4 bg-[#00C9D8] hover:bg-[#00D4E5] active:bg-[#008FA3] text-[#061416] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_4px_18px_rgba(0,201,216,0.28)] hover:shadow-[0_6px_22px_rgba(0,201,216,0.38)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  >
+                    <span>{loading ? 'Authenticating...' : 'Sign In'}</span>
+                    {!loading && <ArrowRight className="w-4 h-4" />}
+                  </button>
+                </div>
               </form>
             )}
+
+            {/* Bottom registration link */}
+            <div className="mt-6 pt-5 border-t border-[rgba(0,201,216,0.15)] text-center text-xs text-[#9BB2B7]">
+              Need a research account?{' '}
+              <button 
+                onClick={() => onNavigate('/signup')}
+                className="text-[#00C9D8] hover:underline font-semibold ml-1 cursor-pointer transition-colors"
+              >
+                Create your workspace
+              </button>
+            </div>
+
           </div>
         </motion.div>
-      </div>
+      </main>
+
+      {/* Minimal Footer */}
+      <footer className="relative z-20 w-full py-4 px-6 text-center text-[11px] font-mono text-[#6F8B91]">
+        <span>VERITY AI • Research Security & Authenticity</span>
+      </footer>
+
     </div>
   );
 };

@@ -10,11 +10,14 @@ import { AnalyzerPage } from './pages/AnalyzerPage';
 import { ParaphrasePage } from './pages/ParaphrasePage';
 import { ComparePage } from './pages/ComparePage';
 import { HistoryPage } from './pages/HistoryPage';
-import { DocumentationPage } from './pages/DocumentationPage';
 import { SettingsPage } from './pages/SettingsPage';
-import { X, Play } from 'lucide-react';
+import { LogoutPage } from './pages/LogoutPage';
+import { DemoPage } from './pages/DemoPage';
+import { XMarkIcon as X, PlayIcon as Play } from '@heroicons/react/24/outline';
 import { Player } from '@remotion/player';
 import { DemoVideoComposition } from './components/RemotionDemoVideo';
+
+const DocumentationPage = React.lazy(() => import('./pages/DocumentationPage').then(m => ({ default: m.DocumentationPage })));
 
 const MainRouter: React.FC = () => {
   const { user, loading } = useAuth();
@@ -64,7 +67,7 @@ const MainRouter: React.FC = () => {
               times: [0, 0.5, 1],
               repeat: Infinity,
             }}
-            className="w-16 h-16 border-[3px] border-[var(--color-lime-sprout)]/20 border-t-[var(--color-lime-sprout)] border-l-[var(--color-lime-sprout)] shadow-[0_0_30px_rgba(228,253,151,0.2)]"
+            className="w-16 h-16 border-[3px] border-[var(--color-lime-sprout)]/20 border-t-[var(--color-lime-sprout)] border-l-[var(--color-lime-sprout)] shadow-[0_0_30px_rgba(0, 213, 229,0.2)]"
           />
           <div className="flex flex-col items-center gap-2">
             <motion.p 
@@ -96,6 +99,8 @@ const MainRouter: React.FC = () => {
     switch (currentRoute) {
       case '/':
         return <LandingPage onNavigate={navigate} />;
+      case '/demo':
+        return <DemoPage onNavigate={navigate} />;
       case '/login':
         return <LoginPage onNavigate={navigate} />;
       case '/signup':
@@ -118,31 +123,41 @@ const MainRouter: React.FC = () => {
         return <HistoryPage onNavigate={navigate} initialSearch={routeState?.search || ''} />;
       case '/settings':
         return <SettingsPage onNavigate={navigate} />;
+      case '/logout':
+        return <LogoutPage onNavigate={navigate} />;
       case '/docs':
-        return <DocumentationPage onNavigate={navigate} />;
+        return (
+          <React.Suspense fallback={
+            <div className="min-h-screen bg-[#061619] flex items-center justify-center text-xs font-mono text-[#00D4E5]">
+              Loading Technical Documentation...
+            </div>
+          }>
+            <DocumentationPage onNavigate={navigate} />
+          </React.Suspense>
+        );
       default:
         return <LandingPage onNavigate={navigate} />;
     }
   };
 
-  const isAuthRoute = currentRoute === '/login' || currentRoute === '/signup';
-  const isAppRoute = protectedRoutes.includes(currentRoute);
+  const isAuthRoute = currentRoute === '/login' || currentRoute === '/signup' || currentRoute === '/demo' || currentRoute === '/logout';
+  const isSingleScreenRoute = protectedRoutes.includes(currentRoute) || currentRoute === '/docs';
 
   return (
-    <div className="min-h-screen flex flex-col justify-between overflow-hidden relative">
+    <div className={`${isSingleScreenRoute ? 'h-screen' : 'min-h-screen'} flex flex-col justify-between overflow-hidden relative`}>
       
       {/* 
         Layout Logic:
-        1. Auth routes (Login/SignUp) -> Full screen, no navbar.
-        2. Landing Page (/) -> Use old top Navbar.
-        3. App routes (/dashboard, etc.) -> Use new Sidebar + TopBar layout.
+        1. Auth routes (Login/SignUp/Logout) -> Full screen, no navbar.
+        2. Landing Page (/) -> Use old top Navbar with page scrolling.
+        3. App routes & Docs (/docs, /dashboard, etc.) -> Single-screen viewport layout.
       */}
       
-      {isAppRoute && (
+      {isSingleScreenRoute && (
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="absolute inset-0 bg-[var(--bg-dark)]" />
-          <div className="absolute inset-0 bg-gradient-to-br from-[var(--bg-dark)] via-[#081009] to-[#040804]" />
-          <div className="absolute top-[-10%] right-[-5%] w-[50%] h-[50%] bg-[var(--color-lime-sprout)]/5 blur-[120px] rounded-full" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#061519] via-[#081A1D] to-[#061416]" />
+          <div className="absolute top-[-10%] right-[-5%] w-[50%] h-[50%] bg-[#00D5E5]/5 blur-[120px] rounded-full" />
           <div className="absolute inset-0 opacity-[0.04] bg-[url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png')] mix-blend-overlay" />
         </div>
       )}
@@ -151,8 +166,12 @@ const MainRouter: React.FC = () => {
         <Navbar currentRoute={currentRoute} onNavigate={navigate} />
       )}
 
-      {isAppRoute ? (
-        <main className="flex-1 overflow-y-auto pt-28 pb-12 z-10 relative">
+      {currentRoute === '/demo' || currentRoute === '/logout' ? (
+        <main className="h-screen w-screen overflow-hidden z-10 relative flex flex-col">
+          {renderView()}
+        </main>
+      ) : isSingleScreenRoute ? (
+        <main className="flex-1 min-h-0 overflow-hidden pt-20 sm:pt-24 pb-2 z-10 relative flex flex-col">
           {renderView()}
         </main>
       ) : (

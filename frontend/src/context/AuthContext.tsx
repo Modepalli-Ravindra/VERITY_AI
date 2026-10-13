@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { insforge } from '../lib/insforge';
+import { insforge, saveAuthTokens, clearAuthTokens, getAuthToken } from '../lib/insforge';
 
 export interface User {
   id: string;
@@ -119,32 +119,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
   };
 
-  useEffect(() => {
-    // Check initial session
-    const getInitialSession = async () => {
-      try {
-        const { data } = await insforge.auth.getCurrentUser();
-        if (data?.user) {
-          // If we have a pending name in local storage for this email, try to apply it
-          const email = data.user.email;
-          if (email) {
-            await applyPendingNameIfAny(data.user.id, email);
-          }
-          const fullUser = await fetchUserProfile(data.user);
-          setUser(fullUser);
-        } else {
-          setUser(null);
-        }
-      } catch (err) {
-        console.error('Failed to load session:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getInitialSession();
-  }, []);
-
   const applyPendingNameIfAny = async (userId: string, email: string) => {
     try {
       const pendingName = localStorage.getItem(`verity_pending_name_${email}`);
@@ -173,8 +147,79 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
            }
         } catch {}
       }
-    } catch (err) {}
+    } catch {}
   };
+
+  useEffect(() => {
+    // Check initial session
+    const getInitialSession = async () => {
+      try {
+        // Validate authentication token first
+        const token = await getAuthToken();
+        if (!token) {
+          // No valid token: ensure stale user caches are cleared
+          clearAuthTokens();
+          try {
+            localStorage.removeItem('verity_session_user');
+          } catch {}
+          setUser(null);
+          setLoading(false);
+          return;
+        }
+
+        // Token is valid; check cached user profile
+        try {
+          const cachedUser = localStorage.getItem('verity_session_user');
+          if (cachedUser) {
+            const parsed = JSON.parse(cachedUser);
+            if (parsed && parsed.id) {
+              setUser(parsed);
+              // Asynchronously verify against InsForge backend
+              insforge.auth.getCurrentUser().then(res => {
+                if (res.data?.user) {
+                  fetchUserProfile(res.data.user).then(full => {
+                    setUser(full);
+                    try {
+                      localStorage.setItem('verity_session_user', JSON.stringify(full));
+                    } catch {}
+                  });
+                }
+              }).catch(() => {});
+              setLoading(false);
+              return;
+            }
+          }
+        } catch {}
+
+        const fetchUserPromise = insforge.auth.getCurrentUser();
+        const timeoutPromise = new Promise<{ data: null }>((resolve) => 
+          setTimeout(() => resolve({ data: null }), 3500)
+        );
+        const { data } = await Promise.race([fetchUserPromise, timeoutPromise]);
+        if (data?.user) {
+          const email = data.user.email;
+          if (email) {
+            await applyPendingNameIfAny(data.user.id, email);
+          }
+          const fullUser = await fetchUserProfile(data.user);
+          setUser(fullUser);
+          try {
+            localStorage.setItem('verity_session_user', JSON.stringify(fullUser));
+          } catch {}
+        } else {
+          setUser(null);
+          clearAuthTokens();
+        }
+      } catch (err) {
+        console.error('Failed to load session:', err);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getInitialSession();
+  }, []);
 
   const signUp = async (email: string, password: string, displayName?: string) => {
     try {
@@ -186,6 +231,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
 
       if (res.data?.user) {
+        if (res.data.accessToken) {
+          saveAuthTokens(res.data.accessToken, res.data.refreshToken);
+        }
         const userId = res.data.user.id;
         try {
           await insforge.database.from('profiles').insert([{
@@ -209,6 +257,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         const fullUser = await fetchUserProfile(res.data.user);
         setUser(fullUser);
+        try {
+          localStorage.setItem('verity_session_user', JSON.stringify(fullUser));
+        } catch {}
       }
       
       try {
@@ -226,9 +277,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const res = await insforge.auth.signInWithPassword({ email, password });
       if (res.data?.user) {
+        if (res.data.accessToken) {
+          saveAuthTokens(res.data.accessToken, res.data.refreshToken);
+        }
         await applyPendingNameIfAny(res.data.user.id, email);
         const fullUser = await fetchUserProfile(res.data.user);
         setUser(fullUser);
+        try {
+          localStorage.setItem('verity_session_user', JSON.stringify(fullUser));
+        } catch {}
       }
       return res;
     } catch (error: any) {
@@ -240,9 +297,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const res = await insforge.auth.verifyEmail({ email, otp });
       if (res.data?.user) {
+        if (res.data.accessToken) {
+          saveAuthTokens(res.data.accessToken, res.data.refreshToken);
+        }
         await applyPendingNameIfAny(res.data.user.id, email);
         const fullUser = await fetchUserProfile(res.data.user);
         setUser(fullUser);
+        try {
+          localStorage.setItem('verity_session_user', JSON.stringify(fullUser));
+        } catch {}
       }
       return res;
     } catch (error: any) {
@@ -385,9 +448,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         'verity_compare_orig',
         'verity_compare_hum',
         'verity_compare_ores',
-        'verity_compare_hres'
+        'verity_compare_hres',
+        'verity_session_user'
       ];
       genericKeysToRemove.forEach(k => localStorage.removeItem(k));
+      clearAuthTokens();
 
       await insforge.auth.signOut();
       setUser(null);

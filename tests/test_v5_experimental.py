@@ -2,6 +2,14 @@ import pytest
 from fastapi.testclient import TestClient
 from backend.app.main import app
 
+from backend.api.auth import get_current_user
+
+class FakeUser:
+    def __init__(self, uid: str = "test-v5-user"):
+        self.id = uid
+        self.email = "test@verity.ai"
+
+app.dependency_overrides[get_current_user] = lambda: FakeUser()
 client = TestClient(app)
 
 def test_v5_experimental_analyze():

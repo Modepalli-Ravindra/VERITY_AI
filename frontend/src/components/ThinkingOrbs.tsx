@@ -43,9 +43,9 @@ export const ThinkingOrbs: React.FC<ThinkingOrbsProps> = ({ title, stages, subte
         />
         
         {/* Central static core */}
-        <div className="absolute inset-8 rounded-full border border-[var(--color-lime-sprout)]/20 bg-[var(--color-lime-sprout)]/5 flex items-center justify-center backdrop-blur-sm shadow-[inset_0_0_15px_rgba(228,253,151,0.1)]">
-           <div className="w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_15px_rgba(228,253,151,1)] animate-ping" />
-           <div className="absolute w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_10px_rgba(228,253,151,1)]" />
+        <div className="absolute inset-8 rounded-full border border-[var(--color-lime-sprout)]/20 bg-[var(--color-lime-sprout)]/5 flex items-center justify-center backdrop-blur-sm shadow-[inset_0_0_15px_rgba(0, 213, 229,0.1)]">
+           <div className="w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_15px_rgba(0, 213, 229,1)] animate-ping" />
+           <div className="absolute w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_10px_rgba(0, 213, 229,1)]" />
         </div>
       </div>
 

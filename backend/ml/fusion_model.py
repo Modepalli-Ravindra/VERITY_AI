@@ -50,20 +50,22 @@ class FeatureFusionDetector:
 
     @classmethod
     def get_active_model_dir(cls) -> str:
-        v4b_dir = os.path.join(root_dir, "experiments", "verity_v4", "v4b", "model")
+        version = os.getenv("VERITY_DETECTOR_VERSION", "v2").strip().lower()
         v2_dir = os.path.join(root_dir, "backend", "models", "verity_detector_v2")
+        v4b_dir = os.path.join(root_dir, "experiments", "verity_v4", "v4b", "model")
         v1_dir = os.path.join(root_dir, "backend", "models", "verity_detector")
-        
-        v4b_model = os.path.join(v4b_dir, "best_model.pt")
-        v4b_config = os.path.join(v4b_dir, "config.json")
-        v4b_scaler = os.path.join(v4b_dir, "stylometric_scaler.json")
-        if os.path.exists(v4b_model) and os.path.exists(v4b_config) and os.path.exists(v4b_scaler):
-            return v4b_dir
-            
+
+        if version in ("v4", "v4b"):
+            v4b_model = os.path.join(v4b_dir, "best_model.pt")
+            v4b_config = os.path.join(v4b_dir, "config.json")
+            v4b_scaler = os.path.join(v4b_dir, "stylometric_scaler.json")
+            if os.path.exists(v4b_model) and os.path.exists(v4b_config) and os.path.exists(v4b_scaler):
+                return v4b_dir
+
         v2_model = os.path.join(v2_dir, "best_model.pt")
         v2_config = os.path.join(v2_dir, "config.json")
         v2_scaler = os.path.join(v2_dir, "stylometric_scaler.json")
-        
+
         if os.path.exists(v2_model) and os.path.exists(v2_config) and os.path.exists(v2_scaler):
             return v2_dir
         return v1_dir
@@ -168,8 +170,12 @@ class FeatureFusionDetector:
 
         with torch.no_grad():
             logit = cls._cached_model(sem_tensor, sty_tensor)
-            ai_prob = float(torch.sigmoid(logit).cpu().item())
+            raw_ai_prob = float(torch.sigmoid(logit).cpu().item())
 
+        import math
+        if math.isnan(raw_ai_prob) or math.isinf(raw_ai_prob):
+            raise ValueError("Detector produced non-finite probability value.")
+        ai_prob = max(0.0, min(1.0, raw_ai_prob))
         ai_prob = round(ai_prob, 4)
         human_prob = round(1.0 - ai_prob, 4)
         threshold = cls._cached_threshold
@@ -201,10 +207,11 @@ class FeatureFusionDetector:
             "confidence": confidence,
             "explanation": explanation,
             "stylometric_features": stylometrics_full,
-            "detection_engine": "local_transformer",
+            "detection_engine": "DistilRoBERTa-V2",
             "provider": "local_transformer",
             "status": "success",
             "semantic_available": True,
+            "threshold": threshold,
             "locked_threshold": threshold
         }
 
