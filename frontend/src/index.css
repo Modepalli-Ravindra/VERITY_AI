@@ -2,6 +2,15 @@
 @import "tailwindcss";
 
 @font-face {
+  font-family: 'The Jungle';
+  src: url('/fonts/thejungle.otf') format('opentype'),
+       url('/fonts/thejungle.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Antigravity';
   src: url('/fonts/antigravity.otf') format('opentype');
   font-weight: 100 900;
@@ -21,9 +30,10 @@
   /* Aliasing lime-sprout to electric cyan for seamless backwards-compatibility across components */
   --color-lime-sprout: #00D5E5;
   --color-fresh-canopy: #0A1117;
-  --font-antigravity: 'Antigravity', 'Fraunces', 'Playfair Display', serif;
-  --font-serif: 'Antigravity', 'Fraunces', 'Playfair Display', serif;
-  --font-display: 'Antigravity', 'Fraunces', 'Playfair Display', serif;
+  --font-jungle: 'The Jungle', 'Antigravity', 'Fraunces', 'Playfair Display', serif;
+  --font-antigravity: 'The Jungle', 'Antigravity', 'Fraunces', 'Playfair Display', serif;
+  --font-serif: 'The Jungle', 'Antigravity', 'Fraunces', 'Playfair Display', serif;
+  --font-display: 'The Jungle', 'Antigravity', 'Fraunces', 'Playfair Display', serif;
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
@@ -60,9 +70,9 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Headings use the Antigravity vintage serif */
-  h1, h2, h3, h4, .font-serif, .font-display {
-    font-family: 'Antigravity', 'Fraunces', 'Playfair Display', Georgia, serif;
+  /* Headings use The Jungle / vintage display serif */
+  h1, h2, h3, h4, .font-serif, .font-display, .font-jungle {
+    font-family: 'The Jungle', 'Antigravity', 'Fraunces', 'Playfair Display', Georgia, serif;
   }
 
   /* Monospaced elements use JetBrains Mono */
@@ -71,9 +81,9 @@
   }
 }
 
-/* Antigravity Vintage Decorative Serif Font Utility */
-.font-serif, .font-display, .font-antigravity {
-  font-family: 'Antigravity', 'Fraunces', 'Playfair Display', Georgia, serif !important;
+/* The Jungle Display & Vintage Serif Font Utility */
+.font-jungle, .font-serif, .font-display, .font-antigravity {
+  font-family: 'The Jungle', 'Antigravity', 'Fraunces', 'Playfair Display', Georgia, serif !important;
 }
 
 /* Calm, Clean Card Container */

@@ -49,12 +49,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
            ========================================================================= */}
         <section className="flex flex-col items-center justify-center text-center max-w-5xl xl:max-w-6xl mx-auto pt-6 lg:pt-14 pb-20 min-h-[58vh] relative z-20">
 
-          {/* Headline — Centered, Two Lines with Antigravity Vintage Decorative Serif (Zoomed) */}
+          {/* Headline — Centered, Two Lines with The Jungle Serif Display Font (Decreased 5px) */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-[44px] sm:text-[58px] md:text-[72px] lg:text-[88px] xl:text-[100px] 2xl:text-[112px] font-antigravity tracking-[0.01em] text-[#FFFFFF] leading-[1.12] mb-8 max-w-5xl"
+            className="text-[39px] sm:text-[53px] md:text-[67px] lg:text-[83px] xl:text-[95px] 2xl:text-[107px] font-jungle tracking-[0.01em] text-[#FFFFFF] leading-[1.12] mb-8 max-w-5xl"
           >
             <span className="block">Detect AI. Verify Truth.</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#FFFFFF] via-[#A5F3FC] to-[#00D5E5]">
