@@ -58,7 +58,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
     setLoading(false);
 
     if (res.error) {
-      setError(res.error.message || 'Failed to create workspace account');
+      setError(res.error.message || 'Failed to create account');
     } else {
       setIsVerifying(true);
       setInfoMessage(`Verification code sent to ${email}. Check your inbox.`);
@@ -178,7 +178,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
             <div className="mb-6">
               <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#0D282B] border border-[rgba(0,201,216,0.22)] text-[#00C9D8] text-[10px] font-mono tracking-widest uppercase mb-2.5 font-semibold">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#00C9D8] shadow-[0_0_8px_#00C9D8]" />
-                <span>CREATE YOUR WORKSPACE</span>
+                <span>USER REGISTRATION</span>
               </div>
 
               <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F3F8F8] mb-1.5 font-display">
@@ -236,7 +236,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
                   disabled={loading}
                   className="w-full py-3 px-4 bg-[#00C9D8] hover:bg-[#00D4E5] active:bg-[#008FA3] text-[#061416] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_4px_18px_rgba(0,201,216,0.3)] hover:shadow-[0_6px_22px_rgba(0,201,216,0.4)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
-                  <span>{loading ? 'Activating Workspace...' : 'Complete Registration'}</span>
+                  <span>{loading ? 'Verifying Code...' : 'Complete Registration'}</span>
                   {!loading && <ArrowRight className="w-4 h-4" />}
                 </button>
 
@@ -382,7 +382,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
                     disabled={loading}
                     className="w-full py-3 px-4 bg-[#00C9D8] hover:bg-[#00D4E5] active:bg-[#008FA3] text-[#061416] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_4px_18px_rgba(0,201,216,0.28)] hover:shadow-[0_6px_22px_rgba(0,201,216,0.38)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                   >
-                    <span>{loading ? 'Creating Workspace...' : 'Create Account'}</span>
+                    <span>{loading ? 'Creating Account...' : 'Create Account'}</span>
                     {!loading && <ArrowRight className="w-4 h-4" />}
                   </button>
                 </div>

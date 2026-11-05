@@ -29,7 +29,7 @@ class ProviderManager:
 
     @classmethod
     def get_primary_model_name(cls) -> str:
-        return os.getenv("VERITY_PRIMARY_MODEL", os.getenv("VERITY_TRANSFORMER_MODEL", "distilroberta-base"))
+        return os.getenv("VERITY_PRIMARY_MODEL", "modernbert")
 
     @classmethod
     def is_fallback_enabled(cls) -> bool:
