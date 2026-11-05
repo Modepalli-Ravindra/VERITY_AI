@@ -12,7 +12,7 @@ import {
   QrCodeIcon as QrCode,
   PlayIcon as Play,
   CheckCircleIcon as CheckCircle
-} from '@heroicons/react/24/outline';
+} from '@heroicons/react/24/solid';
 import { VerityLogo } from '../components/VerityLogo';
 
 interface LandingPageProps {
@@ -84,21 +84,21 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               className="px-7 py-3.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] hover:from-[#00E5F5] hover:to-[#00A3BA] text-[#051115] font-bold text-sm sm:text-base tracking-wide rounded-xl transition-all flex items-center gap-2.5 cursor-pointer hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#00C9D8]/20"
             >
               <span>Analyze a Document</span>
-              <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+              <ArrowRight className="w-4 h-4 fill-current" />
             </button>
 
             <button
               onClick={goToDemo}
               className="px-6 py-3.5 bg-[#0D151D]/85 backdrop-blur-2xl hover:bg-[#121E2A]/90 border border-white/[0.12] hover:border-[#00C9D8]/40 text-[#FFFFFF] font-medium text-sm sm:text-base rounded-xl transition-all flex items-center gap-2.5 cursor-pointer shadow-sm"
             >
-              <div className="w-6 h-6 rounded-lg bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#00D5E5]">
+              <div className="w-6 h-6 rounded-lg bg-[#00C9D8] text-[#051115] shadow-sm flex items-center justify-center">
                 <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
               </div>
               <span>Explore the Demo</span>
             </button>
           </motion.div>
 
-          {/* Metric Badges */}
+          {/* Metric Badges with Solid Filled Checkmarks */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -106,15 +106,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs sm:text-sm text-[#8DA2AA]"
           >
             <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-[#00D5E5]" />
+              <CheckCircle className="w-4 h-4 text-[#00D5E5] fill-current" />
               <span>ModernBERT V5 (0.70 Calibrated)</span>
             </div>
             <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-[#00D5E5]" />
+              <CheckCircle className="w-4 h-4 text-[#00D5E5] fill-current" />
               <span>100% Fact Preservation</span>
             </div>
             <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-[#00D5E5]" />
+              <CheckCircle className="w-4 h-4 text-[#00D5E5] fill-current" />
               <span>Enterprise-Grade Privacy</span>
             </div>
           </motion.div>
@@ -129,7 +129,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#00D5E5] text-[10px] font-mono tracking-widest uppercase font-bold mb-3">
               SYSTEM CAPABILITIES
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#FFFFFF] mb-3">
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold tracking-tight text-[#FFFFFF] mb-3">
               Engineered for Complete Authenticity
             </h2>
             <p className="text-sm text-[#8DA2AA]">
@@ -143,8 +143,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             <div className="w-full bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-4 sm:p-5 flex flex-col justify-between relative overflow-hidden group hover:border-[#00C9D8]/35 transition-all">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#00D5E5]">
-                    <Cpu className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-xl bg-[#00C9D8] text-[#051115] shadow-md shadow-[#00C9D8]/20 flex items-center justify-center">
+                    <Cpu className="w-5 h-5 fill-current" />
                   </div>
                   <span className="px-2.5 py-0.5 rounded-full bg-[#00C9D8]/15 text-[#00D5E5] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#00C9D8]/35">
                     Primary Engine
@@ -152,8 +152,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                 </div>
 
                 <div className="max-w-4xl">
-                  <h3 className="text-base sm:text-lg font-bold text-[#FFFFFF] mb-1 font-display">ModernBERT V5 + Stylometric Fusion</h3>
-                  <p className="text-xs text-[#8DA2AA] leading-relaxed mb-3">
+                  <h3 className="text-base sm:text-lg font-serif font-bold text-[#FFFFFF] mb-1">ModernBERT V5 + Stylometric Fusion</h3>
+                  <p className="text-xs text-[#8DA2AA] leading-relaxed mb-3 font-sans">
                     Extracts 768-dimensional contextual embeddings across 1024 token sequence windows and fuses them with 20 syntactic diversity features into a calibrated 320-D classification head.
                   </p>
                 </div>
@@ -185,11 +185,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               {/* Box 1: Full Document Intelligence */}
               <div className="bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between relative overflow-hidden group hover:border-[#00C9D8]/35 transition-all h-full">
                 <div>
-                  <div className="w-7 h-7 rounded-md bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#00D5E5] mb-2">
-                    <FileText className="w-3.5 h-3.5" />
+                  <div className="w-8 h-8 rounded-lg bg-[#00C9D8] text-[#051115] shadow-md shadow-[#00C9D8]/20 flex items-center justify-center mb-2">
+                    <FileText className="w-4 h-4 fill-current" />
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-[#FFFFFF] mb-1 font-display">Full Document Intelligence</h3>
-                  <p className="text-xs text-[#8DA2AA] leading-relaxed mb-2.5">
+                  <h3 className="text-sm sm:text-base font-serif font-bold text-[#FFFFFF] mb-1">Full Document Intelligence</h3>
+                  <p className="text-xs text-[#8DA2AA] leading-relaxed mb-2.5 font-sans">
                     Native DOCX, PDF, and TXT parsing with up to 100,000 characters. Large documents automatically partition into 1,000-token chunks with bounded overlap.
                   </p>
                 </div>
@@ -201,7 +201,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                   </div>
                   <div className="flex justify-between items-center text-[#8DA2AA]">
                     <span>Processing Limit:</span>
-                    <span className="text-[#FFFFFF] font-bold">100,000 Characters</span>
+                    <span className="text-[#00D5E5] font-bold">100,000 Characters</span>
                   </div>
                 </div>
               </div>
@@ -209,11 +209,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               {/* Box 2: Writing Intelligence & Paraphrasing */}
               <div className="bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between relative overflow-hidden group hover:border-[#00C9D8]/35 transition-all h-full">
                 <div>
-                  <div className="w-7 h-7 rounded-md bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#00D5E5] mb-2">
-                    <Wand2 className="w-3.5 h-3.5" />
+                  <div className="w-8 h-8 rounded-lg bg-[#00C9D8] text-[#051115] shadow-md shadow-[#00C9D8]/20 flex items-center justify-center mb-2">
+                    <Wand2 className="w-4 h-4 fill-current" />
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-[#FFFFFF] mb-1 font-display">Writing Intelligence & Paraphrasing</h3>
-                  <p className="text-xs text-[#8DA2AA] leading-relaxed mb-2.5">
+                  <h3 className="text-sm sm:text-base font-serif font-bold text-[#FFFFFF] mb-1">Writing Intelligence & Paraphrasing</h3>
+                  <p className="text-xs text-[#8DA2AA] leading-relaxed mb-2.5 font-sans">
                     Calibrated tone transformation across Natural, Professional, Academic, and Casual styles. Strict factual anchors protect citations and terminology without classifier leakage.
                   </p>
                 </div>
@@ -232,11 +232,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               {/* Box 3: Verifiable Provenance & QR Codes */}
               <div className="bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between relative overflow-hidden group hover:border-[#00C9D8]/35 transition-all h-full">
                 <div>
-                  <div className="w-7 h-7 rounded-md bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#00D5E5] mb-2">
-                    <QrCode className="w-3.5 h-3.5" />
+                  <div className="w-8 h-8 rounded-lg bg-[#00C9D8] text-[#051115] shadow-md shadow-[#00C9D8]/20 flex items-center justify-center mb-2">
+                    <QrCode className="w-4 h-4 fill-current" />
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-[#FFFFFF] mb-1 font-display">Verifiable Provenance & QR Codes</h3>
-                  <p className="text-xs text-[#8DA2AA] leading-relaxed mb-2.5">
+                  <h3 className="text-sm sm:text-base font-serif font-bold text-[#FFFFFF] mb-1">Verifiable Provenance & QR Codes</h3>
+                  <p className="text-xs text-[#8DA2AA] leading-relaxed mb-2.5 font-sans">
                     Every evaluated document receives an immutable SHA-256 fingerprint and tamper-evident timestamp accessible via public audit URLs.
                   </p>
                 </div>
@@ -264,9 +264,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         <section id="architecture" className="mb-32 pt-8">
           <div className="text-center max-w-3xl mx-auto mb-10 flex flex-col items-center gap-3">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#00D5E5] text-[10px] font-mono tracking-widest uppercase font-bold">
-              <Cpu className="w-3.5 h-3.5" /> Empirical Architecture
+              <Cpu className="w-3.5 h-3.5 fill-current" /> Empirical Architecture
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#FFFFFF]">
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold tracking-tight text-[#FFFFFF]">
               Model Transparency & Hot-Standby Rollback
             </h2>
             <p className="text-xs sm:text-sm text-[#8DA2AA] leading-relaxed max-w-2xl mx-auto">
@@ -287,8 +287,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                     Active
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2 font-display">ModernBERT V5 + 20-D Stylometrics</h3>
-                <p className="text-xs text-[#8DA2AA] mb-6 leading-relaxed">
+                <h3 className="text-xl font-serif font-bold text-white mb-2">ModernBERT V5 + 20-D Stylometrics</h3>
+                <p className="text-xs text-[#8DA2AA] mb-6 leading-relaxed font-sans">
                   ModernBERT-base (768-D semantic representations with 1024 token sequence context) fused with 20-dimensional syntactic burstiness vectors into a 320-D classifier head.
                 </p>
                 <div className="space-y-3 border-t border-white/[0.08] pt-4 text-xs font-mono">
@@ -317,8 +317,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                   </span>
                   <span className="text-xs font-mono text-[#8DA2AA]">Validated</span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2 font-display">DistilRoBERTa V2 + 20-D Stylometrics</h3>
-                <p className="text-xs text-[#8DA2AA] mb-6 leading-relaxed">
+                <h3 className="text-xl font-serif font-bold text-white mb-2">DistilRoBERTa V2 + 20-D Stylometrics</h3>
+                <p className="text-xs text-[#8DA2AA] mb-6 leading-relaxed font-sans">
                   Proven 768-D transformer representations paired with 20-D stylometric features. Zero downtime rollback target selectable instantly via the Model Selection API.
                 </p>
                 <div className="space-y-3 border-t border-[#1C2633] pt-4 text-xs font-mono">
@@ -349,7 +349,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#00D5E5] text-[10px] font-mono tracking-widest uppercase font-bold mb-3">
               WORKFLOW PIPELINE
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#FFFFFF] mb-4">
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold tracking-tight text-[#FFFFFF] mb-4">
               Empirical Analysis in 4 Steps
             </h2>
             <p className="text-sm text-[#8DA2AA] leading-relaxed mb-6 max-w-2xl mx-auto">
@@ -361,7 +361,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                 className="px-8 py-3.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] hover:from-[#00E5F5] hover:to-[#00A3BA] text-[#051115] font-bold text-sm rounded-full flex items-center gap-2 transition-all cursor-pointer shadow-lg shadow-[#00C9D8]/20"
               >
                 <span>Get Started</span>
-                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+                <ArrowRight className="w-4 h-4 fill-current" />
               </button>
             </div>
           </div>
@@ -378,11 +378,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                   <span className="text-[10px] font-mono text-[#00D5E5] mb-3 bg-[#00C9D8]/10 border border-[#00C9D8]/20 px-2.5 py-1 rounded inline-block font-bold">
                     STEP {s.step}
                   </span>
-                  <div className="w-10 h-10 rounded-xl border border-[#00D5E5]/30 bg-[#070D12] flex items-center justify-center mb-3 text-[#00D5E5]">
-                    <s.icon className="w-5 h-5" />
+                  <div className="w-10 h-10 rounded-xl bg-[#00C9D8] text-[#051115] shadow-md shadow-[#00C9D8]/20 flex items-center justify-center mb-3">
+                    <s.icon className="w-5 h-5 fill-current" />
                   </div>
-                  <h4 className="text-sm font-semibold text-white mb-1.5 font-display">{s.title}</h4>
-                  <p className="text-xs text-[#8DA2AA] leading-relaxed">{s.desc}</p>
+                  <h4 className="text-base font-serif font-bold text-white mb-1.5">{s.title}</h4>
+                  <p className="text-xs text-[#8DA2AA] leading-relaxed font-sans">{s.desc}</p>
                 </div>
               </div>
             ))}
@@ -398,7 +398,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#00D5E5] text-[10px] font-mono tracking-widest uppercase font-bold mb-3">
               FREQUENTLY ASKED QUESTIONS
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#FFFFFF]">
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold tracking-tight text-[#FFFFFF]">
               Common Questions & Answers
             </h2>
           </div>
@@ -444,11 +444,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                 className="bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-5 hover:border-[#00C9D8]/35 transition-all cursor-pointer overflow-hidden shadow-sm"
               >
                 <div className="flex justify-between items-center">
-                  <h4 className="text-sm font-semibold text-white">{faq.q}</h4>
-                  <ChevronDown className={`w-4 h-4 text-[#00D5E5] transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`} />
+                  <h4 className="text-sm font-semibold text-white font-sans">{faq.q}</h4>
+                  <ChevronDown className={`w-4 h-4 text-[#00D5E5] fill-current transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`} />
                 </div>
                 <div className={`transition-all duration-300 ease-in-out ${openFaq === i ? 'max-h-60 mt-3 opacity-100' : 'max-h-0 opacity-0'}`}>
-                  <p className="text-xs text-[#8DA2AA] leading-relaxed pr-6">{faq.a}</p>
+                  <p className="text-xs text-[#8DA2AA] leading-relaxed pr-6 font-sans">{faq.a}</p>
                 </div>
               </div>
             ))}
@@ -465,7 +465,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#00D5E5] text-[10px] font-mono tracking-widest uppercase font-bold mb-3">
               VERITY PRODUCTION SUITE
             </div>
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#FFFFFF] mb-4 font-display">
+            <h2 className="text-3xl sm:text-5xl font-serif font-bold tracking-tight text-[#FFFFFF] mb-4">
               Truth in <span className="text-[#00D5E5]">Every Word.</span>
             </h2>
             <p className="text-[#8DA2AA] mb-8 text-sm sm:text-base leading-relaxed">
@@ -477,7 +477,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                 className="px-8 py-3.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] hover:from-[#00E5F5] hover:to-[#00A3BA] text-[#051115] font-bold rounded-full transition-all inline-flex items-center gap-2 cursor-pointer text-sm shadow-lg shadow-[#00C9D8]/25"
               >
                 <span>Start Analyzing Now</span>
-                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+                <ArrowRight className="w-4 h-4 fill-current" />
               </button>
               <button 
                 onClick={() => onNavigate('/docs')}
@@ -496,7 +496,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#8DA2AA] font-mono">
           <div className="flex items-center gap-2">
             <VerityLogo className="h-5 w-auto" />
-            <span className="font-bold text-white tracking-wider">VERITY AI</span>
+            <span className="font-serif font-bold text-white tracking-wider text-sm">VERITY AI</span>
             <span className="text-white/20">|</span>
             <span>&copy; {new Date().getFullYear()} All rights reserved.</span>
           </div>

@@ -11,7 +11,7 @@ import {
   AdjustmentsHorizontalIcon as Sliders,
   CheckCircleIcon as CheckCircle,
   Bars3Icon as Menu
-} from '@heroicons/react/24/outline';
+} from '@heroicons/react/24/solid';
 
 interface DocumentationPageProps {
   onNavigate: (route: string) => void;

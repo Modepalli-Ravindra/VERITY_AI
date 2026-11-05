@@ -13,7 +13,7 @@ import { HistoryPage } from './pages/HistoryPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { LogoutPage } from './pages/LogoutPage';
 import { DemoPage } from './pages/DemoPage';
-import { XMarkIcon as X, PlayIcon as Play } from '@heroicons/react/24/outline';
+import { XMarkIcon as X, PlayIcon as Play } from '@heroicons/react/24/solid';
 import { Player } from '@remotion/player';
 import { DemoVideoComposition } from './components/RemotionDemoVideo';
 

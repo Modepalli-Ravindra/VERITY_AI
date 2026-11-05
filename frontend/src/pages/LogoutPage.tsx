@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
-import { ArrowRightOnRectangleIcon as LogOut, ShieldCheckIcon as ShieldCheck } from '@heroicons/react/24/outline';
+import { ArrowRightOnRectangleIcon as LogOut, ShieldCheckIcon as ShieldCheck } from '@heroicons/react/24/solid';
 import { VerityLogo } from '../components/VerityLogo';
 
 interface LogoutPageProps {

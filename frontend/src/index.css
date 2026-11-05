@@ -22,8 +22,8 @@
   --color-lime-sprout: #00D5E5;
   --color-fresh-canopy: #0A1117;
   --font-antigravity: 'Antigravity', 'Fraunces', 'Playfair Display', serif;
-  --font-serif-vintage: 'Antigravity', 'Fraunces', 'Playfair Display', serif;
-  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Antigravity', 'Fraunces', 'Playfair Display', serif;
+  --font-display: 'Antigravity', 'Fraunces', 'Playfair Display', serif;
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
@@ -60,14 +60,19 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* Headings use the Antigravity vintage serif */
+  h1, h2, h3, h4, .font-serif, .font-display {
+    font-family: 'Antigravity', 'Fraunces', 'Playfair Display', Georgia, serif;
+  }
+
   /* Monospaced elements use JetBrains Mono */
   code, kbd, samp, pre, .font-mono {
     font-family: 'JetBrains Mono', ui-monospace, monospace !important;
   }
 }
 
-/* Antigravity Vintage Decorative Font Utility */
-.font-antigravity {
+/* Antigravity Vintage Decorative Serif Font Utility */
+.font-serif, .font-display, .font-antigravity {
   font-family: 'Antigravity', 'Fraunces', 'Playfair Display', Georgia, serif !important;
 }
 

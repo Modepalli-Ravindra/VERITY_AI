@@ -9,7 +9,7 @@ import {
   ChevronRightIcon as ChevronRight, 
   FunnelIcon as Filter,
   ClockIcon as Clock
-} from '@heroicons/react/24/outline';
+} from '@heroicons/react/24/solid';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HistoryService } from '../services/historyService';
 

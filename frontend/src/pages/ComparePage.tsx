@@ -7,7 +7,7 @@ import {
   ExclamationTriangleIcon as AlertTriangle, 
   DocumentDuplicateIcon as Copy, 
   CheckIcon as Check 
-} from '@heroicons/react/24/outline';
+} from '@heroicons/react/24/solid';
 import { ThinkingOrbs } from '../components/ThinkingOrbs';
 import { useAuth } from '../context/AuthContext';
 import { getAuthToken } from '../lib/insforge';

@@ -13,7 +13,7 @@ import {
   CheckIcon as Check, 
   ArrowDownTrayIcon as Download, 
   ChartBarSquareIcon as Activity 
-} from '@heroicons/react/24/outline';
+} from '@heroicons/react/24/solid';
 import { ThinkingOrbs } from '../components/ThinkingOrbs';
 import { computeWordDiff, getDiffStats, type DiffChunk } from '../utils/textDiff';
 import { chunkDocumentForHumanization, countWords } from '../utils/documentChunker';

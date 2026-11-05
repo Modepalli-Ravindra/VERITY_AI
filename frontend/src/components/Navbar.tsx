@@ -7,7 +7,7 @@ import {
   MagnifyingGlassIcon as Search,
   ChevronDownIcon as ChevronDown,
   Cog6ToothIcon as Settings
-} from '@heroicons/react/24/outline';
+} from '@heroicons/react/24/solid';
 import { motion, AnimatePresence } from 'framer-motion';
 import { VerityLogo } from './VerityLogo';
 

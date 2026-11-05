@@ -8,7 +8,7 @@ import {
   DocumentDuplicateIcon as CopyIcon,
   CheckIcon as CopiedCheck,
   TrashIcon as Trash2
-} from '@heroicons/react/24/outline';
+} from '@heroicons/react/24/solid';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface SettingsPageProps {

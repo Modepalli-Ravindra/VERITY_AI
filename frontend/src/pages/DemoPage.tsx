@@ -8,7 +8,7 @@ import {
   SparklesIcon as Sparkles,
   ShieldCheckIcon as ShieldCheck,
   CpuChipIcon as CpuChip
-} from '@heroicons/react/24/outline';
+} from '@heroicons/react/24/solid';
 import { VerityLogo } from '../components/VerityLogo';
 
 interface DemoPageProps {

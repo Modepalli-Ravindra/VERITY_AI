@@ -7,7 +7,7 @@ import {
   EnvelopeIcon as Mail, 
   EyeIcon as Eye, 
   EyeSlashIcon as EyeOff
-} from '@heroicons/react/24/outline';
+} from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
 import { VerityLogo } from '../components/VerityLogo';
 
