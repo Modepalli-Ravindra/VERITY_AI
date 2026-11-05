@@ -125,7 +125,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
             className="flex items-center gap-2.5 cursor-pointer group"
           >
             <VerityLogo className="h-7 w-auto" />
-            <span className="font-display tracking-[0.14em] text-[#FFFFFF] text-lg font-bold group-hover:text-[#00D5E5] transition-colors">
+            <span className="font-antigravity tracking-[0.14em] text-[#FFFFFF] text-lg font-semibold group-hover:text-[#00D5E5] transition-colors">
               VERITY
             </span>
           </div>

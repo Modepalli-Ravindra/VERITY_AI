@@ -81,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
           className="flex items-center gap-2.5 cursor-pointer group"
         >
           <VerityLogo className="h-8 md:h-9 w-auto" />
-          <span className="font-display tracking-[0.15em] text-[#FFFFFF] text-xl group-hover:text-[#00D5E5] transition-colors font-bold">
+          <span className="font-antigravity tracking-[0.14em] text-[#FFFFFF] text-xl group-hover:text-[#00D5E5] transition-colors font-semibold">
             VERITY
           </span>
         </div>

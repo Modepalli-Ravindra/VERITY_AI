@@ -64,12 +64,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             </div>
           </motion.div>
 
-          {/* Headline — Centered, Two Lines (Font changed & reduced by 4px across breakpoints) */}
+          {/* Headline — Centered, Two Lines with Antigravity Vintage Decorative Serif */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-[44px] sm:text-[56px] md:text-[68px] lg:text-[84px] xl:text-[96px] 2xl:text-[104px] font-display font-extrabold tracking-[-0.035em] text-[#FFFFFF] leading-[1.05] mb-8 max-w-5xl"
+            className="text-[32px] sm:text-[42px] md:text-[52px] lg:text-[62px] xl:text-[70px] 2xl:text-[76px] font-antigravity tracking-[0.01em] text-[#FFFFFF] leading-[1.16] mb-8 max-w-4xl"
           >
             <span className="block">Detect AI. Verify Truth.</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#FFFFFF] via-[#A5F3FC] to-[#00D5E5]">
