@@ -1,8 +1,14 @@
 import os
 import time
 import json
-import torch
-from transformers import AutoTokenizer
+
+try:
+    import torch
+    from transformers import AutoTokenizer
+except ImportError:
+    torch = None
+    AutoTokenizer = None
+
 from backend.ml.experimental.v5_config import V5Config
 from backend.ml.experimental.verity_v5_model import VerityV5Model
 from backend.ml.stylometrics import StylometricExtractor
@@ -11,6 +17,9 @@ class V5InferenceService:
     _instance = None
     
     def __init__(self):
+        if torch is None or AutoTokenizer is None:
+            raise RuntimeError("PyTorch and Transformers are required to run V5 inference.")
+
         self.config = V5Config()
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.model = VerityV5Model(self.config)
@@ -59,6 +68,8 @@ class V5InferenceService:
         return cls._instance
         
     def analyze(self, text: str):
+        if torch is None:
+            raise RuntimeError("PyTorch is not available for inference.")
         # 0ms Instant Cache Check
         cache_key = hash(text)
         if cache_key in self._cache:

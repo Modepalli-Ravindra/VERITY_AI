@@ -1,8 +1,15 @@
-import torch
-import torch.nn as nn
+try:
+    import torch
+    import torch.nn as nn
+    _ModuleBase = nn.Module
+except ImportError:
+    torch = None
+    nn = None
+    _ModuleBase = object
+
 from typing import Dict, Any
 
-class VerityFusionClassifier(nn.Module):
+class VerityFusionClassifier(_ModuleBase):
     """
     Production Neural Feature Fusion Detector Architecture for VERITY.
     Fuses 768-dimensional Transformer Semantic Representations with
@@ -10,37 +17,38 @@ class VerityFusionClassifier(nn.Module):
     320-dimensional representation for trained binary AI detection.
     """
     def __init__(self, semantic_dim: int = 768, stylometric_dim: int = 20, sem_proj_dim: int = 256, sty_proj_dim: int = 64):
-        super().__init__()
-        self.semantic_dim = semantic_dim
-        self.stylometric_dim = stylometric_dim
-        
-        # 1. Semantic Projection Branch
-        self.semantic_proj = nn.Sequential(
-            nn.Linear(semantic_dim, sem_proj_dim),
-            nn.BatchNorm1d(sem_proj_dim),
-            nn.ReLU(),
-            nn.Dropout(0.2)
-        )
-        
-        # 2. Stylometric Projection Branch
-        self.stylometric_proj = nn.Sequential(
-            nn.Linear(stylometric_dim, sty_proj_dim),
-            nn.BatchNorm1d(sty_proj_dim),
-            nn.ReLU(),
-            nn.Dropout(0.2)
-        )
-        
-        # 3. Feature Fusion & Classification Head
-        fused_dim = sem_proj_dim + sty_proj_dim  # 256 + 64 = 320-D
-        self.classifier = nn.Sequential(
-            nn.Linear(fused_dim, 128),
-            nn.BatchNorm1d(128),
-            nn.ReLU(),
-            nn.Dropout(0.3),
-            nn.Linear(128, 1)
-        )
+        if nn is not None:
+            super().__init__()
+            self.semantic_dim = semantic_dim
+            self.stylometric_dim = stylometric_dim
+            
+            # 1. Semantic Projection Branch
+            self.semantic_proj = nn.Sequential(
+                nn.Linear(semantic_dim, sem_proj_dim),
+                nn.BatchNorm1d(sem_proj_dim),
+                nn.ReLU(),
+                nn.Dropout(0.2)
+            )
+            
+            # 2. Stylometric Projection Branch
+            self.stylometric_proj = nn.Sequential(
+                nn.Linear(stylometric_dim, sty_proj_dim),
+                nn.BatchNorm1d(sty_proj_dim),
+                nn.ReLU(),
+                nn.Dropout(0.2)
+            )
+            
+            # 3. Feature Fusion & Classification Head
+            fused_dim = sem_proj_dim + sty_proj_dim  # 256 + 64 = 320-D
+            self.classifier = nn.Sequential(
+                nn.Linear(fused_dim, 128),
+                nn.BatchNorm1d(128),
+                nn.ReLU(),
+                nn.Dropout(0.3),
+                nn.Linear(128, 1)
+            )
 
-    def forward(self, semantic_x: torch.Tensor, stylometric_x: torch.Tensor) -> torch.Tensor:
+    def forward(self, semantic_x: Any, stylometric_x: Any) -> Any:
         sem_feat = self.semantic_proj(semantic_x)
         sty_feat = self.stylometric_proj(stylometric_x)
         fused = torch.cat([sem_feat, sty_feat], dim=-1)
@@ -48,73 +56,76 @@ class VerityFusionClassifier(nn.Module):
         return logits.squeeze(-1)
 
 
-class VerityTransformerOnlyClassifier(nn.Module):
+class VerityTransformerOnlyClassifier(_ModuleBase):
     """
     Ablation Architecture A: Transformer Semantic Vector Only.
     """
     def __init__(self, semantic_dim: int = 768, sem_proj_dim: int = 256):
-        super().__init__()
-        self.semantic_proj = nn.Sequential(
-            nn.Linear(semantic_dim, sem_proj_dim),
-            nn.BatchNorm1d(sem_proj_dim),
-            nn.ReLU(),
-            nn.Dropout(0.2)
-        )
-        self.classifier = nn.Sequential(
-            nn.Linear(sem_proj_dim, 128),
-            nn.BatchNorm1d(128),
-            nn.ReLU(),
-            nn.Dropout(0.3),
-            nn.Linear(128, 1)
-        )
+        if nn is not None:
+            super().__init__()
+            self.semantic_proj = nn.Sequential(
+                nn.Linear(semantic_dim, sem_proj_dim),
+                nn.BatchNorm1d(sem_proj_dim),
+                nn.ReLU(),
+                nn.Dropout(0.2)
+            )
+            self.classifier = nn.Sequential(
+                nn.Linear(sem_proj_dim, 128),
+                nn.BatchNorm1d(128),
+                nn.ReLU(),
+                nn.Dropout(0.3),
+                nn.Linear(128, 1)
+            )
 
-    def forward(self, semantic_x: torch.Tensor, stylometric_x: torch.Tensor = None, **kwargs) -> torch.Tensor:
+    def forward(self, semantic_x: Any, stylometric_x: Any = None, **kwargs) -> Any:
         sem_feat = self.semantic_proj(semantic_x)
         logits = self.classifier(sem_feat)
         return logits.squeeze(-1)
 
 
-class VerityStylometricOnlyClassifier(nn.Module):
+class VerityStylometricOnlyClassifier(_ModuleBase):
     """
     Ablation Architecture B: Stylometric Feature Vector Only.
     """
     def __init__(self, stylometric_dim: int = 20, sty_proj_dim: int = 64):
-        super().__init__()
-        self.stylometric_proj = nn.Sequential(
-            nn.Linear(stylometric_dim, sty_proj_dim),
-            nn.BatchNorm1d(sty_proj_dim),
-            nn.ReLU(),
-            nn.Dropout(0.2)
-        )
-        self.classifier = nn.Sequential(
-            nn.Linear(sty_proj_dim, 32),
-            nn.BatchNorm1d(32),
-            nn.ReLU(),
-            nn.Dropout(0.3),
-            nn.Linear(32, 1)
-        )
+        if nn is not None:
+            super().__init__()
+            self.stylometric_proj = nn.Sequential(
+                nn.Linear(stylometric_dim, sty_proj_dim),
+                nn.BatchNorm1d(sty_proj_dim),
+                nn.ReLU(),
+                nn.Dropout(0.2)
+            )
+            self.classifier = nn.Sequential(
+                nn.Linear(sty_proj_dim, 32),
+                nn.BatchNorm1d(32),
+                nn.ReLU(),
+                nn.Dropout(0.3),
+                nn.Linear(32, 1)
+            )
 
-    def forward(self, stylometric_x: torch.Tensor, semantic_x: torch.Tensor = None, **kwargs) -> torch.Tensor:
+    def forward(self, stylometric_x: Any, semantic_x: Any = None, **kwargs) -> Any:
         sty_feat = self.stylometric_proj(stylometric_x)
         logits = self.classifier(sty_feat)
         return logits.squeeze(-1)
 
-from transformers import AutoModel
 
-class VerityV4Model(nn.Module):
+class VerityV4Model(_ModuleBase):
     def __init__(self, transformer_name="distilroberta-base", unfreeze_layers=1):
-        super().__init__()
-        self.transformer = AutoModel.from_pretrained(transformer_name)
-        for param in self.transformer.parameters():
-            param.requires_grad = False
-        if unfreeze_layers > 0:
-            layers = self.transformer.encoder.layer
-            for i in range(len(layers) - unfreeze_layers, len(layers)):
-                for param in layers[i].parameters():
-                    param.requires_grad = True
-        self.fusion_head = VerityFusionClassifier(
-            semantic_dim=768, stylometric_dim=20, sem_proj_dim=256, sty_proj_dim=64
-        )
+        if nn is not None:
+            from transformers import AutoModel
+            super().__init__()
+            self.transformer = AutoModel.from_pretrained(transformer_name)
+            for param in self.transformer.parameters():
+                param.requires_grad = False
+            if unfreeze_layers > 0:
+                layers = self.transformer.encoder.layer
+                for i in range(len(layers) - unfreeze_layers, len(layers)):
+                    for param in layers[i].parameters():
+                        param.requires_grad = True
+            self.fusion_head = VerityFusionClassifier(
+                semantic_dim=768, stylometric_dim=20, sem_proj_dim=256, sty_proj_dim=64
+            )
 
     def extract_semantic_embedding(self, input_ids, attention_mask):
         outputs = self.transformer(input_ids=input_ids, attention_mask=attention_mask)

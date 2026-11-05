@@ -22,7 +22,7 @@ except ModuleNotFoundError:
 
 app = FastAPI(
     title="VERITY AI/ML Service",
-    description="Transformer Semantic Representation + Stylometric Feature Fusion Detection API",
+    description="Transformer Semantic Representation + Stylometric Feature Fusion Detection API with SQLite Persistence",
     version="1.0.0"
 )
 
@@ -55,8 +55,7 @@ else:
         "http://localhost:5173",
         "http://127.0.0.1:5173",
         "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "https://xga5neu3.us-east.insforge.app"
+        "http://127.0.0.1:3000"
     ]
 
 app.add_middleware(

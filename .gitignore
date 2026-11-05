@@ -56,3 +56,6 @@ playwright-report/
 screenshots/
 frontend/screenshots/
 .archify/
+
+.venv/
+backend/data/*.db*

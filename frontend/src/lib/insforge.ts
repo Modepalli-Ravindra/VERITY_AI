@@ -1,12 +1,10 @@
-import { createClient } from '@insforge/sdk';
+/**
+ * VERITY SQLite Client Layer
+ * Replaces InsForge BaaS with direct local SQLite backend integration.
+ * Fully decoupled from cloud dependencies.
+ */
 
-const INSFORGE_URL = import.meta.env.VITE_INSFORGE_URL || 'https://xga5neu3.us-east.insforge.app';
-const INSFORGE_ANON_KEY = import.meta.env.VITE_INSFORGE_ANON_KEY || 'anon_61d4fcb074bcc5e3a7b319420ea44caa0cd2edfec2c36a0b06c462862d6bc49c';
-
-export const insforge = createClient({
-  baseUrl: INSFORGE_URL,
-  anonKey: INSFORGE_ANON_KEY,
-});
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
 
 export const parseJwtPayload = (token: string): any => {
   try {
@@ -31,140 +29,320 @@ export const parseJwtPayload = (token: string): any => {
 };
 
 export const isTokenExpired = (token: string, skewSeconds = 30): boolean => {
-  if (!token || token === INSFORGE_ANON_KEY || token.startsWith('anon_')) return true;
+  if (!token) return true;
   const payload = parseJwtPayload(token);
   if (!payload) return true;
   if (typeof payload.exp !== 'number') {
-    // If token has valid payload with subject but no exp, consider unexpired
     return !payload.sub;
   }
   const now = Math.floor(Date.now() / 1000);
   return now >= (payload.exp - skewSeconds);
 };
 
+let inMemoryToken: string | null = null;
+let inMemoryRefreshToken: string | null = null;
+
 export const saveAuthTokens = (accessToken?: string | null, refreshToken?: string | null) => {
-  if (accessToken && accessToken !== INSFORGE_ANON_KEY && !accessToken.startsWith('anon_')) {
+  if (accessToken) {
+    inMemoryToken = accessToken;
     try {
       localStorage.setItem('verity_access_token', accessToken);
     } catch {}
-    try {
-      insforge.setAccessToken(accessToken);
-    } catch {}
   }
   if (refreshToken) {
+    inMemoryRefreshToken = refreshToken;
     try {
       localStorage.setItem('verity_refresh_token', refreshToken);
-    } catch {}
-    try {
-      insforge.getHttpClient().setRefreshToken(refreshToken);
     } catch {}
   }
 };
 
 export const clearAuthTokens = () => {
+  inMemoryToken = null;
+  inMemoryRefreshToken = null;
   try {
     localStorage.removeItem('verity_access_token');
     localStorage.removeItem('verity_refresh_token');
   } catch {}
-  try {
-    insforge.setAccessToken(null);
-  } catch {}
-  try {
-    insforge.getHttpClient().setRefreshToken(null);
-  } catch {}
 };
 
 export const getAuthToken = async (): Promise<string | null> => {
+  if (inMemoryToken && !isTokenExpired(inMemoryToken)) {
+    return inMemoryToken;
+  }
   try {
-    // 1. Check in-memory token from tokenManager (excludes anon key)
-    let token: string | null = null;
-    try {
-      token = (insforge as any).tokenManager?.getAccessToken() || null;
-      if (token === INSFORGE_ANON_KEY || (token && token.startsWith('anon_'))) {
-        token = null;
-      }
-    } catch {}
-
-    // 2. Check localStorage if in-memory token is absent
-    if (!token) {
-      try {
-        const stored = localStorage.getItem('verity_access_token');
-        if (stored && stored !== INSFORGE_ANON_KEY && !stored.startsWith('anon_')) {
-          token = stored;
-        }
-      } catch {}
+    const stored = localStorage.getItem('verity_access_token');
+    if (stored && !isTokenExpired(stored)) {
+      inMemoryToken = stored;
+      return stored;
     }
+  } catch {}
 
-    // 3. If token is present, verify expiration
-    if (token) {
-      if (!isTokenExpired(token)) {
-        try {
-          if ((insforge as any).tokenManager?.getAccessToken() !== token) {
-            insforge.setAccessToken(token);
-          }
-        } catch {}
-        return token;
-      }
-
-      // If expired, attempt refresh using stored refresh token
-      try {
-        const storedRefreshToken = localStorage.getItem('verity_refresh_token');
-        if (storedRefreshToken) {
-          const refreshRes = await insforge.auth.refreshSession({
-            refreshToken: storedRefreshToken
-          });
-          if (refreshRes.data?.accessToken) {
-            saveAuthTokens(refreshRes.data.accessToken, (refreshRes.data as any).refreshToken);
-            return refreshRes.data.accessToken;
-          }
-        }
-        // Refresh failed, continue to session fallback
-      } catch {
-        // Refresh failed
-      }
+  // Guest token fallback for unauthenticated workspace access
+  try {
+    let guestId = localStorage.getItem('verity_guest_id');
+    if (!guestId) {
+      guestId = 'guest_' + Math.random().toString(36).substring(2, 10);
+      localStorage.setItem('verity_guest_id', guestId);
     }
-
-    // 4. Session fallback: if an authenticated user session is active, generate a valid client token
-    try {
-      const sessionUserStr = localStorage.getItem('verity_session_user');
-      if (sessionUserStr) {
-        const sessionUser = JSON.parse(sessionUserStr);
-        if (sessionUser?.id) {
-          const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
-          const payload = btoa(JSON.stringify({
-            sub: sessionUser.id,
-            email: sessionUser.email || 'user@verity.ai',
-            exp: Math.floor(Date.now() / 1000) + 86400 * 30
-          }));
-          const fallbackToken = `${header}.${payload}.sig`;
-          saveAuthTokens(fallbackToken);
-          return fallbackToken;
-        }
-      }
-    } catch {}
-
-    // 5. Workspace client fallback: guarantee a valid JWT with sub so unauthenticated users never hit auth failures
-    try {
-      let guestId = localStorage.getItem('verity_guest_id');
-      if (!guestId) {
-        guestId = 'guest_' + Math.random().toString(36).substring(2, 10);
-        localStorage.setItem('verity_guest_id', guestId);
-      }
-      const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
-      const payload = btoa(JSON.stringify({
-        sub: guestId,
-        email: 'guest@verity.ai',
-        role: 'authenticated',
-        exp: Math.floor(Date.now() / 1000) + 86400 * 365
-      }));
-      const guestToken = `${header}.${payload}.sig`;
-      saveAuthTokens(guestToken);
-      return guestToken;
-    } catch {}
-
-    return null;
+    const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
+    const payload = btoa(JSON.stringify({
+      sub: guestId,
+      email: 'guest@verity.local',
+      role: 'guest',
+      exp: Math.floor(Date.now() / 1000) + 86400 * 365
+    }));
+    const guestToken = `${header}.${payload}.sig`;
+    saveAuthTokens(guestToken);
+    return guestToken;
   } catch {
     return null;
+  }
+};
+
+class SQLiteQueryBuilder {
+  private table: string;
+  private action: 'select' | 'insert' | 'update' | 'delete' = 'select';
+  private conditions: { field: string; value: any }[] = [];
+  private orderField?: string;
+  private orderAsc: boolean = true;
+  private limitCount?: number;
+  private insertData?: any;
+  private updateData?: any;
+
+  constructor(table: string) {
+    this.table = table;
+  }
+
+  select(fields = '*') {
+    this.action = 'select';
+    return this;
+  }
+
+  insert(records: any[]) {
+    this.action = 'insert';
+    this.insertData = records;
+    return this.execute();
+  }
+
+  upsert(records: any[]) {
+    this.action = 'insert';
+    this.insertData = records;
+    return this.execute();
+  }
+
+  update(fields: any) {
+    this.action = 'update';
+    this.updateData = fields;
+    return this;
+  }
+
+  delete() {
+    this.action = 'delete';
+    return this;
+  }
+
+  eq(field: string, value: any) {
+    this.conditions.push({ field, value });
+    return this;
+  }
+
+  order(field: string, opts?: { ascending?: boolean }) {
+    this.orderField = field;
+    this.orderAsc = opts?.ascending !== false;
+    return this;
+  }
+
+  limit(count: number) {
+    this.limitCount = count;
+    return this;
+  }
+
+  async maybeSingle(): Promise<{ data: any | null; error: any | null }> {
+    const res = await this.execute();
+    if (res.error) return { data: null, error: res.error };
+    if (Array.isArray(res.data) && res.data.length > 0) {
+      return { data: res.data[0], error: null };
+    }
+    return { data: res.data || null, error: null };
+  }
+
+  async single(): Promise<{ data: any | null; error: any | null }> {
+    return this.maybeSingle();
+  }
+
+  then(onfulfilled?: (value: any) => any, onrejected?: (reason: any) => any) {
+    return this.execute().then(onfulfilled, onrejected);
+  }
+
+  private async execute(): Promise<{ data: any; error: any }> {
+    try {
+      const token = await getAuthToken();
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+      };
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
+      if (this.action === 'insert') {
+        const url = `${API_BASE_URL}/${this.table}`;
+        const res = await fetch(url, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(this.insertData)
+        });
+        const json = await res.json();
+        return { data: json.data, error: json.error || null };
+      }
+
+      if (this.action === 'select') {
+        const queryParams = new URLSearchParams();
+        if (this.limitCount) queryParams.set('limit', String(this.limitCount));
+        const url = `${API_BASE_URL}/${this.table}?${queryParams.toString()}`;
+        const res = await fetch(url, { method: 'GET', headers });
+        const json = await res.json();
+        return { data: json.data || [], error: json.error || null };
+      }
+
+      if (this.action === 'delete') {
+        const idCond = this.conditions.find(c => c.field === 'id');
+        const url = idCond
+          ? `${API_BASE_URL}/${this.table}/${idCond.value}`
+          : `${API_BASE_URL}/${this.table}`;
+        const res = await fetch(url, { method: 'DELETE', headers });
+        const json = await res.json();
+        return { data: json.data, error: json.error || null };
+      }
+
+      if (this.action === 'update') {
+        const url = `${API_BASE_URL}/${this.table}`;
+        const res = await fetch(url, {
+          method: 'PUT',
+          headers,
+          body: JSON.stringify(this.updateData)
+        });
+        const json = await res.json();
+        return { data: json.data, error: json.error || null };
+      }
+
+      return { data: null, error: null };
+    } catch (err: any) {
+      return { data: null, error: { message: err.message || 'SQLite API request failed' } };
+    }
+  }
+}
+
+export const insforge = {
+  setAccessToken: (token: string | null) => {
+    inMemoryToken = token;
+  },
+  getHttpClient: () => ({
+    setRefreshToken: (token: string | null) => {
+      inMemoryRefreshToken = token;
+    }
+  }),
+  tokenManager: {
+    getAccessToken: () => inMemoryToken
+  },
+  auth: {
+    signUp: async ({ email, password, name }: { email: string; password: string; name?: string }) => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/auth/signup`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password, displayName: name, name })
+        });
+        return await res.json();
+      } catch (err: any) {
+        return { error: { message: err.message } };
+      }
+    },
+    signInWithPassword: async ({ email, password }: { email: string; password: string }) => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/auth/signin`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        return await res.json();
+      } catch (err: any) {
+        return { error: { message: err.message } };
+      }
+    },
+    verifyEmail: async ({ email, otp }: { email: string; otp?: string }) => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/auth/verify`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, otp })
+        });
+        return await res.json();
+      } catch (err: any) {
+        return { error: { message: err.message } };
+      }
+    },
+    resendVerificationEmail: async ({ email }: { email: string }) => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/auth/resend`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        return await res.json();
+      } catch (err: any) {
+        return { error: { message: err.message } };
+      }
+    },
+    getCurrentUser: async () => {
+      try {
+        const token = await getAuthToken();
+        if (!token) return { data: null, error: null };
+        const res = await fetch(`${API_BASE_URL}/auth/me`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        return await res.json();
+      } catch (err: any) {
+        return { data: null, error: { message: err.message } };
+      }
+    },
+    updateUser: async ({ data }: { data: any }) => {
+      try {
+        const token = await getAuthToken();
+        const res = await fetch(`${API_BASE_URL}/auth/profile`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+          },
+          body: JSON.stringify({
+            full_name: data.full_name || data.name || '',
+            display_name: data.display_name || data.name || ''
+          })
+        });
+        return await res.json();
+      } catch (err: any) {
+        return { error: { message: err.message } };
+      }
+    },
+    refreshSession: async ({ refreshToken }: { refreshToken?: string }) => {
+      const token = inMemoryToken || localStorage.getItem('verity_access_token');
+      return { data: { accessToken: token, refreshToken: token }, error: null };
+    },
+    signOut: async () => {
+      clearAuthTokens();
+      try {
+        await fetch(`${API_BASE_URL}/auth/signout`, { method: 'POST' });
+      } catch {}
+      return { data: null, error: null };
+    }
+  },
+  database: {
+    from: (table: string) => new SQLiteQueryBuilder(table)
   }
 };
 
@@ -172,4 +350,3 @@ if (typeof window !== 'undefined') {
   (window as any).__clearVerityTokens = clearAuthTokens;
   (window as any).__getVerityToken = getAuthToken;
 }
-

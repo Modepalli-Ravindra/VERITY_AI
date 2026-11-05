@@ -5,7 +5,10 @@ import logging
 from pathlib import Path
 from typing import Dict, Any, Optional
 
-import torch
+try:
+    import torch
+except ImportError:
+    torch = None
 
 root_dir = Path(__file__).resolve().parent.parent.parent
 if str(root_dir) not in sys.path:
@@ -75,6 +78,9 @@ class FeatureFusionDetector:
         """
         Checks if trained PyTorch model weights, configuration, and feature scaler exist.
         """
+        if torch is None:
+            return False
+
         model_dir = cls.get_active_model_dir()
         model_path = os.path.join(model_dir, "best_model.pt")
         config_path = os.path.join(model_dir, "config.json")
@@ -88,6 +94,10 @@ class FeatureFusionDetector:
 
     @classmethod
     def load_detector(cls) -> bool:
+        if torch is None:
+            cls._is_model_available = False
+            return False
+
         if cls._cached_model is not None and cls._cached_scaler is not None:
             return True
 
@@ -217,7 +227,4 @@ class FeatureFusionDetector:
 
     @classmethod
     def evaluate_with_transformer(cls, text: str, transformer_features: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Alias for evaluate() for backwards compatibility.
-        """
         return cls.evaluate(text)

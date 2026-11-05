@@ -1,11 +1,17 @@
-import torch
-from transformers import AutoModel, AutoTokenizer
+try:
+    import torch
+    _ModuleBase = torch.nn.Module
+except ImportError:
+    torch = None
+    _ModuleBase = object
 
-class ModernBERTEncoder(torch.nn.Module):
+class ModernBERTEncoder(_ModuleBase):
     def __init__(self, config):
-        super().__init__()
-        self.config = config
-        self.model = AutoModel.from_pretrained(config.transformer_name)
+        if torch is not None:
+            from transformers import AutoModel
+            super().__init__()
+            self.config = config
+            self.model = AutoModel.from_pretrained(config.transformer_name)
 
     def forward(self, input_ids, attention_mask):
         outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)

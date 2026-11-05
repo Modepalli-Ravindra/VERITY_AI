@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Request, Depends, UploadFile, File, Form
 from pydantic import BaseModel
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from backend.ml.fusion_model import FeatureFusionDetector
 from backend.services.llm_providers import LLMProviderService
 from backend.services.provider_manager import ProviderManager
@@ -10,6 +10,19 @@ from backend.ml.experimental.v5_inference import V5InferenceService
 import logging
 from slowapi import Limiter
 from slowapi.util import get_remote_address
+
+from backend.db.database import (
+    register_user,
+    login_user,
+    get_user_profile,
+    update_user_profile,
+    insert_analysis,
+    list_analyses,
+    delete_analysis_by_id,
+    delete_all_user_analyses,
+    insert_humanization,
+    list_humanizations,
+)
 
 logger = logging.getLogger("verity.router")
 limiter = Limiter(key_func=get_remote_address)
@@ -27,7 +40,7 @@ class HumanizeRequest(BaseModel):
 
 @router.get("/health")
 def health_check():
-    return {"status": "ok", "service": "VERITY AI/ML Service"}
+    return {"status": "ok", "service": "VERITY AI/ML Service", "database": "SQLite"}
 
 @router.get("/providers")
 def get_providers():
@@ -116,7 +129,6 @@ async def humanize_text(req: HumanizeRequest, request: Request, user=Depends(get
     if len(req.text) > 100000:
         raise HTTPException(status_code=400, detail="Text length exceeds 100,000 character limit.")
 
-    # Map tone and backward-compatible mode
     selected_tone = req.tone or "natural"
     if req.mode and (not req.tone or req.tone == "natural"):
         mode_map = {
@@ -172,10 +184,10 @@ async def analyze_v5(req: TextAnalysisRequest, request: Request, user=Depends(ge
     except FileNotFoundError as e:
         raise HTTPException(status_code=503, detail=f"Experimental V5 model is unavailable: {str(e)}")
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Experimental V5 inference engine encountered an error.")
+        raise HTTPException(status_code=500, detail=f"Experimental V5 inference engine encountered an error: {str(e)}")
 
 class ModelSelectionRequest(BaseModel):
-    model: str  # 'distilroberta-base' or 'modernbert'
+    model: str
 
 @router.get("/models")
 def get_model_registry():
@@ -219,7 +231,6 @@ def select_model(req: ModelSelectionRequest, user=Depends(get_current_user)):
     import os
     selected = req.model.strip().lower()
     if selected in ["modernbert", "v5", "v5-modernbert"]:
-        # Validate that V5 checkpoint and scaler are loadable before switching
         try:
             from backend.ml.experimental.v5_inference import V5InferenceService
             V5InferenceService.get_instance()
@@ -278,3 +289,128 @@ def get_intelligence_graph(req: IntelligenceGraphRequest):
         verification_id=req.verification_id
     )
 
+# ============================================================================
+# SQLite Persistence & Local Authentication Endpoints
+# ============================================================================
+
+class AuthSignUpRequest(BaseModel):
+    email: str
+    password: str
+    displayName: Optional[str] = None
+    name: Optional[str] = None
+
+class AuthSignInRequest(BaseModel):
+    email: str
+    password: str
+
+class AuthVerifyRequest(BaseModel):
+    email: str
+    otp: Optional[str] = None
+
+class AuthResendRequest(BaseModel):
+    email: str
+
+class ProfileUpdatePayload(BaseModel):
+    full_name: str
+    display_name: Optional[str] = None
+
+@router.post("/auth/signup")
+def auth_signup(req: AuthSignUpRequest):
+    try:
+        data = register_user(req.email, req.password, req.displayName or req.name)
+        return {"data": data, "error": None}
+    except Exception as e:
+        return {"data": None, "error": {"message": str(e)}}
+
+@router.post("/auth/signin")
+@router.post("/auth/login")
+def auth_signin(req: AuthSignInRequest):
+    try:
+        data = login_user(req.email, req.password)
+        return {"data": data, "error": None}
+    except Exception as e:
+        return {"data": None, "error": {"message": str(e)}}
+
+@router.post("/auth/verify")
+def auth_verify(req: AuthVerifyRequest):
+    # In SQLite local mode, automatic verification
+    return {"data": {"message": "Email verified successfully"}, "error": None}
+
+@router.post("/auth/resend")
+def auth_resend(req: AuthResendRequest):
+    return {"data": {"message": "Verification code resent"}, "error": None}
+
+@router.get("/auth/me")
+def auth_me(user=Depends(get_current_user)):
+    prof = get_user_profile(user.id)
+    return {"data": {"user": prof}, "error": None}
+
+@router.put("/auth/profile")
+@router.post("/auth/profile")
+def auth_update_profile(req: ProfileUpdatePayload, user=Depends(get_current_user)):
+    try:
+        updated = update_user_profile(user.id, req.full_name, req.display_name)
+        return {"data": updated, "error": None}
+    except Exception as e:
+        return {"data": None, "error": {"message": str(e)}}
+
+@router.post("/auth/signout")
+def auth_signout():
+    return {"data": {"message": "Signed out successfully"}, "error": None}
+
+# Database CRUD Endpoints for SQLite
+@router.get("/analyses")
+def get_user_analyses(limit: int = 100, user=Depends(get_current_user)):
+    data = list_analyses(user.id, limit=limit)
+    return {"data": data, "error": None}
+
+@router.post("/analyses")
+async def save_user_analysis(request: Request, user=Depends(get_current_user)):
+    payload = await request.json()
+    records = payload if isinstance(payload, list) else [payload]
+    results = []
+    for r in records:
+        r["user_id"] = user.id
+        saved = insert_analysis(r)
+        results.append(saved)
+    return {"data": results if isinstance(payload, list) else results[0], "error": None}
+
+@router.delete("/analyses/{analysis_id}")
+def delete_single_analysis(analysis_id: str, user=Depends(get_current_user)):
+    ok = delete_analysis_by_id(user.id, analysis_id)
+    return {"data": {"deleted": ok}, "error": None}
+
+@router.delete("/analyses")
+def delete_all_analyses(user=Depends(get_current_user)):
+    count = delete_all_user_analyses(user.id)
+    return {"data": {"deleted_count": count}, "error": None}
+
+@router.get("/humanizations")
+def get_user_humanizations(limit: int = 100, user=Depends(get_current_user)):
+    data = list_humanizations(user.id, limit=limit)
+    return {"data": data, "error": None}
+
+@router.post("/humanizations")
+async def save_user_humanization(request: Request, user=Depends(get_current_user)):
+    payload = await request.json()
+    records = payload if isinstance(payload, list) else [payload]
+    results = []
+    for r in records:
+        r["user_id"] = user.id
+        saved = insert_humanization(r)
+        results.append(saved)
+    return {"data": results if isinstance(payload, list) else results[0], "error": None}
+
+@router.get("/profiles")
+def get_profile_endpoint(user=Depends(get_current_user)):
+    prof = get_user_profile(user.id)
+    return {"data": [prof] if prof else [], "error": None}
+
+@router.post("/profiles")
+@router.put("/profiles")
+async def upsert_profile_endpoint(request: Request, user=Depends(get_current_user)):
+    payload = await request.json()
+    record = payload[0] if isinstance(payload, list) and len(payload) > 0 else (payload if isinstance(payload, dict) else {})
+    name = record.get("full_name") or record.get("display_name") or user.email.split("@")[0]
+    updated = update_user_profile(user.id, name, record.get("display_name"))
+    return {"data": [updated], "error": None}

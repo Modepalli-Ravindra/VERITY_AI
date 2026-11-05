@@ -115,15 +115,15 @@ npm run dev
 
 ---
 
-## 🗄️ Database Schema Overview (InsForge)
+## 🗄️ Database Schema Overview (SQLite)
 
-VERITY utilizes a relational schema to manage user data securely:
-*   **`profiles`**: User details and display names.
-*   **`analyses`**: Stores original text, AI/Human probabilities, confidence scores, and explanations.
-*   **`humanizations`**: Links to `analyses` and stores the re-written text and the model used.
-*   **`analysis_features`**: Stores raw stylometric data (sentence length, vocab diversity, POS scores) for deep insights.
+VERITY utilizes a self-hosted relational SQLite database (ackend/data/verity.db) to manage user data locally and securely:
+*   **users**: User credentials, PBKDF2 password hashes, and session authentication.
+*   **profiles**: User details and display names.
+*   **nalyses**: Stores original text, AI/Human probabilities, confidence scores, and explanations.
+*   **humanizations**: Stores transformed adversarial rewrites, tones, and models used.
 
-*User isolation is strictly enforced via InsForge Row Level Security (RLS) policies.*
+*User isolation and session management are enforced with signed JWT tokens.*
 
 ---
 
