@@ -40,7 +40,7 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
       summary: 'End-to-end processing pipeline, decoupled evaluation-generation boundary, and execution stages.',
       content: (
         <div className="space-y-4">
-          <p className="text-[#D28B96] text-xs sm:text-sm leading-relaxed">
+          <p className="text-[#8DA2AA] text-xs sm:text-sm leading-relaxed">
             VERITY operates as an empirical text intelligence platform that pairs deep contextual transformer representations with a 20-dimensional syntactic stylometrics layer. The architecture cleanly separates analytical evaluation from generative assistance to prevent classifier bias and training leakage.
           </p>
 
@@ -51,19 +51,19 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
               { step: '03', title: 'Calibrated Verdict', desc: 'ModernBERT V5 applies a 0.70 calibrated decision threshold with per-sentence risk heatmaps.', color: 'text-emerald-400' },
               { step: '04', title: 'Provenance & QR', desc: 'Every analysis receives an immutable SHA-256 fingerprint, timestamp, and audit portal URL.', color: 'text-[#FFFFFF]' },
             ].map((st, i) => (
-              <div key={i} className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] flex flex-col justify-between">
+              <div key={i} className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] flex flex-col justify-between">
                 <div>
                   <span className={`text-[10px] sm:text-xs font-mono font-bold ${st.color} mb-1 block`}>STAGE {st.step}</span>
                   <h4 className="text-sm font-semibold text-white mb-1">{st.title}</h4>
-                  <p className="text-xs text-[#D28B96] leading-relaxed">{st.desc}</p>
+                  <p className="text-xs text-[#8DA2AA] leading-relaxed">{st.desc}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] flex items-start gap-3">
+          <div className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] flex items-start gap-3">
             <ShieldCheck className="w-5 h-5 text-[#FFFFFF] shrink-0 mt-0.5" />
-            <div className="text-xs sm:text-sm text-[#D28B96] leading-relaxed">
+            <div className="text-xs sm:text-sm text-[#8DA2AA] leading-relaxed">
               <strong className="text-white font-mono text-xs mr-1.5 uppercase">Strict Decoupling Guarantee:</strong>
               Detection classifiers evaluate text origin objectively and are completely isolated from writing intelligence engines. Evaluation heads never rewrite text, and paraphrasing models are constrained to prevent classifier evasion training loops.
             </div>
@@ -79,20 +79,20 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
       summary: 'ModernBERT V5 primary engine, DistilRoBERTa V2 hot standby, training corpora, and sequence contexts.',
       content: (
         <div className="space-y-4">
-          <p className="text-[#D28B96] text-xs sm:text-sm leading-relaxed">
+          <p className="text-[#8DA2AA] text-xs sm:text-sm leading-relaxed">
             VERITY employs a dual-engine architecture: a primary deep contextual transformer fine-tuned for nuanced document comprehension, and a lightweight hot-standby model ensuring sub-second fallback with zero service interruption.
           </p>
 
           <div className="border border-white/[0.08] rounded-xl overflow-hidden ">
             <table className="w-full text-left text-xs sm:text-sm font-sans">
-              <thead className="bg-[#0A0407]/90 backdrop-blur-md text-[#FFFFFF] font-mono border-b border-white/[0.08]">
+              <thead className="bg-[#070D12]/90 backdrop-blur-md text-[#FFFFFF] font-mono border-b border-white/[0.08]">
                 <tr>
                   <th className="p-2.5 sm:p-3">Specification</th>
                   <th className="p-2.5 sm:p-3">ModernBERT V5 (Primary Engine)</th>
                   <th className="p-2.5 sm:p-3">DistilRoBERTa V2 (Hot Standby)</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5 text-[#D28B96] bg-[#140A10]/80 backdrop-blur-2xl">
+              <tbody className="divide-y divide-white/5 text-[#8DA2AA] bg-[#0D151D]/80 backdrop-blur-2xl">
                 <tr>
                   <td className="p-2.5 font-semibold text-white">Base Architecture</td>
                   <td className="p-2.5 text-white">ModernBERT-base (Flash Attention)</td>
@@ -128,15 +128,15 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08]">
+            <div className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08]">
               <h4 className="text-xs sm:text-sm font-mono uppercase text-[#FFFFFF] font-bold mb-1">Why 1024-Token Context?</h4>
-              <p className="text-xs text-[#D28B96] leading-relaxed">
+              <p className="text-xs text-[#8DA2AA] leading-relaxed">
                 Traditional classifiers truncate text at 512 tokens, severing structural narrative flow. ModernBERT V5 natively captures full multi-paragraph essays without loss of coherence markers.
               </p>
             </div>
-            <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08]">
+            <div className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08]">
               <h4 className="text-xs sm:text-sm font-mono uppercase text-[#FFFFFF] font-bold mb-1">Hot-Standby Rollback</h4>
-              <p className="text-xs text-[#D28B96] leading-relaxed">
+              <p className="text-xs text-[#8DA2AA] leading-relaxed">
                 If deep transformer inference experiences resource spikes or high latency, the system provides automated fallback to DistilRoBERTa V2 with zero server restarts.
               </p>
             </div>
@@ -152,39 +152,39 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
       summary: 'Calibrated 0.70 threshold for ModernBERT V5, 0.50 fallback boundary, and false-positive prevention.',
       content: (
         <div className="space-y-4">
-          <p className="text-[#D28B96] text-xs sm:text-sm leading-relaxed">
+          <p className="text-[#8DA2AA] text-xs sm:text-sm leading-relaxed">
             Standard classifiers apply an arbitrary 0.50 threshold that frequently penalizes formal human writing (e.g. academic papers, medical abstracts, and non-native English speakers). VERITY introduces empirical score calibration to protect authentic prose.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-emerald-500/30">
+            <div className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-emerald-500/30">
               <div className="text-[10px] sm:text-xs font-mono uppercase text-emerald-400 font-bold mb-1">0.00 – 0.49 Score</div>
               <h4 className="text-sm font-bold text-white mb-1">Authentic Human Writing</h4>
-              <p className="text-xs text-[#D28B96] leading-relaxed">
+              <p className="text-xs text-[#8DA2AA] leading-relaxed">
                 High syntactic burstiness, dynamic sentence length variance, and organic lexical entropy consistent with human composition.
               </p>
             </div>
 
-            <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-amber-500/30">
+            <div className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-amber-500/30">
               <div className="text-[10px] sm:text-xs font-mono uppercase text-amber-400 font-bold mb-1">0.50 – 0.69 Score</div>
               <h4 className="text-sm font-bold text-white mb-1">Moderate Uncertainty Zone</h4>
-              <p className="text-xs text-[#D28B96] leading-relaxed">
+              <p className="text-xs text-[#8DA2AA] leading-relaxed">
                 Mixed signals. Treated as indeterminate or lightly assisted rather than penalizing authors with a definitive AI verdict.
               </p>
             </div>
 
-            <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-red-500/30">
+            <div className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-red-500/30">
               <div className="text-[10px] sm:text-xs font-mono uppercase text-red-400 font-bold mb-1">0.70 – 1.00 Score</div>
               <h4 className="text-sm font-bold text-white mb-1">Calibrated AI Classification</h4>
-              <p className="text-xs text-[#D28B96] leading-relaxed">
+              <p className="text-xs text-[#8DA2AA] leading-relaxed">
                 Only triggered when both 768-D embeddings and 20-D stylometrics exhibit sustained, synthetic predictability across tokens.
               </p>
             </div>
           </div>
 
-          <div className="p-3 rounded-xl bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] space-y-1">
+          <div className="p-3 rounded-xl bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] space-y-1">
             <h4 className="text-xs sm:text-sm font-mono text-[#FFFFFF] font-bold uppercase">Empirical Benchmark Validation</h4>
-            <p className="text-xs text-[#D28B96] leading-relaxed">
+            <p className="text-xs text-[#8DA2AA] leading-relaxed">
               Tested on HC3 and proprietary human academic datasets, the 0.70 calibrated decision threshold reduces false-positive rates on formal human scholarship from 14.8% (typical in naive 0.50 models) to under 0.2%.
             </p>
           </div>
@@ -199,14 +199,14 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
       summary: 'Semantic contextual embeddings, 20-D linguistic stylometric signals, and multi-segment chunking.',
       content: (
         <div className="space-y-4">
-          <p className="text-[#D28B96] text-xs sm:text-sm leading-relaxed">
+          <p className="text-[#8DA2AA] text-xs sm:text-sm leading-relaxed">
             Analysis combines deep semantic representations from the transformer with 20 engineered linguistic features that evaluate cadence, vocabulary distribution, and predictability.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] space-y-2">
+            <div className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] space-y-2">
               <div className="text-xs sm:text-sm font-bold font-mono text-[#FFFFFF] uppercase">20-Dimensional Stylometric Signals</div>
-              <ul className="text-xs text-[#D28B96] space-y-1.5 list-disc list-inside">
+              <ul className="text-xs text-[#8DA2AA] space-y-1.5 list-disc list-inside">
                 <li><strong className="text-white">Syntactic Burstiness Variance:</strong> Measures uneven pacing typical of human thought vs. uniform AI spacing.</li>
                 <li><strong className="text-white">Simpson Lexical Diversity & TTR:</strong> Identifies repetitive model token selections.</li>
                 <li><strong className="text-white">Punctuation Entropy:</strong> Measures variance in comma, colon, and semicolon cadences.</li>
@@ -215,12 +215,12 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
               </ul>
             </div>
 
-            <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] space-y-2">
+            <div className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] space-y-2">
               <div className="text-xs sm:text-sm font-bold font-mono text-[#FFFFFF] uppercase">Long Document Chunking</div>
-              <p className="text-xs text-[#D28B96] leading-relaxed">
+              <p className="text-xs text-[#8DA2AA] leading-relaxed">
                 Documents up to 100,000 characters automatically partition into 1,000-token windows with 100-token overlaps:
               </p>
-              <ul className="text-xs text-[#D28B96] space-y-1.5 list-disc list-inside">
+              <ul className="text-xs text-[#8DA2AA] space-y-1.5 list-disc list-inside">
                 <li>Preserves context across section headers and chapter boundaries.</li>
                 <li>Generates independent segment-level risk ratings (Low, Moderate, High).</li>
                 <li>Computed via length-weighted harmonic aggregation to prevent isolated paragraphs from skewing results.</li>
@@ -228,7 +228,7 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
             </div>
           </div>
 
-          <div className="p-3 rounded-xl bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] text-xs text-[#D28B96]">
+          <div className="p-3 rounded-xl bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] text-xs text-[#8DA2AA]">
             <span className="font-mono text-[#FFFFFF] font-bold block mb-1">Sentence-Level Explainability:</span>
             Every analyzed document receives sentence-level visual highlighting so users can inspect exactly which segments exhibit synthetic hallmarks and which maintain authentic human variance.
           </div>
@@ -243,7 +243,7 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
       summary: 'Multi-tone paraphrasing, Groq & Gemini provider routing, factual anchor preservation, and anti-leakage.',
       content: (
         <div className="space-y-4">
-          <p className="text-[#D28B96] text-xs sm:text-sm leading-relaxed">
+          <p className="text-[#8DA2AA] text-xs sm:text-sm leading-relaxed">
             The Writing Intelligence pipeline refactors text into organic prose across 4 specialized tones while strictly protecting critical factual assertions, citations, and terminology.
           </p>
 
@@ -254,26 +254,26 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
               { tone: 'Academic', desc: 'Strengthens scholarly vocabulary, active analytical voice, and rigorous logical transitions.' },
               { tone: 'Casual', desc: 'Simplifies complex clauses and conversational phrasing for digital publications and blogs.' }
             ].map(t => (
-              <div key={t.tone} className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08]">
+              <div key={t.tone} className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08]">
                 <span className="px-2 py-0.5 rounded bg-[#148BA6]/20 text-[#FFFFFF] text-[10px] sm:text-xs font-mono font-bold block w-fit mb-1.5">
                   {t.tone}
                 </span>
-                <p className="text-xs text-[#D28B96] leading-relaxed">{t.desc}</p>
+                <p className="text-xs text-[#8DA2AA] leading-relaxed">{t.desc}</p>
               </div>
             ))}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="p-3 rounded-xl bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] space-y-1">
+            <div className="p-3 rounded-xl bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] space-y-1">
               <h4 className="text-xs sm:text-sm font-mono text-[#FFFFFF] font-bold uppercase">Strict Factual Anchoring</h4>
-              <p className="text-xs text-[#D28B96] leading-relaxed">
+              <p className="text-xs text-[#8DA2AA] leading-relaxed">
                 Prior to transformation, entity extraction isolates proper nouns, dates, numerical values, literature citations, and domain formulas as immutable anchors.
               </p>
             </div>
 
-            <div className="p-3 rounded-xl bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] space-y-1">
+            <div className="p-3 rounded-xl bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] space-y-1">
               <h4 className="text-xs sm:text-sm font-mono text-[#FFFFFF] font-bold uppercase">Technology & Resilient LLM Routing</h4>
-              <p className="text-xs text-[#D28B96] leading-relaxed">
+              <p className="text-xs text-[#8DA2AA] leading-relaxed">
                 Powered by Groq ultra-low-latency LLaMA-3 / Mixtral inference alongside Google Gemini. If a provider reaches rate limits, requests automatically cascade to the next healthy engine.
               </p>
             </div>
@@ -289,28 +289,28 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
       summary: 'Side-by-side comparative inspection, delta probability metrics, length shifts, and stylistic divergence.',
       content: (
         <div className="space-y-4">
-          <p className="text-[#D28B96] text-xs sm:text-sm leading-relaxed">
+          <p className="text-[#8DA2AA] text-xs sm:text-sm leading-relaxed">
             The Compare view evaluates original vs. modified text side-by-side, computing precise mathematical deltas across AI likelihood, syntactic diversity, and structural length.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
-            <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08]">
+            <div className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08]">
               <div className="text-lg font-bold font-mono text-[#FFFFFF] mb-0.5">Δ AI Probability</div>
-              <p className="text-xs text-[#D28B96]">Quantifies the percentage reduction in synthetic predictability between versions.</p>
+              <p className="text-xs text-[#8DA2AA]">Quantifies the percentage reduction in synthetic predictability between versions.</p>
             </div>
-            <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08]">
+            <div className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08]">
               <div className="text-lg font-bold font-mono text-[#FFFFFF] mb-0.5">Δ Word Count</div>
-              <p className="text-xs text-[#D28B96]">Measures expansion or compression without sacrificing informational density.</p>
+              <p className="text-xs text-[#8DA2AA]">Measures expansion or compression without sacrificing informational density.</p>
             </div>
-            <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08]">
+            <div className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08]">
               <div className="text-lg font-bold font-mono text-[#FFFFFF] mb-0.5">Syntactic Cadence Delta</div>
-              <p className="text-xs text-[#D28B96]">Evaluates whether sentence length variance and punctuation entropy moved into human ranges.</p>
+              <p className="text-xs text-[#8DA2AA]">Evaluates whether sentence length variance and punctuation entropy moved into human ranges.</p>
             </div>
           </div>
 
-          <div className="p-3 rounded-xl bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] space-y-1">
+          <div className="p-3 rounded-xl bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] space-y-1">
             <h4 className="text-xs sm:text-sm font-mono text-[#FFFFFF] font-bold uppercase">Differential Diff Inspector</h4>
-            <p className="text-xs text-[#D28B96] leading-relaxed">
+            <p className="text-xs text-[#8DA2AA] leading-relaxed">
               Provides synchronized scroll comparison with inline token diff markers so writers and editors can verify that assertions remain intact while confirming robotic phrases were eliminated.
             </p>
           </div>
@@ -325,14 +325,14 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
       summary: 'Complete engineering stack, InsForge PostgreSQL BaaS, SHA-256 cryptographic fingerprints, and QR portals.',
       content: (
         <div className="space-y-4">
-          <p className="text-[#D28B96] text-xs sm:text-sm leading-relaxed">
+          <p className="text-[#8DA2AA] text-xs sm:text-sm leading-relaxed">
             VERITY is engineered as a secure, full-stack platform built for low latency, verified provenance, and enterprise privacy standards.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] space-y-2">
+            <div className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] space-y-2">
               <div className="text-xs sm:text-sm font-bold font-mono text-[#FFFFFF] uppercase">Core Technology Stack</div>
-              <ul className="text-xs sm:text-[13px] text-[#D28B96] space-y-1.5">
+              <ul className="text-xs sm:text-[13px] text-[#8DA2AA] space-y-1.5">
                 <li><strong className="text-white">Frontend:</strong> React 18, Vite, TypeScript, TailwindCSS, Framer Motion, Heroicons.</li>
                 <li><strong className="text-white">Backend:</strong> FastAPI (Python 3.10+), PyTorch, Hugging Face Transformers, NumPy, scikit-learn.</li>
                 <li><strong className="text-white">BaaS & Database:</strong> InsForge PostgreSQL BaaS, stateless JWT token authentication.</li>
@@ -340,9 +340,9 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
               </ul>
             </div>
 
-            <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] space-y-2">
+            <div className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] space-y-2">
               <div className="text-xs sm:text-sm font-bold font-mono text-[#FFFFFF] uppercase">Cryptographic Audit & QR Codes</div>
-              <ul className="text-xs sm:text-[13px] text-[#D28B96] space-y-1.5">
+              <ul className="text-xs sm:text-[13px] text-[#8DA2AA] space-y-1.5">
                 <li><strong className="text-white">SHA-256 Fingerprint:</strong> Immutable cryptographic hash calculated from document character stream and timestamp.</li>
                 <li><strong className="text-white">Public QR Portal:</strong> Sharable audit link (<code className="text-[#FFFFFF]">/verify/:id</code>) enabling clients or educators to audit results.</li>
                 <li><strong className="text-white">Data Privacy:</strong> Documents analyzed in VERITY are processed strictly in-memory during inference with zero external model training retention.</li>
@@ -353,7 +353,7 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
           <div className="p-3 rounded-xl bg-[#148BA6]/10 border border-white/[0.08] flex items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
               <CheckCircle className="w-5 h-5 text-[#FFFFFF] shrink-0" />
-              <div className="text-xs text-[#D28B96]">
+              <div className="text-xs text-[#8DA2AA]">
                 <strong className="text-white block text-sm">Ready to run empirical analysis?</strong>
                 Upload documents or paste text directly into the unified analyzer.
               </div>
@@ -387,7 +387,7 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
   }, [sections, activeSectionId]);
 
   return (
-    <div className="h-full w-full flex flex-col overflow-hidden text-[#FFFFFF] font-sans selection:bg-[#A64C61]/35 px-3 sm:px-6 lg:px-8 pb-3 pt-2 sm:pt-3">
+    <div className="h-full w-full flex flex-col overflow-hidden text-[#FFFFFF] font-sans selection:bg-[#00C9D8]/35 px-3 sm:px-6 lg:px-8 pb-3 pt-2 sm:pt-3">
       
       {/* Background Ambient Glows */}
       <div className="fixed inset-0 pointer-events-none z-0">
@@ -412,18 +412,18 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
           <div className="flex items-center gap-2.5">
             {/* Search Box */}
             <div className="relative w-44 sm:w-60">
-              <Search className="w-3.5 h-3.5 text-[#D28B96] absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-3.5 h-3.5 text-[#8DA2AA] absolute left-3 top-1/2 -translate-y-1/2" />
               <input 
                 type="text" 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search topics..." 
-                className="w-full bg-[#0A0407]/90 backdrop-blur-md border border-[#148BA6]/40 rounded-lg pl-8 pr-3 py-1.5 text-xs text-[#FFFFFF] placeholder-[#9CB0B7]/60 focus:outline-none focus:border-[#00D4E5] focus:ring-1 focus:ring-[#00D4E5] transition-all"
+                className="w-full bg-[#070D12]/90 backdrop-blur-md border border-[#148BA6]/40 rounded-lg pl-8 pr-3 py-1.5 text-xs text-[#FFFFFF] placeholder-[#9CB0B7]/60 focus:outline-none focus:border-[#00D4E5] focus:ring-1 focus:ring-[#00D4E5] transition-all"
               />
               {searchQuery && (
                 <button 
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-[#D28B96] hover:text-white"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-[#8DA2AA] hover:text-white"
                 >
                   Clear
                 </button>
@@ -432,7 +432,7 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
 
             <button
               onClick={() => onNavigate('/')}
-              className="px-3 py-1.5 rounded-lg bg-[#0A0407]/90 backdrop-blur-md border border-[rgba(0,201,216,0.25)] hover:border-[#00D4E5] text-xs font-mono text-[#D28B96] hover:text-white transition-colors flex items-center gap-1.5 shrink-0"
+              className="px-3 py-1.5 rounded-lg bg-[#070D12]/90 backdrop-blur-md border border-[rgba(0,201,216,0.25)] hover:border-[#00D4E5] text-xs font-mono text-[#8DA2AA] hover:text-white transition-colors flex items-center gap-1.5 shrink-0"
             >
               <ArrowRight className="w-3.5 h-3.5 rotate-180" />
               <span className="hidden sm:inline">Landing Page</span>
@@ -444,17 +444,17 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
         <div className="md:hidden shrink-0">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="w-full flex items-center justify-between p-2.5 rounded-xl bg-[#140A10]/80 backdrop-blur-2xl border border-[#148BA6]/40 text-xs font-mono font-bold text-[#FFFFFF]"
+            className="w-full flex items-center justify-between p-2.5 rounded-xl bg-[#0D151D]/80 backdrop-blur-2xl border border-[#148BA6]/40 text-xs font-mono font-bold text-[#FFFFFF]"
           >
             <span className="flex items-center gap-2">
               <Menu className="w-4 h-4" />
               <span>Section: {activeSection.title}</span>
             </span>
-            <span className="text-[10px] text-[#D28B96]">Toggle Menu</span>
+            <span className="text-[10px] text-[#8DA2AA]">Toggle Menu</span>
           </button>
 
           {mobileMenuOpen && (
-            <div className="mt-1 p-2 bg-[#0A0407]/90 backdrop-blur-md border border-[#148BA6]/40 rounded-xl space-y-1 max-h-48 overflow-y-auto">
+            <div className="mt-1 p-2 bg-[#070D12]/90 backdrop-blur-md border border-[#148BA6]/40 rounded-xl space-y-1 max-h-48 overflow-y-auto">
               {filteredSections.map(s => (
                 <button
                   key={s.id}
@@ -463,7 +463,7 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
                     setMobileMenuOpen(false);
                   }}
                   className={`w-full text-left px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                    activeSectionId === s.id ? 'bg-[#148BA6]/30 text-[#FFFFFF] font-bold' : 'text-[#D28B96] hover:text-white'
+                    activeSectionId === s.id ? 'bg-[#148BA6]/30 text-[#FFFFFF] font-bold' : 'text-[#8DA2AA] hover:text-white'
                   }`}
                 >
                   {s.title}
@@ -477,7 +477,7 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
         <div className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-12 gap-3 lg:gap-4 overflow-hidden">
           
           {/* Left Table of Contents */}
-          <aside className="hidden md:flex md:col-span-4 lg:col-span-3 h-full flex-col bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-xl p-3 overflow-hidden">
+          <aside className="hidden md:flex md:col-span-4 lg:col-span-3 h-full flex-col bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-xl p-3 overflow-hidden">
             <div className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-[#FFFFFF] font-bold mb-2 px-1 shrink-0">
               Navigation ({filteredSections.length} Sections)
             </div>
@@ -493,10 +493,10 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
                     className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs sm:text-[13px] text-left transition-all cursor-pointer ${
                       isActive 
                         ? 'bg-[#148BA6]/25 text-[#FFFFFF] font-bold border border-[#00D4E5]/40 ' 
-                        : 'text-[#D28B96] hover:text-[#FFFFFF] hover:bg-white/[0.03]'
+                        : 'text-[#8DA2AA] hover:text-[#FFFFFF] hover:bg-white/[0.03]'
                     }`}
                   >
-                    <IconComponent className={`w-4 h-4 shrink-0 ${isActive ? 'text-[#FFFFFF]' : 'text-[#D28B96]'}`} />
+                    <IconComponent className={`w-4 h-4 shrink-0 ${isActive ? 'text-[#FFFFFF]' : 'text-[#8DA2AA]'}`} />
                     <span className="truncate">{s.title}</span>
                   </button>
                 );
@@ -505,7 +505,7 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
           </aside>
 
           {/* Right Active Section Reader */}
-          <main className="md:col-span-8 lg:col-span-9 h-full flex flex-col bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-xl overflow-hidden">
+          <main className="md:col-span-8 lg:col-span-9 h-full flex flex-col bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-xl overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeSection.id}
@@ -516,14 +516,14 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
                 className="h-full flex flex-col overflow-hidden"
               >
                 {/* Header for Active Section */}
-                <div className="border-b border-white/[0.08] px-4 sm:px-5 py-3 shrink-0 bg-[#0A0407]/90 backdrop-blur-md/40">
+                <div className="border-b border-white/[0.08] px-4 sm:px-5 py-3 shrink-0 bg-[#070D12]/90 backdrop-blur-md/40">
                   <div className="flex items-center gap-2 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-[#FFFFFF] font-semibold mb-0.5">
                     <span>{activeSection.category}</span>
                   </div>
                   <h2 className="text-lg sm:text-xl font-bold text-[#FFFFFF] tracking-tight mb-1">
                     {activeSection.title}
                   </h2>
-                  <p className="text-xs sm:text-sm text-[#D28B96]">
+                  <p className="text-xs sm:text-sm text-[#8DA2AA]">
                     {activeSection.summary}
                   </p>
                 </div>

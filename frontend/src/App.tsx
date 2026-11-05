@@ -156,7 +156,7 @@ const MainRouter: React.FC = () => {
       {isSingleScreenRoute && (
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="absolute inset-0 bg-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(142,40,72,0.18),transparent_70%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(0,201,216,0.08),transparent_70%)]" />
         </div>
       )}
 
@@ -179,10 +179,10 @@ const MainRouter: React.FC = () => {
       {/* Remotion Product Demo Video Modal */}
       {showDemoVideo && (
         <div className="fixed inset-0 z-50 bg-black/90  flex items-center justify-center p-4">
-          <div className="w-full max-w-4xl bg-[#0e0e14] border border-indigo-500/30 rounded-3xl p-4 sm:p-6 space-y-4 relative ">
+          <div className="w-full max-w-4xl bg-[#0D151D] border border-[#00C9D8]/30 rounded-3xl p-4 sm:p-6 space-y-4 relative shadow-2xl shadow-[#00C9D8]/10">
             <div className="flex items-center justify-between border-b border-white/10 pb-3">
-              <div className="flex items-center gap-2 text-xs font-mono font-semibold text-indigo-300">
-                <Play className="w-4 h-4 text-indigo-400" />
+              <div className="flex items-center gap-2 text-xs font-mono font-semibold text-[#00D5E5]">
+                <Play className="w-4 h-4 text-[#00C9D8]" />
                 <span>VERITY Remotion Product Demo</span>
               </div>
               <button

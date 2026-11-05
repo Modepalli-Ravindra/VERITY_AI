@@ -263,7 +263,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
   }, [origResult, humResult]);
 
   return (
-    <div className="flex-1 min-h-0 h-full text-[#FFFFFF] px-3 sm:px-6 lg:px-8 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#A64C61]/35">
+    <div className="flex-1 min-h-0 h-full text-[#FFFFFF] px-3 sm:px-6 lg:px-8 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#00C9D8]/35">
       
       {/* Background Glows */}
       
@@ -282,7 +282,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
               <span>ModernBERT V5</span>
             </div>
             <span className="text-[#FFFFFF]/30 text-xs">•</span>
-            <span className="text-xs font-mono text-[#D28B96]">Threshold: 0.70</span>
+            <span className="text-xs font-mono text-[#8DA2AA]">Threshold: 0.70</span>
           </div>
 
           <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
@@ -303,7 +303,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
                 localStorage.removeItem('verity_compare_ores');
                 localStorage.removeItem('verity_compare_hres');
               }}
-              className="px-3.5 py-2 text-xs font-mono tracking-widest uppercase text-[#9BB2B7] hover:text-[#FFFFFF] transition-colors cursor-pointer flex items-center gap-1.5 rounded-xl border border-white/[0.08] bg-[#0A0407]/90 backdrop-blur-md hover:border-[#00C9D8]/40"
+              className="px-3.5 py-2 text-xs font-mono tracking-widest uppercase text-[#9BB2B7] hover:text-[#FFFFFF] transition-colors cursor-pointer flex items-center gap-1.5 rounded-xl border border-white/[0.08] bg-[#070D12]/90 backdrop-blur-md hover:border-[#00C9D8]/40"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Clear Both</span>
@@ -337,9 +337,9 @@ export const ComparePage: React.FC<ComparePageProps> = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-[#1D1015]/85"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-[#0A1117]/85"
             >
-              <div className="bg-[#140A10]/80 backdrop-blur-2xl p-8 rounded-2xl border border-white/[0.08] flex items-center justify-center ">
+              <div className="bg-[#0D151D]/80 backdrop-blur-2xl p-8 rounded-2xl border border-white/[0.08] flex items-center justify-center ">
                 <ThinkingOrbs title="EVALUATING SIGNAL DIFFERENTIAL" stages={compareStages} durationMs={450} />
               </div>
             </motion.div>
@@ -349,11 +349,11 @@ export const ComparePage: React.FC<ComparePageProps> = ({
         {/* Comparison Telemetry Strip */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 shrink-0">
           {/* Card 1: Original Probability */}
-          <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-4 flex flex-col justify-between hover:border-[#D28B96]/35 transition-all relative overflow-hidden group">
+          <div className="bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-4 flex flex-col justify-between hover:border-[#00C9D8]/35 transition-all relative overflow-hidden group">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div>
               <span className="text-xs text-[#9BB2B7] font-mono tracking-widest uppercase block font-semibold leading-tight">Original Text AI Score</span>
-              <span className="text-[10px] text-[#D28B96] font-sans block mt-0.5 leading-tight">Likelihood original was AI</span>
+              <span className="text-[10px] text-[#8DA2AA] font-sans block mt-0.5 leading-tight">Likelihood original was AI</span>
             </div>
             <div className="flex items-baseline gap-1.5 mt-2 flex-wrap">
               {loading ? (
@@ -374,11 +374,11 @@ export const ComparePage: React.FC<ComparePageProps> = ({
           </div>
 
           {/* Card 2: Adversarial / Rewritten Probability */}
-          <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-4 flex flex-col justify-between hover:border-[#D28B96]/35 transition-all relative overflow-hidden group">
+          <div className="bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-4 flex flex-col justify-between hover:border-[#00C9D8]/35 transition-all relative overflow-hidden group">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div>
               <span className="text-xs text-[#9BB2B7] font-mono tracking-widest uppercase block font-semibold leading-tight">Rewritten Text AI Score</span>
-              <span className="text-[10px] text-[#D28B96] font-sans block mt-0.5 leading-tight">Likelihood rewrite is AI</span>
+              <span className="text-[10px] text-[#8DA2AA] font-sans block mt-0.5 leading-tight">Likelihood rewrite is AI</span>
             </div>
             <div className="flex items-baseline gap-1.5 mt-2 flex-wrap">
               {loading ? (
@@ -399,7 +399,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
           </div>
 
           {/* Card 3: Signal Change */}
-          <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-4 flex flex-col justify-between hover:border-[#D28B96]/35 transition-all relative overflow-hidden group">
+          <div className="bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-4 flex flex-col justify-between hover:border-[#00C9D8]/35 transition-all relative overflow-hidden group">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/40 to-transparent" />
             <div>
               <span className="text-xs text-[#FFFFFF] font-mono tracking-widest uppercase flex items-center gap-1.5 font-semibold leading-tight">
@@ -418,11 +418,11 @@ export const ComparePage: React.FC<ComparePageProps> = ({
           </div>
 
           {/* Card 4: Word Count Delta */}
-          <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-4 flex flex-col justify-between hover:border-[#D28B96]/35 transition-all relative overflow-hidden group">
+          <div className="bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-4 flex flex-col justify-between hover:border-[#00C9D8]/35 transition-all relative overflow-hidden group">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div>
               <span className="text-xs text-[#9BB2B7] font-mono tracking-widest uppercase block font-semibold leading-tight">Word Count Difference</span>
-              <span className="text-[10px] text-[#D28B96] font-sans block mt-0.5 leading-tight">Change after rewrite</span>
+              <span className="text-[10px] text-[#8DA2AA] font-sans block mt-0.5 leading-tight">Change after rewrite</span>
             </div>
             <div className="flex items-baseline gap-1.5 mt-2 flex-wrap">
               <span className="text-2xl sm:text-3xl font-bold text-[#FFFFFF] font-mono tracking-tight">
@@ -449,9 +449,9 @@ export const ComparePage: React.FC<ComparePageProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-1 min-h-[520px]">
           
           {/* Left Pane: Original Sequence */}
-          <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden relative">
+          <div className="bg-[#0D151D]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
-            <div className="flex items-center justify-between px-5 py-3.5 bg-[#0A0407]/90 backdrop-blur-md/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
+            <div className="flex items-center justify-between px-5 py-3.5 bg-[#070D12]/90 backdrop-blur-md/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
               <div className="flex items-center gap-2.5">
                 <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#FFFFFF] uppercase font-bold">ORIGINAL SEQUENCE</span>
                 <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#00C9D8]/10 text-[#FFFFFF] border border-[#00C9D8]/20">
@@ -476,7 +476,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
                     localStorage.removeItem('verity_compare_orig');
                     localStorage.removeItem('verity_compare_ores');
                   }} 
-                  className="px-3 py-1.5 text-xs font-mono text-[#D28B96] hover:text-[#FFFFFF] transition-colors uppercase tracking-widest cursor-pointer"
+                  className="px-3 py-1.5 text-xs font-mono text-[#8DA2AA] hover:text-[#FFFFFF] transition-colors uppercase tracking-widest cursor-pointer"
                 >
                   CLEAR
                 </button>
@@ -487,14 +487,14 @@ export const ComparePage: React.FC<ComparePageProps> = ({
               value={originalText}
               onChange={(e) => setOriginalText(e.target.value)}
               placeholder="Paste or type original sequence here..."
-              className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#FFFFFF] text-base leading-relaxed resize-none placeholder-[#D28B96]/45 focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[340px]"
+              className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#FFFFFF] text-base leading-relaxed resize-none placeholder-[#8DA2AA]/45 focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[340px]"
             />
           </div>
 
           {/* Right Pane: Adversarial Sequence */}
-          <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden relative">
+          <div className="bg-[#0D151D]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
-            <div className="flex items-center justify-between px-5 py-3.5 bg-[#0A0407]/90 backdrop-blur-md/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
+            <div className="flex items-center justify-between px-5 py-3.5 bg-[#070D12]/90 backdrop-blur-md/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
               <div className="flex items-center gap-2.5">
                 <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#FFFFFF] uppercase font-bold">ADVERSARIAL SEQUENCE</span>
                 <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#00C9D8]/10 text-[#FFFFFF] border border-[#00C9D8]/20">
@@ -519,7 +519,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
                     localStorage.removeItem('verity_compare_hum');
                     localStorage.removeItem('verity_compare_hres');
                   }} 
-                  className="px-3 py-1.5 text-xs font-mono text-[#D28B96] hover:text-[#FFFFFF] transition-colors uppercase tracking-widest cursor-pointer"
+                  className="px-3 py-1.5 text-xs font-mono text-[#8DA2AA] hover:text-[#FFFFFF] transition-colors uppercase tracking-widest cursor-pointer"
                 >
                   CLEAR
                 </button>
@@ -530,7 +530,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
               value={humanizedText}
               onChange={(e) => setHumanizedText(e.target.value)}
               placeholder="Paste or type transformed adversarial sequence here..."
-              className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#FFFFFF] text-base leading-relaxed resize-none placeholder-[#D28B96]/45 focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[340px]"
+              className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#FFFFFF] text-base leading-relaxed resize-none placeholder-[#8DA2AA]/45 focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[340px]"
             />
           </div>
 

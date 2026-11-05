@@ -267,7 +267,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="flex-1 min-h-0 h-full text-[#FFFFFF] px-3 sm:px-6 lg:px-8 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#A64C61]/35">
+    <div className="flex-1 min-h-0 h-full text-[#FFFFFF] px-3 sm:px-6 lg:px-8 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#00C9D8]/35">
       
       {/* Background Ambient Glows */}
       
@@ -286,7 +286,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
               <span>ModernBERT-V5</span>
             </div>
             <span className="text-[#FFFFFF]/30 text-xs">•</span>
-            <span className="text-xs font-mono text-[#D28B96]">Threshold: 0.70</span>
+            <span className="text-xs font-mono text-[#8DA2AA]">Threshold: 0.70</span>
             {savedSuccess && (
               <>
                 <span className="text-[#FFFFFF]/30 text-xs">•</span>
@@ -306,7 +306,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 setResult(null);
                 setError('');
               }}
-              className="px-3.5 py-2 text-xs font-mono text-[#9BB2B7] hover:text-[#FFFFFF] transition-colors uppercase tracking-widest cursor-pointer rounded-xl border border-white/[0.08] bg-[#0A0407]/90 backdrop-blur-md hover:border-[#00C9D8]/40"
+              className="px-3.5 py-2 text-xs font-mono text-[#9BB2B7] hover:text-[#FFFFFF] transition-colors uppercase tracking-widest cursor-pointer rounded-xl border border-white/[0.08] bg-[#070D12]/90 backdrop-blur-md hover:border-[#00C9D8]/40"
             >
               CLEAR
             </button>
@@ -314,7 +314,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
               onClick={handleAnalyze}
               disabled={loading || (inputMode === 'paste' ? !text.trim() : !selectedFile)}
               id="analyze-run-btn"
-              className="px-6 py-2.5 bg-gradient-to-r from-[#8E2848] to-[#5C182D] hover:from-[#A23054] hover:to-[#701E37] text-white border border-white/15 font-bold text-xs sm:text-sm font-mono uppercase tracking-widest rounded-xl flex items-center gap-2.5 transition-all disabled:opacity-50 disabled:hover:bg-[#F1DDE0] cursor-pointer "
+              className="px-6 py-2.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] hover:from-[#00E5F5] hover:to-[#00A3BA] text-[#051115] font-bold shadow-md shadow-[#00C9D8]/20 font-bold text-xs sm:text-sm font-mono uppercase tracking-widest rounded-xl flex items-center gap-2.5 transition-all disabled:opacity-50 disabled:opacity-50 cursor-pointer "
             >
               {loading ? (
                 <>
@@ -338,7 +338,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-[#1D1015]/85"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-[#0A1117]/85"
             >
               <div className="bg-[#0A2023] p-8 rounded-2xl border border-white/[0.08] flex items-center justify-center ">
                 <ThinkingOrbs 
@@ -382,25 +382,25 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-1 min-h-[520px]">
           
           {/* Left Pane: Original Sequence / Input */}
-          <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden relative">
+          <div className="bg-[#0D151D]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
-            <div className="flex items-center justify-between px-5 py-3.5 bg-[#1D1015] border-b border-white/[0.08] shrink-0">
+            <div className="flex items-center justify-between px-5 py-3.5 bg-[#0A1117] border-b border-white/[0.08] shrink-0">
               <div className="flex items-center gap-2.5">
                 <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#FFFFFF] uppercase font-semibold">
                   {inputMode === 'paste' ? 'ORIGINAL SEQUENCE' : 'DOCUMENT SOURCE'}
                 </span>
-                <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] text-[#9BB2B7]" id="input-word-count">
+                <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] text-[#9BB2B7]" id="input-word-count">
                   {inputMode === 'paste' ? (
                     <><span>Words: </span><strong className="text-[#FFFFFF]">{wordCount}</strong></>
                   ) : (
                     selectedFile ? formatFileSize(selectedFile.size) : 'NO FILE'
                   )}
                 </span>
-                <div className="inline-flex p-1 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] text-xs font-mono ml-2">
+                <div className="inline-flex p-1 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] text-xs font-mono ml-2">
                   <button
                     onClick={() => { setInputMode('paste'); setError(''); }}
                     className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
-                      inputMode === 'paste' ? 'bg-gradient-to-r from-[#8E2848] to-[#5C182D] text-white border border-white/15 font-bold ' : 'text-[#9BB2B7] hover:text-[#FFFFFF]'
+                      inputMode === 'paste' ? 'bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#051115] font-bold shadow-sm ' : 'text-[#9BB2B7] hover:text-[#FFFFFF]'
                     }`}
                   >
                     Paste Text
@@ -408,7 +408,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                   <button
                     onClick={() => { setInputMode('upload'); setError(''); }}
                     className={`px-3 py-1 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
-                      inputMode === 'upload' ? 'bg-gradient-to-r from-[#8E2848] to-[#5C182D] text-white border border-white/15 font-bold ' : 'text-[#9BB2B7] hover:text-[#FFFFFF]'
+                      inputMode === 'upload' ? 'bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#051115] font-bold shadow-sm ' : 'text-[#9BB2B7] hover:text-[#FFFFFF]'
                     }`}
                   >
                     <UploadCloud className="w-3.5 h-3.5" />
@@ -434,7 +434,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                     setResult(null); 
                     setError(''); 
                   }} 
-                  className="px-3 py-1.5 text-xs font-mono text-[#D28B96] hover:text-rose-400 transition-colors uppercase tracking-widest cursor-pointer rounded-lg hover:bg-rose-500/10"
+                  className="px-3 py-1.5 text-xs font-mono text-[#8DA2AA] hover:text-rose-400 transition-colors uppercase tracking-widest cursor-pointer rounded-lg hover:bg-rose-500/10"
                 >
                   CLEAR
                 </button>
@@ -446,7 +446,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Paste or type original sequence here to analyze its semantic and stylometric signals..."
-                className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#FFFFFF] text-base sm:text-lg font-sans leading-relaxed resize-none placeholder-[#D28B96]/45 focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[350px]"
+                className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#FFFFFF] text-base sm:text-lg font-sans leading-relaxed resize-none placeholder-[#8DA2AA]/45 focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[350px]"
               />
             ) : (
               <div 
@@ -469,7 +469,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 />
 
                 {selectedFile ? (
-                  <div className="w-full max-w-lg p-8 rounded-2xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] flex flex-col items-center gap-4 relative overflow-hidden">
+                  <div className="w-full max-w-lg p-8 rounded-2xl bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] flex flex-col items-center gap-4 relative overflow-hidden">
                     <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
                     <div className="w-16 h-16 rounded-2xl bg-[#00C9D8]/10 border border-[#00C9D8]/20 flex items-center justify-center text-[#FFFFFF]">
                       <FileText className="w-8 h-8" />
@@ -486,7 +486,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                     <div className="flex items-center gap-3 mt-3">
                       <button
                         onClick={() => fileInputRef.current?.click()}
-                        className="px-4 py-2 rounded-xl border border-white/[0.08] text-xs font-mono text-[#9BB2B7] hover:text-[#FFFFFF] hover:border-[#00C9D8]/40 transition-all uppercase tracking-widest cursor-pointer bg-[#140A10]/80 backdrop-blur-2xl"
+                        className="px-4 py-2 rounded-xl border border-white/[0.08] text-xs font-mono text-[#9BB2B7] hover:text-[#FFFFFF] hover:border-[#00C9D8]/40 transition-all uppercase tracking-widest cursor-pointer bg-[#0D151D]/80 backdrop-blur-2xl"
                       >
                         Change File
                       </button>
@@ -502,7 +502,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 ) : (
                   <div
                     onClick={() => fileInputRef.current?.click()}
-                    className={`w-full max-w-lg h-72 flex flex-col items-center justify-center border-2 border-dashed ${dragActive ? 'border-[#00C9D8] bg-[#00C9D8]/5' : 'border-white/[0.08] hover:border-[#00C9D8]/50'} rounded-2xl p-8 cursor-pointer transition-all group bg-[#0A0407]/90 backdrop-blur-md`}
+                    className={`w-full max-w-lg h-72 flex flex-col items-center justify-center border-2 border-dashed ${dragActive ? 'border-[#00C9D8] bg-[#00C9D8]/5' : 'border-white/[0.08] hover:border-[#00C9D8]/50'} rounded-2xl p-8 cursor-pointer transition-all group bg-[#070D12]/90 backdrop-blur-md`}
                   >
                     <div className="w-16 h-16 rounded-2xl bg-[#00C9D8]/10 group-hover:bg-[#00C9D8]/15 border border-white/[0.08] group-hover:border-[#00C9D8]/40 flex items-center justify-center text-[#FFFFFF]/60 group-hover:text-[#FFFFFF] transition-all mb-4">
                       <UploadCloud className="w-8 h-8" />
@@ -512,9 +512,9 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                       Multi-page PDF, DOCX, or TXT documents. Evaluated with bounded segment chunking.
                     </p>
                     <div className="flex items-center gap-2.5">
-                      <span className="px-3 py-1 rounded-lg bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] text-xs font-mono text-[#FFFFFF] font-medium">PDF</span>
-                      <span className="px-3 py-1 rounded-lg bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] text-xs font-mono text-[#FFFFFF] font-medium">DOCX</span>
-                      <span className="px-3 py-1 rounded-lg bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] text-xs font-mono text-[#FFFFFF] font-medium">TXT</span>
+                      <span className="px-3 py-1 rounded-lg bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] text-xs font-mono text-[#FFFFFF] font-medium">PDF</span>
+                      <span className="px-3 py-1 rounded-lg bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] text-xs font-mono text-[#FFFFFF] font-medium">DOCX</span>
+                      <span className="px-3 py-1 rounded-lg bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] text-xs font-mono text-[#FFFFFF] font-medium">TXT</span>
                     </div>
                   </div>
                 )}
@@ -523,16 +523,16 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
           </div>
 
           {/* Right Pane: Detection Diagnostics */}
-          <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden relative">
+          <div className="bg-[#0D151D]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
-            <div className="flex items-center justify-between px-5 py-3.5 bg-[#1D1015] border-b border-white/[0.08] shrink-0">
+            <div className="flex items-center justify-between px-5 py-3.5 bg-[#0A1117] border-b border-white/[0.08] shrink-0">
               <div className="flex items-center gap-2.5">
                 <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#FFFFFF] uppercase font-semibold">
                   DETECTION DIAGNOSTICS
                 </span>
                 {result && (
                   <>
-                    <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] text-[#9BB2B7] font-medium">
+                    <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] text-[#9BB2B7] font-medium">
                       {result.classification}
                     </span>
                     <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg bg-[#00C9D8]/10 border border-[#00C9D8]/20 text-[#FFFFFF] font-semibold">
@@ -560,7 +560,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
               <div className="flex-1 overflow-y-auto p-5 sm:p-6 flex flex-col gap-5">
                 {/* Document Meta Banner (if document result) */}
                 {result.document_meta && (
-                  <div className="p-4 rounded-xl bg-[#180C13] border border-white/[0.08] flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm font-mono">
+                  <div className="p-4 rounded-xl bg-[#070D12] border border-white/[0.08] flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm font-mono">
                     <div className="flex items-center gap-2.5 text-[#FFFFFF]">
                       <FileText className="w-4 h-4 text-[#FFFFFF]" />
                       <span className="font-medium truncate max-w-xs">{result.document_meta.filename}</span>
@@ -748,7 +748,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {/* Signal 1: Vocabulary Variety */}
-                    <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md/60 border border-white/[0.08] hover:border-[#00C9D8]/40 transition-all">
+                    <div className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md/60 border border-white/[0.08] hover:border-[#00C9D8]/40 transition-all">
                       <div className="flex items-center justify-between text-xs font-mono mb-1.5">
                         <span className="text-[#9BB2B7]">Vocabulary Variety</span>
                         <span className="text-[#FFFFFF] font-semibold">
@@ -757,51 +757,51 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                             : (result.ai_probability > 0.5 ? 'Repetitive' : 'High')}
                         </span>
                       </div>
-                      <div className="w-full bg-[#0A0407]/90 backdrop-blur-md h-1.5 rounded-full overflow-hidden border border-white/5">
+                      <div className="w-full bg-[#070D12]/90 backdrop-blur-md h-1.5 rounded-full overflow-hidden border border-white/5">
                         <div 
                           className="h-full bg-gradient-to-r from-[#00C9D8] to-[#008FA3] rounded-full transition-all" 
                           style={{ width: `${result.stylometric_features?.vocabulary_diversity ? Math.min(100, Math.round(result.stylometric_features.vocabulary_diversity * 100)) : (result.ai_probability > 0.5 ? 28 : 86)}%` }}
                         />
                       </div>
-                      <span className="text-[10px] text-[#D28B96] font-sans block mt-1.5">
+                      <span className="text-[10px] text-[#8DA2AA] font-sans block mt-1.5">
                         {result.ai_probability > 0.5 ? 'Predictable word choice' : 'Rich human lexical range'}
                       </span>
                     </div>
 
                     {/* Signal 2: Sentence Burstiness */}
-                    <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md/60 border border-white/[0.08] hover:border-emerald-400/40 transition-all">
+                    <div className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md/60 border border-white/[0.08] hover:border-emerald-400/40 transition-all">
                       <div className="flex items-center justify-between text-xs font-mono mb-1.5">
                         <span className="text-[#9BB2B7]">Sentence Flow</span>
                         <span className="text-emerald-400 font-semibold">
                           {result.ai_probability > 0.5 ? 'Uniform' : 'Dynamic'}
                         </span>
                       </div>
-                      <div className="w-full bg-[#0A0407]/90 backdrop-blur-md h-1.5 rounded-full overflow-hidden border border-white/5">
+                      <div className="w-full bg-[#070D12]/90 backdrop-blur-md h-1.5 rounded-full overflow-hidden border border-white/5">
                         <div 
                           className="h-full bg-emerald-400 rounded-full transition-all" 
                           style={{ width: `${result.ai_probability > 0.5 ? 32 : 88}%` }}
                         />
                       </div>
-                      <span className="text-[10px] text-[#D28B96] font-sans block mt-1.5">
+                      <span className="text-[10px] text-[#8DA2AA] font-sans block mt-1.5">
                         {result.ai_probability > 0.5 ? 'Robotic length cadence' : 'Natural sentence rhythm'}
                       </span>
                     </div>
 
                     {/* Signal 3: Model Confidence */}
-                    <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md/60 border border-white/[0.08] hover:border-teal-400/40 transition-all">
+                    <div className="p-3 rounded-xl bg-[#070D12]/90 backdrop-blur-md/60 border border-white/[0.08] hover:border-teal-400/40 transition-all">
                       <div className="flex items-center justify-between text-xs font-mono mb-1.5">
                         <span className="text-[#9BB2B7]">Model Certainty</span>
                         <span className="text-[#FFFFFF] font-semibold">
                           {result.confidence || 'High'}
                         </span>
                       </div>
-                      <div className="w-full bg-[#0A0407]/90 backdrop-blur-md h-1.5 rounded-full overflow-hidden border border-white/5">
+                      <div className="w-full bg-[#070D12]/90 backdrop-blur-md h-1.5 rounded-full overflow-hidden border border-white/5">
                         <div 
                           className="h-full bg-[#00C9D8] rounded-full transition-all" 
                           style={{ width: `${result.confidence === 'High' ? 95 : result.confidence === 'Medium' ? 70 : 45}%` }}
                         />
                       </div>
-                      <span className="text-[10px] text-[#D28B96] font-sans block mt-1.5">
+                      <span className="text-[10px] text-[#8DA2AA] font-sans block mt-1.5">
                         Distance from 0.70 threshold
                       </span>
                     </div>
@@ -815,7 +815,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                       <span className="text-xs font-mono tracking-[0.2em] text-[#9BB2B7] uppercase font-semibold">
                         Segment Breakdown ({result.segments.length} Sections)
                       </span>
-                      <span className="text-xs font-mono text-[#D28B96] uppercase tracking-widest">
+                      <span className="text-xs font-mono text-[#8DA2AA] uppercase tracking-widest">
                         Multi-Page Analysis
                       </span>
                     </div>
@@ -866,7 +866,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 </div>
               </div>
             ) : (
-              <div className="flex-1 p-8 sm:p-10 flex flex-col items-center justify-center text-center text-[#D28B96]">
+              <div className="flex-1 p-8 sm:p-10 flex flex-col items-center justify-center text-center text-[#8DA2AA]">
                 <div className="w-14 h-14 rounded-2xl bg-[#00C9D8]/10 border border-white/[0.08] flex items-center justify-center text-[#FFFFFF] mb-4 ">
                   <ShieldCheck className="w-7 h-7" />
                 </div>
@@ -877,13 +877,13 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                   Input text on the left or upload a DOCX/PDF to evaluate semantic representations and stylometric burstiness.
                 </p>
                 <div className="grid grid-cols-2 gap-3 w-full max-w-sm text-left text-xs font-mono border-t border-white/[0.08] pt-4">
-                  <div className="text-[#D28B96]">Primary Engine:</div>
+                  <div className="text-[#8DA2AA]">Primary Engine:</div>
                   <div className="text-[#FFFFFF] text-right font-medium">ModernBERT V5</div>
-                  <div className="text-[#D28B96]">Decision Threshold:</div>
+                  <div className="text-[#8DA2AA]">Decision Threshold:</div>
                   <div className="text-[#FFFFFF] text-right font-semibold">0.70 Calibrated</div>
-                  <div className="text-[#D28B96]">Context Window:</div>
+                  <div className="text-[#8DA2AA]">Context Window:</div>
                   <div className="text-[#FFFFFF] text-right font-medium">1024 Tokens</div>
-                  <div className="text-[#D28B96]">Preservation:</div>
+                  <div className="text-[#8DA2AA]">Preservation:</div>
                   <div className="text-emerald-400 text-right font-medium">100% Full Document</div>
                 </div>
               </div>

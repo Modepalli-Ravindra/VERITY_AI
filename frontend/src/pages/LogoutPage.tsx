@@ -67,7 +67,7 @@ export const LogoutPage: React.FC<LogoutPageProps> = ({ onNavigate }) => {
         initial={{ opacity: 0, y: 20, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="w-full max-w-md bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-8 sm:p-9 text-center relative overflow-hidden z-10"
+        className="w-full max-w-md bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-8 sm:p-9 text-center relative overflow-hidden z-10"
       >
         {/* Glowing top cyan accent line */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#00C9D8] to-transparent " />
@@ -112,7 +112,7 @@ export const LogoutPage: React.FC<LogoutPageProps> = ({ onNavigate }) => {
         </p>
 
         {/* Animated Progress Bar */}
-        <div className="w-full bg-[#0A0407]/90 backdrop-blur-md h-2 rounded-full overflow-hidden border border-[rgba(0,201,216,0.15)] mb-5 p-0.5">
+        <div className="w-full bg-[#070D12]/90 backdrop-blur-md h-2 rounded-full overflow-hidden border border-[rgba(0,201,216,0.15)] mb-5 p-0.5">
           <motion.div
             className="h-full bg-gradient-to-r from-[#008FA3] via-[#00C9D8] to-[#00E5FF] rounded-full "
             initial={{ width: '10%' }}
@@ -122,7 +122,7 @@ export const LogoutPage: React.FC<LogoutPageProps> = ({ onNavigate }) => {
         </div>
 
         {/* Security badge pill */}
-        <div className="p-2.5 rounded-xl bg-[#0A0407]/90 backdrop-blur-md/80 border border-[rgba(0,201,216,0.15)] flex items-center justify-center gap-2 text-xs font-mono text-[#FFFFFF]">
+        <div className="p-2.5 rounded-xl bg-[#070D12]/90 backdrop-blur-md/80 border border-[rgba(0,201,216,0.15)] flex items-center justify-center gap-2 text-xs font-mono text-[#FFFFFF]">
           <ShieldCheck className="w-4 h-4 text-[#FFFFFF]" />
           <span>Session Invalidation Verified</span>
         </div>
@@ -131,7 +131,7 @@ export const LogoutPage: React.FC<LogoutPageProps> = ({ onNavigate }) => {
         <div className="mt-5">
           <button
             onClick={() => onNavigate('/')}
-            className="text-[11px] font-mono text-[#D28B96] hover:text-[#FFFFFF] transition-colors cursor-pointer uppercase tracking-wider"
+            className="text-[11px] font-mono text-[#8DA2AA] hover:text-[#FFFFFF] transition-colors cursor-pointer uppercase tracking-wider"
           >
             Immediate Return to Home →
           </button>

@@ -409,7 +409,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
   const humWords = countWords(paraphrasedText);
 
   return (
-    <div className="flex-1 min-h-0 h-full text-[#FFFFFF] px-3 sm:px-6 lg:px-8 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#A64C61]/35">
+    <div className="flex-1 min-h-0 h-full text-[#FFFFFF] px-3 sm:px-6 lg:px-8 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#00C9D8]/35">
       
       {/* Background Ambient Glows */}
       
@@ -425,7 +425,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
             <span className="text-[#FFFFFF]/30 text-xs">•</span>
             
             {/* Tone Selector Pills */}
-            <div className="inline-flex p-1 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] gap-1.5 ">
+            <div className="inline-flex p-1 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] gap-1.5 ">
               {tones.map((t) => {
                 const isActive = tone === t.id;
                 return (
@@ -450,17 +450,17 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
             <span className="text-[#FFFFFF]/30 text-xs hidden md:inline">•</span>
             {/* Model Selection Dropdown */}
             <div className="hidden md:flex items-center gap-2 text-xs font-mono text-[#9BB2B7]">
-              <span className="uppercase tracking-widest text-[#D28B96] font-semibold">ENGINE:</span>
+              <span className="uppercase tracking-widest text-[#8DA2AA] font-semibold">ENGINE:</span>
               <select
                 value={provider}
                 onChange={(e) => setProvider(e.target.value)}
-                className="bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] rounded-lg px-3 py-1 text-xs font-mono text-[#FFFFFF] focus:outline-none cursor-pointer uppercase "
+                className="bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] rounded-lg px-3 py-1 text-xs font-mono text-[#FFFFFF] focus:outline-none cursor-pointer uppercase "
               >
-                <option value="auto" className="bg-[#140A10]/80 backdrop-blur-2xl text-white">Auto Select</option>
-                <option value="google" className="bg-[#140A10]/80 backdrop-blur-2xl text-white">Google Gemini</option>
-                <option value="groq" className="bg-[#140A10]/80 backdrop-blur-2xl text-white">Groq Llama-3.3</option>
-                <option value="openrouter" className="bg-[#140A10]/80 backdrop-blur-2xl text-white">OpenRouter</option>
-                <option value="nvidia" className="bg-[#140A10]/80 backdrop-blur-2xl text-white">NVIDIA NeMo</option>
+                <option value="auto" className="bg-[#0D151D]/80 backdrop-blur-2xl text-white">Auto Select</option>
+                <option value="google" className="bg-[#0D151D]/80 backdrop-blur-2xl text-white">Google Gemini</option>
+                <option value="groq" className="bg-[#0D151D]/80 backdrop-blur-2xl text-white">Groq Llama-3.3</option>
+                <option value="openrouter" className="bg-[#0D151D]/80 backdrop-blur-2xl text-white">OpenRouter</option>
+                <option value="nvidia" className="bg-[#0D151D]/80 backdrop-blur-2xl text-white">NVIDIA NeMo</option>
               </select>
             </div>
           </div>
@@ -473,7 +473,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                 setRecheckResult(null);
                 setError('');
               }}
-              className="px-3.5 py-2 text-xs font-mono text-[#9BB2B7] hover:text-[#FFFFFF] transition-colors uppercase tracking-widest cursor-pointer rounded-xl border border-[rgba(0,201,216,0.15)] bg-[#0A0407]/90 backdrop-blur-md hover:border-[#00C9D8]/40"
+              className="px-3.5 py-2 text-xs font-mono text-[#9BB2B7] hover:text-[#FFFFFF] transition-colors uppercase tracking-widest cursor-pointer rounded-xl border border-[rgba(0,201,216,0.15)] bg-[#070D12]/90 backdrop-blur-md hover:border-[#00C9D8]/40"
             >
               CLEAR BOTH
             </button>
@@ -524,7 +524,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
               exit={{ opacity: 0 }}
               className="fixed inset-0 z-50 flex items-center justify-center bg-[#061416]/80 "
             >
-              <div className="bg-[#140A10]/80 backdrop-blur-2xl p-8 rounded-2xl border border-white/[0.08] flex flex-col items-center justify-center ">
+              <div className="bg-[#0D151D]/80 backdrop-blur-2xl p-8 rounded-2xl border border-white/[0.08] flex flex-col items-center justify-center ">
                 <ThinkingOrbs 
                   title={chunkProgress && chunkProgress.total > 1
                     ? `SECTION ${chunkProgress.current}/${chunkProgress.total} (${chunkProgress.percent}%)`
@@ -584,9 +584,9 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-1 min-h-[520px]">
           
           {/* Left Pane: Original Sequence */}
-          <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden relative">
+          <div className="bg-[#0D151D]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
-            <div className="flex items-center justify-between px-5 py-3.5 bg-[#0A0407]/90 backdrop-blur-md/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
+            <div className="flex items-center justify-between px-5 py-3.5 bg-[#070D12]/90 backdrop-blur-md/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
               <div className="flex items-center gap-2.5">
                 <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#FFFFFF] uppercase font-bold">ORIGINAL SEQUENCE</span>
                 <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#00C9D8]/10 text-[#FFFFFF] border border-[#00C9D8]/20">
@@ -603,7 +603,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                 </button>
                 <button 
                   onClick={() => { setOriginalText(''); setParaphrasedText(''); setRecheckResult(null); setError(''); }} 
-                  className="px-3 py-1.5 text-xs font-mono text-[#D28B96] hover:text-[#FFFFFF] transition-colors uppercase tracking-widest cursor-pointer"
+                  className="px-3 py-1.5 text-xs font-mono text-[#8DA2AA] hover:text-[#FFFFFF] transition-colors uppercase tracking-widest cursor-pointer"
                 >
                   CLEAR
                 </button>
@@ -614,14 +614,14 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
               value={originalText}
               onChange={(e) => setOriginalText(e.target.value)}
               placeholder="Paste or type original sequence here to rewrite into an adversarial variation..."
-              className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#FFFFFF] text-base leading-relaxed resize-none placeholder-[#D28B96]/45 focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[350px]"
+              className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#FFFFFF] text-base leading-relaxed resize-none placeholder-[#8DA2AA]/45 focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[350px]"
             />
           </div>
 
           {/* Right Pane: Adversarial Sequence */}
-          <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden relative">
+          <div className="bg-[#0D151D]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
-            <div className="flex items-center justify-between px-5 py-3.5 bg-[#0A0407]/90 backdrop-blur-md/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
+            <div className="flex items-center justify-between px-5 py-3.5 bg-[#070D12]/90 backdrop-blur-md/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
               <div className="flex items-center gap-2.5">
                 <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#FFFFFF] uppercase font-bold">
                   ADVERSARIAL SEQUENCE
@@ -636,7 +636,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                   </span>
                 )}
                 {paraphrasedText && (
-                  <div className="inline-flex p-0.5 rounded-lg bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] text-xs font-mono ml-1.5">
+                  <div className="inline-flex p-0.5 rounded-lg bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] text-xs font-mono ml-1.5">
                     <button
                       onClick={() => setOutputView('text')}
                       id="view-toggle-text"
@@ -703,19 +703,19 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                     Target tone profile: <strong className="text-[#FFFFFF] uppercase font-mono">{tone}</strong>. Factual entities, proper nouns, and citations will be strictly preserved.
                   </p>
                   <div className="grid grid-cols-2 gap-3 w-full max-w-sm text-left text-xs font-mono border-t border-[rgba(0,201,216,0.12)] pt-4">
-                    <div className="text-[#D28B96]">Tone Profile:</div>
+                    <div className="text-[#8DA2AA]">Tone Profile:</div>
                     <div className="text-[#FFFFFF] text-right uppercase font-bold">{tone}</div>
-                    <div className="text-[#D28B96]">Generator:</div>
+                    <div className="text-[#8DA2AA]">Generator:</div>
                     <div className="text-[#FFFFFF] text-right font-medium">{usedProvider || provider.toUpperCase()}</div>
-                    <div className="text-[#D28B96]">Burstiness:</div>
+                    <div className="text-[#8DA2AA]">Burstiness:</div>
                     <div className="text-[#FFFFFF] text-right font-medium">Human Multi-Scale</div>
-                    <div className="text-[#D28B96]">Entity Drift:</div>
+                    <div className="text-[#8DA2AA]">Entity Drift:</div>
                     <div className="text-[#FFFFFF] text-right font-medium">0.00% Zero-Loss</div>
                   </div>
                 </div>
               ) : outputView === 'text' ? (
                 <div
-                  className="whitespace-pre-wrap flex-1 w-full p-5 sm:p-6 bg-transparent text-[#FFFFFF] text-base leading-relaxed overflow-y-auto selection:bg-[#A64C61]/35 focus:outline-none min-h-[350px]"
+                  className="whitespace-pre-wrap flex-1 w-full p-5 sm:p-6 bg-transparent text-[#FFFFFF] text-base leading-relaxed overflow-y-auto selection:bg-[#00C9D8]/35 focus:outline-none min-h-[350px]"
                   tabIndex={0}
                 >
                   {paraphrasedText}
@@ -723,7 +723,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
               ) : (
                 /* Diff View */
                 <div className="flex-1 p-5 sm:p-6 overflow-y-auto flex flex-col gap-4" id="diff-container">
-                  <div className="p-3.5 rounded-xl bg-[#0A0407]/90 backdrop-blur-md/50 border border-[rgba(0,201,216,0.12)] flex flex-wrap items-center justify-between gap-3 text-xs font-mono shrink-0">
+                  <div className="p-3.5 rounded-xl bg-[#070D12]/90 backdrop-blur-md/50 border border-[rgba(0,201,216,0.12)] flex flex-wrap items-center justify-between gap-3 text-xs font-mono shrink-0">
                     <div className="flex items-center gap-4">
                       <span className="flex items-center gap-2 text-[#FFFFFF] font-medium">
                         <span className="w-2 h-2 rounded-full bg-[#00C9D8] inline-block" />
@@ -738,12 +738,12 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                         <span>Preserved: {diffStats.wordsUnchanged} w</span>
                       </span>
                     </div>
-                    <span className="text-[#D28B96] uppercase tracking-widest text-[10px] font-semibold">
+                    <span className="text-[#8DA2AA] uppercase tracking-widest text-[10px] font-semibold">
                       Word Diff Comparison
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-[rgba(0,201,216,0.1)] font-sans text-base leading-relaxed whitespace-pre-wrap overflow-y-auto flex-1 text-[#FFFFFF]">
+                  <div className="p-4 rounded-xl bg-[#070D12]/90 backdrop-blur-md border border-[rgba(0,201,216,0.1)] font-sans text-base leading-relaxed whitespace-pre-wrap overflow-y-auto flex-1 text-[#FFFFFF]">
                     {diffChunks.map((chunk, idx) => {
                       if (chunk.type === 'removed') {
                         return (
@@ -776,7 +776,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
 
             {/* Bottom Bar for Right Pane */}
             {paraphrasedText && (
-              <div className="px-5 py-3.5 bg-[#0A0407]/90 backdrop-blur-md/50 border-t border-[rgba(0,201,216,0.12)] flex items-center justify-between text-xs font-mono text-[#9BB2B7] shrink-0">
+              <div className="px-5 py-3.5 bg-[#070D12]/90 backdrop-blur-md/50 border-t border-[rgba(0,201,216,0.12)] flex items-center justify-between text-xs font-mono text-[#9BB2B7] shrink-0">
                 <div className="flex items-center gap-2">
                   {recheckResult ? (
                     <span className="flex items-center gap-2 text-[#FFFFFF] font-bold">

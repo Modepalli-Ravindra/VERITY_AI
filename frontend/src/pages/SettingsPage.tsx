@@ -113,13 +113,13 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
     .toUpperCase();
 
   return (
-    <div className="flex-1 min-h-0 h-full text-[#FFFFFF] px-4 sm:px-6 lg:px-8 py-3 relative overflow-hidden font-sans bg-transparent flex flex-col justify-center selection:bg-[#A64C61]/35">
+    <div className="flex-1 min-h-0 h-full text-[#FFFFFF] px-4 sm:px-6 lg:px-8 py-3 relative overflow-hidden font-sans bg-transparent flex flex-col justify-center selection:bg-[#00C9D8]/35">
       
       {/* Subtle ambient glows */}
       
 
       {/* Single Unified Card Container - Zero Spacing Boxes */}
-      <div className="max-w-4xl mx-auto w-full bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] p-5 sm:p-6 relative overflow-hidden space-y-4">
+      <div className="max-w-4xl mx-auto w-full bg-[#0D151D]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] p-5 sm:p-6 relative overflow-hidden space-y-4">
         
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-[rgba(0,201,216,0.15)]">
@@ -170,7 +170,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
             </div>
             <div>
               <div className="text-xs font-semibold text-white">Researcher Profile</div>
-              <div className="text-[11px] text-[#D28B96] font-mono">{user?.email || 'user@verity.ai'}</div>
+              <div className="text-[11px] text-[#8DA2AA] font-mono">{user?.email || 'user@verity.ai'}</div>
             </div>
           </div>
 
@@ -181,7 +181,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="Display Name"
-              className="px-3 py-1.5 bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] rounded-lg text-xs text-white placeholder-[#D28B96]/45 focus:outline-none focus:border-[#00D4E5] w-48 sm:w-56"
+              className="px-3 py-1.5 bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] rounded-lg text-xs text-white placeholder-[#8DA2AA]/45 focus:outline-none focus:border-[#00D4E5] w-48 sm:w-56"
             />
             <button
               type="submit"
@@ -197,10 +197,10 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/5">
           <div>
             <div className="text-xs font-semibold text-white">Detection Engine</div>
-            <div className="text-[11px] text-[#D28B96]">Active neural architecture used for document scoring</div>
+            <div className="text-[11px] text-[#8DA2AA]">Active neural architecture used for document scoring</div>
           </div>
 
-          <div className="flex items-center gap-1.5 bg-[#0A0407]/90 backdrop-blur-md p-1 rounded-xl border border-white/[0.08]">
+          <div className="flex items-center gap-1.5 bg-[#070D12]/90 backdrop-blur-md p-1 rounded-xl border border-white/[0.08]">
             {[
               { id: 'modernbert', label: 'ModernBERT V5 (Primary)' },
               { id: 'distilroberta', label: 'DistilRoBERTa V2 (Standby)' }
@@ -214,7 +214,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
                   className={`px-3 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                     active 
                       ? 'bg-[#00C9D8]/15 border border-[#00C9D8]/35 text-[#FFFFFF] font-bold ' 
-                      : 'text-[#D28B96] hover:text-white border border-transparent'
+                      : 'text-[#8DA2AA] hover:text-white border border-transparent'
                   }`}
                 >
                   {m.label}
@@ -228,10 +228,10 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/5">
           <div>
             <div className="text-xs font-semibold text-white">Decision Sensitivity</div>
-            <div className="text-[11px] text-[#D28B96]">Classification threshold for synthetic flag</div>
+            <div className="text-[11px] text-[#8DA2AA]">Classification threshold for synthetic flag</div>
           </div>
 
-          <div className="flex items-center gap-1.5 bg-[#0A0407]/90 backdrop-blur-md p-1 rounded-xl border border-white/[0.08]">
+          <div className="flex items-center gap-1.5 bg-[#070D12]/90 backdrop-blur-md p-1 rounded-xl border border-white/[0.08]">
             {[
               { id: 'strict', label: 'Strict (0.60)' },
               { id: 'balanced', label: 'Balanced (0.70)' },
@@ -246,7 +246,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
                   className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                     active 
                       ? 'bg-[#00C9D8]/15 border border-[#00C9D8]/35 text-[#FFFFFF] font-bold ' 
-                      : 'text-[#D28B96] hover:text-white border border-transparent'
+                      : 'text-[#8DA2AA] hover:text-white border border-transparent'
                   }`}
                 >
                   {s.label}
@@ -260,13 +260,13 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/5">
           <div>
             <div className="text-xs font-semibold text-white">Interactive Features</div>
-            <div className="text-[11px] text-[#D28B96]">Real-time visualizers & recommendation prompts</div>
+            <div className="text-[11px] text-[#8DA2AA]">Real-time visualizers & recommendation prompts</div>
           </div>
 
           <div className="flex items-center gap-4">
             {/* Toggle 1 */}
             <label className="flex items-center gap-2 cursor-pointer select-none">
-              <span className="text-xs text-[#D28B96]">Stylometrics Radar</span>
+              <span className="text-xs text-[#8DA2AA]">Stylometrics Radar</span>
               <button
                 type="button"
                 onClick={() => handleUpdatePreference('stylometricsRadar', !preferences.stylometricsRadar)}
@@ -282,7 +282,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
 
             {/* Toggle 2 */}
             <label className="flex items-center gap-2 cursor-pointer select-none">
-              <span className="text-xs text-[#D28B96]">Smart Humanizer Prompt</span>
+              <span className="text-xs text-[#8DA2AA]">Smart Humanizer Prompt</span>
               <button
                 type="button"
                 onClick={() => handleUpdatePreference('autoParaphrasePrompt', !preferences.autoParaphrasePrompt)}
@@ -300,7 +300,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
 
         {/* 5. Account & Session Actions Row */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
-          <div className="flex items-center gap-2 text-xs font-mono text-[#D28B96]">
+          <div className="flex items-center gap-2 text-xs font-mono text-[#8DA2AA]">
             <span>ID:</span>
             <span className="text-[#FFFFFF] truncate max-w-[160px] sm:max-w-[200px]">{user?.id || 'session-unassigned'}</span>
             <button
@@ -317,7 +317,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
             <button
               type="button"
               onClick={handleClearCache}
-              className="px-3 py-1.5 rounded-lg bg-[#0A0407]/90 backdrop-blur-md hover:bg-[#081A1D] border border-white/[0.08] text-[#D28B96] hover:text-[#FFFFFF] text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="px-3 py-1.5 rounded-lg bg-[#070D12]/90 backdrop-blur-md hover:bg-[#081A1D] border border-white/[0.08] text-[#8DA2AA] hover:text-[#FFFFFF] text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
             >
               <Trash2 className="w-3.5 h-3.5" />
               <span>{cacheCleared ? 'Cache Cleared!' : 'Clear Cache'}</span>

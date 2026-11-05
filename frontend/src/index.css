@@ -1,146 +1,86 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-canvas: #2B111C;
-  --color-surface: #1D1015;
-  --color-surface-hover: #2A1420;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(210, 139, 150, 0.35);
-  --color-muted: #A64C61;
-  --color-secondary: #D28B96;
-  --color-primary: #FFFFFF;
-  --color-well: #180C13;
+  --color-charcoal-teal: #060C10;
+  --color-dark-teal: #0A1117;
+  --color-teal-blue: #148BA6;
+  --color-electric-cyan: #00D5E5;
+  --color-soft-white: #EAF4F5;
+  --color-muted-blue: #8DA2AA;
+  --color-input-bg: #070D12;
 
-  /* Backward-compatible theme aliases */
-  --color-obsidian-950: #140A0F;
-  --color-obsidian-900: #1D1015;
-  --color-obsidian-850: #25121B;
-  --color-obsidian-800: #2E1421;
-  --color-obsidian-750: #381829;
-  --color-obsidian-700: #421B29;
-  --color-obsidian-600: #572336;
-  
-  --color-electric-cyan: #F3E8EB;
-  --color-cyan-glow: #D28B96;
-  --color-cyan-dim: #8E2848;
-  
-  --color-slate-text-900: #FFFFFF;
-  --color-slate-text-800: #F5E8EB;
-  --color-slate-text-700: #D28B96;
-  --color-slate-text-500: #A64C61;
-  --color-slate-text-400: #7A3747;
-
-  --color-charcoal-teal: #1D1015;
-  --color-dark-teal: #2A1420;
-  --color-teal-blue: #8E2848;
-  --color-soft-white: #FFFFFF;
-  --color-muted-blue: #D28B96;
-  --color-input-bg: #180C13;
-  --color-lime-sprout: #F3E8EB;
-  --color-fresh-canopy: #1D1015;
-
-  /* Premium Modern Geometric Typography */
-  --font-display: 'Plus Jakarta Sans', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* Aliasing lime-sprout to electric cyan for seamless backwards-compatibility across components */
+  --color-lime-sprout: #00D5E5;
+  --color-fresh-canopy: #0A1117;
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 @layer base {
-  html, body {
+  html {
     scroll-behavior: smooth;
     scroll-padding-top: 100px;
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    letter-spacing: -0.015em;
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'tnum';
-    background-color: #2B111C !important;
-    background-image: 
-      radial-gradient(circle at 10% 12%, rgba(166, 76, 97, 0.32) 0%, rgba(112, 43, 64, 0.16) 35%, transparent 65%),
-      radial-gradient(ellipse 90% 60% at 50% -10%, rgba(112, 43, 64, 0.35) 0%, transparent 70%),
-      linear-gradient(180deg, #341523 0%, #421B29 22%, #2D121E 55%, #1D1015 100%) !important;
-    background-attachment: fixed !important;
-    color: #F5E8EB;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  :root {
+    --bg-dark: #060C10;
+    --bg-card: #0D151D;
+    --bg-input: #070D12;
+    --border-subtle: #1C2633;
+    --border-hover: rgba(0, 201, 216, 0.4);
+    --accent-primary: #00C9D8;
+    --accent-glow: #00D5E5;
+    --accent-purple: #00D5E5;
+    --accent-violet: #148BA6;
+    --text-primary: #F3F8F8;
+    --text-secondary: #00D5E5;
+    --text-muted: #8DA2AA;
+  }
+
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     overflow-x: hidden;
     margin: 0;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  
-  :root {
-    --bg-base: #2B111C;
-    --bg-dark: #1D1015;
-    --bg-card: rgba(29, 16, 21, 0.82);
-    --bg-card-elevated: rgba(42, 20, 32, 0.88);
-    --bg-input: #180C13;
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-hover: rgba(210, 139, 150, 0.35);
-    --accent-primary: #F1DDE0;
-    --accent-glow: #D28B96;
-    --text-primary: #FFFFFF;
-    --text-secondary: #D28B96;
-    --text-muted: #A64C61;
   }
 
-  /* Unified sans-serif font across code, badges, numbers */
-  h1, h2, h3, h4, .font-display {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
-    letter-spacing: -0.03em;
-  }
-
+  /* Monospaced elements use JetBrains Mono */
   code, kbd, samp, pre, .font-mono {
-    font-family: 'JetBrains Mono', monospace !important;
-    font-feature-settings: 'tnum' on, 'zero' on;
+    font-family: 'JetBrains Mono', ui-monospace, monospace !important;
   }
 }
 
-/* Flat Minimalist Frosted Glassmorphism Components - Zero Shadows */
-.hallmark-card, .verity-card, .verity-glass {
-  background: rgba(29, 16, 21, 0.82) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+/* Calm, Clean Card Container */
+.verity-card {
+  background-color: #0D151D;
+  border: 1px solid #1C2633;
   border-radius: 1.25rem;
-  box-shadow: none !important;
-  transition: border-color 0.25s ease, background-color 0.25s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.hallmark-card:hover, .verity-card:hover {
-  border-color: rgba(210, 139, 150, 0.4) !important;
-  background: rgba(35, 18, 25, 0.88) !important;
-  box-shadow: none !important;
+.verity-card:hover {
+  border-color: rgba(0, 201, 216, 0.35);
 }
 
-.hallmark-card-elevated {
-  background: rgba(42, 20, 32, 0.88) !important;
-  backdrop-filter: blur(24px) !important;
-  -webkit-backdrop-filter: blur(24px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 1.25rem;
-  box-shadow: none !important;
+.verity-glass {
+  background: rgba(13, 21, 29, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(28, 38, 51, 0.8);
 }
 
-.hallmark-well {
-  background: rgba(24, 12, 19, 0.85) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.07) !important;
-  border-radius: 0.85rem;
-  box-shadow: none !important;
-}
-
-/* Global Shadow Removal - Flat Minimalist Luxury */
-*, ::before, ::after {
-  --tw-shadow: 0 0 #0000 !important;
-  --tw-shadow-colored: 0 0 #0000 !important;
-}
-
-[class*="shadow-"], .shadow, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl, .shadow-inner {
-  box-shadow: none !important;
-}
-
-.text-gradient-purple {
-  color: #FFFFFF;
+/* Standard Gradient Text - Unified Cyan / Crisp White */
+.text-gradient-cyan, .text-gradient-purple {
+  background: linear-gradient(135deg, #FFFFFF 0%, #A5F3FC 55%, #00C9D8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Custom Scrollbar */
@@ -150,26 +90,25 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #090406;
+  background: #060C10;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2A1420;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 3px;
+  background: #1C2633;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3D1C2E;
+  background: #2B3B4E;
 }
 
-/* Chrome/Safari autofill override */
+/* Chrome/Safari autofill override for dark inputs */
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 1000px #0B0407 inset !important;
-  -webkit-text-fill-color: #FFFFFF !important;
-  caret-color: #D28B96 !important;
+  -webkit-box-shadow: 0 0 0 1000px #070D12 inset !important;
+  -webkit-text-fill-color: #F3F8F8 !important;
+  caret-color: #00C9D8 !important;
   transition: background-color 5000s ease-in-out 0s;
 }
