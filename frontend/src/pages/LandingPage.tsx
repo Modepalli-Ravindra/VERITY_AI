@@ -3,13 +3,10 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import {
   ArrowRightIcon as ArrowRight,
-  ChartBarIcon as BarChart2,
-  SparklesIcon as Wand2,
   MagnifyingGlassIcon as Search,
   DocumentTextIcon as FileText,
-  CpuChipIcon as Cpu,
-  QrCodeIcon as QrCode,
-  CheckCircleIcon as CheckCircle
+  SparklesIcon as Wand2,
+  ArrowsRightLeftIcon as GitCompare
 } from '@heroicons/react/24/solid';
 import { VerityLogo } from '../components/VerityLogo';
 
@@ -25,24 +22,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="min-h-screen bg-transparent text-[#FFFFFF] font-sans overflow-x-hidden selection:bg-[#00C9D8]/30">
-
-      {/* Studio Ambient Gradient Lighting Background */}
-      <div className="absolute top-0 left-0 right-0 h-[110vh] z-0 pointer-events-none overflow-hidden">
-        {/* Soft upper-left studio beam */}
-        <div className="absolute -top-[10%] -left-[10%] w-[55vw] h-[55vw] rounded-full bg-[radial-gradient(circle,rgba(0,201,216,0.12)_0%,rgba(20,139,166,0.06)_40%,transparent_70%)] blur-3xl pointer-events-none" />
-        {/* Soft upper-center glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[70vw] h-[40vw] bg-[radial-gradient(ellipse_at_top,rgba(0,201,216,0.14)_0%,transparent_70%)] blur-2xl pointer-events-none" />
-      </div>
-
+    <div className="min-h-screen bg-[#060C10] text-[#FFFFFF] font-sans selection:bg-[#00C9D8]/30">
+      
       <main id="home" className="relative z-10 pt-20 sm:pt-24 lg:pt-24 pb-16 max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-6 lg:px-8">
 
-        {/* =========================================================================
-            3. HERO SECTION (Full-Width Centered Editorial Layout with Studio Lighting)
-           ========================================================================= */}
+        {/* 1. HERO SECTION */}
         <section className="flex flex-col items-center justify-center text-center max-w-5xl xl:max-w-6xl mx-auto pt-[28px] lg:pt-[36px] pb-16 lg:pb-24 min-h-[calc(100vh-140px)] relative z-20">
 
-          {/* Headline — Centered, Two Lines with Redaction 10 Premium Editorial Font */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -55,22 +41,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             </span>
           </motion.h1>
 
-          {/* Supporting Copy — Centered & Elevated */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-[#8DA2AA] text-base sm:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed mb-6 font-normal"
+            className="text-[#8DA2AA] text-base sm:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed mb-8 font-normal"
           >
-            Detect AI-generated content, inspect document-level signals, and evaluate text transformations with VERITY’s intelligent analysis tools.
+            An advanced text intelligence platform designed to detect AI-generated content, analyze document structure, and preserve writing authenticity with forensic precision.
           </motion.p>
 
-          {/* Hero Actions */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap items-center justify-center gap-4 mb-7"
+            className="flex items-center justify-center gap-4"
           >
             <button
               onClick={() => handleCTA('/analyze')}
@@ -81,308 +65,116 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             </button>
           </motion.div>
 
-          {/* Metric Badges with Solid Filled Checkmarks */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs sm:text-sm text-[#8DA2AA]"
-          >
-            <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-[#00D5E5] fill-current" />
-              <span>ModernBERT V5 (0.70 Calibrated)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-[#00D5E5] fill-current" />
-              <span>100% Fact Preservation</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-[#00D5E5] fill-current" />
-              <span>Enterprise-Grade Privacy</span>
-            </div>
-          </motion.div>
-
         </section>
 
-        {/* =========================================================================
-            7. REFINED BENTO GRID & CORE CAPABILITIES
-           ========================================================================= */}
-        <section id="why-verity" className="mb-24 pt-16 sm:pt-20 lg:pt-24">
-          <div className="text-center max-w-2xl mx-auto mb-8">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#00D5E5] text-[10px] font-mono tracking-widest uppercase font-bold mb-3">
-              SYSTEM CAPABILITIES
-            </div>
+        {/* 2. CORE CAPABILITIES (Clean 4-Card Grid) */}
+        <section id="why-verity" className="mb-28 pt-16 sm:pt-20 lg:pt-24">
+          <div className="text-center max-w-2xl mx-auto mb-14">
             <h2 className="text-3xl sm:text-4xl font-serif font-bold tracking-tight text-[#FFFFFF] mb-3">
               Engineered for Complete Authenticity
             </h2>
-            <p className="text-sm text-[#8DA2AA]">
-              VERITY bridges deep transformer embeddings with 20-D stylometrics to evaluate text origin beyond surface heuristics.
+            <p className="text-sm sm:text-base text-[#8DA2AA] leading-relaxed">
+              Powerful tools built to detect machine-generated writing, inspect document signals, and protect authentic authorship.
             </p>
           </div>
 
-          {/* Symmetrical Capabilities Layout: 1st Box Full Width + 3 Equal Boxes Below */}
-          <div className="space-y-5">
-            {/* Primary Feature: ModernBERT V5 Deep Feature Fusion (Full Width - Compact) */}
-            <div className="w-full bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-4 sm:p-5 flex flex-col justify-between relative overflow-hidden group hover:border-[#00C9D8]/35 transition-all">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {/* Feature 1: AI Content Detection */}
+            <div className="bg-[#0D151D] border border-[#1C2633] rounded-2xl p-6 flex flex-col justify-between hover:border-[#00C9D8]/40 transition-all">
               <div>
-                <div className="flex items-center justify-between mb-2">
-                  <div className="w-9 h-9 rounded-xl bg-[#00C9D8] text-[#051115] shadow-md shadow-[#00C9D8]/20 flex items-center justify-center">
-                    <Cpu className="w-5 h-5 fill-current" />
-                  </div>
-                  <span className="px-2.5 py-0.5 rounded-full bg-[#00C9D8]/15 text-[#00D5E5] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#00C9D8]/35">
-                    Primary Engine
-                  </span>
+                <div className="w-10 h-10 rounded-xl bg-[#00C9D8] text-[#051115] shadow-md shadow-[#00C9D8]/20 flex items-center justify-center mb-4">
+                  <Search className="w-5 h-5 fill-current" />
                 </div>
-
-                <div className="max-w-4xl">
-                  <h3 className="text-base sm:text-lg font-serif font-bold text-[#FFFFFF] mb-1">ModernBERT V5 + Stylometric Fusion</h3>
-                  <p className="text-xs text-[#8DA2AA] leading-relaxed mb-3 font-sans">
-                    Extracts 768-dimensional contextual embeddings across 1024 token sequence windows and fuses them with 20 syntactic diversity features into a calibrated 320-D classification head.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 border-t border-white/[0.08] pt-2.5 text-xs font-mono">
-                  <div className="p-2 rounded-lg bg-[#070D12]/90 backdrop-blur-md border border-white/5">
-                    <span className="text-[#8DA2AA] block text-[10px] uppercase">Decision Threshold</span>
-                    <span className="text-[#FFFFFF] font-bold text-xs">0.70 Calibrated</span>
-                  </div>
-                  <div className="p-2 rounded-lg bg-[#070D12]/90 backdrop-blur-md border border-white/5">
-                    <span className="text-[#8DA2AA] block text-[10px] uppercase">Sequence Length</span>
-                    <span className="text-white font-bold text-xs">1024 Tokens</span>
-                  </div>
-                  <div className="p-2 rounded-lg bg-[#070D12]/90 backdrop-blur-md border border-white/5">
-                    <span className="text-[#8DA2AA] block text-[10px] uppercase">Explainability</span>
-                    <span className="text-white font-bold text-xs">Sentence & Token</span>
-                  </div>
-                  <div className="p-2 rounded-lg bg-[#070D12]/90 backdrop-blur-md border border-white/5">
-                    <span className="text-[#8DA2AA] block text-[10px] uppercase">Feature Fusion</span>
-                    <span className="text-[#FFFFFF] font-bold text-xs">20-D Stylometrics</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Below: 3 Equal Boxes in Row */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-              
-              {/* Box 1: Full Document Intelligence */}
-              <div className="bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between relative overflow-hidden group hover:border-[#00C9D8]/35 transition-all h-full">
-                <div>
-                  <div className="w-8 h-8 rounded-lg bg-[#00C9D8] text-[#051115] shadow-md shadow-[#00C9D8]/20 flex items-center justify-center mb-2">
-                    <FileText className="w-4 h-4 fill-current" />
-                  </div>
-                  <h3 className="text-sm sm:text-base font-serif font-bold text-[#FFFFFF] mb-1">Full Document Intelligence</h3>
-                  <p className="text-xs text-[#8DA2AA] leading-relaxed mb-2.5 font-sans">
-                    Native DOCX, PDF, and TXT parsing with up to 100,000 characters. Large documents automatically partition into 1,000-token chunks with bounded overlap.
-                  </p>
-                </div>
-
-                <div className="space-y-1 border-t border-white/[0.08] pt-2 text-[11px] font-mono">
-                  <div className="flex justify-between items-center text-[#8DA2AA]">
-                    <span>Supported Formats:</span>
-                    <span className="text-white font-semibold">DOCX, PDF, TXT</span>
-                  </div>
-                  <div className="flex justify-between items-center text-[#8DA2AA]">
-                    <span>Processing Limit:</span>
-                    <span className="text-[#00D5E5] font-bold">100,000 Characters</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Box 2: Writing Intelligence & Paraphrasing */}
-              <div className="bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between relative overflow-hidden group hover:border-[#00C9D8]/35 transition-all h-full">
-                <div>
-                  <div className="w-8 h-8 rounded-lg bg-[#00C9D8] text-[#051115] shadow-md shadow-[#00C9D8]/20 flex items-center justify-center mb-2">
-                    <Wand2 className="w-4 h-4 fill-current" />
-                  </div>
-                  <h3 className="text-sm sm:text-base font-serif font-bold text-[#FFFFFF] mb-1">Writing Intelligence & Paraphrasing</h3>
-                  <p className="text-xs text-[#8DA2AA] leading-relaxed mb-2.5 font-sans">
-                    Calibrated tone transformation across Natural, Professional, Academic, and Casual styles. Strict factual anchors protect citations and terminology without classifier leakage.
-                  </p>
-                </div>
-
-                <div className="border-t border-white/[0.08] pt-2">
-                  <div className="flex flex-wrap gap-1">
-                    {['Natural', 'Professional', 'Academic', 'Casual'].map(tone => (
-                      <span key={tone} className="px-2 py-0.5 rounded bg-[#070D12]/90 backdrop-blur-md border border-white/[0.08] text-[10px] font-mono text-[#E2EEF1] font-medium">
-                        {tone}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Box 3: Verifiable Provenance & QR Codes */}
-              <div className="bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between relative overflow-hidden group hover:border-[#00C9D8]/35 transition-all h-full">
-                <div>
-                  <div className="w-8 h-8 rounded-lg bg-[#00C9D8] text-[#051115] shadow-md shadow-[#00C9D8]/20 flex items-center justify-center mb-2">
-                    <QrCode className="w-4 h-4 fill-current" />
-                  </div>
-                  <h3 className="text-sm sm:text-base font-serif font-bold text-[#FFFFFF] mb-1">Verifiable Provenance & QR Codes</h3>
-                  <p className="text-xs text-[#8DA2AA] leading-relaxed mb-2.5 font-sans">
-                    Every evaluated document receives an immutable SHA-256 fingerprint and tamper-evident timestamp accessible via public audit URLs.
-                  </p>
-                </div>
-
-                <div className="space-y-1 border-t border-white/[0.08] pt-2 text-[11px] font-mono">
-                  <div className="flex justify-between items-center text-[#8DA2AA]">
-                    <span>Hashing Standard:</span>
-                    <span className="text-white font-semibold">SHA-256 Cryptographic</span>
-                  </div>
-                  <div className="flex justify-between items-center text-[#8DA2AA]">
-                    <span>Audit Verification:</span>
-                    <span className="text-[#00D5E5] font-bold">Public QR Portal URL</span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
-
-        {/* =========================================================================
-            MODEL TRANSPARENCY SECTION
-           ========================================================================= */}
-        <section id="architecture" className="mb-32 pt-8">
-          <div className="text-center max-w-3xl mx-auto mb-10 flex flex-col items-center gap-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#00D5E5] text-[10px] font-mono tracking-widest uppercase font-bold">
-              <Cpu className="w-3.5 h-3.5 fill-current" /> Empirical Architecture
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold tracking-tight text-[#FFFFFF]">
-              Model Transparency & Hot-Standby Rollback
-            </h2>
-            <p className="text-xs sm:text-sm text-[#8DA2AA] leading-relaxed max-w-2xl mx-auto">
-              VERITY enforces transparent classification boundaries. Administrators can inspect runtime telemetry or switch between deep contextual and lightweight transformer models with zero downtime.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Model Card 1: ModernBERT V5 */}
-            <div className="bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-6 sm:p-8 flex flex-col justify-between hover:border-[#00C9D8]/40 transition-colors">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="px-3 py-1 rounded-xl bg-[#00C9D8] text-[#051115] font-bold text-[10px] uppercase tracking-wider font-mono">
-                    Primary Production Engine
-                  </span>
-                  <span className="text-xs font-mono text-[#00D5E5] flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-[#00D5E5] animate-ping" />
-                    Active
-                  </span>
-                </div>
-                <h3 className="text-xl font-serif font-bold text-white mb-2">ModernBERT V5 + 20-D Stylometrics</h3>
-                <p className="text-xs text-[#8DA2AA] mb-6 leading-relaxed font-sans">
-                  ModernBERT-base (768-D semantic representations with 1024 token sequence context) fused with 20-dimensional syntactic burstiness vectors into a 320-D classifier head.
+                <h3 className="text-lg font-serif font-bold text-[#FFFFFF] mb-2">Deep AI Detection</h3>
+                <p className="text-xs sm:text-sm text-[#8DA2AA] leading-relaxed">
+                  Accurately identifies text from ChatGPT, Claude, Gemini, and modern language models with paragraph and sentence-level certainty.
                 </p>
-                <div className="space-y-3 border-t border-white/[0.08] pt-4 text-xs font-mono">
-                  <div className="flex justify-between text-[#8DA2AA]">
-                    <span>Decision Threshold:</span>
-                    <span className="text-[#00D5E5] font-bold">0.70 Calibrated</span>
-                  </div>
-                  <div className="flex justify-between text-[#8DA2AA]">
-                    <span>In-Domain F1 Score:</span>
-                    <span className="text-white font-bold">0.998</span>
-                  </div>
-                  <div className="flex justify-between text-[#8DA2AA]">
-                    <span>Sequence Context Window:</span>
-                    <span className="text-white">1024 Tokens</span>
-                  </div>
-                </div>
               </div>
             </div>
 
-            {/* Model Card 2: DistilRoBERTa V2 */}
-            <div className="bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-6 sm:p-8 flex flex-col justify-between hover:border-[#00C9D8]/30 transition-colors">
+            {/* Feature 2: Document Ingestion */}
+            <div className="bg-[#0D151D] border border-[#1C2633] rounded-2xl p-6 flex flex-col justify-between hover:border-[#00C9D8]/40 transition-all">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="px-3 py-1 rounded-full bg-[#00C9D8]/15 text-[#00D5E5] border border-[#00C9D8]/30 font-bold text-[10px] uppercase tracking-wider font-mono">
-                    Hot Standby Rollback
-                  </span>
-                  <span className="text-xs font-mono text-[#8DA2AA]">Validated</span>
+                <div className="w-10 h-10 rounded-xl bg-[#00C9D8] text-[#051115] shadow-md shadow-[#00C9D8]/20 flex items-center justify-center mb-4">
+                  <FileText className="w-5 h-5 fill-current" />
                 </div>
-                <h3 className="text-xl font-serif font-bold text-white mb-2">DistilRoBERTa V2 + 20-D Stylometrics</h3>
-                <p className="text-xs text-[#8DA2AA] mb-6 leading-relaxed font-sans">
-                  Proven 768-D transformer representations paired with 20-D stylometric features. Zero downtime rollback target selectable instantly via the Model Selection API.
+                <h3 className="text-lg font-serif font-bold text-[#FFFFFF] mb-2">Full Document Parsing</h3>
+                <p className="text-xs sm:text-sm text-[#8DA2AA] leading-relaxed">
+                  Upload DOCX, PDF, or TXT files up to 100,000 characters with automated chunking, bounded overlap, and complete reports.
                 </p>
-                <div className="space-y-3 border-t border-[#1C2633] pt-4 text-xs font-mono">
-                  <div className="flex justify-between text-[#8DA2AA]">
-                    <span>Decision Threshold:</span>
-                    <span className="text-[#FFFFFF] font-bold">0.50 Balanced</span>
-                  </div>
-                  <div className="flex justify-between text-[#8DA2AA]">
-                    <span>CPU Inference Latency:</span>
-                    <span className="text-white font-bold">&lt;500 ms</span>
-                  </div>
-                  <div className="flex justify-between text-[#8DA2AA]">
-                    <span>Rollback Selection:</span>
-                    <span className="text-[#00D5E5]">1-Click Endpoint</span>
-                  </div>
+              </div>
+            </div>
+
+            {/* Feature 3: Tone & Paraphrasing */}
+            <div className="bg-[#0D151D] border border-[#1C2633] rounded-2xl p-6 flex flex-col justify-between hover:border-[#00C9D8]/40 transition-all">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-[#00C9D8] text-[#051115] shadow-md shadow-[#00C9D8]/20 flex items-center justify-center mb-4">
+                  <Wand2 className="w-5 h-5 fill-current" />
                 </div>
+                <h3 className="text-lg font-serif font-bold text-[#FFFFFF] mb-2">Adaptive Paraphrasing</h3>
+                <p className="text-xs sm:text-sm text-[#8DA2AA] leading-relaxed">
+                  Refactor prose into Natural, Professional, Academic, or Casual registers while strictly preserving dates, numbers, and facts.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 4: Side-by-Side Comparison */}
+            <div className="bg-[#0D151D] border border-[#1C2633] rounded-2xl p-6 flex flex-col justify-between hover:border-[#00C9D8]/40 transition-all">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-[#00C9D8] text-[#051115] shadow-md shadow-[#00C9D8]/20 flex items-center justify-center mb-4">
+                  <GitCompare className="w-5 h-5 fill-current" />
+                </div>
+                <h3 className="text-lg font-serif font-bold text-[#FFFFFF] mb-2">Comparative Analysis</h3>
+                <p className="text-xs sm:text-sm text-[#8DA2AA] leading-relaxed">
+                  Inspect before-and-after text differentials side by side to measure reduction in AI signal and verify editorial progress.
+                </p>
               </div>
             </div>
           </div>
         </section>
 
-
-        {/* =========================================================================
-            6. WORKFLOW PIPELINE — EMPIRICAL ANALYSIS IN 4 STEPS
-           ========================================================================= */}
-        <section id="how-it-works" className="mb-20 pt-4">
-          <div className="text-center max-w-3xl mx-auto mb-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#00D5E5] text-[10px] font-mono tracking-widest uppercase font-bold mb-3">
-              WORKFLOW PIPELINE
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold tracking-tight text-[#FFFFFF] mb-4">
-              Empirical Analysis in 4 Steps
+        {/* 3. HOW IT WORKS (Clean 3-Step Process) */}
+        <section id="how-it-works" className="mb-28 pt-4">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold tracking-tight text-[#FFFFFF] mb-3">
+              How VERITY Works
             </h2>
-            <p className="text-sm text-[#8DA2AA] leading-relaxed mb-6 max-w-2xl mx-auto">
-              From raw character extraction to segment-level probability maps, VERITY ensures full transparency at every stage.
+            <p className="text-sm sm:text-base text-[#8DA2AA] leading-relaxed">
+              Three straightforward steps from raw text to complete forensic verification.
             </p>
-            <div className="flex justify-center items-center">
-              <button
-                onClick={() => handleCTA('/analyze')}
-                className="px-8 py-3.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] hover:from-[#00E5F5] hover:to-[#00A3BA] text-[#051115] font-bold text-sm rounded-full flex items-center gap-2 transition-all cursor-pointer shadow-lg shadow-[#00C9D8]/20"
-              >
-                <span>Get Started</span>
-                <ArrowRight className="w-4 h-4 fill-current" />
-              </button>
-            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { step: '01', title: 'Input Text or File', desc: 'Paste raw text or upload DOCX, PDF, or TXT documents up to 100,000 characters.', icon: FileText },
-              { step: '02', title: 'Stylometric Extraction', desc: 'Extracts 20 linguistic signals including syntactic burstiness, perplexity, and lexical entropy.', icon: Search },
-              { step: '03', title: 'Feature Fusion Verdict', desc: 'ModernBERT V5 produces an overall probability donut and segment-by-segment ratings.', icon: BarChart2 },
-              { step: '04', title: 'Paraphrase or Compare', desc: 'Optionally adapt tone with preserved facts or run a side-by-side differential comparison.', icon: Wand2 },
-            ].map((s, i) => (
-              <div key={i} className="bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-6 hover:border-[#00C9D8]/35 transition-colors flex flex-col justify-between">
-                <div>
-                  <span className="text-[10px] font-mono text-[#00D5E5] mb-3 bg-[#00C9D8]/10 border border-[#00C9D8]/20 px-2.5 py-1 rounded inline-block font-bold">
-                    STEP {s.step}
-                  </span>
-                  <div className="w-10 h-10 rounded-xl bg-[#00C9D8] text-[#051115] shadow-md shadow-[#00C9D8]/20 flex items-center justify-center mb-3">
-                    <s.icon className="w-5 h-5 fill-current" />
-                  </div>
-                  <h4 className="text-base font-serif font-bold text-white mb-1.5">{s.title}</h4>
-                  <p className="text-xs text-[#8DA2AA] leading-relaxed font-sans">{s.desc}</p>
-                </div>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-[#0D151D] border border-[#1C2633] rounded-2xl p-6 relative">
+              <span className="text-xs font-mono font-bold text-[#00D5E5] block mb-3">01</span>
+              <h3 className="text-lg font-serif font-bold text-white mb-2">Submit Your Text</h3>
+              <p className="text-xs sm:text-sm text-[#8DA2AA] leading-relaxed">
+                Paste any text snippet or upload complete DOCX, PDF, or TXT documents directly into the analyzer workspace.
+              </p>
+            </div>
+
+            <div className="bg-[#0D151D] border border-[#1C2633] rounded-2xl p-6 relative">
+              <span className="text-xs font-mono font-bold text-[#00D5E5] block mb-3">02</span>
+              <h3 className="text-lg font-serif font-bold text-white mb-2">Deep Inference</h3>
+              <p className="text-xs sm:text-sm text-[#8DA2AA] leading-relaxed">
+                VERITY evaluates semantic predictability, syntactic burstiness, and sentence cadences in real time.
+              </p>
+            </div>
+
+            <div className="bg-[#0D151D] border border-[#1C2633] rounded-2xl p-6 relative">
+              <span className="text-xs font-mono font-bold text-[#00D5E5] block mb-3">03</span>
+              <h3 className="text-lg font-serif font-bold text-white mb-2">Review & Act</h3>
+              <p className="text-xs sm:text-sm text-[#8DA2AA] leading-relaxed">
+                Inspect sentence-level probability highlights, export audit records, or adapt tone with writing intelligence.
+              </p>
+            </div>
           </div>
         </section>
 
-
-        {/* =========================================================================
-            BOTTOM CLOSING CTA
-           ========================================================================= */}
-        <section className="text-center py-16 px-8 sm:px-12 bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl mb-16 relative overflow-hidden shadow-xl">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,201,216,0.1),transparent_70%)]" />
+        {/* 4. BOTTOM CLOSING CTA */}
+        <section className="text-center py-16 px-8 sm:px-12 bg-[#0D151D] border border-[#1C2633] rounded-2xl mb-16 relative overflow-hidden">
           <div className="relative z-10 max-w-xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#00D5E5] text-[10px] font-mono tracking-widest uppercase font-bold mb-3">
-              VERITY PRODUCTION SUITE
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-serif font-bold tracking-tight text-[#FFFFFF] mb-4">
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold tracking-tight text-[#FFFFFF] mb-4">
               Truth in <span className="text-[#00D5E5]">Every Word.</span>
             </h2>
             <p className="text-[#8DA2AA] mb-8 text-sm sm:text-base leading-relaxed">
@@ -391,7 +183,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             <div className="flex justify-center">
               <button 
                 onClick={() => handleCTA('/analyze')}
-                className="px-8 py-3.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] hover:from-[#00E5F5] hover:to-[#00A3BA] text-[#051115] font-bold rounded-full transition-all inline-flex items-center gap-2 cursor-pointer text-sm shadow-lg shadow-[#00C9D8]/25"
+                className="px-8 py-3.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] hover:from-[#00E5F5] hover:to-[#00A3BA] text-[#051115] font-bold rounded-xl transition-all inline-flex items-center gap-2 cursor-pointer text-sm sm:text-base shadow-lg shadow-[#00C9D8]/20 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>Start Analyzing Now</span>
                 <ArrowRight className="w-4 h-4 fill-current" />
@@ -403,7 +195,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
       </main>
 
       {/* FOOTER */}
-      <footer className="relative z-10 border-t border-[#1C2633] bg-[#070D12]/95 backdrop-blur-xl py-8 px-6 lg:px-8">
+      <footer className="relative z-10 border-t border-[#1C2633] bg-[#070D12] py-8 px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#8DA2AA] font-mono">
           <div className="flex items-center gap-2">
             <VerityLogo className="h-5 w-auto" />
@@ -418,6 +210,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             </button>
             <button onClick={() => handleCTA('/paraphrase')} className="hover:text-[#00D5E5] transition-colors cursor-pointer">
               Paraphrase
+            </button>
+            <button onClick={() => handleCTA('/compare')} className="hover:text-[#00D5E5] transition-colors cursor-pointer">
+              Compare
             </button>
             <button onClick={() => onNavigate('/login')} className="hover:text-[#00D5E5] transition-colors cursor-pointer">
               Login

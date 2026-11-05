@@ -43,7 +43,7 @@ const MainRouter: React.FC = () => {
 
   useEffect(() => {
     if (!loading) {
-      if (user && (currentRoute === '/' || currentRoute === '/login' || currentRoute === '/signup')) {
+      if (user && (currentRoute === '/login' || currentRoute === '/signup')) {
         navigate('/dashboard');
       } else if (!user && protectedRoutes.includes(currentRoute)) {
         navigate('/');
@@ -91,7 +91,7 @@ const MainRouter: React.FC = () => {
   }
 
   // 2. Authenticated users are redirected by useEffect, but render nothing or dashboard momentarily
-  if (user && (currentRoute === '/login' || currentRoute === '/signup' || currentRoute === '/')) {
+  if (user && (currentRoute === '/login' || currentRoute === '/signup')) {
     return <DashboardPage onNavigate={navigate} />;
   }
 
