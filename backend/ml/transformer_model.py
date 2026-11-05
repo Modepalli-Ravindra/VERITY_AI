@@ -22,6 +22,7 @@ class TransformerModelManager:
     _model_name: str = "distilroberta-base"
     _is_loaded: bool = False
     _load_error: Optional[str] = None
+    _download_started: bool = False
 
     def __new__(cls):
         if cls._instance is None:
@@ -30,7 +31,12 @@ class TransformerModelManager:
 
     @classmethod
     def get_model_name(cls) -> str:
-        return os.getenv("VERITY_TRANSFORMER_MODEL", "distilroberta-base")
+        name = os.getenv("VERITY_TRANSFORMER_MODEL", "distilroberta-base").strip()
+        if name.lower() in ("modernbert", "v5"):
+            return "answerdotai/ModernBERT-base"
+        if name.lower() in ("distilroberta", "roberta", "distilroberta-v2", "v2"):
+            return "distilroberta-base"
+        return name or "distilroberta-base"
 
     @classmethod
     def get_device(cls) -> str:
@@ -60,26 +66,57 @@ class TransformerModelManager:
             import torch
             from transformers import AutoTokenizer, AutoModel
 
+            # 1. First attempt fast local disk load (0ms if already cached)
+            try:
+                tokenizer = AutoTokenizer.from_pretrained(model_name, local_files_only=True)
+                model = AutoModel.from_pretrained(model_name, local_files_only=True)
+                model.to(device)
+                model.eval()
+
+                cls._model = model
+                cls._tokenizer = tokenizer
+                cls._is_loaded = True
+                cls._load_error = None
+
+                logger.info(f"Successfully loaded and cached {model_name} from local storage.")
+                return model, tokenizer
+            except Exception:
+                pass
+
+            # 2. Try loading tokenizer
             tokenizer = AutoTokenizer.from_pretrained(model_name)
-            model = AutoModel.from_pretrained(model_name)
-            model.to(device)
-            model.eval()
-
-            cls._model = model
             cls._tokenizer = tokenizer
-            cls._is_loaded = True
-            cls._load_error = None
 
-            logger.info(f"Successfully loaded and cached {model_name} in memory.")
-            return model, tokenizer
+            # 3. Check if download is already in progress in background
+            if not cls._download_started:
+                import threading
+                cls._download_started = True
+
+                def _bg_download():
+                    try:
+                        logger.info(f"Starting background download of transformer model '{model_name}'...")
+                        m = AutoModel.from_pretrained(model_name)
+                        m.to(device)
+                        m.eval()
+                        cls._model = m
+                        cls._is_loaded = True
+                        cls._load_error = None
+                        logger.info(f"Background download of '{model_name}' completed and cached successfully!")
+                    except Exception as err:
+                        logger.warning(f"Background download of '{model_name}' encountered an error: {err}")
+                        cls._download_started = False
+
+                t = threading.Thread(target=_bg_download, daemon=True, name="hf-model-loader")
+                t.start()
+
+            raise RuntimeError(
+                f"Transformer model '{model_name}' weights are currently synchronizing in background. Main model will activate once loaded."
+            )
 
         except Exception as e:
-            error_msg = (
-                f"Failed to load HuggingFace Transformer model '{model_name}'. "
-                f"Details: {str(e)}"
-            )
+            error_msg = f"Transformer model '{model_name}' status: {str(e)}"
             cls._load_error = error_msg
-            logger.error(error_msg)
+            logger.info(error_msg)
             raise RuntimeError(error_msg) from e
 
     @classmethod

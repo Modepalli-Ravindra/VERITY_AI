@@ -6,12 +6,12 @@ except ImportError:
     _ModuleBase = object
 
 class ModernBERTEncoder(_ModuleBase):
-    def __init__(self, config):
+    def __init__(self, config, local_files_only: bool = False):
         if torch is not None:
             from transformers import AutoModel
             super().__init__()
             self.config = config
-            self.model = AutoModel.from_pretrained(config.transformer_name)
+            self.model = AutoModel.from_pretrained(config.transformer_name, local_files_only=local_files_only)
 
     def forward(self, input_ids, attention_mask):
         outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)

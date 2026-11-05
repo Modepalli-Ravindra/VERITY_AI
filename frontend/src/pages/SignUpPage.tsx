@@ -155,10 +155,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
 
             {/* Form Header */}
             <div className="mb-6">
-              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#070D12] border border-white/[0.08] text-[#00D5E5] text-[10px] font-mono tracking-widest uppercase mb-2.5 font-semibold">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00C9D8]" />
-                <span>USER REGISTRATION</span>
-              </div>
+
 
               <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#FFFFFF] mb-1.5 font-display">
                 Start with VERITY.
@@ -314,9 +311,8 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         placeholder="••••••••"
-                        className={`w-full pl-8 pr-8 py-2 bg-[#070D12] border rounded-xl ${
-                          confirmPassword && !isMatching ? 'border-rose-500/50' : 'border-[#1C2633]'
-                        } focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#FFFFFF] placeholder-[#8DA2AA]/45 text-xs sm:text-sm transition-all`}
+                        className={`w-full pl-8 pr-8 py-2 bg-[#070D12] border rounded-xl ${confirmPassword && !isMatching ? 'border-rose-500/50' : 'border-[#1C2633]'
+                          } focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#FFFFFF] placeholder-[#8DA2AA]/45 text-xs sm:text-sm transition-all`}
                       />
                       <button
                         type="button"

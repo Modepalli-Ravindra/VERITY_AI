@@ -16,11 +16,11 @@ class VerityV5Model(_ModuleBase):
     Isolated V5 Experimental Model Architecture using ModernBERT.
     Reuses the 320-D fusion architecture but uses ModernBERT as the semantic encoder.
     """
-    def __init__(self, config: V5Config):
+    def __init__(self, config: V5Config, local_files_only: bool = False):
         if nn is not None:
             super().__init__()
             self.config = config
-            self.encoder = ModernBERTEncoder(config)
+            self.encoder = ModernBERTEncoder(config, local_files_only=local_files_only)
             
             # Reuse existing stable fusion classifier
             self.fusion_head = VerityFusionClassifier(

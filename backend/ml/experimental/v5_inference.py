@@ -1,6 +1,7 @@
 import os
 import time
 import json
+import logging
 
 try:
     import torch
@@ -13,8 +14,11 @@ from backend.ml.experimental.v5_config import V5Config
 from backend.ml.experimental.verity_v5_model import VerityV5Model
 from backend.ml.stylometrics import StylometricExtractor
 
+logger = logging.getLogger("verity.v5_inference")
+
 class V5InferenceService:
     _instance = None
+    _download_started = False
     
     def __init__(self):
         if torch is None or AutoTokenizer is None:
@@ -22,12 +26,44 @@ class V5InferenceService:
 
         self.config = V5Config()
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.model = VerityV5Model(self.config)
-        self.tokenizer = AutoTokenizer.from_pretrained(self.config.transformer_name)
         
+        # 1. Check local model checkpoint
         ckpt_path = os.path.join(os.path.dirname(__file__), 'model', 'best_model.pt')
         if not os.path.exists(ckpt_path):
             raise FileNotFoundError(f"V5 model checkpoint not found at {ckpt_path}. Refusing to run inference with random uninitialized weights.")
+        
+        scaler_path = os.path.join(os.path.dirname(__file__), 'model', 'v5_scaler.json')
+        if not os.path.exists(scaler_path):
+            raise FileNotFoundError(f"V5 scaler configuration not found at {scaler_path}. Refusing to pass unscaled features.")
+
+        # 2. Check if ModernBERT is available in local cache or needs background loading
+        try:
+            self.tokenizer = AutoTokenizer.from_pretrained(self.config.transformer_name, local_files_only=True)
+            self.model = VerityV5Model(self.config, local_files_only=True)
+        except Exception as load_err:
+            if not V5InferenceService._download_started:
+                import threading
+                V5InferenceService._download_started = True
+
+                def _bg_download_v5():
+                    try:
+                        logger.info("Starting background synchronization of ModernBERT weights...")
+                        from transformers import AutoModel, AutoTokenizer
+                        AutoTokenizer.from_pretrained(self.config.transformer_name)
+                        AutoModel.from_pretrained(self.config.transformer_name)
+                        logger.info("ModernBERT weights synchronized and cached successfully!")
+                        V5InferenceService._instance = None
+                    except Exception as err:
+                        logger.warning(f"ModernBERT background sync error: {err}")
+                    finally:
+                        V5InferenceService._download_started = False
+
+                t = threading.Thread(target=_bg_download_v5, daemon=True, name="modernbert-loader")
+                t.start()
+
+            raise RuntimeError(f"ModernBERT weights not locally cached ({load_err}). Background download initiated.")
+
+        # 3. Load checkpoint state dict into fusion head
         try:
             checkpoint = torch.load(ckpt_path, map_location=self.device)
             if isinstance(checkpoint, dict):
@@ -38,20 +74,20 @@ class V5InferenceService:
                     self.config.max_sequence_length = checkpoint['max_length']
             else:
                 state_dict = checkpoint
-            self.model.load_state_dict(state_dict)
+
+            if any(k.startswith("fusion_head.") for k in state_dict.keys()):
+                self.model.load_state_dict(state_dict, strict=False)
+            else:
+                self.model.fusion_head.load_state_dict(state_dict, strict=False)
         except Exception as e:
-            raise RuntimeError(f"Corrupt or invalid V5 model checkpoint at {ckpt_path}: {e}")
-            
-        scaler_path = os.path.join(os.path.dirname(__file__), 'model', 'v5_scaler.json')
-        if not os.path.exists(scaler_path):
-            raise FileNotFoundError(f"V5 scaler configuration not found at {scaler_path}. Refusing to pass unscaled features.")
+            raise RuntimeError(f"Failed to load V5 model weights: {e}")
             
         from backend.ml.train_v2_stage1 import SimpleScaler
         with open(scaler_path, 'r') as f:
             scaler_data = json.load(f)
             
         if scaler_data.get("is_placeholder", False):
-            raise ValueError(f"V5 scaler at {scaler_path} is explicitly marked as a placeholder. Refusing to run inference.")
+            raise ValueError(f"V5 scaler at {scaler_path} is explicitly marked as a placeholder.")
             
         self.scaler = SimpleScaler()
         self.scaler.mean = scaler_data['mean']
@@ -70,7 +106,7 @@ class V5InferenceService:
     def analyze(self, text: str):
         if torch is None:
             raise RuntimeError("PyTorch is not available for inference.")
-        # 0ms Instant Cache Check
+        
         cache_key = hash(text)
         if cache_key in self._cache:
             cached_res = dict(self._cache[cache_key])
@@ -79,14 +115,12 @@ class V5InferenceService:
             return cached_res
 
         start_time = time.time()
-        
-        # Dynamic sequence tokenization (avoids padding empty tokens on CPU, 15x faster)
         tokens = self.tokenizer(text, max_length=self.config.max_sequence_length, truncation=True, return_tensors='pt')
         
         try:
             stylo = StylometricExtractor.get_vector(text)
             if len(stylo) != 20: stylo = [0.0] * 20
-        except:
+        except Exception:
             stylo = [0.0] * 20
             
         stylo_scaled = self.scaler.transform(stylo)
@@ -102,17 +136,17 @@ class V5InferenceService:
             
         inf_time = (time.time() - start_time) * 1000
         
-        predicted_class = "AI" if prob >= self.config.threshold else "Human"
+        predicted_class = "Likely AI Generated" if prob >= self.config.threshold else "Likely Human Written"
         
         result = {
             "ai_probability": prob,
             "predicted_class": predicted_class,
+            "classification": predicted_class,
             "threshold": self.config.threshold,
             "inference_time_ms": round(inf_time, 2),
-            "model_version": "V5-ModernBERT"
+            "model_version": "ModernBERT-V5"
         }
 
-        # Cache result (bounded to 1000 entries)
         if len(self._cache) > 1000:
             self._cache.pop(next(iter(self._cache)))
         self._cache[cache_key] = result
