@@ -244,19 +244,25 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
 
             const data = await resp.json();
 
-            if (data.error) {
-              throw new Error(data.error);
-            }
+            let transformedPart = chunk;
+            let sectionProvider = lastProvider;
 
-            const transformedPart = data.humanized_text || chunk;
-            lastProvider = data.provider || lastProvider;
+            if (data.error) {
+              console.warn(`[VERITY] Section ${currentSectionNum} issue: ${data.error}. Safely preserving section text.`);
+              transformedPart = chunk;
+              sectionProvider = 'preserved';
+            } else {
+              transformedPart = data.humanized_text || chunk;
+              sectionProvider = data.provider || lastProvider;
+              lastProvider = sectionProvider;
+            }
 
             currentSections[i] = {
               index: i,
               originalText: chunk,
               transformedText: transformedPart,
               status: 'completed',
-              provider: data.provider
+              provider: sectionProvider
             };
             setSectionRecords([...currentSections]);
 
