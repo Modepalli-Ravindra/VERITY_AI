@@ -2,43 +2,43 @@
 @import "tailwindcss";
 
 @theme {
-  --color-canvas: #421B29;
-  --color-surface: #702B40;
-  --color-surface-hover: #80324A;
-  --color-border: #A64C61;
-  --color-border-hover: #BA576E;
-  --color-muted: #D28B96;
+  --color-canvas: #090406;
+  --color-surface: #140A10;
+  --color-surface-hover: #1C0F17;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(210, 139, 150, 0.35);
+  --color-muted: #A64C61;
   --color-secondary: #D28B96;
-  --color-primary: #F1DDE0;
-  --color-well: #1D1015;
+  --color-primary: #FFFFFF;
+  --color-well: #0B0407;
 
   /* Backward-compatible theme aliases */
-  --color-obsidian-950: #1D1015;
-  --color-obsidian-900: #421B29;
-  --color-obsidian-850: #552133;
-  --color-obsidian-800: #702B40;
-  --color-obsidian-750: #80324A;
-  --color-obsidian-700: #A64C61;
-  --color-obsidian-600: #BA576E;
+  --color-obsidian-950: #050203;
+  --color-obsidian-900: #090406;
+  --color-obsidian-850: #0E060A;
+  --color-obsidian-800: #140A10;
+  --color-obsidian-750: #1C0F17;
+  --color-obsidian-700: #2A1420;
+  --color-obsidian-600: #3D1C2E;
   
-  --color-electric-cyan: #F1DDE0;
-  --color-cyan-glow: #F1DDE0;
-  --color-cyan-dim: #A64C61;
+  --color-electric-cyan: #F3E8EB;
+  --color-cyan-glow: #D28B96;
+  --color-cyan-dim: #8E2848;
   
-  --color-slate-text-900: #F1DDE0;
-  --color-slate-text-800: #F1DDE0;
+  --color-slate-text-900: #FFFFFF;
+  --color-slate-text-800: #F5E8EB;
   --color-slate-text-700: #D28B96;
-  --color-slate-text-500: #D28B96;
-  --color-slate-text-400: #A64C61;
+  --color-slate-text-500: #A64C61;
+  --color-slate-text-400: #7A3747;
 
-  --color-charcoal-teal: #421B29;
-  --color-dark-teal: #702B40;
-  --color-teal-blue: #A64C61;
-  --color-soft-white: #F1DDE0;
+  --color-charcoal-teal: #090406;
+  --color-dark-teal: #140A10;
+  --color-teal-blue: #8E2848;
+  --color-soft-white: #FFFFFF;
   --color-muted-blue: #D28B96;
-  --color-input-bg: #1D1015;
-  --color-lime-sprout: #F1DDE0;
-  --color-fresh-canopy: #702B40;
+  --color-input-bg: #0B0407;
+  --color-lime-sprout: #F3E8EB;
+  --color-fresh-canopy: #140A10;
 
   /* Single Unified Premium Sans-Serif Font */
   --font-display: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -52,8 +52,8 @@
     scroll-padding-top: 100px;
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'tnum';
-    background-color: #421B29 !important;
-    color: #F1DDE0;
+    background-color: #090406 !important;
+    color: #F5E8EB;
     overflow-x: hidden;
     margin: 0;
     min-height: 100vh;
@@ -62,16 +62,16 @@
   }
   
   :root {
-    --bg-base: #421B29;
-    --bg-dark: #421B29;
-    --bg-card: #702B40;
-    --bg-card-elevated: #80324A;
-    --bg-input: #1D1015;
-    --border-subtle: #A64C61;
-    --border-hover: #BA576E;
-    --accent-primary: #F1DDE0;
-    --accent-glow: #F1DDE0;
-    --text-primary: #F1DDE0;
+    --bg-base: #090406;
+    --bg-dark: #090406;
+    --bg-card: rgba(20, 10, 16, 0.85);
+    --bg-card-elevated: rgba(28, 15, 23, 0.9);
+    --bg-input: #0B0407;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(210, 139, 150, 0.35);
+    --accent-primary: #F3E8EB;
+    --accent-glow: #D28B96;
+    --text-primary: #FFFFFF;
     --text-secondary: #D28B96;
     --text-muted: #A64C61;
   }
@@ -83,56 +83,62 @@
   }
 }
 
-/* Solid Minimal Component Cards: #702B40 on #421B29 */
+/* Dark Frosted Glassmorphism Components */
 .hallmark-card, .verity-card, .verity-glass {
-  background-color: #702B40 !important;
-  border: 1px solid #A64C61 !important;
-  border-radius: 1rem;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
+  background: rgba(20, 10, 16, 0.78) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  border-radius: 1.25rem;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .hallmark-card:hover, .verity-card:hover {
-  border-color: #BA576E !important;
+  border-color: rgba(210, 139, 150, 0.35) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .hallmark-card-elevated {
-  background-color: #80324A !important;
-  border: 1px solid #A64C61 !important;
-  border-radius: 1rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  background: rgba(28, 15, 23, 0.85) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 1.25rem;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .hallmark-well {
-  background-color: #1D1015 !important;
-  border: 1px solid #A64C61 !important;
-  border-radius: 0.75rem;
+  background: rgba(11, 4, 7, 0.88) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 0.85rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .text-gradient-purple {
-  color: #F1DDE0;
+  color: #FFFFFF;
 }
 
-/* Custom Scrollbar - Burgundy/Rose Theme */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #421B29;
+  background: #090406;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #702B40;
-  border: 1px solid #A64C61;
+  background: #2A1420;
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #80324A;
+  background: #3D1C2E;
 }
 
 /* Chrome/Safari autofill override */
@@ -140,8 +146,8 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 1000px #1D1015 inset !important;
-  -webkit-text-fill-color: #F1DDE0 !important;
-  caret-color: #F1DDE0 !important;
+  -webkit-box-shadow: 0 0 0 1000px #0B0407 inset !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  caret-color: #D28B96 !important;
   transition: background-color 5000s ease-in-out 0s;
 }

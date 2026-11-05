@@ -113,25 +113,25 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
     .toUpperCase();
 
   return (
-    <div className="flex-1 min-h-0 h-full text-[#F1DDE0] px-4 sm:px-6 lg:px-8 py-3 relative overflow-hidden font-sans bg-transparent flex flex-col justify-center selection:bg-[#A64C61]/35">
+    <div className="flex-1 min-h-0 h-full text-[#FFFFFF] px-4 sm:px-6 lg:px-8 py-3 relative overflow-hidden font-sans bg-transparent flex flex-col justify-center selection:bg-[#A64C61]/35">
       
       {/* Subtle ambient glows */}
       
 
       {/* Single Unified Card Container - Zero Spacing Boxes */}
-      <div className="max-w-4xl mx-auto w-full bg-[#702B40] rounded-2xl border border-[#A64C61] p-5 sm:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)] relative overflow-hidden space-y-4">
+      <div className="max-w-4xl mx-auto w-full bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] p-5 sm:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)] relative overflow-hidden space-y-4">
         
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-[rgba(0,201,216,0.15)]">
           <div>
-            <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#F1DDE0] mb-0.5">
+            <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#FFFFFF] mb-0.5">
               WORKSPACE CONFIGURATION
             </div>
             <h1 className="text-lg sm:text-xl font-bold text-white tracking-tight">
               Settings & Preferences
             </h1>
           </div>
-          <span className="px-2.5 py-0.5 rounded-full bg-[#00C9D8]/10 text-[#F1DDE0] border border-[#00C9D8]/25 text-[10px] font-mono">
+          <span className="px-2.5 py-0.5 rounded-full bg-[#00C9D8]/10 text-[#FFFFFF] border border-[#00C9D8]/25 text-[10px] font-mono">
             RLS Protected
           </span>
         </div>
@@ -143,7 +143,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="p-2 rounded-xl bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#F1DDE0] text-xs flex items-center gap-2 font-medium"
+              className="p-2 rounded-xl bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#FFFFFF] text-xs flex items-center gap-2 font-medium"
             >
               <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>Profile name saved successfully.</span>
@@ -165,7 +165,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
         {/* 1. Profile Row */}
         <form onSubmit={handleSaveProfile} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/5">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00C9D8]/20 to-[#0A2023] border border-[#00C9D8]/30 flex items-center justify-center text-sm font-bold text-[#F1DDE0] shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00C9D8]/20 to-[#0A2023] border border-[#00C9D8]/30 flex items-center justify-center text-sm font-bold text-[#FFFFFF] shrink-0">
               {initials}
             </div>
             <div>
@@ -181,7 +181,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="Display Name"
-              className="px-3 py-1.5 bg-[#1D1015] border border-[#A64C61] rounded-lg text-xs text-white placeholder-[#D28B96]/60 focus:outline-none focus:border-[#00D4E5] w-48 sm:w-56"
+              className="px-3 py-1.5 bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] rounded-lg text-xs text-white placeholder-[#D28B96]/45 focus:outline-none focus:border-[#00D4E5] w-48 sm:w-56"
             />
             <button
               type="submit"
@@ -200,7 +200,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
             <div className="text-[11px] text-[#D28B96]">Active neural architecture used for document scoring</div>
           </div>
 
-          <div className="flex items-center gap-1.5 bg-[#1D1015] p-1 rounded-xl border border-[#A64C61]">
+          <div className="flex items-center gap-1.5 bg-[#0A0407]/90 backdrop-blur-md p-1 rounded-xl border border-white/[0.08]">
             {[
               { id: 'modernbert', label: 'ModernBERT V5 (Primary)' },
               { id: 'distilroberta', label: 'DistilRoBERTa V2 (Standby)' }
@@ -213,7 +213,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
                   onClick={() => handleUpdatePreference('defaultModel', m.id)}
                   className={`px-3 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                     active 
-                      ? 'bg-[#00C9D8]/15 border border-[#00C9D8]/35 text-[#F1DDE0] font-bold shadow-sm' 
+                      ? 'bg-[#00C9D8]/15 border border-[#00C9D8]/35 text-[#FFFFFF] font-bold shadow-[0_8px_32px_rgba(0,0,0,0.6)]' 
                       : 'text-[#D28B96] hover:text-white border border-transparent'
                   }`}
                 >
@@ -231,7 +231,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
             <div className="text-[11px] text-[#D28B96]">Classification threshold for synthetic flag</div>
           </div>
 
-          <div className="flex items-center gap-1.5 bg-[#1D1015] p-1 rounded-xl border border-[#A64C61]">
+          <div className="flex items-center gap-1.5 bg-[#0A0407]/90 backdrop-blur-md p-1 rounded-xl border border-white/[0.08]">
             {[
               { id: 'strict', label: 'Strict (0.60)' },
               { id: 'balanced', label: 'Balanced (0.70)' },
@@ -245,7 +245,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
                   onClick={() => handleUpdatePreference('sensitivityThreshold', s.id)}
                   className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                     active 
-                      ? 'bg-[#00C9D8]/15 border border-[#00C9D8]/35 text-[#F1DDE0] font-bold shadow-sm' 
+                      ? 'bg-[#00C9D8]/15 border border-[#00C9D8]/35 text-[#FFFFFF] font-bold shadow-[0_8px_32px_rgba(0,0,0,0.6)]' 
                       : 'text-[#D28B96] hover:text-white border border-transparent'
                   }`}
                 >
@@ -302,11 +302,11 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
           <div className="flex items-center gap-2 text-xs font-mono text-[#D28B96]">
             <span>ID:</span>
-            <span className="text-[#F1DDE0] truncate max-w-[160px] sm:max-w-[200px]">{user?.id || 'session-unassigned'}</span>
+            <span className="text-[#FFFFFF] truncate max-w-[160px] sm:max-w-[200px]">{user?.id || 'session-unassigned'}</span>
             <button
               type="button"
               onClick={handleCopyId}
-              className="p-1 rounded bg-[#00C9D8]/10 hover:bg-[#00C9D8]/20 text-[#F1DDE0] transition-colors cursor-pointer"
+              className="p-1 rounded bg-[#00C9D8]/10 hover:bg-[#00C9D8]/20 text-[#FFFFFF] transition-colors cursor-pointer"
               title="Copy ID"
             >
               {copiedId ? <CopiedCheck className="w-3.5 h-3.5" /> : <CopyIcon className="w-3.5 h-3.5" />}
@@ -317,7 +317,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
             <button
               type="button"
               onClick={handleClearCache}
-              className="px-3 py-1.5 rounded-lg bg-[#1D1015] hover:bg-[#081A1D] border border-[#A64C61] text-[#D28B96] hover:text-[#F1DDE0] text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="px-3 py-1.5 rounded-lg bg-[#0A0407]/90 backdrop-blur-md hover:bg-[#081A1D] border border-white/[0.08] text-[#D28B96] hover:text-[#FFFFFF] text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
             >
               <Trash2 className="w-3.5 h-3.5" />
               <span>{cacheCleared ? 'Cache Cleared!' : 'Clear Cache'}</span>

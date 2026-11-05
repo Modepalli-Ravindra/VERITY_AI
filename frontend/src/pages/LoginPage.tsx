@@ -72,10 +72,10 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#421B29] text-[#F1DDE0] flex flex-col justify-between relative overflow-hidden font-sans selection:bg-[#A64C61]/35">
+    <div className="min-h-screen bg-[#090406] text-[#FFFFFF] flex flex-col justify-between relative overflow-hidden font-sans selection:bg-[#A64C61]/35">
       
       {/* Subtle technical grid background */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden bg-[#421B29]">
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden bg-[#090406]">
         <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:24px_24px]" />
       </div>
 
@@ -84,7 +84,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
         <div className="flex items-center gap-4">
           <button 
             onClick={() => onNavigate('/')}
-            className="flex items-center gap-2 text-xs font-medium text-[#D28B96] hover:text-[#F1DDE0] transition-colors p-1.5 -ml-1.5 rounded-lg hover:bg-[#80324A] cursor-pointer"
+            className="flex items-center gap-2 text-xs font-medium text-[#D28B96] hover:text-[#FFFFFF] transition-colors p-1.5 -ml-1.5 rounded-lg hover:bg-[#1C0F17]/85 backdrop-blur-2xl cursor-pointer"
             title="Return to Home"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -98,7 +98,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
             className="flex items-center gap-2.5 cursor-pointer group"
           >
             <VerityLogo className="h-7 w-auto" />
-            <span className="font-display tracking-[0.14em] text-[#F1DDE0] text-lg font-bold group-hover:text-[#F1DDE0] transition-colors">
+            <span className="font-display tracking-[0.14em] text-[#FFFFFF] text-lg font-bold group-hover:text-[#FFFFFF] transition-colors">
               VERITY
             </span>
           </div>
@@ -108,7 +108,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
           <span className="hidden sm:inline">New to VERITY?</span>
           <button 
             onClick={() => onNavigate('/signup')}
-            className="text-[#F1DDE0] hover:text-[#F1DDE0] font-medium transition-colors cursor-pointer px-3 py-1 rounded-xl border border-[#A64C61] bg-[#80324A] hover:border-[#BA576E] hover:bg-[#1A2430] text-[#F1DDE0]"
+            className="text-[#FFFFFF] hover:text-[#FFFFFF] font-medium transition-colors cursor-pointer px-3 py-1 rounded-xl border border-white/[0.08] bg-[#1C0F17]/85 backdrop-blur-2xl hover:border-[#D28B96]/35 hover:bg-[#1A2430] text-[#FFFFFF]"
           >
             Create an Account
           </button>
@@ -124,19 +124,19 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
           className="w-full max-w-[440px]"
         >
           {/* Main Form Surface */}
-          <div className="bg-[#702B40] border border-[#A64C61] rounded-2xl p-7 sm:p-9 shadow-[0_8px_32px_rgba(0,0,0,0.5)] relative overflow-hidden">
+          <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-7 sm:p-9 shadow-[0_8px_32px_rgba(0,0,0,0.5)] relative overflow-hidden">
             
             {/* Top decorative subtle hairline glow */}
             
 
             {/* Form Header */}
             <div className="mb-7">
-              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#80324A] border border-[#A64C61] text-[#F1DDE0] text-[10px] font-mono tracking-widest uppercase mb-3 font-semibold">
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#1C0F17]/85 backdrop-blur-2xl border border-white/[0.08] text-[#FFFFFF] text-[10px] font-mono tracking-widest uppercase mb-3 font-semibold">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#00C9D8] " />
                 <span>SECURE AUTHENTICATION</span>
               </div>
               
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F1DDE0] mb-2 font-display">
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#FFFFFF] mb-2 font-display">
                 Welcome back.
               </h1>
               
@@ -160,7 +160,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
               <motion.div 
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
-                className="mb-5 p-3.5 rounded-xl bg-[#0D282B] border border-[#00C9D8]/35 text-[#F1DDE0] text-xs font-mono tracking-wide leading-relaxed"
+                className="mb-5 p-3.5 rounded-xl bg-[#0D282B] border border-[#00C9D8]/35 text-[#FFFFFF] text-xs font-mono tracking-wide leading-relaxed"
               >
                 {infoMessage}
               </motion.div>
@@ -181,7 +181,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
                       value={otp}
                       onChange={(e) => setOtp(e.target.value)}
                       placeholder="000000"
-                      className="w-full pl-11 pr-4 py-3 bg-[#421B29] border border-[#A64C61] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#F1DDE0] tracking-[0.3em] font-mono text-center text-lg transition-all placeholder-[#D28B96]/60"
+                      className="w-full pl-11 pr-4 py-3 bg-[#090406] border border-white/[0.08] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#FFFFFF] tracking-[0.3em] font-mono text-center text-lg transition-all placeholder-[#D28B96]/45"
                     />
                   </div>
                 </div>
@@ -189,7 +189,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 px-4 bg-[#F1DDE0] hover:bg-white active:bg-[#D28B96] text-[#421B29] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  className="w-full py-3 px-4 bg-[#F1DDE0] hover:bg-white active:bg-[#D28B96] text-[#421B29] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_8px_32px_rgba(0,0,0,0.6)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   <span>{loading ? 'Verifying Session...' : 'Verify & Continue'}</span>
                   {!loading && <ArrowRight className="w-4 h-4" />}
@@ -210,7 +210,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="researcher@organization.org"
-                      className="w-full pl-10 pr-4 py-2.5 bg-[#421B29] border border-[#A64C61] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#F1DDE0] placeholder-[#D28B96]/60 text-xs sm:text-sm transition-all"
+                      className="w-full pl-10 pr-4 py-2.5 bg-[#090406] border border-white/[0.08] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#FFFFFF] placeholder-[#D28B96]/45 text-xs sm:text-sm transition-all"
                     />
                   </div>
                 </div>
@@ -224,7 +224,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
                     <button 
                       type="button" 
                       onClick={() => setError('Password reset instructions will be sent if the email exists in our records.')}
-                      className="text-[11px] text-[#D28B96] hover:text-[#F1DDE0] transition-colors cursor-pointer"
+                      className="text-[11px] text-[#D28B96] hover:text-[#FFFFFF] transition-colors cursor-pointer"
                     >
                       Forgot password?
                     </button>
@@ -237,12 +237,12 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full pl-10 pr-10 py-2.5 bg-[#421B29] border border-[#A64C61] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#F1DDE0] placeholder-[#D28B96]/60 text-xs sm:text-sm transition-all"
+                      className="w-full pl-10 pr-10 py-2.5 bg-[#090406] border border-white/[0.08] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#FFFFFF] placeholder-[#D28B96]/45 text-xs sm:text-sm transition-all"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#D28B96] hover:text-[#F1DDE0] transition-colors cursor-pointer"
+                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#D28B96] hover:text-[#FFFFFF] transition-colors cursor-pointer"
                       aria-label={showPassword ? 'Hide password' : 'Show password'}
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -255,7 +255,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-3 px-4 bg-[#F1DDE0] hover:bg-white active:bg-[#D28B96] text-[#421B29] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                    className="w-full py-3 px-4 bg-[#F1DDE0] hover:bg-white active:bg-[#D28B96] text-[#421B29] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_8px_32px_rgba(0,0,0,0.6)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                   >
                     <span>{loading ? 'Authenticating...' : 'Sign In'}</span>
                     {!loading && <ArrowRight className="w-4 h-4" />}
@@ -265,11 +265,11 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
             )}
 
             {/* Bottom registration link */}
-            <div className="mt-6 pt-5 border-t border-[#A64C61] text-center text-xs text-[#D28B96]">
+            <div className="mt-6 pt-5 border-t border-white/[0.08] text-center text-xs text-[#D28B96]">
               Need a research account?{' '}
               <button 
                 onClick={() => onNavigate('/signup')}
-                className="text-[#F1DDE0] hover:underline font-semibold ml-1 cursor-pointer transition-colors"
+                className="text-[#FFFFFF] hover:underline font-semibold ml-1 cursor-pointer transition-colors"
               >
                 Create an account
               </button>

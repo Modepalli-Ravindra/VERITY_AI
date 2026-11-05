@@ -70,8 +70,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
   return (
     <div className="fixed top-0 w-full z-50 flex flex-col items-center pt-2 sm:pt-3 px-3 sm:px-6 pointer-events-none">
       <nav className={`pointer-events-auto transition-all duration-300 rounded-2xl w-full max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] flex items-center justify-between px-5 sm:px-7 py-2 sm:py-2.5 relative ${scrolled || mobileMenuOpen
-          ? 'bg-[#702B40] border border-[#A64C61] shadow-[0_4px_24px_rgba(0,0,0,0.45)]'
-          : 'bg-[#421B29] border border-[#A64C61] shadow-[0_2px_16px_rgba(0,0,0,0.35)]'
+          ? 'bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.45)]'
+          : 'bg-[#090406] border border-white/[0.08] shadow-[0_2px_16px_rgba(0,0,0,0.35)]'
         }`}>
         
 
@@ -81,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
           className="flex items-center gap-2.5 cursor-pointer group"
         >
           <VerityLogo className="h-8 md:h-9 w-auto" />
-          <span className="font-display tracking-[0.15em] text-[#F1DDE0] text-xl group-hover:text-[#F1DDE0] transition-colors ">
+          <span className="font-display tracking-[0.15em] text-[#FFFFFF] text-xl group-hover:text-[#FFFFFF] transition-colors ">
             VERITY
           </span>
         </div>
@@ -95,8 +95,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                 key={link.route}
                 onClick={() => handleNav(link.route)}
                 className={`px-3.5 py-1.5 rounded-xl text-sm font-medium transition-all duration-300 cursor-pointer relative border ${isActive
-                    ? 'text-[#F1DDE0] bg-[#80324A] border-[#A64C61] font-semibold shadow-sm'
-                    : 'text-[#D28B96] border-transparent hover:text-[#F1DDE0] hover:bg-[#121820] hover:border-[#A64C61]'
+                    ? 'text-[#FFFFFF] bg-[#1C0F17]/85 backdrop-blur-2xl border-white/[0.08] font-semibold shadow-[0_8px_32px_rgba(0,0,0,0.6)]'
+                    : 'text-[#D28B96] border-transparent hover:text-[#FFFFFF] hover:bg-[#121820] hover:border-white/[0.08]'
                   }`}
               >
                 {link.name}
@@ -117,13 +117,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
             <>
               <button
                 onClick={() => handleNav('/login')}
-                className="text-sm font-medium text-[#F1DDE0] hover:text-[#F1DDE0] transition-colors cursor-pointer px-4 py-2 border border-[#A64C61] rounded-xl bg-[#702B40] hover:bg-[#80324A] hover:border-[#BA576E]"
+                className="text-sm font-medium text-[#FFFFFF] hover:text-[#FFFFFF] transition-colors cursor-pointer px-4 py-2 border border-white/[0.08] rounded-xl bg-[#140A10]/80 backdrop-blur-2xl hover:bg-[#1C0F17]/85 backdrop-blur-2xl hover:border-[#D28B96]/35"
               >
                 Login
               </button>
               <button
                 onClick={() => handleNav('/signup')}
-                className="px-5 py-2 text-sm font-bold bg-[#F1DDE0] hover:bg-white text-[#421B29] rounded-xl transition-all shadow-sm hover:shadow-[0_2px_10px_rgba(0,213,229,0.25)] cursor-pointer"
+                className="px-5 py-2 text-sm font-bold bg-gradient-to-r from-[#8E2848] to-[#5C182D] hover:from-[#A23054] hover:to-[#701E37] text-white border border-white/15 shadow-[0_4px_20px_rgba(142,40,72,0.35)] rounded-xl transition-all shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:shadow-[0_2px_10px_rgba(0,213,229,0.25)] cursor-pointer"
               >
                 Get Started
               </button>
@@ -133,7 +133,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
               {currentRoute === '/' ? (
                 <button
                   onClick={() => handleNav('/dashboard')}
-                  className="px-5 py-2 text-sm font-bold bg-[#F1DDE0] hover:bg-white text-[#421B29] rounded-xl transition-all shadow-sm hover:shadow-[0_2px_10px_rgba(0,213,229,0.25)] cursor-pointer"
+                  className="px-5 py-2 text-sm font-bold bg-gradient-to-r from-[#8E2848] to-[#5C182D] hover:from-[#A23054] hover:to-[#701E37] text-white border border-white/15 shadow-[0_4px_20px_rgba(142,40,72,0.35)] rounded-xl transition-all shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:shadow-[0_2px_10px_rgba(0,213,229,0.25)] cursor-pointer"
                 >
                   Go to Dashboard
                 </button>
@@ -150,7 +150,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                       }
                     }}
                     placeholder="Search analyses..."
-                    className="bg-[#1D1015] border border-[#A64C61] rounded-xl py-1.5 pl-9 pr-12 text-sm text-[#F1DDE0] placeholder-[#D28B96]/60 focus:outline-none focus:border-[#00D5E5] focus:ring-1 focus:ring-[#00D5E5]/20 w-48 transition-all"
+                    className="bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] rounded-xl py-1.5 pl-9 pr-12 text-sm text-[#FFFFFF] placeholder-[#D28B96]/45 focus:outline-none focus:border-[#00D5E5] focus:ring-1 focus:ring-[#00D5E5]/20 w-48 transition-all"
                   />
                   <button
                     onClick={() => {
@@ -158,7 +158,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                         onNavigate('/history', { search: searchQuery.trim() });
                       }
                     }}
-                    className="absolute right-2 px-1.5 py-0.5 rounded-lg bg-white/5 border border-white/10 text-[9px] text-[#9BB2B7] font-mono hover:text-[#F1DDE0] hover:bg-[#00C9D8]/10 transition-colors cursor-pointer"
+                    className="absolute right-2 px-1.5 py-0.5 rounded-lg bg-white/5 border border-white/10 text-[9px] text-[#9BB2B7] font-mono hover:text-[#FFFFFF] hover:bg-[#00C9D8]/10 transition-colors cursor-pointer"
                   >
                     Enter
                   </button>
@@ -173,10 +173,10 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                   className="flex items-center gap-2 cursor-pointer ml-1 group p-1 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-[rgba(0,201,216,0.2)]"
                   title="Account menu"
                 >
-                  <div className="w-8 h-8 rounded-xl bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#F1DDE0] text-sm font-bold font-sans group-hover:bg-[#00C9D8]/25 transition-colors ">
+                  <div className="w-8 h-8 rounded-xl bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#FFFFFF] text-sm font-bold font-sans group-hover:bg-[#00C9D8]/25 transition-colors ">
                     {user.email?.charAt(0).toUpperCase()}
                   </div>
-                  <ChevronDown className={`w-3.5 h-3.5 text-[#9BB2B7] group-hover:text-[#F1DDE0] transition-transform duration-200 ${profileMenuOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-3.5 h-3.5 text-[#9BB2B7] group-hover:text-[#FFFFFF] transition-transform duration-200 ${profileMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {/* Profile Icon Dropdown */}
@@ -187,13 +187,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 8, scale: 0.96 }}
                       transition={{ duration: 0.15, ease: 'easeOut' }}
-                      className="absolute right-0 mt-3 w-60 bg-[#702B40] border border-[#A64C61] rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.6)] p-2.5 z-50 flex flex-col gap-1.5 overflow-hidden"
+                      className="absolute right-0 mt-3 w-60 bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.6)] p-2.5 z-50 flex flex-col gap-1.5 overflow-hidden"
                     >
                       
 
                       {/* User Info Header */}
-                      <div className="px-3 py-2 rounded-xl bg-[#1D1015] border border-[#A64C61] mb-1">
-                        <p className="text-xs font-semibold text-[#F1DDE0] truncate font-sans">
+                      <div className="px-3 py-2 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] mb-1">
+                        <p className="text-xs font-semibold text-[#FFFFFF] truncate font-sans">
                           {getUserDisplayName(user)}
                         </p>
                         <p className="text-[11px] font-mono text-[#D28B96] truncate mt-0.5">
@@ -211,15 +211,15 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                           setProfileMenuOpen(false);
                           handleNav('/settings');
                         }}
-                        className="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-mono font-medium text-[#9BB2B7] hover:text-[#F1DDE0] hover:bg-[rgba(0,201,216,0.1)] border border-transparent hover:border-[rgba(0,201,216,0.2)] transition-all flex items-center justify-between group cursor-pointer"
+                        className="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-mono font-medium text-[#9BB2B7] hover:text-[#FFFFFF] hover:bg-[rgba(0,201,216,0.1)] border border-transparent hover:border-[rgba(0,201,216,0.2)] transition-all flex items-center justify-between group cursor-pointer"
                       >
                         <div className="flex items-center gap-2.5">
-                          <div className="w-6 h-6 rounded-lg bg-[#00C9D8]/10 border border-[#00C9D8]/20 flex items-center justify-center text-[#F1DDE0]">
+                          <div className="w-6 h-6 rounded-lg bg-[#00C9D8]/10 border border-[#00C9D8]/20 flex items-center justify-center text-[#FFFFFF]">
                             <Settings className="w-3.5 h-3.5" />
                           </div>
                           <span>Settings & Preferences</span>
                         </div>
-                        <span className="text-[10px] text-[#F1DDE0] font-mono opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                        <span className="text-[10px] text-[#FFFFFF] font-mono opacity-0 group-hover:opacity-100 transition-opacity">→</span>
                       </button>
 
                       <div className="h-px bg-white/5 my-0.5" />
@@ -230,7 +230,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                           setProfileMenuOpen(false);
                           handleNav('/logout');
                         }}
-                        className="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-300 hover:text-white transition-all flex items-center justify-between shadow-sm cursor-pointer"
+                        className="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-300 hover:text-white transition-all flex items-center justify-between shadow-[0_8px_32px_rgba(0,0,0,0.6)] cursor-pointer"
                       >
                         <div className="flex items-center gap-2.5">
                           <div className="w-6 h-6 rounded-lg bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-300">
@@ -252,7 +252,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
         <div className="md:hidden flex items-center">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-[#9BB2B7] hover:text-[#F1DDE0] focus:outline-none rounded-xl"
+            className="p-2 text-[#9BB2B7] hover:text-[#FFFFFF] focus:outline-none rounded-xl"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -267,7 +267,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="md:hidden pointer-events-auto w-full max-w-7xl mt-3 bg-[#702B40] border border-[#A64C61] shadow-[0_8px_30px_rgba(0,0,0,0.4)] rounded-2xl overflow-hidden relative"
+            className="md:hidden pointer-events-auto w-full max-w-7xl mt-3 bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] shadow-[0_8px_30px_rgba(0,0,0,0.4)] rounded-2xl overflow-hidden relative"
           >
             
             <div className="px-6 py-6 flex flex-col gap-4">
@@ -291,7 +291,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                   </button>
                   <button
                     onClick={() => handleNav('/signup')}
-                    className="w-full py-3 mt-2 text-sm font-bold bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] rounded-xl shadow-sm"
+                    className="w-full py-3 mt-2 text-sm font-bold bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
                   >
                     Get Started
                   </button>
@@ -304,7 +304,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                       <button
                         key={link.name}
                         onClick={() => handleNav(link.route)}
-                        className={`text-left text-sm font-medium tracking-wide py-2 ${isActive ? 'text-[#F1DDE0] font-bold' : 'text-[#9BB2B7] hover:text-[#F1DDE0]'
+                        className={`text-left text-sm font-medium tracking-wide py-2 ${isActive ? 'text-[#FFFFFF] font-bold' : 'text-[#9BB2B7] hover:text-[#FFFFFF]'
                           }`}
                       >
                         {link.name}
@@ -314,7 +314,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                   <div className="w-full h-px bg-white/5 my-2" />
                   <button
                     onClick={() => handleNav('/dashboard')}
-                    className="w-full py-3 mt-2 text-sm font-bold bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] rounded-xl shadow-sm"
+                    className="w-full py-3 mt-2 text-sm font-bold bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
                   >
                     Go to Dashboard
                   </button>
@@ -337,7 +337,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                       <button
                         key={link.route}
                         onClick={() => handleNav(link.route)}
-                        className={`text-left text-sm font-medium tracking-wide py-2 ${isActive ? 'text-[#F1DDE0] font-bold' : 'text-[#9BB2B7] hover:text-[#F1DDE0]'
+                        className={`text-left text-sm font-medium tracking-wide py-2 ${isActive ? 'text-[#FFFFFF] font-bold' : 'text-[#9BB2B7] hover:text-[#FFFFFF]'
                           }`}
                       >
                         {link.name}

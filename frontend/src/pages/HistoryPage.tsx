@@ -124,7 +124,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
   });
 
   return (
-    <div className="flex-1 min-h-0 h-full text-[#F1DDE0] px-3 sm:px-6 lg:px-8 pt-1.5 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#A64C61]/35">
+    <div className="flex-1 min-h-0 h-full text-[#FFFFFF] px-3 sm:px-6 lg:px-8 pt-1.5 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#A64C61]/35">
       
       {/* Background Glows */}
       
@@ -135,14 +135,14 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
         <motion.div 
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 pb-4 border-b border-[#A64C61] shrink-0"
+          className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 pb-4 border-b border-white/[0.08] shrink-0"
         >
           <div>
-            <div className="flex items-center gap-2 text-[11px] font-semibold text-[#F1DDE0] uppercase tracking-[0.22em] mb-2 font-mono">
+            <div className="flex items-center gap-2 text-[11px] font-semibold text-[#FFFFFF] uppercase tracking-[0.22em] mb-2 font-mono">
               <Clock className="w-3.5 h-3.5" />
               <span>Telemetry Archive</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-[#F1DDE0] tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#FFFFFF] tracking-tight">
               Analysis History & Audit Log
             </h1>
             <p className="text-xs sm:text-sm text-[#9BB2B7] mt-1 font-sans">
@@ -168,7 +168,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search archive..."
-                className="w-full pl-10 pr-4 py-2 bg-[#1D1015] border border-[#A64C61] rounded-xl text-xs sm:text-sm text-[#F1DDE0] placeholder-[#D28B96]/60 focus:outline-none focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8]/30 transition-all shadow-inner font-sans"
+                className="w-full pl-10 pr-4 py-2 bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] rounded-xl text-xs sm:text-sm text-[#FFFFFF] placeholder-[#D28B96]/45 focus:outline-none focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8]/30 transition-all shadow-inner font-sans"
               />
             </div>
 
@@ -177,11 +177,11 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
               <select
                 value={filterClass}
                 onChange={(e) => setFilterClass(e.target.value)}
-                className="pl-9 pr-8 py-2 bg-[#1D1015] border border-[#A64C61] rounded-xl text-xs sm:text-sm text-[#F1DDE0] focus:outline-none focus:border-[#00C9D8] appearance-none cursor-pointer transition-all shadow-inner font-sans"
+                className="pl-9 pr-8 py-2 bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] rounded-xl text-xs sm:text-sm text-[#FFFFFF] focus:outline-none focus:border-[#00C9D8] appearance-none cursor-pointer transition-all shadow-inner font-sans"
               >
-                <option value="all" className="bg-[#702B40] text-[#F1DDE0]">All Records</option>
-                <option value="ai" className="bg-[#702B40] text-amber-300">AI Generated</option>
-                <option value="human" className="bg-[#702B40] text-[#F1DDE0]">Human Written</option>
+                <option value="all" className="bg-[#140A10]/80 backdrop-blur-2xl text-[#FFFFFF]">All Records</option>
+                <option value="ai" className="bg-[#140A10]/80 backdrop-blur-2xl text-amber-300">AI Generated</option>
+                <option value="human" className="bg-[#140A10]/80 backdrop-blur-2xl text-[#FFFFFF]">Human Written</option>
               </select>
             </div>
           </div>
@@ -197,18 +197,18 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
           {loading ? (
             <div className="py-28 flex flex-col items-center justify-center text-[#9BB2B7]">
               <div className="w-8 h-8 border-[3px] border-[#00C9D8]/30 border-t-[#00C9D8] rounded-full animate-spin mb-4" />
-              <span className="text-xs uppercase tracking-[0.2em] font-mono text-[#F1DDE0]">Retrieving Records</span>
+              <span className="text-xs uppercase tracking-[0.2em] font-mono text-[#FFFFFF]">Retrieving Records</span>
             </div>
           ) : filteredItems.length === 0 ? (
-            <div className="py-28 flex flex-col items-center justify-center text-[#9BB2B7] border border-dashed border-[#A64C61] rounded-2xl bg-[#702B40]/40">
+            <div className="py-28 flex flex-col items-center justify-center text-[#9BB2B7] border border-dashed border-white/[0.08] rounded-2xl bg-[#140A10]/80 backdrop-blur-2xl/40">
               <span className="text-sm font-medium">{search || filterClass !== 'all' ? 'No records match your criteria.' : 'Archive is empty.'}</span>
             </div>
           ) : (
-            <div className="bg-[#702B40] rounded-2xl border border-[#A64C61] overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.35)] flex flex-col flex-1 min-h-[500px] relative">
+            <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.35)] flex flex-col flex-1 min-h-[500px] relative">
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
               
               {/* Table Header */}
-              <div className="hidden md:grid grid-cols-12 gap-4 px-8 py-4 border-b border-[#A64C61] bg-[#421B29] text-xs font-mono font-bold text-[#D28B96] uppercase tracking-[0.15em] shrink-0">
+              <div className="hidden md:grid grid-cols-12 gap-4 px-8 py-4 border-b border-white/[0.08] bg-[#090406] text-xs font-mono font-bold text-[#D28B96] uppercase tracking-[0.15em] shrink-0">
                 <div className="col-span-2">Date</div>
                 <div className="col-span-6">Excerpt</div>
                 <div className="col-span-2">Classification</div>
@@ -222,14 +222,14 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
                   <div
                     key={item.id}
                     onClick={() => setSelectedItem(item)}
-                    className="group flex flex-col md:grid md:grid-cols-12 gap-4 md:items-center px-6 md:px-8 py-4 sm:py-5 hover:bg-[#80324A] transition-colors cursor-pointer"
+                    className="group flex flex-col md:grid md:grid-cols-12 gap-4 md:items-center px-6 md:px-8 py-4 sm:py-5 hover:bg-[#1C0F17]/85 backdrop-blur-2xl transition-colors cursor-pointer"
                   >
                     <div className="md:col-span-2 text-xs sm:text-sm text-[#9BB2B7] font-mono">
                       {item.created_at ? new Date(item.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent'}
                     </div>
                     
                     <div className="md:col-span-6">
-                      <p className="text-sm sm:text-base text-[#F1DDE0] line-clamp-1 font-sans tracking-normal group-hover:text-[#F1DDE0] transition-colors">
+                      <p className="text-sm sm:text-base text-[#FFFFFF] line-clamp-1 font-sans tracking-normal group-hover:text-[#FFFFFF] transition-colors">
                         "{item.original_text}"
                       </p>
                     </div>
@@ -238,14 +238,14 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
                       <span className={`text-xs uppercase tracking-wider font-semibold px-2.5 py-1 rounded-md font-mono border ${
                         item.classification?.includes('AI') 
                           ? 'bg-amber-500/10 text-amber-300 border-amber-500/20' 
-                          : 'bg-[#00C9D8]/10 text-[#F1DDE0] border-[#00C9D8]/20'
+                          : 'bg-[#00C9D8]/10 text-[#FFFFFF] border-[#00C9D8]/20'
                       }`}>
                         {item.classification?.includes('AI') ? 'AI Generated' : 'Human Written'}
                       </span>
                     </div>
 
                     <div className="md:col-span-1 flex items-center md:justify-end">
-                      <span className="text-sm sm:text-base font-mono font-bold text-[#F1DDE0]">
+                      <span className="text-sm sm:text-base font-mono font-bold text-[#FFFFFF]">
                         {typeof item.ai_probability === 'number' ? `${Math.round(item.ai_probability * 100)}%` : '--'}
                       </span>
                     </div>
@@ -260,7 +260,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
-                        <ChevronRight className="w-4 h-4 text-[#D28B96] group-hover:text-[#F1DDE0] transition hidden md:block" />
+                        <ChevronRight className="w-4 h-4 text-[#D28B96] group-hover:text-[#FFFFFF] transition hidden md:block" />
                       </div>
                     </div>
                   </div>
@@ -277,28 +277,28 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 bg-[#421B29]/85 flex items-center justify-center p-4 sm:p-6"
+              className="fixed inset-0 z-50 bg-[#090406]/85 flex items-center justify-center p-4 sm:p-6"
             >
               <motion.div 
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
-                className="w-full max-w-4xl bg-[#702B40] rounded-2xl border border-[#A64C61] p-6 sm:p-10 shadow-[0_24px_64px_rgba(0,0,0,0.8)] relative max-h-[90vh] flex flex-col overflow-hidden"
+                className="w-full max-w-4xl bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] p-6 sm:p-10 shadow-[0_24px_64px_rgba(0,0,0,0.8)] relative max-h-[90vh] flex flex-col overflow-hidden"
               >
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/40 to-transparent" />
                 
-                <div className="flex items-start justify-between pb-5 border-b border-[#A64C61] shrink-0">
+                <div className="flex items-start justify-between pb-5 border-b border-white/[0.08] shrink-0">
                   <div>
                     <div className="flex items-center gap-2 mb-1.5">
                       <span className="text-xs text-[#9BB2B7] uppercase tracking-widest font-mono">
                         {selectedItem.created_at ? new Date(selectedItem.created_at).toLocaleString() : 'Recent'}
                       </span>
                     </div>
-                    <h3 className="text-2xl font-bold text-[#F1DDE0] tracking-tight">{selectedItem.classification}</h3>
+                    <h3 className="text-2xl font-bold text-[#FFFFFF] tracking-tight">{selectedItem.classification}</h3>
                   </div>
                   <button
                     onClick={() => setSelectedItem(null)}
-                    className="p-2 text-[#9BB2B7] hover:text-[#F1DDE0] rounded-xl bg-[#1D1015] hover:bg-[#081A1D] border border-[#A64C61] transition cursor-pointer"
+                    className="p-2 text-[#9BB2B7] hover:text-[#FFFFFF] rounded-xl bg-[#0A0407]/90 backdrop-blur-md hover:bg-[#081A1D] border border-white/[0.08] transition cursor-pointer"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -308,13 +308,13 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
                   
                   {/* Stats Row */}
                   <div className="flex flex-wrap gap-8 sm:gap-14">
-                    <div className="bg-[#1D1015] p-4 rounded-xl border border-[#A64C61] flex-1 min-w-[160px]">
+                    <div className="bg-[#0A0407]/90 backdrop-blur-md p-4 rounded-xl border border-white/[0.08] flex-1 min-w-[160px]">
                       <span className="text-xs text-[#9BB2B7] uppercase tracking-[0.2em] font-mono block mb-1">AI Probability</span>
-                      <span className="text-4xl font-bold text-[#F1DDE0] font-mono">
+                      <span className="text-4xl font-bold text-[#FFFFFF] font-mono">
                         {typeof selectedItem.ai_probability === 'number' ? `${Math.round(selectedItem.ai_probability * 100)}%` : '--'}
                       </span>
                     </div>
-                    <div className="bg-[#1D1015] p-4 rounded-xl border border-[#A64C61] flex-1 min-w-[160px]">
+                    <div className="bg-[#0A0407]/90 backdrop-blur-md p-4 rounded-xl border border-white/[0.08] flex-1 min-w-[160px]">
                       <span className="text-xs text-[#9BB2B7] uppercase tracking-[0.2em] font-mono block mb-1">Human Probability</span>
                       <span className="text-4xl font-bold text-[#008FA3] font-mono">
                         {typeof selectedItem.ai_probability === 'number'
@@ -327,7 +327,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
                   {/* Text Block */}
                   <div className="space-y-2">
                     <span className="text-xs text-[#9BB2B7] uppercase tracking-[0.2em] font-mono font-semibold">Analyzed Text</span>
-                    <div className="p-5 rounded-xl bg-[#1D1015] border border-[#A64C61] text-[#F1DDE0] leading-relaxed font-sans text-sm sm:text-base">
+                    <div className="p-5 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] text-[#FFFFFF] leading-relaxed font-sans text-sm sm:text-base">
                       {selectedItem.original_text}
                     </div>
                   </div>
@@ -336,14 +336,14 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
                   {selectedItem.explanation && (
                     <div className="space-y-2">
                       <span className="text-xs text-[#9BB2B7] uppercase tracking-[0.2em] font-mono font-semibold">Diagnostic Reasoning</span>
-                      <div className="p-5 rounded-xl bg-[#00C9D8]/5 border border-[#00C9D8]/20 text-[#F1DDE0] text-xs sm:text-sm leading-relaxed">
+                      <div className="p-5 rounded-xl bg-[#00C9D8]/5 border border-[#00C9D8]/20 text-[#FFFFFF] text-xs sm:text-sm leading-relaxed">
                         {selectedItem.explanation}
                       </div>
                     </div>
                   )}
                 </div>
 
-                <div className="pt-5 border-t border-[#A64C61] flex items-center justify-between shrink-0">
+                <div className="pt-5 border-t border-white/[0.08] flex items-center justify-between shrink-0">
                   <button
                     onClick={(e) => handleDelete(selectedItem.id, e)}
                     className="px-4 py-2.5 text-xs font-semibold text-red-400 hover:text-red-300 transition cursor-pointer font-mono"
