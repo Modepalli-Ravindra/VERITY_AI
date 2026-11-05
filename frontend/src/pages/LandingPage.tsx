@@ -47,7 +47,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         {/* =========================================================================
             3. HERO SECTION (Full-Width Centered Editorial Layout with Studio Lighting)
            ========================================================================= */}
-        <section className="flex flex-col items-center justify-center text-center max-w-5xl xl:max-w-6xl mx-auto pt-2 lg:pt-4 pb-10 relative z-20">
+        <section className="flex flex-col items-center justify-center text-center max-w-5xl xl:max-w-6xl mx-auto pt-[28px] lg:pt-[36px] pb-10 relative z-20">
 
           {/* Headline — Centered, Two Lines with Redaction 10 Premium Editorial Font */}
           <motion.h1
