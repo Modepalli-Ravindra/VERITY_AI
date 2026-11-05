@@ -47,15 +47,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         {/* =========================================================================
             3. HERO SECTION (Full-Width Centered Editorial Layout with Studio Lighting)
            ========================================================================= */}
-        <section className="flex flex-col items-center justify-center text-center max-w-4xl xl:max-w-5xl mx-auto pt-6 lg:pt-14 pb-20 min-h-[58vh] relative z-20">
+        <section className="flex flex-col items-center justify-center text-center max-w-5xl xl:max-w-6xl mx-auto pt-6 lg:pt-14 pb-20 min-h-[58vh] relative z-20">
 
-
-          {/* Headline — Centered, Two Lines with Antigravity Vintage Decorative Serif */}
+          {/* Headline — Centered, Two Lines with Antigravity Vintage Decorative Serif (Zoomed) */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-[32px] sm:text-[42px] md:text-[52px] lg:text-[62px] xl:text-[70px] 2xl:text-[76px] font-antigravity tracking-[0.01em] text-[#FFFFFF] leading-[1.16] mb-8 max-w-4xl"
+            className="text-[44px] sm:text-[58px] md:text-[72px] lg:text-[88px] xl:text-[100px] 2xl:text-[112px] font-antigravity tracking-[0.01em] text-[#FFFFFF] leading-[1.12] mb-8 max-w-5xl"
           >
             <span className="block">Detect AI. Verify Truth.</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#FFFFFF] via-[#A5F3FC] to-[#00D5E5]">
@@ -63,12 +62,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             </span>
           </motion.h1>
 
-          {/* Supporting Copy — Centered & Refined */}
+          {/* Supporting Copy — Centered & Zoomed */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-[#8DA2AA] text-base sm:text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed mb-9 font-normal"
+            className="text-[#8DA2AA] text-lg sm:text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed mb-10 font-normal"
           >
             Detect AI-generated content, inspect document-level signals, and evaluate text transformations with VERITY’s intelligent analysis tools.
           </motion.p>
