@@ -2,42 +2,43 @@
 @import "tailwindcss";
 
 @theme {
-  --color-canvas: #06141B;
-  --color-surface: #11212D;
-  --color-surface-hover: #172836;
-  --color-border: #253745;
-  --color-border-hover: #364C5E;
-  --color-muted: #4A5C6A;
-  --color-secondary: #9BA8AB;
-  --color-primary: #CCD0CF;
+  --color-canvas: #421B29;
+  --color-surface: #702B40;
+  --color-surface-hover: #80324A;
+  --color-border: #A64C61;
+  --color-border-hover: #BA576E;
+  --color-muted: #D28B96;
+  --color-secondary: #D28B96;
+  --color-primary: #F1DDE0;
+  --color-well: #1D1015;
 
   /* Backward-compatible theme aliases */
-  --color-obsidian-950: #06141B;
-  --color-obsidian-900: #06141B;
-  --color-obsidian-850: #0A1A24;
-  --color-obsidian-800: #11212D;
-  --color-obsidian-750: #172836;
-  --color-obsidian-700: #253745;
-  --color-obsidian-600: #364C5E;
+  --color-obsidian-950: #1D1015;
+  --color-obsidian-900: #421B29;
+  --color-obsidian-850: #552133;
+  --color-obsidian-800: #702B40;
+  --color-obsidian-750: #80324A;
+  --color-obsidian-700: #A64C61;
+  --color-obsidian-600: #BA576E;
   
-  --color-electric-cyan: #CCD0CF;
-  --color-cyan-glow: #CCD0CF;
-  --color-cyan-dim: #253745;
+  --color-electric-cyan: #F1DDE0;
+  --color-cyan-glow: #F1DDE0;
+  --color-cyan-dim: #A64C61;
   
-  --color-slate-text-900: #CCD0CF;
-  --color-slate-text-800: #CCD0CF;
-  --color-slate-text-700: #9BA8AB;
-  --color-slate-text-500: #9BA8AB;
-  --color-slate-text-400: #4A5C6A;
+  --color-slate-text-900: #F1DDE0;
+  --color-slate-text-800: #F1DDE0;
+  --color-slate-text-700: #D28B96;
+  --color-slate-text-500: #D28B96;
+  --color-slate-text-400: #A64C61;
 
-  --color-charcoal-teal: #06141B;
-  --color-dark-teal: #11212D;
-  --color-teal-blue: #253745;
-  --color-soft-white: #CCD0CF;
-  --color-muted-blue: #9BA8AB;
-  --color-input-bg: #0A1821;
-  --color-lime-sprout: #CCD0CF;
-  --color-fresh-canopy: #11212D;
+  --color-charcoal-teal: #421B29;
+  --color-dark-teal: #702B40;
+  --color-teal-blue: #A64C61;
+  --color-soft-white: #F1DDE0;
+  --color-muted-blue: #D28B96;
+  --color-input-bg: #1D1015;
+  --color-lime-sprout: #F1DDE0;
+  --color-fresh-canopy: #702B40;
 
   /* Single Unified Premium Sans-Serif Font */
   --font-display: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -51,8 +52,8 @@
     scroll-padding-top: 100px;
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'tnum';
-    background-color: #06141B !important;
-    color: #CCD0CF;
+    background-color: #421B29 !important;
+    color: #F1DDE0;
     overflow-x: hidden;
     margin: 0;
     min-height: 100vh;
@@ -61,18 +62,18 @@
   }
   
   :root {
-    --bg-base: #06141B;
-    --bg-dark: #06141B;
-    --bg-card: #11212D;
-    --bg-card-elevated: #172836;
-    --bg-input: #0A1821;
-    --border-subtle: #253745;
-    --border-hover: #364C5E;
-    --accent-primary: #CCD0CF;
-    --accent-glow: #CCD0CF;
-    --text-primary: #CCD0CF;
-    --text-secondary: #9BA8AB;
-    --text-muted: #4A5C6A;
+    --bg-base: #421B29;
+    --bg-dark: #421B29;
+    --bg-card: #702B40;
+    --bg-card-elevated: #80324A;
+    --bg-input: #1D1015;
+    --border-subtle: #A64C61;
+    --border-hover: #BA576E;
+    --accent-primary: #F1DDE0;
+    --accent-glow: #F1DDE0;
+    --text-primary: #F1DDE0;
+    --text-secondary: #D28B96;
+    --text-muted: #A64C61;
   }
 
   /* Unified sans-serif font across code, badges, numbers */
@@ -82,55 +83,56 @@
   }
 }
 
-/* Solid Minimal Component Cards: #11212D on #06141B */
+/* Solid Minimal Component Cards: #702B40 on #421B29 */
 .hallmark-card, .verity-card, .verity-glass {
-  background-color: #11212D !important;
-  border: 1px solid #253745 !important;
+  background-color: #702B40 !important;
+  border: 1px solid #A64C61 !important;
   border-radius: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .hallmark-card:hover, .verity-card:hover {
-  border-color: #364C5E !important;
+  border-color: #BA576E !important;
 }
 
 .hallmark-card-elevated {
-  background-color: #172836 !important;
-  border: 1px solid #253745 !important;
+  background-color: #80324A !important;
+  border: 1px solid #A64C61 !important;
   border-radius: 1rem;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .hallmark-well {
-  background-color: #0A1821 !important;
-  border: 1px solid #253745 !important;
+  background-color: #1D1015 !important;
+  border: 1px solid #A64C61 !important;
   border-radius: 0.75rem;
 }
 
 .text-gradient-purple {
-  color: #CCD0CF;
+  color: #F1DDE0;
 }
 
-/* Custom Scrollbar - Minimal Design */
+/* Custom Scrollbar - Burgundy/Rose Theme */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #06141B;
+  background: #421B29;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #253745;
+  background: #702B40;
+  border: 1px solid #A64C61;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4A5C6A;
+  background: #80324A;
 }
 
 /* Chrome/Safari autofill override */
@@ -138,8 +140,8 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 1000px #0A1821 inset !important;
-  -webkit-text-fill-color: #CCD0CF !important;
-  caret-color: #CCD0CF !important;
+  -webkit-box-shadow: 0 0 0 1000px #1D1015 inset !important;
+  -webkit-text-fill-color: #F1DDE0 !important;
+  caret-color: #F1DDE0 !important;
   transition: background-color 5000s ease-in-out 0s;
 }

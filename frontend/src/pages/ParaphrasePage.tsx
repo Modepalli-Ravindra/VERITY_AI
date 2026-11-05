@@ -409,7 +409,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
   const humWords = countWords(paraphrasedText);
 
   return (
-    <div className="flex-1 min-h-0 h-full text-[#CCD0CF] px-3 sm:px-6 lg:px-8 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#253745]">
+    <div className="flex-1 min-h-0 h-full text-[#F1DDE0] px-3 sm:px-6 lg:px-8 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#A64C61]/35">
       
       {/* Background Ambient Glows */}
       
@@ -419,13 +419,13 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
         {/* Workspace Toolbar / Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shrink-0 py-1.5 border-b border-[rgba(0,201,216,0.15)]">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="text-xs sm:text-sm font-mono font-bold text-[#CCD0CF] tracking-[0.25em] uppercase">
+            <span className="text-xs sm:text-sm font-mono font-bold text-[#F1DDE0] tracking-[0.25em] uppercase">
               PARAPHRASE WORKSPACE
             </span>
-            <span className="text-[#CCD0CF]/30 text-xs">•</span>
+            <span className="text-[#F1DDE0]/30 text-xs">•</span>
             
             {/* Tone Selector Pills */}
-            <div className="inline-flex p-1 rounded-xl bg-[#0A1821] border border-[#253745] gap-1.5 shadow-inner">
+            <div className="inline-flex p-1 rounded-xl bg-[#1D1015] border border-[#A64C61] gap-1.5 shadow-inner">
               {tones.map((t) => {
                 const isActive = tone === t.id;
                 return (
@@ -437,7 +437,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                     className={`px-3 py-1.5 rounded-lg text-xs font-mono tracking-wider transition-all cursor-pointer flex items-center gap-1.5 ${
                       isActive
                         ? 'bg-[#00C9D8] text-[#061416] font-bold shadow-md'
-                        : 'text-[#9BB2B7] hover:text-[#CCD0CF]'
+                        : 'text-[#9BB2B7] hover:text-[#F1DDE0]'
                     }`}
                   >
                     <span className="text-sm">{t.icon}</span>
@@ -447,20 +447,20 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
               })}
             </div>
 
-            <span className="text-[#CCD0CF]/30 text-xs hidden md:inline">•</span>
+            <span className="text-[#F1DDE0]/30 text-xs hidden md:inline">•</span>
             {/* Model Selection Dropdown */}
             <div className="hidden md:flex items-center gap-2 text-xs font-mono text-[#9BB2B7]">
-              <span className="uppercase tracking-widest text-[#4A5C6A] font-semibold">ENGINE:</span>
+              <span className="uppercase tracking-widest text-[#D28B96] font-semibold">ENGINE:</span>
               <select
                 value={provider}
                 onChange={(e) => setProvider(e.target.value)}
-                className="bg-[#0A1821] border border-[#253745] rounded-lg px-3 py-1 text-xs font-mono text-[#CCD0CF] focus:outline-none cursor-pointer uppercase shadow-inner"
+                className="bg-[#1D1015] border border-[#A64C61] rounded-lg px-3 py-1 text-xs font-mono text-[#F1DDE0] focus:outline-none cursor-pointer uppercase shadow-inner"
               >
-                <option value="auto" className="bg-[#11212D] text-white">Auto Select</option>
-                <option value="google" className="bg-[#11212D] text-white">Google Gemini</option>
-                <option value="groq" className="bg-[#11212D] text-white">Groq Llama-3.3</option>
-                <option value="openrouter" className="bg-[#11212D] text-white">OpenRouter</option>
-                <option value="nvidia" className="bg-[#11212D] text-white">NVIDIA NeMo</option>
+                <option value="auto" className="bg-[#702B40] text-white">Auto Select</option>
+                <option value="google" className="bg-[#702B40] text-white">Google Gemini</option>
+                <option value="groq" className="bg-[#702B40] text-white">Groq Llama-3.3</option>
+                <option value="openrouter" className="bg-[#702B40] text-white">OpenRouter</option>
+                <option value="nvidia" className="bg-[#702B40] text-white">NVIDIA NeMo</option>
               </select>
             </div>
           </div>
@@ -473,7 +473,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                 setRecheckResult(null);
                 setError('');
               }}
-              className="px-3.5 py-2 text-xs font-mono text-[#9BB2B7] hover:text-[#CCD0CF] transition-colors uppercase tracking-widest cursor-pointer rounded-xl border border-[rgba(0,201,216,0.15)] bg-[#0A1821] hover:border-[#00C9D8]/40"
+              className="px-3.5 py-2 text-xs font-mono text-[#9BB2B7] hover:text-[#F1DDE0] transition-colors uppercase tracking-widest cursor-pointer rounded-xl border border-[rgba(0,201,216,0.15)] bg-[#1D1015] hover:border-[#00C9D8]/40"
             >
               CLEAR BOTH
             </button>
@@ -524,7 +524,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
               exit={{ opacity: 0 }}
               className="fixed inset-0 z-50 flex items-center justify-center bg-[#061416]/80 "
             >
-              <div className="bg-[#11212D] p-8 rounded-2xl border border-[#253745] flex flex-col items-center justify-center shadow-2xl">
+              <div className="bg-[#702B40] p-8 rounded-2xl border border-[#A64C61] flex flex-col items-center justify-center shadow-2xl">
                 <ThinkingOrbs 
                   title={chunkProgress && chunkProgress.total > 1
                     ? `SECTION ${chunkProgress.current}/${chunkProgress.total} (${chunkProgress.percent}%)`
@@ -540,7 +540,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                         style={{ width: `${chunkProgress.percent}%` }}
                       />
                     </div>
-                    <span className="text-xs font-mono text-center text-[#CCD0CF] tracking-wider">
+                    <span className="text-xs font-mono text-center text-[#F1DDE0] tracking-wider">
                       {chunkProgress.stageMessage}
                     </span>
                   </div>
@@ -584,26 +584,26 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-1 min-h-[520px]">
           
           {/* Left Pane: Original Sequence */}
-          <div className="bg-[#11212D] rounded-2xl border border-[#253745] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
+          <div className="bg-[#702B40] rounded-2xl border border-[#A64C61] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
-            <div className="flex items-center justify-between px-5 py-3.5 bg-[#030B0D]/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
+            <div className="flex items-center justify-between px-5 py-3.5 bg-[#1D1015]/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
               <div className="flex items-center gap-2.5">
-                <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#CCD0CF] uppercase font-bold">ORIGINAL SEQUENCE</span>
-                <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#00C9D8]/10 text-[#CCD0CF] border border-[#00C9D8]/20">
+                <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#F1DDE0] uppercase font-bold">ORIGINAL SEQUENCE</span>
+                <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#00C9D8]/10 text-[#F1DDE0] border border-[#00C9D8]/20">
                   <span>Words: </span><strong className="text-white">{origWords}</strong>
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <button 
                   onClick={() => { navigator.clipboard.writeText(originalText); setCopiedOrig(true); setTimeout(() => setCopiedOrig(false), 2000); }} 
-                  className="px-3 py-1.5 text-xs font-mono text-[#9BB2B7] hover:text-[#CCD0CF] transition-colors uppercase tracking-widest flex items-center gap-1 cursor-pointer"
+                  className="px-3 py-1.5 text-xs font-mono text-[#9BB2B7] hover:text-[#F1DDE0] transition-colors uppercase tracking-widest flex items-center gap-1 cursor-pointer"
                 >
-                  {copiedOrig ? <Check className="w-3.5 h-3.5 text-[#CCD0CF]" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedOrig ? <Check className="w-3.5 h-3.5 text-[#F1DDE0]" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedOrig ? 'COPIED' : 'COPY'}</span>
                 </button>
                 <button 
                   onClick={() => { setOriginalText(''); setParaphrasedText(''); setRecheckResult(null); setError(''); }} 
-                  className="px-3 py-1.5 text-xs font-mono text-[#4A5C6A] hover:text-[#CCD0CF] transition-colors uppercase tracking-widest cursor-pointer"
+                  className="px-3 py-1.5 text-xs font-mono text-[#D28B96] hover:text-[#F1DDE0] transition-colors uppercase tracking-widest cursor-pointer"
                 >
                   CLEAR
                 </button>
@@ -614,20 +614,20 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
               value={originalText}
               onChange={(e) => setOriginalText(e.target.value)}
               placeholder="Paste or type original sequence here to rewrite into an adversarial variation..."
-              className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#CCD0CF] text-base leading-relaxed resize-none placeholder-[#4A5C6A] focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[350px]"
+              className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#F1DDE0] text-base leading-relaxed resize-none placeholder-[#D28B96]/60 focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[350px]"
             />
           </div>
 
           {/* Right Pane: Adversarial Sequence */}
-          <div className="bg-[#11212D] rounded-2xl border border-[#253745] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
+          <div className="bg-[#702B40] rounded-2xl border border-[#A64C61] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
-            <div className="flex items-center justify-between px-5 py-3.5 bg-[#030B0D]/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
+            <div className="flex items-center justify-between px-5 py-3.5 bg-[#1D1015]/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
               <div className="flex items-center gap-2.5">
-                <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#CCD0CF] uppercase font-bold">
+                <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#F1DDE0] uppercase font-bold">
                   ADVERSARIAL SEQUENCE
                 </span>
                 {paraphrasedText ? (
-                  <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#00C9D8]/10 text-[#CCD0CF] border border-[#00C9D8]/20" id="output-word-count">
+                  <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#00C9D8]/10 text-[#F1DDE0] border border-[#00C9D8]/20" id="output-word-count">
                     <span>Words: </span><strong className="text-white">{humWords}</strong>
                   </span>
                 ) : (
@@ -636,12 +636,12 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                   </span>
                 )}
                 {paraphrasedText && (
-                  <div className="inline-flex p-0.5 rounded-lg bg-[#0A1821] border border-[#253745] text-xs font-mono ml-1.5">
+                  <div className="inline-flex p-0.5 rounded-lg bg-[#1D1015] border border-[#A64C61] text-xs font-mono ml-1.5">
                     <button
                       onClick={() => setOutputView('text')}
                       id="view-toggle-text"
                       className={`px-3 py-1 rounded-md transition-colors cursor-pointer flex items-center gap-1.5 ${
-                        outputView === 'text' ? 'bg-[#00C9D8] text-[#061416] font-bold' : 'text-[#9BB2B7] hover:text-[#CCD0CF]'
+                        outputView === 'text' ? 'bg-[#00C9D8] text-[#061416] font-bold' : 'text-[#9BB2B7] hover:text-[#F1DDE0]'
                       }`}
                     >
                       <FileText className="w-3.5 h-3.5" />
@@ -651,7 +651,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                       onClick={() => setOutputView('diff')}
                       id="diff-view-toggle"
                       className={`px-3 py-1 rounded-md transition-colors cursor-pointer flex items-center gap-1.5 ${
-                        outputView === 'diff' ? 'bg-[#00C9D8] text-[#061416] font-bold' : 'text-[#9BB2B7] hover:text-[#CCD0CF]'
+                        outputView === 'diff' ? 'bg-[#00C9D8] text-[#061416] font-bold' : 'text-[#9BB2B7] hover:text-[#F1DDE0]'
                       }`}
                     >
                       <GitCompare className="w-3.5 h-3.5" />
@@ -693,29 +693,29 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
             <div className="flex-1 w-full overflow-hidden relative flex flex-col min-h-0">
               {!paraphrasedText ? (
                 <div className="flex-1 p-8 sm:p-10 flex flex-col items-center justify-center text-center text-[#9BB2B7]">
-                  <div className="w-14 h-14 rounded-2xl bg-[#00C9D8]/10 flex items-center justify-center text-[#CCD0CF] mb-4 border border-[#00C9D8]/25 shadow-lg">
-                    <Sparkles className="w-7 h-7 text-[#CCD0CF]" />
+                  <div className="w-14 h-14 rounded-2xl bg-[#00C9D8]/10 flex items-center justify-center text-[#F1DDE0] mb-4 border border-[#00C9D8]/25 shadow-lg">
+                    <Sparkles className="w-7 h-7 text-[#F1DDE0]" />
                   </div>
-                  <h3 className="text-sm sm:text-base font-mono uppercase tracking-widest text-[#CCD0CF] mb-2 font-bold">
+                  <h3 className="text-sm sm:text-base font-mono uppercase tracking-widest text-[#F1DDE0] mb-2 font-bold">
                     Output will appear here
                   </h3>
                   <p className="text-xs sm:text-sm text-[#9BB2B7] max-w-sm leading-relaxed mb-6 font-sans">
-                    Target tone profile: <strong className="text-[#CCD0CF] uppercase font-mono">{tone}</strong>. Factual entities, proper nouns, and citations will be strictly preserved.
+                    Target tone profile: <strong className="text-[#F1DDE0] uppercase font-mono">{tone}</strong>. Factual entities, proper nouns, and citations will be strictly preserved.
                   </p>
                   <div className="grid grid-cols-2 gap-3 w-full max-w-sm text-left text-xs font-mono border-t border-[rgba(0,201,216,0.12)] pt-4">
-                    <div className="text-[#4A5C6A]">Tone Profile:</div>
-                    <div className="text-[#CCD0CF] text-right uppercase font-bold">{tone}</div>
-                    <div className="text-[#4A5C6A]">Generator:</div>
-                    <div className="text-[#CCD0CF] text-right font-medium">{usedProvider || provider.toUpperCase()}</div>
-                    <div className="text-[#4A5C6A]">Burstiness:</div>
-                    <div className="text-[#CCD0CF] text-right font-medium">Human Multi-Scale</div>
-                    <div className="text-[#4A5C6A]">Entity Drift:</div>
-                    <div className="text-[#CCD0CF] text-right font-medium">0.00% Zero-Loss</div>
+                    <div className="text-[#D28B96]">Tone Profile:</div>
+                    <div className="text-[#F1DDE0] text-right uppercase font-bold">{tone}</div>
+                    <div className="text-[#D28B96]">Generator:</div>
+                    <div className="text-[#F1DDE0] text-right font-medium">{usedProvider || provider.toUpperCase()}</div>
+                    <div className="text-[#D28B96]">Burstiness:</div>
+                    <div className="text-[#F1DDE0] text-right font-medium">Human Multi-Scale</div>
+                    <div className="text-[#D28B96]">Entity Drift:</div>
+                    <div className="text-[#F1DDE0] text-right font-medium">0.00% Zero-Loss</div>
                   </div>
                 </div>
               ) : outputView === 'text' ? (
                 <div
-                  className="whitespace-pre-wrap flex-1 w-full p-5 sm:p-6 bg-transparent text-[#CCD0CF] text-base leading-relaxed overflow-y-auto selection:bg-[#253745] focus:outline-none min-h-[350px]"
+                  className="whitespace-pre-wrap flex-1 w-full p-5 sm:p-6 bg-transparent text-[#F1DDE0] text-base leading-relaxed overflow-y-auto selection:bg-[#A64C61]/35 focus:outline-none min-h-[350px]"
                   tabIndex={0}
                 >
                   {paraphrasedText}
@@ -723,9 +723,9 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
               ) : (
                 /* Diff View */
                 <div className="flex-1 p-5 sm:p-6 overflow-y-auto flex flex-col gap-4" id="diff-container">
-                  <div className="p-3.5 rounded-xl bg-[#030B0D]/50 border border-[rgba(0,201,216,0.12)] flex flex-wrap items-center justify-between gap-3 text-xs font-mono shrink-0">
+                  <div className="p-3.5 rounded-xl bg-[#1D1015]/50 border border-[rgba(0,201,216,0.12)] flex flex-wrap items-center justify-between gap-3 text-xs font-mono shrink-0">
                     <div className="flex items-center gap-4">
-                      <span className="flex items-center gap-2 text-[#CCD0CF] font-medium">
+                      <span className="flex items-center gap-2 text-[#F1DDE0] font-medium">
                         <span className="w-2 h-2 rounded-full bg-[#00C9D8] inline-block" />
                         <span>Added: +{diffStats.wordsAdded} w</span>
                       </span>
@@ -738,12 +738,12 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                         <span>Preserved: {diffStats.wordsUnchanged} w</span>
                       </span>
                     </div>
-                    <span className="text-[#4A5C6A] uppercase tracking-widest text-[10px] font-semibold">
+                    <span className="text-[#D28B96] uppercase tracking-widest text-[10px] font-semibold">
                       Word Diff Comparison
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-[#0A1821] border border-[rgba(0,201,216,0.1)] font-sans text-base leading-relaxed whitespace-pre-wrap overflow-y-auto flex-1 text-[#CCD0CF]">
+                  <div className="p-4 rounded-xl bg-[#1D1015] border border-[rgba(0,201,216,0.1)] font-sans text-base leading-relaxed whitespace-pre-wrap overflow-y-auto flex-1 text-[#F1DDE0]">
                     {diffChunks.map((chunk, idx) => {
                       if (chunk.type === 'removed') {
                         return (
@@ -760,7 +760,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                         return (
                           <span
                             key={idx}
-                            className="bg-[#00C9D8]/20 text-[#CCD0CF] px-1.5 py-0.5 rounded mx-0.5 font-medium border border-[#00C9D8]/30"
+                            className="bg-[#00C9D8]/20 text-[#F1DDE0] px-1.5 py-0.5 rounded mx-0.5 font-medium border border-[#00C9D8]/30"
                             title="Humanized phrasing added"
                           >
                             {chunk.value}
@@ -776,18 +776,18 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
 
             {/* Bottom Bar for Right Pane */}
             {paraphrasedText && (
-              <div className="px-5 py-3.5 bg-[#030B0D]/50 border-t border-[rgba(0,201,216,0.12)] flex items-center justify-between text-xs font-mono text-[#9BB2B7] shrink-0">
+              <div className="px-5 py-3.5 bg-[#1D1015]/50 border-t border-[rgba(0,201,216,0.12)] flex items-center justify-between text-xs font-mono text-[#9BB2B7] shrink-0">
                 <div className="flex items-center gap-2">
                   {recheckResult ? (
-                    <span className="flex items-center gap-2 text-[#CCD0CF] font-bold">
-                      <ShieldCheck className="w-4 h-4 text-[#CCD0CF]" />
+                    <span className="flex items-center gap-2 text-[#F1DDE0] font-bold">
+                      <ShieldCheck className="w-4 h-4 text-[#F1DDE0]" />
                       <span>{recheckResult.classification} ({Math.round(recheckResult.ai_probability * 100)}% AI)</span>
                     </span>
                   ) : (
                     <button
                       onClick={handleRecheck}
                       disabled={rechecking}
-                      className="text-[#9BB2B7] hover:text-[#CCD0CF] transition-colors uppercase tracking-wider flex items-center gap-1.5 cursor-pointer font-semibold"
+                      className="text-[#9BB2B7] hover:text-[#F1DDE0] transition-colors uppercase tracking-wider flex items-center gap-1.5 cursor-pointer font-semibold"
                     >
                       <RefreshCw className={`w-3.5 h-3.5 ${rechecking ? 'animate-spin' : ''}`} />
                       <span>{rechecking ? 'RE-CHECKING...' : 'RE-CHECK DETECTION'}</span>

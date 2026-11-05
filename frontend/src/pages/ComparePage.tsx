@@ -263,7 +263,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
   }, [origResult, humResult]);
 
   return (
-    <div className="flex-1 min-h-0 h-full text-[#CCD0CF] px-3 sm:px-6 lg:px-8 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#253745]">
+    <div className="flex-1 min-h-0 h-full text-[#F1DDE0] px-3 sm:px-6 lg:px-8 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#A64C61]/35">
       
       {/* Background Glows */}
       
@@ -271,18 +271,18 @@ export const ComparePage: React.FC<ComparePageProps> = ({
       <div className="max-w-[1600px] w-full mx-auto flex flex-col flex-1 relative z-10 min-h-0 gap-3">
         
         {/* Workspace Toolbar / Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shrink-0 py-1.5 border-b border-[#253745]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shrink-0 py-1.5 border-b border-[#A64C61]">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="text-xs sm:text-sm font-mono font-bold text-[#CCD0CF] tracking-[0.25em] uppercase">
+            <span className="text-xs sm:text-sm font-mono font-bold text-[#F1DDE0] tracking-[0.25em] uppercase">
               COMPARE WORKSPACE
             </span>
-            <span className="text-[#CCD0CF]/30 text-xs">•</span>
+            <span className="text-[#F1DDE0]/30 text-xs">•</span>
             <div className="flex items-center gap-2 text-xs font-mono text-[#9BB2B7]">
               <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#00C9D8] animate-pulse" />
               <span>ModernBERT V5</span>
             </div>
-            <span className="text-[#CCD0CF]/30 text-xs">•</span>
-            <span className="text-xs font-mono text-[#4A5C6A]">Threshold: 0.70</span>
+            <span className="text-[#F1DDE0]/30 text-xs">•</span>
+            <span className="text-xs font-mono text-[#D28B96]">Threshold: 0.70</span>
           </div>
 
           <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
@@ -303,7 +303,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
                 localStorage.removeItem('verity_compare_ores');
                 localStorage.removeItem('verity_compare_hres');
               }}
-              className="px-3.5 py-2 text-xs font-mono tracking-widest uppercase text-[#9BB2B7] hover:text-[#CCD0CF] transition-colors cursor-pointer flex items-center gap-1.5 rounded-xl border border-[#253745] bg-[#0A1821] hover:border-[#00C9D8]/40"
+              className="px-3.5 py-2 text-xs font-mono tracking-widest uppercase text-[#9BB2B7] hover:text-[#F1DDE0] transition-colors cursor-pointer flex items-center gap-1.5 rounded-xl border border-[#A64C61] bg-[#1D1015] hover:border-[#00C9D8]/40"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Clear Both</span>
@@ -337,9 +337,9 @@ export const ComparePage: React.FC<ComparePageProps> = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-[#06141B]/85"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-[#421B29]/85"
             >
-              <div className="bg-[#11212D] p-8 rounded-2xl border border-[#253745] flex items-center justify-center shadow-2xl">
+              <div className="bg-[#702B40] p-8 rounded-2xl border border-[#A64C61] flex items-center justify-center shadow-2xl">
                 <ThinkingOrbs title="EVALUATING SIGNAL DIFFERENTIAL" stages={compareStages} durationMs={450} />
               </div>
             </motion.div>
@@ -349,18 +349,18 @@ export const ComparePage: React.FC<ComparePageProps> = ({
         {/* Comparison Telemetry Strip */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 shrink-0">
           {/* Card 1: Original Probability */}
-          <div className="bg-[#11212D] border border-[#253745] rounded-2xl p-4 flex flex-col justify-between shadow-sm hover:border-[#364C5E] transition-all relative overflow-hidden group">
+          <div className="bg-[#702B40] border border-[#A64C61] rounded-2xl p-4 flex flex-col justify-between shadow-sm hover:border-[#BA576E] transition-all relative overflow-hidden group">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div>
               <span className="text-xs text-[#9BB2B7] font-mono tracking-widest uppercase block font-semibold leading-tight">Original Text AI Score</span>
-              <span className="text-[10px] text-[#4A5C6A] font-sans block mt-0.5 leading-tight">Likelihood original was AI</span>
+              <span className="text-[10px] text-[#D28B96] font-sans block mt-0.5 leading-tight">Likelihood original was AI</span>
             </div>
             <div className="flex items-baseline gap-1.5 mt-2 flex-wrap">
               {loading ? (
-                <span className="text-xs font-mono text-[#CCD0CF] animate-pulse">EVALUATING...</span>
+                <span className="text-xs font-mono text-[#F1DDE0] animate-pulse">EVALUATING...</span>
               ) : (
                 <>
-                  <span className="text-2xl sm:text-3xl font-bold text-[#CCD0CF] font-mono tracking-tight">
+                  <span className="text-2xl sm:text-3xl font-bold text-[#F1DDE0] font-mono tracking-tight">
                     {metrics.originalScore.formattedPercentage}
                   </span>
                   {metrics.originalScore.isValid && origResult?.classification && (
@@ -374,18 +374,18 @@ export const ComparePage: React.FC<ComparePageProps> = ({
           </div>
 
           {/* Card 2: Adversarial / Rewritten Probability */}
-          <div className="bg-[#11212D] border border-[#253745] rounded-2xl p-4 flex flex-col justify-between shadow-sm hover:border-[#364C5E] transition-all relative overflow-hidden group">
+          <div className="bg-[#702B40] border border-[#A64C61] rounded-2xl p-4 flex flex-col justify-between shadow-sm hover:border-[#BA576E] transition-all relative overflow-hidden group">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div>
               <span className="text-xs text-[#9BB2B7] font-mono tracking-widest uppercase block font-semibold leading-tight">Rewritten Text AI Score</span>
-              <span className="text-[10px] text-[#4A5C6A] font-sans block mt-0.5 leading-tight">Likelihood rewrite is AI</span>
+              <span className="text-[10px] text-[#D28B96] font-sans block mt-0.5 leading-tight">Likelihood rewrite is AI</span>
             </div>
             <div className="flex items-baseline gap-1.5 mt-2 flex-wrap">
               {loading ? (
-                <span className="text-xs font-mono text-[#CCD0CF] animate-pulse">EVALUATING...</span>
+                <span className="text-xs font-mono text-[#F1DDE0] animate-pulse">EVALUATING...</span>
               ) : (
                 <>
-                  <span className="text-2xl sm:text-3xl font-bold text-[#CCD0CF] font-mono tracking-tight">
+                  <span className="text-2xl sm:text-3xl font-bold text-[#F1DDE0] font-mono tracking-tight">
                     {metrics.adversarialScore.formattedPercentage}
                   </span>
                   {metrics.adversarialScore.isValid && humResult?.classification && (
@@ -399,18 +399,18 @@ export const ComparePage: React.FC<ComparePageProps> = ({
           </div>
 
           {/* Card 3: Signal Change */}
-          <div className="bg-[#11212D] border border-[#253745] rounded-2xl p-4 flex flex-col justify-between shadow-sm hover:border-[#364C5E] transition-all relative overflow-hidden group">
+          <div className="bg-[#702B40] border border-[#A64C61] rounded-2xl p-4 flex flex-col justify-between shadow-sm hover:border-[#BA576E] transition-all relative overflow-hidden group">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/40 to-transparent" />
             <div>
-              <span className="text-xs text-[#CCD0CF] font-mono tracking-widest uppercase flex items-center gap-1.5 font-semibold leading-tight">
-                <TrendingDown className="w-3.5 h-3.5 text-[#CCD0CF]" />
+              <span className="text-xs text-[#F1DDE0] font-mono tracking-widest uppercase flex items-center gap-1.5 font-semibold leading-tight">
+                <TrendingDown className="w-3.5 h-3.5 text-[#F1DDE0]" />
                 <span>AI Score Reduction</span>
               </span>
-              <span className="text-[10px] text-[#CCD0CF]/70 font-sans block mt-0.5 leading-tight">AI detection dropped</span>
+              <span className="text-[10px] text-[#F1DDE0]/70 font-sans block mt-0.5 leading-tight">AI detection dropped</span>
             </div>
-            <div className="text-xl sm:text-2xl font-bold text-[#CCD0CF] font-mono tracking-tight mt-2">
+            <div className="text-xl sm:text-2xl font-bold text-[#F1DDE0] font-mono tracking-tight mt-2">
               {loading ? (
-                <span className="text-xs font-mono text-[#CCD0CF] animate-pulse">CALCULATING...</span>
+                <span className="text-xs font-mono text-[#F1DDE0] animate-pulse">CALCULATING...</span>
               ) : (
                 metrics.formattedSignalChange
               )}
@@ -418,14 +418,14 @@ export const ComparePage: React.FC<ComparePageProps> = ({
           </div>
 
           {/* Card 4: Word Count Delta */}
-          <div className="bg-[#11212D] border border-[#253745] rounded-2xl p-4 flex flex-col justify-between shadow-sm hover:border-[#364C5E] transition-all relative overflow-hidden group">
+          <div className="bg-[#702B40] border border-[#A64C61] rounded-2xl p-4 flex flex-col justify-between shadow-sm hover:border-[#BA576E] transition-all relative overflow-hidden group">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div>
               <span className="text-xs text-[#9BB2B7] font-mono tracking-widest uppercase block font-semibold leading-tight">Word Count Difference</span>
-              <span className="text-[10px] text-[#4A5C6A] font-sans block mt-0.5 leading-tight">Change after rewrite</span>
+              <span className="text-[10px] text-[#D28B96] font-sans block mt-0.5 leading-tight">Change after rewrite</span>
             </div>
             <div className="flex items-baseline gap-1.5 mt-2 flex-wrap">
-              <span className="text-2xl sm:text-3xl font-bold text-[#CCD0CF] font-mono tracking-tight">
+              <span className="text-2xl sm:text-3xl font-bold text-[#F1DDE0] font-mono tracking-tight">
                 {wordCountDelta > 0 ? `+${wordCountDelta}` : wordCountDelta}
               </span>
               <span className="text-xs text-[#9BB2B7] font-sans font-medium uppercase tracking-wider">
@@ -449,21 +449,21 @@ export const ComparePage: React.FC<ComparePageProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-1 min-h-[520px]">
           
           {/* Left Pane: Original Sequence */}
-          <div className="bg-[#11212D] rounded-2xl border border-[#253745] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
+          <div className="bg-[#702B40] rounded-2xl border border-[#A64C61] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
-            <div className="flex items-center justify-between px-5 py-3.5 bg-[#030B0D]/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
+            <div className="flex items-center justify-between px-5 py-3.5 bg-[#1D1015]/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
               <div className="flex items-center gap-2.5">
-                <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#CCD0CF] uppercase font-bold">ORIGINAL SEQUENCE</span>
-                <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#00C9D8]/10 text-[#CCD0CF] border border-[#00C9D8]/20">
+                <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#F1DDE0] uppercase font-bold">ORIGINAL SEQUENCE</span>
+                <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#00C9D8]/10 text-[#F1DDE0] border border-[#00C9D8]/20">
                   {origWords} words
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <button 
                   onClick={() => { navigator.clipboard.writeText(originalText); setCopiedOrig(true); setTimeout(() => setCopiedOrig(false), 2000); }} 
-                  className="px-3 py-1.5 text-xs font-mono text-[#9BB2B7] hover:text-[#CCD0CF] transition-colors uppercase tracking-widest flex items-center gap-1 cursor-pointer"
+                  className="px-3 py-1.5 text-xs font-mono text-[#9BB2B7] hover:text-[#F1DDE0] transition-colors uppercase tracking-widest flex items-center gap-1 cursor-pointer"
                 >
-                  {copiedOrig ? <Check className="w-3.5 h-3.5 text-[#CCD0CF]" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedOrig ? <Check className="w-3.5 h-3.5 text-[#F1DDE0]" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedOrig ? 'COPIED' : 'COPY'}</span>
                 </button>
                 <button 
@@ -476,7 +476,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
                     localStorage.removeItem('verity_compare_orig');
                     localStorage.removeItem('verity_compare_ores');
                   }} 
-                  className="px-3 py-1.5 text-xs font-mono text-[#4A5C6A] hover:text-[#CCD0CF] transition-colors uppercase tracking-widest cursor-pointer"
+                  className="px-3 py-1.5 text-xs font-mono text-[#D28B96] hover:text-[#F1DDE0] transition-colors uppercase tracking-widest cursor-pointer"
                 >
                   CLEAR
                 </button>
@@ -487,26 +487,26 @@ export const ComparePage: React.FC<ComparePageProps> = ({
               value={originalText}
               onChange={(e) => setOriginalText(e.target.value)}
               placeholder="Paste or type original sequence here..."
-              className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#CCD0CF] text-base leading-relaxed resize-none placeholder-[#4A5C6A] focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[340px]"
+              className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#F1DDE0] text-base leading-relaxed resize-none placeholder-[#D28B96]/60 focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[340px]"
             />
           </div>
 
           {/* Right Pane: Adversarial Sequence */}
-          <div className="bg-[#11212D] rounded-2xl border border-[#253745] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
+          <div className="bg-[#702B40] rounded-2xl border border-[#A64C61] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
-            <div className="flex items-center justify-between px-5 py-3.5 bg-[#030B0D]/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
+            <div className="flex items-center justify-between px-5 py-3.5 bg-[#1D1015]/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
               <div className="flex items-center gap-2.5">
-                <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#CCD0CF] uppercase font-bold">ADVERSARIAL SEQUENCE</span>
-                <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#00C9D8]/10 text-[#CCD0CF] border border-[#00C9D8]/20">
+                <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#F1DDE0] uppercase font-bold">ADVERSARIAL SEQUENCE</span>
+                <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#00C9D8]/10 text-[#F1DDE0] border border-[#00C9D8]/20">
                   {humWords} words
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <button 
                   onClick={() => { navigator.clipboard.writeText(humanizedText); setCopiedHum(true); setTimeout(() => setCopiedHum(false), 2000); }} 
-                  className="px-3 py-1.5 text-xs font-mono text-[#9BB2B7] hover:text-[#CCD0CF] transition-colors uppercase tracking-widest flex items-center gap-1 cursor-pointer"
+                  className="px-3 py-1.5 text-xs font-mono text-[#9BB2B7] hover:text-[#F1DDE0] transition-colors uppercase tracking-widest flex items-center gap-1 cursor-pointer"
                 >
-                  {copiedHum ? <Check className="w-3.5 h-3.5 text-[#CCD0CF]" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedHum ? <Check className="w-3.5 h-3.5 text-[#F1DDE0]" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedHum ? 'COPIED' : 'COPY'}</span>
                 </button>
                 <button 
@@ -519,7 +519,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
                     localStorage.removeItem('verity_compare_hum');
                     localStorage.removeItem('verity_compare_hres');
                   }} 
-                  className="px-3 py-1.5 text-xs font-mono text-[#4A5C6A] hover:text-[#CCD0CF] transition-colors uppercase tracking-widest cursor-pointer"
+                  className="px-3 py-1.5 text-xs font-mono text-[#D28B96] hover:text-[#F1DDE0] transition-colors uppercase tracking-widest cursor-pointer"
                 >
                   CLEAR
                 </button>
@@ -530,7 +530,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
               value={humanizedText}
               onChange={(e) => setHumanizedText(e.target.value)}
               placeholder="Paste or type transformed adversarial sequence here..."
-              className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#CCD0CF] text-base leading-relaxed resize-none placeholder-[#4A5C6A] focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[340px]"
+              className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#F1DDE0] text-base leading-relaxed resize-none placeholder-[#D28B96]/60 focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[340px]"
             />
           </div>
 

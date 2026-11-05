@@ -52,16 +52,16 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-[#06141B] text-[#CCD0CF] font-sans flex flex-col relative selection:bg-[#253745]">
+    <div className="h-screen w-screen overflow-hidden bg-[#421B29] text-[#F1DDE0] font-sans flex flex-col relative selection:bg-[#A64C61]/35">
       
       {/* Ambient background glows */}
       
 
       {/* Top Header Bar */}
-      <header className="shrink-0 px-4 sm:px-6 py-2.5 flex items-center justify-between border-b border-[rgba(0,201,216,0.18)] bg-[#06141B] relative z-20">
+      <header className="shrink-0 px-4 sm:px-6 py-2.5 flex items-center justify-between border-b border-[rgba(0,201,216,0.18)] bg-[#421B29] relative z-20">
         <button
           onClick={() => onNavigate('/')}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0A2023]/80 border border-[rgba(0,201,216,0.25)] hover:border-[#00C9D8]/60 text-xs font-mono text-[#9BB2B7] hover:text-[#CCD0CF] transition-all cursor-pointer group"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0A2023]/80 border border-[rgba(0,201,216,0.25)] hover:border-[#00C9D8]/60 text-xs font-mono text-[#9BB2B7] hover:text-[#F1DDE0] transition-all cursor-pointer group"
         >
           <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
           <span>Back to Home</span>
@@ -69,10 +69,10 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
 
         <div className="flex items-center gap-2.5">
           <VerityLogo className="h-6 sm:h-7 w-auto" />
-          <span className="font-display tracking-[0.16em] text-[#CCD0CF] text-base sm:text-lg font-bold">
+          <span className="font-display tracking-[0.16em] text-[#F1DDE0] text-base sm:text-lg font-bold">
             VERITY
           </span>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#00C9D8]/15 text-[#CCD0CF] border border-[#00C9D8]/30 uppercase font-semibold">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#00C9D8]/15 text-[#F1DDE0] border border-[#00C9D8]/30 uppercase font-semibold">
             Product Tour
           </span>
         </div>
@@ -98,7 +98,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
       <div className="flex-1 min-h-0 flex flex-col lg:flex-row gap-3 sm:gap-4 p-3 sm:p-4 max-w-[1700px] w-full mx-auto overflow-hidden">
         
         {/* Left: Cinema Video Player Theater */}
-        <section className="flex-1 min-h-0 flex flex-col bg-[#11212D] border border-[#253745] rounded-2xl p-2.5 sm:p-3 shadow-2xl overflow-hidden justify-between">
+        <section className="flex-1 min-h-0 flex flex-col bg-[#702B40] border border-[#A64C61] rounded-2xl p-2.5 sm:p-3 shadow-2xl overflow-hidden justify-between">
           
           {/* Theater Header Bar */}
           <div className="flex items-center justify-between pb-2 mb-2 border-b border-[rgba(0,201,216,0.15)] shrink-0">
@@ -113,7 +113,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
               </span>
             </div>
 
-            <div className="flex items-center gap-2 text-[10px] font-mono text-[#CCD0CF]">
+            <div className="flex items-center gap-2 text-[10px] font-mono text-[#F1DDE0]">
               <span className="px-2 py-0.5 rounded bg-[#00C9D8]/10 border border-[#00C9D8]/20">
                 1080p • 600 Frames • 30 FPS
               </span>
@@ -141,7 +141,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
               {['01. Ingestion', '02. 20-D Stylometrics', '03. ModernBERT V5', '04. SHA-256 Provenance'].map((stage, i) => (
                 <span 
                   key={i} 
-                  className="px-2 py-0.5 rounded-lg bg-[#06141B] border border-[rgba(0,201,216,0.2)] text-[#CCD0CF] text-[10px] font-semibold whitespace-nowrap"
+                  className="px-2 py-0.5 rounded-lg bg-[#421B29] border border-[rgba(0,201,216,0.2)] text-[#F1DDE0] text-[10px] font-semibold whitespace-nowrap"
                 >
                   {stage}
                 </span>
@@ -156,10 +156,10 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
         </section>
 
         {/* Right: Architectural Telemetry & Phase Cards (Locked to Height, Zero Page Scroll) */}
-        <aside className="w-full lg:w-80 xl:w-96 shrink-0 flex flex-col bg-[#11212D] border border-[#253745] rounded-2xl p-3 shadow-xl overflow-hidden justify-between">
+        <aside className="w-full lg:w-80 xl:w-96 shrink-0 flex flex-col bg-[#702B40] border border-[#A64C61] rounded-2xl p-3 shadow-xl overflow-hidden justify-between">
           
           <div className="shrink-0 mb-2 pb-1.5 border-b border-[rgba(0,201,216,0.15)]">
-            <span className="text-[10px] font-mono text-[#CCD0CF] uppercase tracking-wider font-bold block">
+            <span className="text-[10px] font-mono text-[#F1DDE0] uppercase tracking-wider font-bold block">
               Architectural Pipeline
             </span>
             <h3 className="text-sm font-bold text-white">Execution Phases</h3>
@@ -172,13 +172,13 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
               return (
                 <div 
                   key={i}
-                  className="p-2.5 rounded-xl bg-[#06141B]/70 border border-[rgba(0,201,216,0.18)] hover:border-[#00C9D8]/45 transition-colors"
+                  className="p-2.5 rounded-xl bg-[#421B29]/70 border border-[rgba(0,201,216,0.18)] hover:border-[#00C9D8]/45 transition-colors"
                 >
                   <div className="flex items-center justify-between mb-1">
                     <span className={`text-[9px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#00C9D8]/10 border border-[#00C9D8]/20 ${card.color}`}>
                       {card.phase}
                     </span>
-                    <span className="text-[9px] font-mono text-[#4A5C6A]">{card.time}</span>
+                    <span className="text-[9px] font-mono text-[#D28B96]">{card.time}</span>
                   </div>
                   <div className="flex items-center gap-1.5 mb-1">
                     <IconComp className={`w-3.5 h-3.5 ${card.color}`} />
@@ -191,7 +191,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
           </div>
 
           {/* Bottom Call to Action Card */}
-          <div className="shrink-0 mt-2.5 pt-2.5 border-t border-[rgba(0,201,216,0.18)] bg-[#06141B]/60 p-2.5 rounded-xl border border-white/5 text-center">
+          <div className="shrink-0 mt-2.5 pt-2.5 border-t border-[rgba(0,201,216,0.18)] bg-[#421B29]/60 p-2.5 rounded-xl border border-white/5 text-center">
             <h4 className="text-xs font-bold text-white mb-0.5">Ready to Test Your Documents?</h4>
             <p className="text-[10px] text-[#9BB2B7] mb-2 leading-relaxed">
               Verify authenticity with ModernBERT V5 and 20-D stylometrics in real time.

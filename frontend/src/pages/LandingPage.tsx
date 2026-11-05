@@ -36,10 +36,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#06141B] text-[#CCD0CF] font-sans overflow-x-hidden selection:bg-[#CCD0CF]/30">
+    <div className="min-h-screen bg-[#421B29] text-[#F1DDE0] font-sans overflow-x-hidden selection:bg-[#F1DDE0]/30">
 
       {/* Architectural Clean Background */}
-      <div className="absolute top-0 left-0 right-0 h-[100vh] z-0 pointer-events-none overflow-hidden bg-[#06141B]">
+      <div className="absolute top-0 left-0 right-0 h-[100vh] z-0 pointer-events-none overflow-hidden bg-[#421B29]">
         <div className="absolute inset-0 opacity-[0.025] bg-[radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:24px_24px]" />
       </div>
 
@@ -65,7 +65,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               
 
               {/* Eyebrow Label Pill */}
-              <div className="relative px-4 py-1.5 rounded-full bg-[#11212D] border border-[#253745] flex items-center gap-2 text-[11px] sm:text-xs font-mono tracking-[0.18em] text-[#CCD0CF] uppercase font-bold shadow-sm">
+              <div className="relative px-4 py-1.5 rounded-full bg-[#702B40] border border-[#A64C61] flex items-center gap-2 text-[11px] sm:text-xs font-mono tracking-[0.18em] text-[#F1DDE0] uppercase font-bold shadow-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#00D4E5] " />
                 <span>AI DETECTION</span>
                 <span className="text-[#202E3E] font-normal">/</span>
@@ -78,10 +78,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-3xl sm:text-4xl lg:text-[2.5rem] xl:text-[2.85rem] 2xl:text-[3.2rem] font-bold tracking-tight text-[#CCD0CF] leading-[1.16] mb-6"
+              className="text-3xl sm:text-4xl lg:text-[2.5rem] xl:text-[2.85rem] 2xl:text-[3.2rem] font-bold tracking-tight text-[#F1DDE0] leading-[1.16] mb-6"
             >
               <span className="block whitespace-normal lg:whitespace-nowrap">Detect AI. Verify Truth.</span>
-              <span className="block whitespace-normal lg:whitespace-nowrap text-[#CCD0CF] ">
+              <span className="block whitespace-normal lg:whitespace-nowrap text-[#F1DDE0] ">
                 Power Your Work.
               </span>
             </motion.h1>
@@ -91,7 +91,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-[#9BA8AB] text-base sm:text-lg max-w-xl leading-relaxed mb-8 font-normal"
+              className="text-[#D28B96] text-base sm:text-lg max-w-xl leading-relaxed mb-8 font-normal"
             >
               Detect AI-generated content, inspect document-level signals, and evaluate text transformations with VERITY’s intelligent analysis tools.
             </motion.p>
@@ -105,7 +105,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             >
               <button
                 onClick={() => onNavigate('/docs')}
-                className="px-6 py-3 bg-[#CCD0CF] hover:bg-white text-[#06141B] font-bold text-sm tracking-wide rounded-xl transition-all shadow-sm flex items-center gap-2 cursor-pointer"
+                className="px-6 py-3 bg-[#F1DDE0] hover:bg-white text-[#421B29] font-bold text-sm tracking-wide rounded-xl transition-all shadow-sm flex items-center gap-2 cursor-pointer"
               >
                 <span>Analyze a Document</span>
                 <ArrowRight className="w-4 h-4" />
@@ -113,9 +113,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
 
               <button
                 onClick={goToDemo}
-                className="px-5 py-3 bg-[#11212D] hover:bg-[#172836] border border-[#253745] hover:border-[#364C5E] text-[#CCD0CF] font-medium text-sm rounded-xl transition-all flex items-center gap-2.5 cursor-pointer shadow-sm"
+                className="px-5 py-3 bg-[#702B40] hover:bg-[#80324A] border border-[#A64C61] hover:border-[#BA576E] text-[#F1DDE0] font-medium text-sm rounded-xl transition-all flex items-center gap-2.5 cursor-pointer shadow-sm"
               >
-                <div className="w-6 h-6 rounded-xl bg-[#CCD0CF]/20 border border-[#00D4E5]/40 flex items-center justify-center text-[#CCD0CF]">
+                <div className="w-6 h-6 rounded-xl bg-[#F1DDE0]/20 border border-[#00D4E5]/40 flex items-center justify-center text-[#F1DDE0]">
                   <Play className="w-3 h-3 fill-current ml-0.5" />
                 </div>
                 <span>Explore the Demo</span>
@@ -127,14 +127,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex items-center gap-6 text-xs text-[#9BA8AB] font-mono"
+              className="flex items-center gap-6 text-xs text-[#D28B96] font-mono"
             >
               <div className="flex items-center gap-1.5">
-                <CheckCircle className="w-4 h-4 text-[#CCD0CF]" />
+                <CheckCircle className="w-4 h-4 text-[#F1DDE0]" />
                 <span>ModernBERT V5 (0.70 Calibrated)</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <CheckCircle className="w-4 h-4 text-[#CCD0CF]" />
+                <CheckCircle className="w-4 h-4 text-[#F1DDE0]" />
                 <span>100% Fact Preservation</span>
               </div>
             </motion.div>
@@ -149,26 +149,26 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               initial={{ opacity: 0, x: 25 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="bg-[#11212D] border border-[#253745] rounded-2xl p-6 sm:p-7 shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex flex-col relative overflow-hidden transition-all w-full"
+              className="bg-[#702B40] border border-[#A64C61] rounded-2xl p-6 sm:p-7 shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex flex-col relative overflow-hidden transition-all w-full"
             >
               {/* Window Header with App Tabs */}
-              <div className="flex items-center justify-between pb-4 mb-4 sm:mb-5 border-b border-[#253745] shrink-0">
+              <div className="flex items-center justify-between pb-4 mb-4 sm:mb-5 border-b border-[#A64C61] shrink-0">
                 <div className="flex items-center gap-2.5">
                   <VerityLogo className="h-6 w-auto" />
-                  <span className="text-sm font-mono font-bold tracking-widest text-[#CCD0CF]">VERITY</span>
-                  <span className="text-xs font-mono px-2.5 py-1 rounded-md bg-[#148BA6]/20 text-[#CCD0CF] border border-[#00D4E5]/30 font-semibold">
+                  <span className="text-sm font-mono font-bold tracking-widest text-[#F1DDE0]">VERITY</span>
+                  <span className="text-xs font-mono px-2.5 py-1 rounded-md bg-[#148BA6]/20 text-[#F1DDE0] border border-[#00D4E5]/30 font-semibold">
                     Interactive Preview
                   </span>
                 </div>
 
                 {/* Switchable Preview Modes: Analyze, Paraphrase, Compare */}
-                <div className="flex items-center gap-1.5 bg-[#06141B] p-1.5 rounded-xl border border-[#253745] text-xs font-mono">
+                <div className="flex items-center gap-1.5 bg-[#421B29] p-1.5 rounded-xl border border-[#A64C61] text-xs font-mono">
                   <button
                     onClick={() => setPreviewTab('analyze')}
                     className={`px-3.5 py-1.5 rounded-lg transition-all cursor-pointer font-medium ${
                       previewTab === 'analyze' 
-                        ? 'bg-[#CCD0CF] text-[#06141B] font-bold shadow-sm' 
-                        : 'text-[#9BA8AB] hover:text-white'
+                        ? 'bg-[#F1DDE0] text-[#421B29] font-bold shadow-sm' 
+                        : 'text-[#D28B96] hover:text-white'
                     }`}
                   >
                     Analyze
@@ -177,8 +177,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                     onClick={() => setPreviewTab('paraphrase')}
                     className={`px-3.5 py-1.5 rounded-lg transition-all cursor-pointer font-medium ${
                       previewTab === 'paraphrase' 
-                        ? 'bg-[#CCD0CF] text-[#06141B] font-bold shadow-sm' 
-                        : 'text-[#9BA8AB] hover:text-white'
+                        ? 'bg-[#F1DDE0] text-[#421B29] font-bold shadow-sm' 
+                        : 'text-[#D28B96] hover:text-white'
                     }`}
                   >
                     Paraphrase
@@ -187,8 +187,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                     onClick={() => setPreviewTab('compare')}
                     className={`px-3.5 py-1.5 rounded-lg transition-all cursor-pointer font-medium ${
                       previewTab === 'compare' 
-                        ? 'bg-[#CCD0CF] text-[#06141B] font-bold shadow-sm' 
-                        : 'text-[#9BA8AB] hover:text-white'
+                        ? 'bg-[#F1DDE0] text-[#421B29] font-bold shadow-sm' 
+                        : 'text-[#D28B96] hover:text-white'
                     }`}
                   >
                     Compare
@@ -200,20 +200,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               {previewTab === 'analyze' && (
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6">
                   {/* Left inner column: Document Analysis Input */}
-                  <div className="md:col-span-6 bg-[#0A1821] border border-[#253745] rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
+                  <div className="md:col-span-6 bg-[#1D1015] border border-[#A64C61] rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
                     <div>
                       <div className="flex items-center justify-between mb-3">
                         <span className="text-xs sm:text-sm font-mono font-bold uppercase text-white">Document Input</span>
-                        <span className="text-xs font-mono text-[#CCD0CF] font-semibold">145 words</span>
+                        <span className="text-xs font-mono text-[#F1DDE0] font-semibold">145 words</span>
                       </div>
-                      <p className="text-xs sm:text-[13px] text-[#CCD0CF] leading-relaxed font-sans bg-[#06141B]/70 p-3.5 sm:p-4 rounded-xl border border-white/5">
+                      <p className="text-xs sm:text-[13px] text-[#F1DDE0] leading-relaxed font-sans bg-[#421B29]/70 p-3.5 sm:p-4 rounded-xl border border-white/5">
                         Artificial intelligence is transforming how research is conducted. While generative tools provide unprecedented drafting velocity, maintaining transparent attribution and scholarly authenticity remains essential for critical peer review.
                       </p>
                     </div>
 
-                    <div className="flex items-center justify-between pt-4 mt-4 border-t border-[#253745]">
-                      <span className="text-xs text-[#9BA8AB] font-mono">Format: DOCX / Text</span>
-                      <div className="flex items-center gap-2 text-xs font-mono text-[#CCD0CF] font-semibold">
+                    <div className="flex items-center justify-between pt-4 mt-4 border-t border-[#A64C61]">
+                      <span className="text-xs text-[#D28B96] font-mono">Format: DOCX / Text</span>
+                      <div className="flex items-center gap-2 text-xs font-mono text-[#F1DDE0] font-semibold">
                         <span className="w-2 h-2 rounded-full bg-[#00D4E5] animate-ping" />
                         <span>Analysis Ready</span>
                       </div>
@@ -221,17 +221,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                   </div>
 
                   {/* Right inner column: Analysis Result */}
-                  <div className="md:col-span-6 bg-[#0A1821] border border-[#253745] rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
+                  <div className="md:col-span-6 bg-[#1D1015] border border-[#A64C61] rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
                     <div>
                       <div className="flex items-center justify-between mb-3">
                         <span className="text-xs sm:text-sm font-mono font-bold uppercase text-white">Analysis Result</span>
-                        <span className="text-xs font-mono px-2.5 py-1 rounded-md bg-[#148BA6]/25 text-[#CCD0CF] border border-[#00D4E5]/30 font-bold">
+                        <span className="text-xs font-mono px-2.5 py-1 rounded-md bg-[#148BA6]/25 text-[#F1DDE0] border border-[#00D4E5]/30 font-bold">
                           ModernBERT V5
                         </span>
                       </div>
 
                       {/* Donut and classification */}
-                      <div className="flex items-center gap-3.5 p-2.5 rounded-xl bg-[#11212D] border border-[#253745] mb-3.5">
+                      <div className="flex items-center gap-3.5 p-2.5 rounded-xl bg-[#702B40] border border-[#A64C61] mb-3.5">
                         <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center shrink-0">
                           <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
                             <circle cx="18" cy="18" r="15" className="stroke-white/10" strokeWidth="3.5" fill="transparent" />
@@ -241,42 +241,42 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                         </div>
                         <div>
                           <div className="text-sm sm:text-base font-bold text-white leading-tight">Likely Human Written</div>
-                          <div className="text-xs text-[#9BA8AB] leading-tight mt-1">Low probability of AI generation</div>
+                          <div className="text-xs text-[#D28B96] leading-tight mt-1">Low probability of AI generation</div>
                         </div>
                       </div>
 
                       {/* Probability rows */}
-                      <div className="space-y-2 text-xs sm:text-sm font-mono border-b border-[#253745] pb-3 mb-3">
-                        <div className="flex items-center justify-between text-[#9BA8AB]">
+                      <div className="space-y-2 text-xs sm:text-sm font-mono border-b border-[#A64C61] pb-3 mb-3">
+                        <div className="flex items-center justify-between text-[#D28B96]">
                           <span>AI Probability</span>
-                          <span className="font-bold text-[#CCD0CF]">12%</span>
+                          <span className="font-bold text-[#F1DDE0]">12%</span>
                         </div>
-                        <div className="flex items-center justify-between text-[#9BA8AB]">
+                        <div className="flex items-center justify-between text-[#D28B96]">
                           <span>Human Probability</span>
-                          <span className="font-bold text-[#CCD0CF]">88%</span>
+                          <span className="font-bold text-[#F1DDE0]">88%</span>
                         </div>
                       </div>
 
                       {/* Segment Analysis breakdown */}
                       <div>
-                        <div className="text-[11px] font-mono uppercase tracking-wider text-[#9BA8AB] mb-1.5 font-semibold">Segment Analysis</div>
+                        <div className="text-[11px] font-mono uppercase tracking-wider text-[#D28B96] mb-1.5 font-semibold">Segment Analysis</div>
                         <div className="space-y-1.5 text-xs font-mono">
                           <div className="flex items-center justify-between">
-                            <span className="text-[#9BA8AB]">1. Intro Clause</span>
+                            <span className="text-[#D28B96]">1. Intro Clause</span>
                             <div className="flex items-center gap-2 w-28 sm:w-32">
                               <div className="flex-1 bg-white/10 h-2 rounded-full overflow-hidden">
                                 <div className="bg-[#00D4E5] h-full w-[8%]" />
                               </div>
-                              <span className="text-[#9BA8AB] text-[10px] w-7 text-right">8%</span>
+                              <span className="text-[#D28B96] text-[10px] w-7 text-right">8%</span>
                             </div>
                           </div>
                           <div className="flex items-center justify-between">
-                            <span className="text-[#9BA8AB]">2. Core Content</span>
+                            <span className="text-[#D28B96]">2. Core Content</span>
                             <div className="flex items-center gap-2 w-28 sm:w-32">
                               <div className="flex-1 bg-white/10 h-2 rounded-full overflow-hidden">
                                 <div className="bg-[#00D4E5] h-full w-[14%]" />
                               </div>
-                              <span className="text-[#9BA8AB] text-[10px] w-7 text-right">14%</span>
+                              <span className="text-[#D28B96] text-[10px] w-7 text-right">14%</span>
                             </div>
                           </div>
                         </div>
@@ -289,15 +289,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
 
               {previewTab === 'paraphrase' && (
                 <div className="space-y-3.5">
-                  <div className="flex items-center justify-between bg-[#0A1821] p-2.5 rounded-xl border border-[#253745]">
-                    <span className="text-xs font-mono text-[#9BA8AB]">Target Tone Profile:</span>
+                  <div className="flex items-center justify-between bg-[#1D1015] p-2.5 rounded-xl border border-[#A64C61]">
+                    <span className="text-xs font-mono text-[#D28B96]">Target Tone Profile:</span>
                     <div className="flex gap-1.5">
                       {['natural', 'professional', 'academic', 'casual'].map(t => (
                         <button
                           key={t}
                           onClick={() => setPreviewTone(t)}
                           className={`px-2.5 py-1 rounded-md text-xs font-mono capitalize transition-all cursor-pointer ${
-                            previewTone === t ? 'bg-[#CCD0CF] text-[#06141B] font-bold shadow-sm' : 'text-[#9BA8AB] hover:text-white'
+                            previewTone === t ? 'bg-[#F1DDE0] text-[#421B29] font-bold shadow-sm' : 'text-[#D28B96] hover:text-white'
                           }`}
                         >
                           {t}
@@ -307,30 +307,30 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 text-xs sm:text-[13px] font-sans">
-                    <div className="p-3.5 rounded-xl bg-[#0A1821] border border-white/5 space-y-2">
-                      <div className="flex justify-between text-xs font-mono text-[#9BA8AB]">
+                    <div className="p-3.5 rounded-xl bg-[#1D1015] border border-white/5 space-y-2">
+                      <div className="flex justify-between text-xs font-mono text-[#D28B96]">
                         <span>ORIGINAL TEXT</span>
                         <span className="text-rose-400 font-bold">89% AI Probability</span>
                       </div>
-                      <p className="text-[#9BA8AB] leading-relaxed">
+                      <p className="text-[#D28B96] leading-relaxed">
                         It is imperative to delve into the testament of modern computational paradigms, as they facilitate substantial operational efficacy...
                       </p>
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#11212D] border border-[#00D4E5]/30 space-y-2">
-                      <div className="flex justify-between text-xs font-mono text-[#CCD0CF]">
+                    <div className="p-3.5 rounded-xl bg-[#702B40] border border-[#00D4E5]/30 space-y-2">
+                      <div className="flex justify-between text-xs font-mono text-[#F1DDE0]">
                         <span className="font-bold">PARAPHRASED ({previewTone.toUpperCase()})</span>
-                        <span className="text-[#CCD0CF] font-bold">14% AI Probability</span>
+                        <span className="text-[#F1DDE0] font-bold">14% AI Probability</span>
                       </div>
-                      <p className="text-[#CCD0CF] leading-relaxed">
+                      <p className="text-[#F1DDE0] leading-relaxed">
                         Examining modern computing architectures shows clear operational gains without overcomplicating day-to-day workflow processes.
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-xs font-mono text-[#9BA8AB] pt-1.5 border-t border-[#253745]">
+                  <div className="flex items-center justify-between text-xs font-mono text-[#D28B96] pt-1.5 border-t border-[#A64C61]">
                     <span>Anchors Preserved: 100% facts & citations</span>
-                    <span className="text-[#CCD0CF] font-semibold">Decoupled LLM Architecture</span>
+                    <span className="text-[#F1DDE0] font-semibold">Decoupled LLM Architecture</span>
                   </div>
                 </div>
               )}
@@ -338,40 +338,40 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               {previewTab === 'compare' && (
                 <div className="space-y-3.5">
                   <div className="grid grid-cols-3 gap-3 text-center text-xs font-mono">
-                    <div className="p-3 rounded-xl bg-[#0A1821] border border-[#253745]">
-                      <div className="text-[11px] text-[#9BA8AB] mb-1">Original AI Score</div>
+                    <div className="p-3 rounded-xl bg-[#1D1015] border border-[#A64C61]">
+                      <div className="text-[11px] text-[#D28B96] mb-1">Original AI Score</div>
                       <div className="text-lg font-bold text-rose-400">88%</div>
                     </div>
-                    <div className="p-3 rounded-xl bg-[#0A1821] border border-[#253745]">
-                      <div className="text-[11px] text-[#9BA8AB] mb-1">Paraphrased AI Score</div>
-                      <div className="text-lg font-bold text-[#CCD0CF]">14%</div>
+                    <div className="p-3 rounded-xl bg-[#1D1015] border border-[#A64C61]">
+                      <div className="text-[11px] text-[#D28B96] mb-1">Paraphrased AI Score</div>
+                      <div className="text-lg font-bold text-[#F1DDE0]">14%</div>
                     </div>
-                    <div className="p-3 rounded-xl bg-[#11212D] border border-[#00D4E5]/40">
-                      <div className="text-[11px] text-[#CCD0CF] mb-1">Signal Delta (Δ)</div>
-                      <div className="text-lg font-bold text-[#CCD0CF]">-74%</div>
+                    <div className="p-3 rounded-xl bg-[#702B40] border border-[#00D4E5]/40">
+                      <div className="text-[11px] text-[#F1DDE0] mb-1">Signal Delta (Δ)</div>
+                      <div className="text-lg font-bold text-[#F1DDE0]">-74%</div>
                     </div>
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-[#0A1821] border border-[#253745] text-xs sm:text-[13px] font-mono space-y-2">
-                    <div className="text-xs text-[#9BA8AB] uppercase font-semibold">Syntactic Diversity Metric Shift</div>
+                  <div className="p-3.5 rounded-xl bg-[#1D1015] border border-[#A64C61] text-xs sm:text-[13px] font-mono space-y-2">
+                    <div className="text-xs text-[#D28B96] uppercase font-semibold">Syntactic Diversity Metric Shift</div>
                     <div className="flex justify-between">
-                      <span className="text-[#9BA8AB]">Burstiness Variance:</span>
-                      <span className="text-[#CCD0CF] font-bold">Increased (+42%)</span>
+                      <span className="text-[#D28B96]">Burstiness Variance:</span>
+                      <span className="text-[#F1DDE0] font-bold">Increased (+42%)</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#9BA8AB]">Type-Token Ratio (TTR):</span>
-                      <span className="text-[#CCD0CF] font-bold">Expanded (+18%)</span>
+                      <span className="text-[#D28B96]">Type-Token Ratio (TTR):</span>
+                      <span className="text-[#F1DDE0] font-bold">Expanded (+18%)</span>
                     </div>
                   </div>
                 </div>
               )}
 
               {/* Action Banner inside Preview */}
-              <div className="mt-4 pt-3.5 border-t border-[#253745] flex items-center justify-between">
-                <span className="text-xs sm:text-sm text-[#9BA8AB] font-medium">Ready to test with your documents?</span>
+              <div className="mt-4 pt-3.5 border-t border-[#A64C61] flex items-center justify-between">
+                <span className="text-xs sm:text-sm text-[#D28B96] font-medium">Ready to test with your documents?</span>
                 <button
                   onClick={() => handleCTA('/analyze')}
-                  className="px-5 py-2 rounded-full bg-[#CCD0CF] hover:bg-white text-[#061619] hover:text-[#061619] font-bold text-xs sm:text-sm transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(20,139,166,0.35)] cursor-pointer"
+                  className="px-5 py-2 rounded-full bg-[#F1DDE0] hover:bg-white text-[#061619] hover:text-[#061619] font-bold text-xs sm:text-sm transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(20,139,166,0.35)] cursor-pointer"
                 >
                   <span>Launch Analyzer</span>
                   <ArrowRight className="w-4 h-4" />
@@ -392,13 +392,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
            ========================================================================= */}
         <section id="why-verity" className="mb-32 pt-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#CCD0CF] text-[10px] font-mono tracking-widest uppercase font-bold mb-3 shadow-[0_0_12px_rgba(0,201,216,0.15)]">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#F1DDE0] text-[10px] font-mono tracking-widest uppercase font-bold mb-3 shadow-[0_0_12px_rgba(0,201,216,0.15)]">
               SYSTEM CAPABILITIES
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#CCD0CF] mb-3">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F1DDE0] mb-3">
               Engineered for Complete Authenticity
             </h2>
-            <p className="text-sm text-[#9BA8AB]">
+            <p className="text-sm text-[#D28B96]">
               VERITY bridges deep transformer embeddings with 20-D stylometrics to evaluate text origin beyond surface heuristics.
             </p>
           </div>
@@ -406,43 +406,43 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           {/* Symmetrical Capabilities Layout: 1st Box Full Width + 3 Equal Boxes Below */}
           <div className="space-y-5">
                 {/* Primary Feature: ModernBERT V5 Deep Feature Fusion (Full Width - Compact) */}
-            <div className="w-full bg-[#11212D] border border-[#253745] rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-sm relative overflow-hidden group hover:border-[#364C5E] transition-all">
+            <div className="w-full bg-[#702B40] border border-[#A64C61] rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-sm relative overflow-hidden group hover:border-[#BA576E] transition-all">
               
               
               
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#CCD0CF] shadow-sm">
+                  <div className="w-8 h-8 rounded-lg bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#F1DDE0] shadow-sm">
                     <Cpu className="w-4 h-4" />
                   </div>
-                  <span className="px-2.5 py-0.5 rounded-full bg-[#00C9D8]/15 text-[#CCD0CF] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#00C9D8]/35 shadow-sm">
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#00C9D8]/15 text-[#F1DDE0] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#00C9D8]/35 shadow-sm">
                     Primary Engine
                   </span>
                 </div>
 
                 <div className="max-w-4xl">
-                  <h3 className="text-base sm:text-lg font-bold text-[#CCD0CF] mb-1">ModernBERT V5 + Stylometric Fusion</h3>
-                  <p className="text-xs text-[#9BA8AB] leading-relaxed mb-3">
+                  <h3 className="text-base sm:text-lg font-bold text-[#F1DDE0] mb-1">ModernBERT V5 + Stylometric Fusion</h3>
+                  <p className="text-xs text-[#D28B96] leading-relaxed mb-3">
                     Extracts 768-dimensional contextual embeddings across 1024 token sequence windows and fuses them with 20 syntactic diversity features into a calibrated 320-D classification head.
                   </p>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 border-t border-[#253745] pt-2.5 text-xs font-mono">
-                  <div className="p-2 rounded-lg bg-[#0A1821] border border-white/5">
-                    <span className="text-[#9BA8AB] block text-[10px] uppercase">Decision Threshold</span>
-                    <span className="text-[#CCD0CF] font-bold text-xs">0.70 Calibrated</span>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 border-t border-[#A64C61] pt-2.5 text-xs font-mono">
+                  <div className="p-2 rounded-lg bg-[#1D1015] border border-white/5">
+                    <span className="text-[#D28B96] block text-[10px] uppercase">Decision Threshold</span>
+                    <span className="text-[#F1DDE0] font-bold text-xs">0.70 Calibrated</span>
                   </div>
-                  <div className="p-2 rounded-lg bg-[#0A1821] border border-white/5">
-                    <span className="text-[#9BA8AB] block text-[10px] uppercase">Sequence Length</span>
+                  <div className="p-2 rounded-lg bg-[#1D1015] border border-white/5">
+                    <span className="text-[#D28B96] block text-[10px] uppercase">Sequence Length</span>
                     <span className="text-white font-bold text-xs">1024 Tokens</span>
                   </div>
-                  <div className="p-2 rounded-lg bg-[#0A1821] border border-white/5">
-                    <span className="text-[#9BA8AB] block text-[10px] uppercase">Explainability</span>
+                  <div className="p-2 rounded-lg bg-[#1D1015] border border-white/5">
+                    <span className="text-[#D28B96] block text-[10px] uppercase">Explainability</span>
                     <span className="text-white font-bold text-xs">Sentence & Token</span>
                   </div>
-                  <div className="p-2 rounded-lg bg-[#0A1821] border border-white/5">
-                    <span className="text-[#9BA8AB] block text-[10px] uppercase">Feature Fusion</span>
-                    <span className="text-[#CCD0CF] font-bold text-xs">20-D Stylometrics</span>
+                  <div className="p-2 rounded-lg bg-[#1D1015] border border-white/5">
+                    <span className="text-[#D28B96] block text-[10px] uppercase">Feature Fusion</span>
+                    <span className="text-[#F1DDE0] font-bold text-xs">20-D Stylometrics</span>
                   </div>
                 </div>
               </div>
@@ -452,47 +452,47 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
               
               {/* Box 1: Full Document Intelligence */}
-              <div className="bg-[#11212D] border border-[#253745] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-sm relative overflow-hidden group hover:border-[#364C5E] transition-all h-full">
+              <div className="bg-[#702B40] border border-[#A64C61] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-sm relative overflow-hidden group hover:border-[#BA576E] transition-all h-full">
                 
                 <div>
-                  <div className="w-7 h-7 rounded-md bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#CCD0CF] mb-2">
+                  <div className="w-7 h-7 rounded-md bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#F1DDE0] mb-2">
                     <FileText className="w-3.5 h-3.5" />
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-[#CCD0CF] mb-1">Full Document Intelligence</h3>
-                  <p className="text-xs text-[#9BA8AB] leading-relaxed mb-2.5">
+                  <h3 className="text-sm sm:text-base font-bold text-[#F1DDE0] mb-1">Full Document Intelligence</h3>
+                  <p className="text-xs text-[#D28B96] leading-relaxed mb-2.5">
                     Native DOCX, PDF, and TXT parsing with up to 100,000 characters. Large documents automatically partition into 1,000-token chunks with bounded overlap.
                   </p>
                 </div>
 
-                <div className="space-y-1 border-t border-[#253745] pt-2 text-[11px] font-mono">
-                  <div className="flex justify-between items-center text-[#9BA8AB]">
+                <div className="space-y-1 border-t border-[#A64C61] pt-2 text-[11px] font-mono">
+                  <div className="flex justify-between items-center text-[#D28B96]">
                     <span>Supported Formats:</span>
                     <span className="text-white font-semibold">DOCX, PDF, TXT</span>
                   </div>
-                  <div className="flex justify-between items-center text-[#9BA8AB]">
+                  <div className="flex justify-between items-center text-[#D28B96]">
                     <span>Processing Limit:</span>
-                    <span className="text-[#CCD0CF] font-bold">100,000 Characters</span>
+                    <span className="text-[#F1DDE0] font-bold">100,000 Characters</span>
                   </div>
                 </div>
               </div>
 
               {/* Box 2: Writing Intelligence & Paraphrasing */}
-              <div className="bg-[#11212D] border border-[#253745] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-sm relative overflow-hidden group hover:border-[#364C5E] transition-all h-full">
+              <div className="bg-[#702B40] border border-[#A64C61] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-sm relative overflow-hidden group hover:border-[#BA576E] transition-all h-full">
                 
                 <div>
-                  <div className="w-7 h-7 rounded-md bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#CCD0CF] mb-2">
+                  <div className="w-7 h-7 rounded-md bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#F1DDE0] mb-2">
                     <Wand2 className="w-3.5 h-3.5" />
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-[#CCD0CF] mb-1">Writing Intelligence & Paraphrasing</h3>
-                  <p className="text-xs text-[#9BA8AB] leading-relaxed mb-2.5">
+                  <h3 className="text-sm sm:text-base font-bold text-[#F1DDE0] mb-1">Writing Intelligence & Paraphrasing</h3>
+                  <p className="text-xs text-[#D28B96] leading-relaxed mb-2.5">
                     Calibrated tone transformation across Natural, Professional, Academic, and Casual styles. Strict factual anchors protect citations and terminology without classifier leakage.
                   </p>
                 </div>
 
-                <div className="border-t border-[#253745] pt-2">
+                <div className="border-t border-[#A64C61] pt-2">
                   <div className="flex flex-wrap gap-1">
                     {['Natural', 'Professional', 'Academic', 'Casual'].map(tone => (
-                      <span key={tone} className="px-2 py-0.5 rounded bg-[#0A1821] border border-[#253745] text-[10px] font-mono text-[#CCD0CF] font-medium">
+                      <span key={tone} className="px-2 py-0.5 rounded bg-[#1D1015] border border-[#A64C61] text-[10px] font-mono text-[#F1DDE0] font-medium">
                         {tone}
                       </span>
                     ))}
@@ -501,26 +501,26 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               </div>
 
               {/* Box 3: Verifiable Provenance & QR Codes */}
-              <div className="bg-[#11212D] border border-[#253745] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-sm relative overflow-hidden group hover:border-[#364C5E] transition-all h-full">
+              <div className="bg-[#702B40] border border-[#A64C61] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-sm relative overflow-hidden group hover:border-[#BA576E] transition-all h-full">
                 
                 <div>
-                  <div className="w-7 h-7 rounded-md bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#CCD0CF] mb-2">
+                  <div className="w-7 h-7 rounded-md bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#F1DDE0] mb-2">
                     <QrCode className="w-3.5 h-3.5" />
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-[#CCD0CF] mb-1">Verifiable Provenance & QR Codes</h3>
-                  <p className="text-xs text-[#9BA8AB] leading-relaxed mb-2.5">
+                  <h3 className="text-sm sm:text-base font-bold text-[#F1DDE0] mb-1">Verifiable Provenance & QR Codes</h3>
+                  <p className="text-xs text-[#D28B96] leading-relaxed mb-2.5">
                     Every evaluated document receives an immutable SHA-256 fingerprint and tamper-evident timestamp accessible via public audit URLs.
                   </p>
                 </div>
 
-                <div className="space-y-1 border-t border-[#253745] pt-2 text-[11px] font-mono">
-                  <div className="flex justify-between items-center text-[#9BA8AB]">
+                <div className="space-y-1 border-t border-[#A64C61] pt-2 text-[11px] font-mono">
+                  <div className="flex justify-between items-center text-[#D28B96]">
                     <span>Hashing Standard:</span>
                     <span className="text-white font-semibold">SHA-256 Cryptographic</span>
                   </div>
-                  <div className="flex justify-between items-center text-[#9BA8AB]">
+                  <div className="flex justify-between items-center text-[#D28B96]">
                     <span>Audit Verification:</span>
-                    <span className="text-[#CCD0CF] font-bold">Public QR Portal URL</span>
+                    <span className="text-[#F1DDE0] font-bold">Public QR Portal URL</span>
                   </div>
                 </div>
               </div>
@@ -535,41 +535,41 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
            ========================================================================= */}
         <section id="architecture" className="mb-32 pt-8">
           <div className="text-center max-w-3xl mx-auto mb-10 flex flex-col items-center gap-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#CCD0CF] text-[10px] font-mono tracking-widest uppercase font-bold shadow-[0_0_12px_rgba(0,201,216,0.15)]">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#F1DDE0] text-[10px] font-mono tracking-widest uppercase font-bold shadow-[0_0_12px_rgba(0,201,216,0.15)]">
               <Cpu className="w-3.5 h-3.5" /> Empirical Architecture
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#CCD0CF]">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F1DDE0]">
               Model Transparency & Hot-Standby Rollback
             </h2>
-            <p className="text-xs sm:text-sm text-[#9BA8AB] leading-relaxed max-w-2xl mx-auto">
+            <p className="text-xs sm:text-sm text-[#D28B96] leading-relaxed max-w-2xl mx-auto">
               VERITY enforces transparent classification boundaries. Administrators can inspect runtime telemetry or switch between deep contextual and lightweight transformer models with zero downtime.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Model Card 1: ModernBERT V5 */}
-            <div className="bg-[#11212D] border border-[#253745] rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-sm">
+            <div className="bg-[#702B40] border border-[#A64C61] rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-sm">
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="px-3 py-1 rounded-xl bg-[#CCD0CF] text-[#061619] font-bold text-[10px] uppercase tracking-wider font-mono">
+                  <span className="px-3 py-1 rounded-xl bg-[#F1DDE0] text-[#061619] font-bold text-[10px] uppercase tracking-wider font-mono">
                     Primary Production Engine
                   </span>
-                  <span className="text-xs font-mono text-[#CCD0CF]">Active</span>
+                  <span className="text-xs font-mono text-[#F1DDE0]">Active</span>
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">ModernBERT V5 + 20-D Stylometrics</h3>
-                <p className="text-xs text-[#9BA8AB] mb-6 leading-relaxed">
+                <p className="text-xs text-[#D28B96] mb-6 leading-relaxed">
                   ModernBERT-base (768-D semantic representations with 1024 token sequence context) fused with 20-dimensional syntactic burstiness vectors into a 320-D classifier head.
                 </p>
-                <div className="space-y-3 border-t border-[#253745] pt-4 text-xs font-mono">
-                  <div className="flex justify-between text-[#9BA8AB]">
+                <div className="space-y-3 border-t border-[#A64C61] pt-4 text-xs font-mono">
+                  <div className="flex justify-between text-[#D28B96]">
                     <span>Decision Threshold:</span>
-                    <span className="text-[#CCD0CF] font-bold">0.70 Calibrated</span>
+                    <span className="text-[#F1DDE0] font-bold">0.70 Calibrated</span>
                   </div>
-                  <div className="flex justify-between text-[#9BA8AB]">
+                  <div className="flex justify-between text-[#D28B96]">
                     <span>In-Domain F1 Score:</span>
                     <span className="text-white font-bold">0.998</span>
                   </div>
-                  <div className="flex justify-between text-[#9BA8AB]">
+                  <div className="flex justify-between text-[#D28B96]">
                     <span>Sequence Context Window:</span>
                     <span className="text-white">1024 Tokens</span>
                   </div>
@@ -578,30 +578,30 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             </div>
 
             {/* Model Card 2: DistilRoBERTa V2 */}
-            <div className="bg-[#11212D] border border-[#253745] rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-sm">
+            <div className="bg-[#702B40] border border-[#A64C61] rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-sm">
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="px-3 py-1 rounded-full bg-[#00C9D8]/15 text-[#CCD0CF] border border-[#00C9D8]/30 font-bold text-[10px] uppercase tracking-wider font-mono">
+                  <span className="px-3 py-1 rounded-full bg-[#00C9D8]/15 text-[#F1DDE0] border border-[#00C9D8]/30 font-bold text-[10px] uppercase tracking-wider font-mono">
                     Hot Standby Rollback
                   </span>
-                  <span className="text-xs font-mono text-[#CCD0CF]">Validated</span>
+                  <span className="text-xs font-mono text-[#F1DDE0]">Validated</span>
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">DistilRoBERTa V2 + 20-D Stylometrics</h3>
-                <p className="text-xs text-[#9BA8AB] mb-6 leading-relaxed">
+                <p className="text-xs text-[#D28B96] mb-6 leading-relaxed">
                   Proven 768-D transformer representations paired with 20-D stylometric features. Zero downtime rollback target selectable instantly via the Model Selection API.
                 </p>
                 <div className="space-y-3 border-t border-[rgba(0,201,216,0.15)] pt-4 text-xs font-mono">
-                  <div className="flex justify-between text-[#9BA8AB]">
+                  <div className="flex justify-between text-[#D28B96]">
                     <span>Decision Threshold:</span>
-                    <span className="text-[#CCD0CF] font-bold">0.50 Balanced</span>
+                    <span className="text-[#F1DDE0] font-bold">0.50 Balanced</span>
                   </div>
-                  <div className="flex justify-between text-[#9BA8AB]">
+                  <div className="flex justify-between text-[#D28B96]">
                     <span>CPU Inference Latency:</span>
                     <span className="text-white font-bold">&lt;500 ms</span>
                   </div>
-                  <div className="flex justify-between text-[#9BA8AB]">
+                  <div className="flex justify-between text-[#D28B96]">
                     <span>Rollback Selection:</span>
-                    <span className="text-[#CCD0CF]">1-Click Endpoint</span>
+                    <span className="text-[#F1DDE0]">1-Click Endpoint</span>
                   </div>
                 </div>
               </div>
@@ -618,19 +618,19 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
            ========================================================================= */}
         <section id="how-it-works" className="mb-32 pt-8">
           <div className="text-center max-w-3xl mx-auto mb-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#CCD0CF] text-[10px] font-mono tracking-widest uppercase font-bold mb-3 shadow-[0_0_12px_rgba(0,201,216,0.15)]">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#F1DDE0] text-[10px] font-mono tracking-widest uppercase font-bold mb-3 shadow-[0_0_12px_rgba(0,201,216,0.15)]">
               WORKFLOW PIPELINE
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#CCD0CF] mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F1DDE0] mb-4">
               Empirical Analysis in 4 Steps
             </h2>
-            <p className="text-sm text-[#9BA8AB] leading-relaxed mb-6 max-w-2xl mx-auto">
+            <p className="text-sm text-[#D28B96] leading-relaxed mb-6 max-w-2xl mx-auto">
               From raw character extraction to segment-level probability maps, VERITY ensures full transparency at every stage.
             </p>
             <div className="flex justify-center items-center">
               <button
                 onClick={() => handleCTA('/analyze')}
-                className="px-8 py-3.5 bg-[#CCD0CF] hover:bg-white text-[#061619] font-bold text-sm rounded-full flex items-center gap-2 transition-all shadow-[0_0_25px_rgba(20,139,166,0.35)] hover:shadow-[0_0_30px_rgba(0,212,229,0.5)] cursor-pointer"
+                className="px-8 py-3.5 bg-[#F1DDE0] hover:bg-white text-[#061619] font-bold text-sm rounded-full flex items-center gap-2 transition-all shadow-[0_0_25px_rgba(20,139,166,0.35)] hover:shadow-[0_0_30px_rgba(0,212,229,0.5)] cursor-pointer"
               >
                 <span>Get Started</span>
                 <ArrowRight className="w-4 h-4" />
@@ -645,16 +645,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               { step: '03', title: 'Feature Fusion Verdict', desc: 'ModernBERT V5 produces an overall probability donut and segment-by-segment ratings.', icon: BarChart2 },
               { step: '04', title: 'Paraphrase or Compare', desc: 'Optionally adapt tone with preserved facts or run a side-by-side differential comparison.', icon: Wand2 },
             ].map((s, i) => (
-              <div key={i} className="bg-[#11212D] border border-[#253745] rounded-2xl p-6 hover:border-[#364C5E] transition-colors flex flex-col justify-between shadow-sm">
+              <div key={i} className="bg-[#702B40] border border-[#A64C61] rounded-2xl p-6 hover:border-[#BA576E] transition-colors flex flex-col justify-between shadow-sm">
                 <div>
-                  <span className="text-[10px] font-mono text-[#CCD0CF] mb-3 bg-[#148BA6]/20 px-2.5 py-1 rounded inline-block font-bold">
+                  <span className="text-[10px] font-mono text-[#F1DDE0] mb-3 bg-[#148BA6]/20 px-2.5 py-1 rounded inline-block font-bold">
                     STEP {s.step}
                   </span>
-                  <div className="w-10 h-10 rounded-xl border border-[#00D4E5]/30 bg-[#06141B] flex items-center justify-center mb-3 text-[#CCD0CF]">
+                  <div className="w-10 h-10 rounded-xl border border-[#00D4E5]/30 bg-[#421B29] flex items-center justify-center mb-3 text-[#F1DDE0]">
                     <s.icon className="w-5 h-5" />
                   </div>
                   <h4 className="text-sm font-semibold text-white mb-1.5">{s.title}</h4>
-                  <p className="text-xs text-[#9BA8AB] leading-relaxed">{s.desc}</p>
+                  <p className="text-xs text-[#D28B96] leading-relaxed">{s.desc}</p>
                 </div>
               </div>
             ))}
@@ -667,10 +667,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
            ========================================================================= */}
         <section id="faq" className="mb-32 max-w-4xl mx-auto pt-8">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#CCD0CF] text-[10px] font-mono tracking-widest uppercase font-bold mb-3 shadow-[0_0_12px_rgba(0,201,216,0.15)]">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#F1DDE0] text-[10px] font-mono tracking-widest uppercase font-bold mb-3 shadow-[0_0_12px_rgba(0,201,216,0.15)]">
               FREQUENTLY ASKED QUESTIONS
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#CCD0CF]">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F1DDE0]">
               Common Questions & Answers
             </h2>
           </div>
@@ -713,14 +713,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               <div 
                 key={i} 
                 onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                className="bg-[#11212D] border border-[#253745] rounded-2xl p-5 hover:border-[#364C5E] transition-all cursor-pointer overflow-hidden shadow-sm"
+                className="bg-[#702B40] border border-[#A64C61] rounded-2xl p-5 hover:border-[#BA576E] transition-all cursor-pointer overflow-hidden shadow-sm"
               >
                 <div className="flex justify-between items-center">
                   <h4 className="text-sm font-semibold text-white">{faq.q}</h4>
-                  <ChevronDown className={`w-4 h-4 text-[#CCD0CF] transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 text-[#F1DDE0] transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`} />
                 </div>
                 <div className={`transition-all duration-300 ease-in-out ${openFaq === i ? 'max-h-60 mt-3 opacity-100' : 'max-h-0 opacity-0'}`}>
-                  <p className="text-xs text-[#9BA8AB] leading-relaxed pr-6">{faq.a}</p>
+                  <p className="text-xs text-[#D28B96] leading-relaxed pr-6">{faq.a}</p>
                 </div>
               </div>
             ))}
@@ -731,29 +731,29 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         {/* =========================================================================
             BOTTOM CLOSING CTA
            ========================================================================= */}
-        <section className="text-center py-16 px-8 sm:px-12 bg-[#11212D] border border-[#253745] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] mb-16 relative overflow-hidden">
+        <section className="text-center py-16 px-8 sm:px-12 bg-[#702B40] border border-[#A64C61] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] mb-16 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,212,229,0.06),transparent_60%)]" />
           <div className="relative z-10 max-w-xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#CCD0CF] text-[10px] font-mono tracking-widest uppercase font-bold mb-3 shadow-[0_0_12px_rgba(0,201,216,0.15)]">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#F1DDE0] text-[10px] font-mono tracking-widest uppercase font-bold mb-3 shadow-[0_0_12px_rgba(0,201,216,0.15)]">
               VERITY PRODUCTION SUITE
             </div>
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#CCD0CF] mb-4">
-              Truth in <span className="text-[#CCD0CF] ">Every Word.</span>
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#F1DDE0] mb-4">
+              Truth in <span className="text-[#F1DDE0] ">Every Word.</span>
             </h2>
-            <p className="text-[#9BA8AB] mb-8 text-sm sm:text-base leading-relaxed">
+            <p className="text-[#D28B96] mb-8 text-sm sm:text-base leading-relaxed">
               Join researchers, publishers, and educators who verify text authenticity with VERITY.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <button 
                 onClick={() => handleCTA('/analyze')}
-                className="px-8 py-3.5 bg-[#CCD0CF] hover:bg-white text-[#061619] font-bold rounded-full transition-all shadow-[0_0_25px_rgba(20,139,166,0.4)] hover:shadow-[0_0_35px_rgba(0,212,229,0.5)] inline-flex items-center gap-2 cursor-pointer text-sm"
+                className="px-8 py-3.5 bg-[#F1DDE0] hover:bg-white text-[#061619] font-bold rounded-full transition-all shadow-[0_0_25px_rgba(20,139,166,0.4)] hover:shadow-[0_0_35px_rgba(0,212,229,0.5)] inline-flex items-center gap-2 cursor-pointer text-sm"
               >
                 <span>Start Analyzing Now</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button 
                 onClick={() => onNavigate('/docs')}
-                className="px-6 py-3.5 bg-[#06141B] hover:bg-[#11212D] text-[#CCD0CF] border border-[#148BA6]/40 hover:border-[#00D4E5] font-medium rounded-full transition-all text-sm cursor-pointer"
+                className="px-6 py-3.5 bg-[#421B29] hover:bg-[#702B40] text-[#F1DDE0] border border-[#148BA6]/40 hover:border-[#00D4E5] font-medium rounded-full transition-all text-sm cursor-pointer"
               >
                 <span>Read Documentation</span>
               </button>
@@ -764,8 +764,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
       </main>
 
       {/* FOOTER */}
-      <footer className="relative z-10 border-t border-[#253745] bg-[#06141B] py-8 px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#9BA8AB] font-mono">
+      <footer className="relative z-10 border-t border-[#A64C61] bg-[#421B29] py-8 px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#D28B96] font-mono">
           <div className="flex items-center gap-2">
             <VerityLogo className="h-5 w-auto" />
             <span className="font-bold text-white tracking-wider">VERITY AI</span>
@@ -774,16 +774,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           </div>
 
           <div className="flex items-center gap-6">
-            <button onClick={() => onNavigate('/docs')} className="hover:text-[#CCD0CF] transition-colors">
+            <button onClick={() => onNavigate('/docs')} className="hover:text-[#F1DDE0] transition-colors">
               Documentation
             </button>
-            <button onClick={() => handleCTA('/analyze')} className="hover:text-[#CCD0CF] transition-colors">
+            <button onClick={() => handleCTA('/analyze')} className="hover:text-[#F1DDE0] transition-colors">
               Analyzer
             </button>
-            <button onClick={() => handleCTA('/paraphrase')} className="hover:text-[#CCD0CF] transition-colors">
+            <button onClick={() => handleCTA('/paraphrase')} className="hover:text-[#F1DDE0] transition-colors">
               Paraphrase
             </button>
-            <button onClick={() => onNavigate('/login')} className="hover:text-[#CCD0CF] transition-colors">
+            <button onClick={() => onNavigate('/login')} className="hover:text-[#F1DDE0] transition-colors">
               Login
             </button>
           </div>

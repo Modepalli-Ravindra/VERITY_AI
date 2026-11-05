@@ -144,7 +144,7 @@ const MainRouter: React.FC = () => {
   const isSingleScreenRoute = protectedRoutes.includes(currentRoute) || currentRoute === '/docs';
 
   return (
-    <div className={`${isSingleScreenRoute ? 'h-screen' : 'min-h-screen'} bg-[#06141B] text-[#CCD0CF] flex flex-col justify-between overflow-hidden relative`}>
+    <div className={`${isSingleScreenRoute ? 'h-screen' : 'min-h-screen'} bg-[#421B29] text-[#F1DDE0] flex flex-col justify-between overflow-hidden relative`}>
       
       {/* 
         Layout Logic:
@@ -155,7 +155,7 @@ const MainRouter: React.FC = () => {
       
       {isSingleScreenRoute && (
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 bg-[#06141B]" />
+          <div className="absolute inset-0 bg-[#421B29]" />
         </div>
       )}
 
