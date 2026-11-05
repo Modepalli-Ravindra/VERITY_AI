@@ -47,7 +47,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         {/* =========================================================================
             3. HERO SECTION (Full-Width Centered Editorial Layout with Studio Lighting)
            ========================================================================= */}
-        <section className="flex flex-col items-center justify-center text-center max-w-5xl xl:max-w-6xl mx-auto pt-[28px] lg:pt-[36px] pb-10 relative z-20">
+        <section className="flex flex-col items-center justify-center text-center max-w-5xl xl:max-w-6xl mx-auto pt-[28px] lg:pt-[36px] pb-16 lg:pb-24 min-h-[calc(100vh-140px)] relative z-20">
 
           {/* Headline — Centered, Two Lines with Redaction 10 Premium Editorial Font */}
           <motion.h1
@@ -124,7 +124,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         {/* =========================================================================
             7. REFINED BENTO GRID & CORE CAPABILITIES
            ========================================================================= */}
-        <section id="why-verity" className="mb-20 pt-4">
+        <section id="why-verity" className="mb-24 pt-16 sm:pt-20 lg:pt-24">
           <div className="text-center max-w-2xl mx-auto mb-8">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#00D5E5] text-[10px] font-mono tracking-widest uppercase font-bold mb-3">
               SYSTEM CAPABILITIES
