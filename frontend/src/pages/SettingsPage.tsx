@@ -113,25 +113,25 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
     .toUpperCase();
 
   return (
-    <div className="flex-1 min-h-0 h-full text-[#F3F8F8] px-4 sm:px-6 lg:px-8 py-3 relative overflow-hidden font-sans bg-transparent flex flex-col justify-center selection:bg-[#00C9D8]/30">
+    <div className="flex-1 min-h-0 h-full text-[#F8FAFC] px-4 sm:px-6 lg:px-8 py-3 relative overflow-hidden font-sans bg-transparent flex flex-col justify-center selection:bg-[#00C9D8]/30">
       
       {/* Subtle ambient glows */}
-      <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-[#00C9D8]/5 rounded-full blur-[140px] pointer-events-none -z-10" />
+      
 
       {/* Single Unified Card Container - Zero Spacing Boxes */}
-      <div className="max-w-4xl mx-auto w-full bg-[#0A2023]/85 backdrop-blur-2xl rounded-2xl border border-[rgba(0,201,216,0.25)] p-5 sm:p-6 shadow-2xl relative overflow-hidden space-y-4">
+      <div className="max-w-4xl mx-auto w-full bg-[#10161D] rounded-2xl border border-[#1C2633] p-5 sm:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)] relative overflow-hidden space-y-4">
         
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-[rgba(0,201,216,0.15)]">
           <div>
-            <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#00C9D8] mb-0.5">
+            <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#00D5E5] mb-0.5">
               WORKSPACE CONFIGURATION
             </div>
             <h1 className="text-lg sm:text-xl font-bold text-white tracking-tight">
               Settings & Preferences
             </h1>
           </div>
-          <span className="px-2.5 py-0.5 rounded-full bg-[#00C9D8]/10 text-[#00C9D8] border border-[#00C9D8]/25 text-[10px] font-mono">
+          <span className="px-2.5 py-0.5 rounded-full bg-[#00C9D8]/10 text-[#00D5E5] border border-[#00C9D8]/25 text-[10px] font-mono">
             RLS Protected
           </span>
         </div>
@@ -143,7 +143,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="p-2 rounded-xl bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#00C9D8] text-xs flex items-center gap-2 font-medium"
+              className="p-2 rounded-xl bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#00D5E5] text-xs flex items-center gap-2 font-medium"
             >
               <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>Profile name saved successfully.</span>
@@ -165,12 +165,12 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
         {/* 1. Profile Row */}
         <form onSubmit={handleSaveProfile} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/5">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00C9D8]/20 to-[#0A2023] border border-[#00C9D8]/30 flex items-center justify-center text-sm font-bold text-[#00C9D8] shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00C9D8]/20 to-[#0A2023] border border-[#00C9D8]/30 flex items-center justify-center text-sm font-bold text-[#00D5E5] shrink-0">
               {initials}
             </div>
             <div>
               <div className="text-xs font-semibold text-white">Researcher Profile</div>
-              <div className="text-[11px] text-[#9BB2B7] font-mono">{user?.email || 'user@verity.ai'}</div>
+              <div className="text-[11px] text-[#8899A6] font-mono">{user?.email || 'user@verity.ai'}</div>
             </div>
           </div>
 
@@ -181,7 +181,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="Display Name"
-              className="px-3 py-1.5 bg-[#030B0D]/90 border border-[rgba(0,201,216,0.22)] rounded-lg text-xs text-white placeholder-[#6F8B91] focus:outline-none focus:border-[#00D4E5] w-48 sm:w-56"
+              className="px-3 py-1.5 bg-[#0A0E13] border border-[#1C2633] rounded-lg text-xs text-white placeholder-[#6F8B91] focus:outline-none focus:border-[#00D4E5] w-48 sm:w-56"
             />
             <button
               type="submit"
@@ -197,10 +197,10 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/5">
           <div>
             <div className="text-xs font-semibold text-white">Detection Engine</div>
-            <div className="text-[11px] text-[#9BB2B7]">Active neural architecture used for document scoring</div>
+            <div className="text-[11px] text-[#8899A6]">Active neural architecture used for document scoring</div>
           </div>
 
-          <div className="flex items-center gap-1.5 bg-[#030B0D]/90 p-1 rounded-xl border border-[rgba(0,201,216,0.2)]">
+          <div className="flex items-center gap-1.5 bg-[#0A0E13] p-1 rounded-xl border border-[#1C2633]">
             {[
               { id: 'modernbert', label: 'ModernBERT V5 (Primary)' },
               { id: 'distilroberta', label: 'DistilRoBERTa V2 (Standby)' }
@@ -213,8 +213,8 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
                   onClick={() => handleUpdatePreference('defaultModel', m.id)}
                   className={`px-3 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                     active 
-                      ? 'bg-[#00C9D8]/15 border border-[#00C9D8]/35 text-[#00C9D8] font-bold shadow-sm' 
-                      : 'text-[#9BB2B7] hover:text-white border border-transparent'
+                      ? 'bg-[#00C9D8]/15 border border-[#00C9D8]/35 text-[#00D5E5] font-bold shadow-sm' 
+                      : 'text-[#8899A6] hover:text-white border border-transparent'
                   }`}
                 >
                   {m.label}
@@ -228,10 +228,10 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/5">
           <div>
             <div className="text-xs font-semibold text-white">Decision Sensitivity</div>
-            <div className="text-[11px] text-[#9BB2B7]">Classification threshold for synthetic flag</div>
+            <div className="text-[11px] text-[#8899A6]">Classification threshold for synthetic flag</div>
           </div>
 
-          <div className="flex items-center gap-1.5 bg-[#030B0D]/90 p-1 rounded-xl border border-[rgba(0,201,216,0.2)]">
+          <div className="flex items-center gap-1.5 bg-[#0A0E13] p-1 rounded-xl border border-[#1C2633]">
             {[
               { id: 'strict', label: 'Strict (0.60)' },
               { id: 'balanced', label: 'Balanced (0.70)' },
@@ -245,8 +245,8 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
                   onClick={() => handleUpdatePreference('sensitivityThreshold', s.id)}
                   className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                     active 
-                      ? 'bg-[#00C9D8]/15 border border-[#00C9D8]/35 text-[#00C9D8] font-bold shadow-sm' 
-                      : 'text-[#9BB2B7] hover:text-white border border-transparent'
+                      ? 'bg-[#00C9D8]/15 border border-[#00C9D8]/35 text-[#00D5E5] font-bold shadow-sm' 
+                      : 'text-[#8899A6] hover:text-white border border-transparent'
                   }`}
                 >
                   {s.label}
@@ -260,18 +260,18 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/5">
           <div>
             <div className="text-xs font-semibold text-white">Interactive Features</div>
-            <div className="text-[11px] text-[#9BB2B7]">Real-time visualizers & recommendation prompts</div>
+            <div className="text-[11px] text-[#8899A6]">Real-time visualizers & recommendation prompts</div>
           </div>
 
           <div className="flex items-center gap-4">
             {/* Toggle 1 */}
             <label className="flex items-center gap-2 cursor-pointer select-none">
-              <span className="text-xs text-[#9BB2B7]">Stylometrics Radar</span>
+              <span className="text-xs text-[#8899A6]">Stylometrics Radar</span>
               <button
                 type="button"
                 onClick={() => handleUpdatePreference('stylometricsRadar', !preferences.stylometricsRadar)}
                 className={`w-8 h-4.5 rounded-full transition-colors relative cursor-pointer ${
-                  preferences.stylometricsRadar ? 'bg-[#00C9D8]' : 'bg-[#183035]'
+                  preferences.stylometricsRadar ? 'bg-[#00C9D8]' : 'bg-[#1C2633]'
                 }`}
               >
                 <div className={`w-3.5 h-3.5 rounded-full bg-white transition-transform absolute top-0.5 ${
@@ -282,12 +282,12 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
 
             {/* Toggle 2 */}
             <label className="flex items-center gap-2 cursor-pointer select-none">
-              <span className="text-xs text-[#9BB2B7]">Smart Humanizer Prompt</span>
+              <span className="text-xs text-[#8899A6]">Smart Humanizer Prompt</span>
               <button
                 type="button"
                 onClick={() => handleUpdatePreference('autoParaphrasePrompt', !preferences.autoParaphrasePrompt)}
                 className={`w-8 h-4.5 rounded-full transition-colors relative cursor-pointer ${
-                  preferences.autoParaphrasePrompt ? 'bg-[#00C9D8]' : 'bg-[#183035]'
+                  preferences.autoParaphrasePrompt ? 'bg-[#00C9D8]' : 'bg-[#1C2633]'
                 }`}
               >
                 <div className={`w-3.5 h-3.5 rounded-full bg-white transition-transform absolute top-0.5 ${
@@ -300,13 +300,13 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
 
         {/* 5. Account & Session Actions Row */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
-          <div className="flex items-center gap-2 text-xs font-mono text-[#9BB2B7]">
+          <div className="flex items-center gap-2 text-xs font-mono text-[#8899A6]">
             <span>ID:</span>
-            <span className="text-[#00C9D8] truncate max-w-[160px] sm:max-w-[200px]">{user?.id || 'session-unassigned'}</span>
+            <span className="text-[#00D5E5] truncate max-w-[160px] sm:max-w-[200px]">{user?.id || 'session-unassigned'}</span>
             <button
               type="button"
               onClick={handleCopyId}
-              className="p-1 rounded bg-[#00C9D8]/10 hover:bg-[#00C9D8]/20 text-[#00C9D8] transition-colors cursor-pointer"
+              className="p-1 rounded bg-[#00C9D8]/10 hover:bg-[#00C9D8]/20 text-[#00D5E5] transition-colors cursor-pointer"
               title="Copy ID"
             >
               {copiedId ? <CopiedCheck className="w-3.5 h-3.5" /> : <CopyIcon className="w-3.5 h-3.5" />}
@@ -317,7 +317,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
             <button
               type="button"
               onClick={handleClearCache}
-              className="px-3 py-1.5 rounded-lg bg-[#030B0D] hover:bg-[#081A1D] border border-[rgba(0,201,216,0.2)] text-[#9BB2B7] hover:text-[#00C9D8] text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="px-3 py-1.5 rounded-lg bg-[#0A0E13] hover:bg-[#081A1D] border border-[#1C2633] text-[#8899A6] hover:text-[#00D5E5] text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
             >
               <Trash2 className="w-3.5 h-3.5" />
               <span>{cacheCleared ? 'Cache Cleared!' : 'Clear Cache'}</span>

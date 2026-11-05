@@ -52,14 +52,13 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-[#061416] text-[#F3F8F8] font-sans flex flex-col relative selection:bg-[#00C9D8]/30">
+    <div className="h-screen w-screen overflow-hidden bg-[#090D11] text-[#F3F8F8] font-sans flex flex-col relative selection:bg-[#00C9D8]/30">
       
       {/* Ambient background glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-[#00C9D8]/10 blur-[150px] rounded-full pointer-events-none -z-10" />
-      <div className="absolute bottom-10 right-10 w-[500px] h-[350px] bg-[#008FA3]/8 blur-[130px] rounded-full pointer-events-none -z-10" />
+      
 
       {/* Top Header Bar */}
-      <header className="shrink-0 px-4 sm:px-6 py-2.5 flex items-center justify-between border-b border-[rgba(0,201,216,0.18)] bg-[#061519]/90 backdrop-blur-xl relative z-20">
+      <header className="shrink-0 px-4 sm:px-6 py-2.5 flex items-center justify-between border-b border-[rgba(0,201,216,0.18)] bg-[#090D11] relative z-20">
         <button
           onClick={() => onNavigate('/')}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0A2023]/80 border border-[rgba(0,201,216,0.25)] hover:border-[#00C9D8]/60 text-xs font-mono text-[#9BB2B7] hover:text-[#00C9D8] transition-all cursor-pointer group"
@@ -99,7 +98,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
       <div className="flex-1 min-h-0 flex flex-col lg:flex-row gap-3 sm:gap-4 p-3 sm:p-4 max-w-[1700px] w-full mx-auto overflow-hidden">
         
         {/* Left: Cinema Video Player Theater */}
-        <section className="flex-1 min-h-0 flex flex-col bg-[#0A2023]/80 backdrop-blur-xl border border-[rgba(0,201,216,0.28)] rounded-2xl p-2.5 sm:p-3 shadow-2xl overflow-hidden justify-between">
+        <section className="flex-1 min-h-0 flex flex-col bg-[#10161D] border border-[#1C2633] rounded-2xl p-2.5 sm:p-3 shadow-2xl overflow-hidden justify-between">
           
           {/* Theater Header Bar */}
           <div className="flex items-center justify-between pb-2 mb-2 border-b border-[rgba(0,201,216,0.15)] shrink-0">
@@ -142,7 +141,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
               {['01. Ingestion', '02. 20-D Stylometrics', '03. ModernBERT V5', '04. SHA-256 Provenance'].map((stage, i) => (
                 <span 
                   key={i} 
-                  className="px-2 py-0.5 rounded-lg bg-[#061519] border border-[rgba(0,201,216,0.2)] text-[#00C9D8] text-[10px] font-semibold whitespace-nowrap"
+                  className="px-2 py-0.5 rounded-lg bg-[#090D11] border border-[rgba(0,201,216,0.2)] text-[#00C9D8] text-[10px] font-semibold whitespace-nowrap"
                 >
                   {stage}
                 </span>
@@ -157,7 +156,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
         </section>
 
         {/* Right: Architectural Telemetry & Phase Cards (Locked to Height, Zero Page Scroll) */}
-        <aside className="w-full lg:w-80 xl:w-96 shrink-0 flex flex-col bg-[#0A2023]/70 backdrop-blur-xl border border-[rgba(0,201,216,0.22)] rounded-2xl p-3 shadow-xl overflow-hidden justify-between">
+        <aside className="w-full lg:w-80 xl:w-96 shrink-0 flex flex-col bg-[#10161D] border border-[#1C2633] rounded-2xl p-3 shadow-xl overflow-hidden justify-between">
           
           <div className="shrink-0 mb-2 pb-1.5 border-b border-[rgba(0,201,216,0.15)]">
             <span className="text-[10px] font-mono text-[#00C9D8] uppercase tracking-wider font-bold block">
@@ -173,7 +172,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
               return (
                 <div 
                   key={i}
-                  className="p-2.5 rounded-xl bg-[#061519]/70 border border-[rgba(0,201,216,0.18)] hover:border-[#00C9D8]/45 transition-colors"
+                  className="p-2.5 rounded-xl bg-[#090D11]/70 border border-[rgba(0,201,216,0.18)] hover:border-[#00C9D8]/45 transition-colors"
                 >
                   <div className="flex items-center justify-between mb-1">
                     <span className={`text-[9px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#00C9D8]/10 border border-[#00C9D8]/20 ${card.color}`}>
@@ -192,7 +191,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
           </div>
 
           {/* Bottom Call to Action Card */}
-          <div className="shrink-0 mt-2.5 pt-2.5 border-t border-[rgba(0,201,216,0.18)] bg-[#061519]/60 p-2.5 rounded-xl border border-white/5 text-center">
+          <div className="shrink-0 mt-2.5 pt-2.5 border-t border-[rgba(0,201,216,0.18)] bg-[#090D11]/60 p-2.5 rounded-xl border border-white/5 text-center">
             <h4 className="text-xs font-bold text-white mb-0.5">Ready to Test Your Documents?</h4>
             <p className="text-[10px] text-[#9BB2B7] mb-2 leading-relaxed">
               Verify authenticity with ModernBERT V5 and 20-D stylometrics in real time.

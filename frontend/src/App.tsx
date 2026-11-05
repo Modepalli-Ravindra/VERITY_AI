@@ -144,7 +144,7 @@ const MainRouter: React.FC = () => {
   const isSingleScreenRoute = protectedRoutes.includes(currentRoute) || currentRoute === '/docs';
 
   return (
-    <div className={`${isSingleScreenRoute ? 'h-screen' : 'min-h-screen'} flex flex-col justify-between overflow-hidden relative`}>
+    <div className={`${isSingleScreenRoute ? 'h-screen' : 'min-h-screen'} bg-[#090D11] text-[#F8FAFC] flex flex-col justify-between overflow-hidden relative`}>
       
       {/* 
         Layout Logic:

@@ -56,10 +56,9 @@ export const LogoutPage: React.FC<LogoutPageProps> = ({ onNavigate }) => {
   }, [signOut, onNavigate]);
 
   return (
-    <div className="min-h-screen bg-[#061416] text-[#F3F8F8] flex flex-col items-center justify-center p-4 relative overflow-hidden font-sans select-none">
+    <div className="min-h-screen bg-[#090D11] text-[#F3F8F8] flex flex-col items-center justify-center p-4 relative overflow-hidden font-sans select-none">
       {/* Ambient background glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[380px] bg-[#00C9D8]/12 blur-[140px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[400px] h-[280px] bg-[#008FA3]/10 blur-[120px] rounded-full pointer-events-none" />
+      
 
       {/* Technical noise texture overlay */}
       <div className="absolute inset-0 opacity-[0.03] bg-[url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png')] pointer-events-none mix-blend-overlay" />
@@ -68,7 +67,7 @@ export const LogoutPage: React.FC<LogoutPageProps> = ({ onNavigate }) => {
         initial={{ opacity: 0, y: 20, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="w-full max-w-md bg-[#0A2023]/90 backdrop-blur-2xl border border-[rgba(0,201,216,0.28)] rounded-3xl p-8 sm:p-9 text-center shadow-[0_25px_60px_rgba(0,0,0,0.7)] relative overflow-hidden z-10"
+        className="w-full max-w-md bg-[#10161D] border border-[#1C2633] rounded-2xl p-8 sm:p-9 text-center shadow-[0_8px_32px_rgba(0,0,0,0.5)] relative overflow-hidden z-10"
       >
         {/* Glowing top cyan accent line */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#00C9D8] to-transparent shadow-[0_0_15px_#00C9D8]" />

@@ -101,27 +101,11 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#061416] text-[#F3F8F8] flex flex-col justify-between relative overflow-hidden font-sans selection:bg-[#00C9D8]/30">
+    <div className="min-h-screen bg-[#090D11] text-[#F8FAFC] flex flex-col justify-between relative overflow-hidden font-sans selection:bg-[#00C9D8]/30">
 
-      {/* Background treatment: blurred application intelligence imagery, teal radial glow & vignette */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-        {/* Full-bleed blurred application background image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-110 filter blur-[8px] opacity-45 transform-gpu"
-          style={{ backgroundImage: `url('/auth-bg.jpg')` }}
-        />
-        {/* Softening tint overlay to maintain crisp card contrast while revealing rich ambient art */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#061416]/75 via-[#061416]/55 to-[#061416]/85" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_25%,#061416_80%)]" />
-
-        {/* Soft radial illumination behind form */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[52rem] h-[40rem] bg-[radial-gradient(ellipse_at_center,rgba(0,201,216,0.18)_0%,rgba(0,143,163,0.06)_50%,transparent_75%)] blur-[80px]" />
-
-        {/* Ambient top light streak */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[32rem] h-[1px] bg-gradient-to-r from-transparent via-[rgba(0,201,216,0.3)] to-transparent" />
-
-        {/* Subtle geometric technical grid */}
-        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#00C9D8_1px,transparent_1px)] [background-size:32px_32px]" />
+      {/* Subtle technical grid background */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden bg-[#090D11]">
+        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:24px_24px]" />
       </div>
 
       {/* Top Header: Logo & Back on left, Sign In on right */}
@@ -129,31 +113,31 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
         <div className="flex items-center gap-4">
           <button
             onClick={() => onNavigate('/')}
-            className="flex items-center gap-2 text-xs font-medium text-[#9BB2B7] hover:text-[#00C9D8] transition-colors p-1.5 -ml-1.5 rounded-lg hover:bg-[#0A2023]/60 cursor-pointer"
+            className="flex items-center gap-2 text-xs font-medium text-[#8899A6] hover:text-[#00D5E5] transition-colors p-1.5 -ml-1.5 rounded-lg hover:bg-[#141C25] cursor-pointer"
             title="Return to Home"
           >
             <ArrowLeft className="w-4 h-4" />
             <span className="hidden sm:inline">Back to Home</span>
           </button>
 
-          <div className="h-4 w-px bg-[rgba(0,201,216,0.22)] hidden sm:block" />
+          <div className="h-4 w-px #1C2633 hidden sm:block" />
 
           <div
             onClick={() => onNavigate('/')}
             className="flex items-center gap-2.5 cursor-pointer group"
           >
             <VerityLogo className="h-7 w-auto" />
-            <span className="font-display tracking-[0.14em] text-[#F3F8F8] text-lg font-bold group-hover:text-[#00C9D8] transition-colors">
+            <span className="font-display tracking-[0.14em] text-[#F8FAFC] text-lg font-bold group-hover:text-[#00D5E5] transition-colors">
               VERITY
             </span>
           </div>
         </div>
 
-        <div className="text-xs text-[#9BB2B7] flex items-center gap-1.5">
+        <div className="text-xs text-[#8899A6] flex items-center gap-1.5">
           <span className="hidden sm:inline">Already registered?</span>
           <button
             onClick={() => onNavigate('/login')}
-            className="text-[#00C9D8] hover:text-[#F3F8F8] font-medium transition-colors cursor-pointer px-2.5 py-1 rounded-full border border-[rgba(0,201,216,0.22)] hover:border-[#00C9D8]/50 hover:bg-[#0A2023]/80"
+            className="text-[#00D5E5] hover:text-[#F8FAFC] font-medium transition-colors cursor-pointer px-3 py-1 rounded-xl border border-[#1C2633] bg-[#141C25] hover:border-[#2B3B4E] hover:bg-[#1A2430] text-[#CBD5E1]"
           >
             Sign In
           </button>
@@ -169,23 +153,23 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
           className="w-full max-w-[460px]"
         >
           {/* Main Form Surface */}
-          <div className="bg-[#0A2023]/90 backdrop-blur-xl border border-[rgba(0,201,216,0.22)] rounded-3xl p-6 sm:p-8 shadow-[0_24px_54px_rgba(0,0,0,0.65)] relative overflow-hidden">
+          <div className="bg-[#10161D] border border-[#1C2633] rounded-2xl p-6 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.5)] relative overflow-hidden">
 
             {/* Top decorative subtle hairline glow */}
-            <div className="absolute top-0 left-12 right-12 h-[1px] bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent pointer-events-none" />
+            
 
             {/* Form Header */}
             <div className="mb-6">
-              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#0D282B] border border-[rgba(0,201,216,0.22)] text-[#00C9D8] text-[10px] font-mono tracking-widest uppercase mb-2.5 font-semibold">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00C9D8] shadow-[0_0_8px_#00C9D8]" />
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#141C25] border border-[#202D3D] text-[#00D5E5] text-[10px] font-mono tracking-widest uppercase mb-2.5 font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00C9D8] " />
                 <span>USER REGISTRATION</span>
               </div>
 
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F3F8F8] mb-1.5 font-display">
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC] mb-1.5 font-display">
                 Start with VERITY.
               </h1>
 
-              <p className="text-xs sm:text-sm text-[#9BB2B7] leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#8899A6] leading-relaxed">
                 Create your account to analyze text and explore document intelligence.
               </p>
             </div>
@@ -205,7 +189,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
-                className="mb-4 p-3 rounded-xl bg-[#0D282B] border border-[#00C9D8]/35 text-[#00C9D8] text-xs font-mono tracking-wide leading-relaxed"
+                className="mb-4 p-3 rounded-xl bg-[#0D282B] border border-[#00C9D8]/35 text-[#00D5E5] text-xs font-mono tracking-wide leading-relaxed"
               >
                 {infoMessage}
               </motion.div>
@@ -215,18 +199,18 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
             {isVerifying ? (
               <form onSubmit={handleVerifyOtp} className="space-y-4">
                 <div>
-                  <label className="block text-[11px] font-mono uppercase tracking-wider text-[#9BB2B7] mb-2 font-medium">
+                  <label className="block text-[11px] font-mono uppercase tracking-wider text-[#8899A6] mb-2 font-medium">
                     Verification Code
                   </label>
                   <div className="relative">
-                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6F8B91]" />
+                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#627282]" />
                     <input
                       type="text"
                       required
                       value={otp}
                       onChange={(e) => setOtp(e.target.value)}
                       placeholder="000000"
-                      className="w-full pl-11 pr-4 py-3 bg-[#061416] border border-[rgba(0,201,216,0.22)] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#F3F8F8] tracking-[0.3em] font-mono text-center text-lg transition-all placeholder-[#6F8B91]"
+                      className="w-full pl-11 pr-4 py-3 bg-[#090D11] border border-[#1C2633] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#F8FAFC] tracking-[0.3em] font-mono text-center text-lg transition-all placeholder-[#6F8B91]"
                     />
                   </div>
                 </div>
@@ -234,25 +218,25 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 px-4 bg-[#00C9D8] hover:bg-[#00D4E5] active:bg-[#008FA3] text-[#061416] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_4px_18px_rgba(0,201,216,0.3)] hover:shadow-[0_6px_22px_rgba(0,201,216,0.4)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  className="w-full py-3 px-4 bg-[#00D5E5] hover:bg-[#25E0EE] active:bg-[#00B4C2] text-[#040D10] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   <span>{loading ? 'Verifying Code...' : 'Complete Registration'}</span>
                   {!loading && <ArrowRight className="w-4 h-4" />}
                 </button>
 
-                <div className="flex items-center justify-between text-xs font-mono pt-2 text-[#9BB2B7]">
+                <div className="flex items-center justify-between text-xs font-mono pt-2 text-[#8899A6]">
                   <button
                     type="button"
                     onClick={handleResendCode}
                     disabled={loading}
-                    className="hover:text-[#00C9D8] transition-colors cursor-pointer"
+                    className="hover:text-[#00D5E5] transition-colors cursor-pointer"
                   >
                     Resend Code
                   </button>
                   <button
                     type="button"
                     onClick={() => { setIsVerifying(false); setError(''); setInfoMessage(''); }}
-                    className="hover:text-[#F3F8F8] transition-colors cursor-pointer"
+                    className="hover:text-[#F8FAFC] transition-colors cursor-pointer"
                   >
                     Back to Form
                   </button>
@@ -262,36 +246,36 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
               <form onSubmit={handleSubmit} className="space-y-3.5">
                 {/* Full Name */}
                 <div>
-                  <label className="block text-[11px] font-mono uppercase tracking-wider text-[#9BB2B7] mb-1 font-medium">
+                  <label className="block text-[11px] font-mono uppercase tracking-wider text-[#8899A6] mb-1 font-medium">
                     Full Name
                   </label>
                   <div className="relative">
-                    <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6F8B91]" />
+                    <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#627282]" />
                     <input
                       type="text"
                       required
                       value={displayName}
                       onChange={(e) => setDisplayName(e.target.value)}
                       placeholder="Dr. Researcher"
-                      className="w-full pl-10 pr-4 py-2 bg-[#061416] border border-[rgba(0,201,216,0.22)] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#F3F8F8] placeholder-[#6F8B91] text-xs sm:text-sm transition-all"
+                      className="w-full pl-10 pr-4 py-2 bg-[#090D11] border border-[#1C2633] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#F8FAFC] placeholder-[#6F8B91] text-xs sm:text-sm transition-all"
                     />
                   </div>
                 </div>
 
                 {/* Email Address */}
                 <div>
-                  <label className="block text-[11px] font-mono uppercase tracking-wider text-[#9BB2B7] mb-1 font-medium">
+                  <label className="block text-[11px] font-mono uppercase tracking-wider text-[#8899A6] mb-1 font-medium">
                     Email Address
                   </label>
                   <div className="relative">
-                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6F8B91]" />
+                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#627282]" />
                     <input
                       type="email"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="researcher@organization.org"
-                      className="w-full pl-10 pr-4 py-2 bg-[#061416] border border-[rgba(0,201,216,0.22)] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#F3F8F8] placeholder-[#6F8B91] text-xs sm:text-sm transition-all"
+                      className="w-full pl-10 pr-4 py-2 bg-[#090D11] border border-[#1C2633] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#F8FAFC] placeholder-[#6F8B91] text-xs sm:text-sm transition-all"
                     />
                   </div>
                 </div>
@@ -299,23 +283,23 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
                 {/* Password & Confirm Password in responsive 2-column or tight stack */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[11px] font-mono uppercase tracking-wider text-[#9BB2B7] mb-1 font-medium">
+                    <label className="block text-[11px] font-mono uppercase tracking-wider text-[#8899A6] mb-1 font-medium">
                       Password
                     </label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#6F8B91]" />
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#627282]" />
                       <input
                         type={showPassword ? 'text' : 'password'}
                         required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="••••••••"
-                        className="w-full pl-8 pr-8 py-2 bg-[#061416] border border-[rgba(0,201,216,0.22)] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#F3F8F8] placeholder-[#6F8B91] text-xs sm:text-sm transition-all"
+                        className="w-full pl-8 pr-8 py-2 bg-[#090D11] border border-[#1C2633] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#F8FAFC] placeholder-[#6F8B91] text-xs sm:text-sm transition-all"
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#6F8B91] hover:text-[#00C9D8] transition-colors cursor-pointer"
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#627282] hover:text-[#00D5E5] transition-colors cursor-pointer"
                         aria-label={showPassword ? 'Hide password' : 'Show password'}
                       >
                         {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
@@ -324,24 +308,24 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-mono uppercase tracking-wider text-[#9BB2B7] mb-1 font-medium">
+                    <label className="block text-[11px] font-mono uppercase tracking-wider text-[#8899A6] mb-1 font-medium">
                       Confirm Password
                     </label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#6F8B91]" />
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#627282]" />
                       <input
                         type={showConfirmPassword ? 'text' : 'password'}
                         required
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         placeholder="••••••••"
-                        className={`w-full pl-8 pr-8 py-2 bg-[#061416] border rounded-xl ${confirmPassword && !isMatching ? 'border-rose-500/50' : 'border-[rgba(0,201,216,0.22)]'
-                          } focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#F3F8F8] placeholder-[#6F8B91] text-xs sm:text-sm transition-all`}
+                        className={`w-full pl-8 pr-8 py-2 bg-[#090D11] border rounded-xl ${confirmPassword && !isMatching ? 'border-rose-500/50' : 'border-[#1C2633]'
+                          } focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#F8FAFC] placeholder-[#6F8B91] text-xs sm:text-sm transition-all`}
                       />
                       <button
                         type="button"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#6F8B91] hover:text-[#00C9D8] transition-colors cursor-pointer"
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#627282] hover:text-[#00D5E5] transition-colors cursor-pointer"
                         aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
                       >
                         {showConfirmPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
@@ -352,18 +336,18 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
 
                 {/* Compact Password Validation Badges */}
                 {password.length > 0 && (
-                  <div className="p-2.5 rounded-xl bg-[#061416] border border-[rgba(0,201,216,0.15)] text-[10px] font-mono text-[#9BB2B7]">
+                  <div className="p-2.5 rounded-xl bg-[#090D11] border border-[#1C2633] text-[10px] font-mono text-[#8899A6]">
                     <div className="grid grid-cols-3 gap-1.5">
-                      <div className={`flex items-center gap-1 ${hasMinLength ? 'text-[#00C9D8]' : 'text-[#6F8B91]'}`}>
+                      <div className={`flex items-center gap-1 ${hasMinLength ? 'text-[#00D5E5]' : 'text-[#627282]'}`}>
                         <span>{hasMinLength ? '✓' : '•'}</span> 6+ chars
                       </div>
-                      <div className={`flex items-center gap-1 ${hasLowercase && hasUppercase ? 'text-[#00C9D8]' : 'text-[#6F8B91]'}`}>
+                      <div className={`flex items-center gap-1 ${hasLowercase && hasUppercase ? 'text-[#00D5E5]' : 'text-[#627282]'}`}>
                         <span>{hasLowercase && hasUppercase ? '✓' : '•'}</span> Mixed case
                       </div>
-                      <div className={`flex items-center gap-1 ${hasNumber ? 'text-[#00C9D8]' : 'text-[#6F8B91]'}`}>
+                      <div className={`flex items-center gap-1 ${hasNumber ? 'text-[#00D5E5]' : 'text-[#627282]'}`}>
                         <span>{hasNumber ? '✓' : '•'}</span> Number
                       </div>
-                      <div className={`flex items-center gap-1 ${hasSpecialChar ? 'text-[#00C9D8]' : 'text-[#6F8B91]'}`}>
+                      <div className={`flex items-center gap-1 ${hasSpecialChar ? 'text-[#00D5E5]' : 'text-[#627282]'}`}>
                         <span>{hasSpecialChar ? '✓' : '•'}</span> Special char
                       </div>
                       {confirmPassword.length > 0 && (
@@ -380,7 +364,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-3 px-4 bg-[#00C9D8] hover:bg-[#00D4E5] active:bg-[#008FA3] text-[#061416] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_4px_18px_rgba(0,201,216,0.28)] hover:shadow-[0_6px_22px_rgba(0,201,216,0.38)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                    className="w-full py-3 px-4 bg-[#00D5E5] hover:bg-[#25E0EE] active:bg-[#00B4C2] text-[#040D10] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                   >
                     <span>{loading ? 'Creating Account...' : 'Create Account'}</span>
                     {!loading && <ArrowRight className="w-4 h-4" />}
@@ -390,11 +374,11 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
             )}
 
             {/* Bottom Login Link */}
-            <div className="mt-5 pt-4 border-t border-[rgba(0,201,216,0.15)] text-center text-xs text-[#9BB2B7]">
+            <div className="mt-5 pt-4 border-t border-[#1C2633] text-center text-xs text-[#8899A6]">
               Already have an account?{' '}
               <button
                 onClick={() => onNavigate('/login')}
-                className="text-[#00C9D8] hover:underline font-semibold ml-1 cursor-pointer transition-colors"
+                className="text-[#00D5E5] hover:underline font-semibold ml-1 cursor-pointer transition-colors"
               >
                 Sign In
               </button>
@@ -405,7 +389,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
       </main>
 
       {/* Minimal Footer */}
-      <footer className="relative z-20 w-full py-4 px-6 text-center text-[11px] font-mono text-[#6F8B91]">
+      <footer className="relative z-20 w-full py-4 px-6 text-center text-[11px] font-mono text-[#627282]">
         <span>VERITY AI • Research Security & Authenticity</span>
       </footer>
 
