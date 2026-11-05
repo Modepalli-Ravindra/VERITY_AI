@@ -266,13 +266,12 @@ export const ComparePage: React.FC<ComparePageProps> = ({
     <div className="flex-1 min-h-0 h-full text-[#F3F8F8] px-3 sm:px-6 lg:px-8 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#00C9D8]/30">
       
       {/* Background Glows */}
-      <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-[#00C9D8]/5 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-[#008FA3]/5 rounded-full blur-[140px] pointer-events-none -z-10" />
+      
 
       <div className="max-w-[1600px] w-full mx-auto flex flex-col flex-1 relative z-10 min-h-0 gap-3">
         
         {/* Workspace Toolbar / Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shrink-0 py-1.5 border-b border-[rgba(0,201,216,0.15)]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shrink-0 py-1.5 border-b border-[#1C2633]">
           <div className="flex flex-wrap items-center gap-3">
             <span className="text-xs sm:text-sm font-mono font-bold text-[#00C9D8] tracking-[0.25em] uppercase">
               COMPARE WORKSPACE
@@ -304,7 +303,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
                 localStorage.removeItem('verity_compare_ores');
                 localStorage.removeItem('verity_compare_hres');
               }}
-              className="px-3.5 py-2 text-xs font-mono tracking-widest uppercase text-[#9BB2B7] hover:text-[#F3F8F8] transition-colors cursor-pointer flex items-center gap-1.5 rounded-xl border border-[rgba(0,201,216,0.15)] bg-[#030B0D]/80 hover:border-[#00C9D8]/40"
+              className="px-3.5 py-2 text-xs font-mono tracking-widest uppercase text-[#9BB2B7] hover:text-[#F3F8F8] transition-colors cursor-pointer flex items-center gap-1.5 rounded-xl border border-[#1C2633] bg-[#0A0E13] hover:border-[#00C9D8]/40"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Clear Both</span>
@@ -338,9 +337,9 @@ export const ComparePage: React.FC<ComparePageProps> = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-[#061416]/80 backdrop-blur-md"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-[#06090C]/85"
             >
-              <div className="bg-[#0A2023] p-8 rounded-2xl border border-[rgba(0,201,216,0.25)] flex items-center justify-center shadow-2xl">
+              <div className="bg-[#10161D] p-8 rounded-2xl border border-[#223142] flex items-center justify-center shadow-2xl">
                 <ThinkingOrbs title="EVALUATING SIGNAL DIFFERENTIAL" stages={compareStages} durationMs={450} />
               </div>
             </motion.div>
@@ -350,7 +349,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
         {/* Comparison Telemetry Strip */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 shrink-0">
           {/* Card 1: Original Probability */}
-          <div className="bg-[#0A2023]/80 backdrop-blur-xl border border-[rgba(0,201,216,0.18)] rounded-2xl p-4 flex flex-col justify-between shadow-[0_16px_40px_rgba(0,0,0,0.4)] hover:border-[#00C9D8]/40 transition-all relative overflow-hidden group">
+          <div className="bg-[#10161D] border border-[#1C2633] rounded-2xl p-4 flex flex-col justify-between shadow-sm hover:border-[#2B3B4E] transition-all relative overflow-hidden group">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div>
               <span className="text-xs text-[#9BB2B7] font-mono tracking-widest uppercase block font-semibold leading-tight">Original Text AI Score</span>
@@ -375,7 +374,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
           </div>
 
           {/* Card 2: Adversarial / Rewritten Probability */}
-          <div className="bg-[#0A2023]/80 backdrop-blur-xl border border-[rgba(0,201,216,0.18)] rounded-2xl p-4 flex flex-col justify-between shadow-[0_16px_40px_rgba(0,0,0,0.4)] hover:border-[#00C9D8]/40 transition-all relative overflow-hidden group">
+          <div className="bg-[#10161D] border border-[#1C2633] rounded-2xl p-4 flex flex-col justify-between shadow-sm hover:border-[#2B3B4E] transition-all relative overflow-hidden group">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div>
               <span className="text-xs text-[#9BB2B7] font-mono tracking-widest uppercase block font-semibold leading-tight">Rewritten Text AI Score</span>
@@ -400,7 +399,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
           </div>
 
           {/* Card 3: Signal Change */}
-          <div className="bg-[#0A2023]/80 backdrop-blur-xl border border-[#00C9D8]/30 rounded-2xl p-4 flex flex-col justify-between shadow-[0_16px_40px_rgba(0,0,0,0.4)] hover:border-[#00C9D8]/50 transition-all relative overflow-hidden group">
+          <div className="bg-[#10161D] border border-[#203042] rounded-2xl p-4 flex flex-col justify-between shadow-sm hover:border-[#2E4560] transition-all relative overflow-hidden group">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/40 to-transparent" />
             <div>
               <span className="text-xs text-[#00C9D8] font-mono tracking-widest uppercase flex items-center gap-1.5 font-semibold leading-tight">
@@ -419,7 +418,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
           </div>
 
           {/* Card 4: Word Count Delta */}
-          <div className="bg-[#0A2023]/80 backdrop-blur-xl border border-[rgba(0,201,216,0.18)] rounded-2xl p-4 flex flex-col justify-between shadow-[0_16px_40px_rgba(0,0,0,0.4)] hover:border-[#00C9D8]/40 transition-all relative overflow-hidden group">
+          <div className="bg-[#10161D] border border-[#1C2633] rounded-2xl p-4 flex flex-col justify-between shadow-sm hover:border-[#2B3B4E] transition-all relative overflow-hidden group">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div>
               <span className="text-xs text-[#9BB2B7] font-mono tracking-widest uppercase block font-semibold leading-tight">Word Count Difference</span>
@@ -450,7 +449,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-1 min-h-[520px]">
           
           {/* Left Pane: Original Sequence */}
-          <div className="bg-[#0A2023]/80 backdrop-blur-xl rounded-2xl border border-[rgba(0,201,216,0.18)] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
+          <div className="bg-[#10161D]/80 backdrop-blur-xl rounded-2xl border border-[#1C2633] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div className="flex items-center justify-between px-5 py-3.5 bg-[#030B0D]/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
               <div className="flex items-center gap-2.5">
@@ -493,7 +492,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
           </div>
 
           {/* Right Pane: Adversarial Sequence */}
-          <div className="bg-[#0A2023]/80 backdrop-blur-xl rounded-2xl border border-[rgba(0,201,216,0.18)] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
+          <div className="bg-[#10161D]/80 backdrop-blur-xl rounded-2xl border border-[#1C2633] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div className="flex items-center justify-between px-5 py-3.5 bg-[#030B0D]/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
               <div className="flex items-center gap-2.5">

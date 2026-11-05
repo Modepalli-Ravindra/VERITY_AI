@@ -40,7 +40,6 @@ export const isTokenExpired = (token: string, skewSeconds = 30): boolean => {
 };
 
 let inMemoryToken: string | null = null;
-let inMemoryRefreshToken: string | null = null;
 
 export const saveAuthTokens = (accessToken?: string | null, refreshToken?: string | null) => {
   if (accessToken) {
@@ -50,7 +49,6 @@ export const saveAuthTokens = (accessToken?: string | null, refreshToken?: strin
     } catch {}
   }
   if (refreshToken) {
-    inMemoryRefreshToken = refreshToken;
     try {
       localStorage.setItem('verity_refresh_token', refreshToken);
     } catch {}
@@ -59,7 +57,6 @@ export const saveAuthTokens = (accessToken?: string | null, refreshToken?: strin
 
 export const clearAuthTokens = () => {
   inMemoryToken = null;
-  inMemoryRefreshToken = null;
   try {
     localStorage.removeItem('verity_access_token');
     localStorage.removeItem('verity_refresh_token');
@@ -104,8 +101,6 @@ class SQLiteQueryBuilder {
   private table: string;
   private action: 'select' | 'insert' | 'update' | 'delete' = 'select';
   private conditions: { field: string; value: any }[] = [];
-  private orderField?: string;
-  private orderAsc: boolean = true;
   private limitCount?: number;
   private insertData?: any;
   private updateData?: any;
@@ -114,7 +109,7 @@ class SQLiteQueryBuilder {
     this.table = table;
   }
 
-  select(fields = '*') {
+  select(_fields = '*') {
     this.action = 'select';
     return this;
   }
@@ -148,8 +143,7 @@ class SQLiteQueryBuilder {
   }
 
   order(field: string, opts?: { ascending?: boolean }) {
-    this.orderField = field;
-    this.orderAsc = opts?.ascending !== false;
+    void field; void opts;
     return this;
   }
 
@@ -238,8 +232,7 @@ export const insforge = {
     inMemoryToken = token;
   },
   getHttpClient: () => ({
-    setRefreshToken: (token: string | null) => {
-      inMemoryRefreshToken = token;
+    setRefreshToken: (_token: string | null) => {
     }
   }),
   tokenManager: {
@@ -329,7 +322,7 @@ export const insforge = {
         return { error: { message: err.message } };
       }
     },
-    refreshSession: async ({ refreshToken }: { refreshToken?: string }) => {
+    refreshSession: async ({ refreshToken: _refreshToken }: { refreshToken?: string } = {}) => {
       const token = inMemoryToken || localStorage.getItem('verity_access_token');
       return { data: { accessToken: token, refreshToken: token }, error: null };
     },

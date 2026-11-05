@@ -412,8 +412,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
     <div className="flex-1 min-h-0 h-full text-[#F3F8F8] px-3 sm:px-6 lg:px-8 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#00C9D8]/30">
       
       {/* Background Ambient Glows */}
-      <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-[#00C9D8]/5 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-[#008FA3]/5 rounded-full blur-[140px] pointer-events-none -z-10" />
+      
 
       <div className="max-w-[1600px] w-full mx-auto flex flex-col flex-1 relative z-10 min-h-0 gap-3">
         
@@ -426,7 +425,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
             <span className="text-[#00C9D8]/30 text-xs">•</span>
             
             {/* Tone Selector Pills */}
-            <div className="inline-flex p-1 rounded-xl bg-[#030B0D]/80 border border-[rgba(0,201,216,0.2)] gap-1.5 shadow-inner">
+            <div className="inline-flex p-1 rounded-xl bg-[#0A0E13] border border-[#1C2633] gap-1.5 shadow-inner">
               {tones.map((t) => {
                 const isActive = tone === t.id;
                 return (
@@ -455,13 +454,13 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
               <select
                 value={provider}
                 onChange={(e) => setProvider(e.target.value)}
-                className="bg-[#030B0D]/80 border border-[rgba(0,201,216,0.2)] rounded-lg px-3 py-1 text-xs font-mono text-[#00C9D8] focus:outline-none cursor-pointer uppercase shadow-inner"
+                className="bg-[#0A0E13] border border-[#1C2633] rounded-lg px-3 py-1 text-xs font-mono text-[#00C9D8] focus:outline-none cursor-pointer uppercase shadow-inner"
               >
-                <option value="auto" className="bg-[#0A2023] text-white">Auto Select</option>
-                <option value="google" className="bg-[#0A2023] text-white">Google Gemini</option>
-                <option value="groq" className="bg-[#0A2023] text-white">Groq Llama-3.3</option>
-                <option value="openrouter" className="bg-[#0A2023] text-white">OpenRouter</option>
-                <option value="nvidia" className="bg-[#0A2023] text-white">NVIDIA NeMo</option>
+                <option value="auto" className="bg-[#10161D] text-white">Auto Select</option>
+                <option value="google" className="bg-[#10161D] text-white">Google Gemini</option>
+                <option value="groq" className="bg-[#10161D] text-white">Groq Llama-3.3</option>
+                <option value="openrouter" className="bg-[#10161D] text-white">OpenRouter</option>
+                <option value="nvidia" className="bg-[#10161D] text-white">NVIDIA NeMo</option>
               </select>
             </div>
           </div>
@@ -474,7 +473,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                 setRecheckResult(null);
                 setError('');
               }}
-              className="px-3.5 py-2 text-xs font-mono text-[#9BB2B7] hover:text-[#F3F8F8] transition-colors uppercase tracking-widest cursor-pointer rounded-xl border border-[rgba(0,201,216,0.15)] bg-[#030B0D]/80 hover:border-[#00C9D8]/40"
+              className="px-3.5 py-2 text-xs font-mono text-[#9BB2B7] hover:text-[#F3F8F8] transition-colors uppercase tracking-widest cursor-pointer rounded-xl border border-[rgba(0,201,216,0.15)] bg-[#0A0E13] hover:border-[#00C9D8]/40"
             >
               CLEAR BOTH
             </button>
@@ -525,7 +524,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
               exit={{ opacity: 0 }}
               className="fixed inset-0 z-50 flex items-center justify-center bg-[#061416]/80 backdrop-blur-md"
             >
-              <div className="bg-[#0A2023] p-8 rounded-2xl border border-[rgba(0,201,216,0.25)] flex flex-col items-center justify-center shadow-2xl">
+              <div className="bg-[#10161D] p-8 rounded-2xl border border-[#223142] flex flex-col items-center justify-center shadow-2xl">
                 <ThinkingOrbs 
                   title={chunkProgress && chunkProgress.total > 1
                     ? `SECTION ${chunkProgress.current}/${chunkProgress.total} (${chunkProgress.percent}%)`
@@ -585,7 +584,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-1 min-h-[520px]">
           
           {/* Left Pane: Original Sequence */}
-          <div className="bg-[#0A2023]/80 backdrop-blur-xl rounded-2xl border border-[rgba(0,201,216,0.18)] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
+          <div className="bg-[#10161D] rounded-2xl border border-[#1C2633] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div className="flex items-center justify-between px-5 py-3.5 bg-[#030B0D]/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
               <div className="flex items-center gap-2.5">
@@ -620,7 +619,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
           </div>
 
           {/* Right Pane: Adversarial Sequence */}
-          <div className="bg-[#0A2023]/80 backdrop-blur-xl rounded-2xl border border-[rgba(0,201,216,0.18)] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
+          <div className="bg-[#10161D] rounded-2xl border border-[#1C2633] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div className="flex items-center justify-between px-5 py-3.5 bg-[#030B0D]/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
               <div className="flex items-center gap-2.5">
@@ -637,7 +636,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                   </span>
                 )}
                 {paraphrasedText && (
-                  <div className="inline-flex p-0.5 rounded-lg bg-[#030B0D]/80 border border-[rgba(0,201,216,0.2)] text-xs font-mono ml-1.5">
+                  <div className="inline-flex p-0.5 rounded-lg bg-[#0A0E13] border border-[#1C2633] text-xs font-mono ml-1.5">
                     <button
                       onClick={() => setOutputView('text')}
                       id="view-toggle-text"
@@ -744,7 +743,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-[#030B0D]/80 border border-[rgba(0,201,216,0.1)] font-sans text-base leading-relaxed whitespace-pre-wrap overflow-y-auto flex-1 text-[#F3F8F8]">
+                  <div className="p-4 rounded-xl bg-[#0A0E13] border border-[rgba(0,201,216,0.1)] font-sans text-base leading-relaxed whitespace-pre-wrap overflow-y-auto flex-1 text-[#F3F8F8]">
                     {diffChunks.map((chunk, idx) => {
                       if (chunk.type === 'removed') {
                         return (

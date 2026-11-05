@@ -1,114 +1,154 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-charcoal-teal: #061519;
-  --color-dark-teal: #0A2025;
-  --color-teal-blue: #148BA6;
+  --color-obsidian-950: #06090C;
+  --color-obsidian-900: #090D11;
+  --color-obsidian-850: #0C1116;
+  --color-obsidian-800: #10161D;
+  --color-obsidian-750: #141C25;
+  --color-obsidian-700: #1A2430;
+  --color-obsidian-600: #223040;
+  
   --color-electric-cyan: #00D5E5;
-  --color-soft-white: #EAF4F5;
-  --color-muted-blue: #91AEB5;
-  --color-input-bg: #030B0D;
+  --color-cyan-glow: #38E1EE;
+  --color-cyan-dim: #0E6B7A;
+  
+  --color-slate-text-900: #F8FAFC;
+  --color-slate-text-800: #E2E8F0;
+  --color-slate-text-700: #CBD5E1;
+  --color-slate-text-500: #8899A6;
+  --color-slate-text-400: #627282;
 
-  /* Aliasing lime-sprout to electric cyan for seamless backwards-compatibility across components */
+  /* Backward-compatible aliases */
+  --color-charcoal-teal: #090D11;
+  --color-dark-teal: #10161D;
+  --color-teal-blue: #0E6B7A;
+  --color-soft-white: #F8FAFC;
+  --color-muted-blue: #8899A6;
+  --color-input-bg: #0A0E13;
   --color-lime-sprout: #00D5E5;
-  --color-fresh-canopy: #0A2025;
-  --font-display: 'Roboto', sans-serif;
-  --font-sans: 'Roboto', sans-serif;
-  --font-mono: 'Roboto', sans-serif;
+  --color-fresh-canopy: #10161D;
+
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 100px;
-    font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #090D11;
+    color: #F8FAFC;
   }
   
   :root {
-    --bg-dark: #061519;
-    --bg-card: #0A2025;
-    --bg-input: #030B0D;
-    --border-subtle: rgba(0, 213, 229, 0.15);
-    --border-hover: rgba(0, 213, 229, 0.45);
-    --accent-primary: #148BA6;
+    --bg-base: #090D11;
+    --bg-dark: #090D11;
+    --bg-card: #10161D;
+    --bg-card-elevated: #141C25;
+    --bg-input: #0A0E13;
+    --border-subtle: #1C2633;
+    --border-hover: #2B3B4E;
+    --accent-primary: #00D5E5;
     --accent-glow: #00D5E5;
-    --accent-purple: #00D5E5;
-    --accent-violet: #148BA6;
-    --text-primary: #EAF4F5;
-    --text-secondary: #00D5E5;
-    --text-muted: #91AEB5;
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-muted: #8899A6;
   }
 
   body {
-    background-color: var(--bg-dark);
-    color: var(--text-primary);
-    font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #090D11;
+    color: #F8FAFC;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     overflow-x: hidden;
     margin: 0;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Override any default monospaced elements to use Roboto */
   code, kbd, samp, pre, .font-mono {
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'JetBrains Mono', monospace !important;
   }
 }
 
-/* Calm, Clean Card Container */
+/* Hallmark Solid Craft Cards */
+.hallmark-card {
+  background-color: #10161D;
+  border: 1px solid #1C2633;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 10px 24px rgba(0, 0, 0, 0.25);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.hallmark-card:hover {
+  border-color: #2D3E52;
+}
+
+.hallmark-card-elevated {
+  background-color: #141C25;
+  border: 1px solid #233142;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.hallmark-well {
+  background-color: #0A0E13;
+  border: 1px solid #1A2430;
+  border-radius: 0.75rem;
+}
+
+/* Legacy compatibility classes mapped to crisp Hallmark styles */
 .verity-card {
-  background-color: #0b0b10;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1.25rem;
+  background-color: #10161D;
+  border: 1px solid #1C2633;
+  border-radius: 1rem;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .verity-card:hover {
-  border-color: rgba(168, 85, 247, 0.25);
+  border-color: #2D3E52;
 }
 
 .verity-glass {
-  background: rgba(11, 11, 16, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: #10161D;
+  border: 1px solid #1C2633;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* Standard Gradient Text */
 .text-gradient-purple {
-  background: linear-gradient(135deg, #e9d5ff 0%, #c084fc 60%, #a855f7 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #F8FAFC;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar - Precision Engineering */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #050508;
+  background: #090D11;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
-  border-radius: 4px;
+  background: #1C2633;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: #2D3E52;
 }
 
-/* Chrome/Safari autofill override for dark teal/charcoal inputs */
+/* Chrome/Safari autofill override */
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 1000px #061416 inset !important;
-  -webkit-text-fill-color: #F3F8F8 !important;
-  caret-color: #00C9D8 !important;
+  -webkit-box-shadow: 0 0 0 1000px #0A0E13 inset !important;
+  -webkit-text-fill-color: #F8FAFC !important;
+  caret-color: #00D5E5 !important;
   transition: background-color 5000s ease-in-out 0s;
 }

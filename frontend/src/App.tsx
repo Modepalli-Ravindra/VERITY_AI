@@ -155,10 +155,7 @@ const MainRouter: React.FC = () => {
       
       {isSingleScreenRoute && (
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 bg-[var(--bg-dark)]" />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#061519] via-[#081A1D] to-[#061416]" />
-          <div className="absolute top-[-10%] right-[-5%] w-[50%] h-[50%] bg-[#00D5E5]/5 blur-[120px] rounded-full" />
-          <div className="absolute inset-0 opacity-[0.04] bg-[url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png')] mix-blend-overlay" />
+          <div className="absolute inset-0 bg-[#090D11]" />
         </div>
       )}
 

@@ -70,10 +70,10 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
   return (
     <div className="fixed top-0 w-full z-50 flex flex-col items-center pt-2 sm:pt-3 px-3 sm:px-6 pointer-events-none">
       <nav className={`pointer-events-auto transition-all duration-300 rounded-2xl w-full max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] flex items-center justify-between px-5 sm:px-7 py-2 sm:py-2.5 relative ${scrolled || mobileMenuOpen
-          ? 'bg-[#0A2025]/95 backdrop-blur-2xl border border-[rgba(0,201,216,0.35)] shadow-[0_20px_40px_rgba(0,0,0,0.6)]'
-          : 'bg-[#061519]/85 backdrop-blur-xl border border-[rgba(0,201,216,0.22)] shadow-[0_12px_32px_rgba(0,0,0,0.4)]'
+          ? 'bg-[#0E141B] border border-[#1C2633] shadow-[0_4px_24px_rgba(0,0,0,0.45)]'
+          : 'bg-[#0C1116] border border-[#1A232E] shadow-[0_2px_16px_rgba(0,0,0,0.35)]'
         }`}>
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/35 to-transparent pointer-events-none rounded-t-2xl" />
+        
 
         {/* Brand Logo */}
         <div
@@ -95,15 +95,15 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                 key={link.route}
                 onClick={() => handleNav(link.route)}
                 className={`px-3.5 py-1.5 rounded-xl text-sm font-medium transition-all duration-300 cursor-pointer relative border ${isActive
-                    ? 'text-[#00C9D8] bg-[#00C9D8]/10 border-[#00C9D8]/30 shadow-[0_0_12px_rgba(0,201,216,0.15)] font-semibold'
-                    : 'text-[#9BB2B7] border-transparent hover:text-[#F3F8F8] hover:bg-white/[0.04] hover:border-[rgba(0,201,216,0.15)]'
+                    ? 'text-[#00D5E5] bg-[#141C25] border-[#223142] font-semibold shadow-sm'
+                    : 'text-[#8899A6] border-transparent hover:text-[#F8FAFC] hover:bg-[#121820] hover:border-[#1C2633]'
                   }`}
               >
                 {link.name}
                 {isActive && (
                   <motion.div
                     layoutId="navbar-indicator"
-                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#00C9D8] shadow-[0_0_8px_rgba(0,201,216,0.8)]"
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#00D5E5]"
                   />
                 )}
               </button>
@@ -117,13 +117,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
             <>
               <button
                 onClick={() => handleNav('/login')}
-                className="text-sm font-medium text-[#F3F8F8] hover:text-[#00C9D8] transition-colors cursor-pointer px-4 py-2 border border-[rgba(0,201,216,0.18)] rounded-xl hover:bg-[rgba(0,201,216,0.06)] hover:border-[#00C9D8]/40"
+                className="text-sm font-medium text-[#CBD5E1] hover:text-[#F8FAFC] transition-colors cursor-pointer px-4 py-2 border border-[#1C2633] rounded-xl bg-[#10161D] hover:bg-[#141C25] hover:border-[#2B3B4E]"
               >
                 Login
               </button>
               <button
                 onClick={() => handleNav('/signup')}
-                className="px-5 py-2 text-sm font-bold bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] rounded-xl transition-all shadow-[0_0_20px_rgba(0,201,216,0.25)] hover:shadow-[0_0_26px_rgba(0,201,216,0.4)] cursor-pointer"
+                className="px-5 py-2 text-sm font-bold bg-[#00D5E5] hover:bg-[#25E0EE] text-[#040D10] rounded-xl transition-all shadow-sm hover:shadow-[0_2px_10px_rgba(0,213,229,0.25)] cursor-pointer"
               >
                 Get Started
               </button>
@@ -133,7 +133,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
               {currentRoute === '/' ? (
                 <button
                   onClick={() => handleNav('/dashboard')}
-                  className="px-5 py-2 text-sm font-bold bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] rounded-xl transition-all shadow-[0_0_20px_rgba(0,201,216,0.25)] hover:shadow-[0_0_26px_rgba(0,201,216,0.4)] cursor-pointer"
+                  className="px-5 py-2 text-sm font-bold bg-[#00D5E5] hover:bg-[#25E0EE] text-[#040D10] rounded-xl transition-all shadow-sm hover:shadow-[0_2px_10px_rgba(0,213,229,0.25)] cursor-pointer"
                 >
                   Go to Dashboard
                 </button>
@@ -150,7 +150,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                       }
                     }}
                     placeholder="Search analyses..."
-                    className="bg-[#030B0D]/70 border border-[rgba(0,201,216,0.18)] rounded-xl py-1.5 pl-9 pr-12 text-sm text-[#F3F8F8] placeholder-[#6F8B91] focus:outline-none focus:border-[#00C9D8] w-48 transition-colors"
+                    className="bg-[#0A0E13] border border-[#1C2633] rounded-xl py-1.5 pl-9 pr-12 text-sm text-[#F8FAFC] placeholder-[#627282] focus:outline-none focus:border-[#00D5E5] focus:ring-1 focus:ring-[#00D5E5]/20 w-48 transition-all"
                   />
                   <button
                     onClick={() => {
@@ -187,12 +187,12 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 8, scale: 0.96 }}
                       transition={{ duration: 0.15, ease: 'easeOut' }}
-                      className="absolute right-0 mt-3 w-60 bg-[#0A2025]/98 backdrop-blur-2xl border border-[rgba(0,201,216,0.25)] rounded-2xl shadow-[0_20px_45px_rgba(0,0,0,0.7)] p-2.5 z-50 flex flex-col gap-1.5 overflow-hidden"
+                      className="absolute right-0 mt-3 w-60 bg-[#0E141B] border border-[#1F2C3C] rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.6)] p-2.5 z-50 flex flex-col gap-1.5 overflow-hidden"
                     >
-                      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/40 to-transparent pointer-events-none" />
+                      
 
                       {/* User Info Header */}
-                      <div className="px-3 py-2 rounded-xl bg-[#061519]/80 border border-[rgba(0,201,216,0.12)] mb-1">
+                      <div className="px-3 py-2 rounded-xl bg-[#0A0E13] border border-[#1A232E] mb-1">
                         <p className="text-xs font-semibold text-[#F3F8F8] truncate font-sans">
                           {getUserDisplayName(user)}
                         </p>
@@ -267,9 +267,9 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="md:hidden pointer-events-auto w-full max-w-7xl mt-3 bg-[#0A2025]/95 backdrop-blur-2xl border border-[rgba(0,201,216,0.25)] shadow-[0_20px_40px_rgba(0,0,0,0.6)] rounded-2xl overflow-hidden relative"
+            className="md:hidden pointer-events-auto w-full max-w-7xl mt-3 bg-[#0E141B] border border-[#1C2633] shadow-[0_20px_40px_rgba(0,0,0,0.6)] rounded-2xl overflow-hidden relative"
           >
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
+            
             <div className="px-6 py-6 flex flex-col gap-4">
               {!user ? (
                 <>
