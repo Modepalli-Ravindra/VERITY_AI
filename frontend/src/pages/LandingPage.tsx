@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import {
@@ -7,10 +7,8 @@ import {
   SparklesIcon as Wand2,
   MagnifyingGlassIcon as Search,
   DocumentTextIcon as FileText,
-  ChevronDownIcon as ChevronDown,
   CpuChipIcon as Cpu,
   QrCodeIcon as QrCode,
-  PlayIcon as Play,
   CheckCircleIcon as CheckCircle
 } from '@heroicons/react/24/solid';
 import { VerityLogo } from '../components/VerityLogo';
@@ -21,14 +19,9 @@ interface LandingPageProps {
 
 export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
   const { user } = useAuth();
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const handleCTA = (route: string) => {
     onNavigate(user ? route : '/login');
-  };
-
-  const goToDemo = () => {
-    onNavigate('/demo');
   };
 
   return (
@@ -81,20 +74,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           >
             <button
               onClick={() => handleCTA('/analyze')}
-              className="px-7 py-3.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] hover:from-[#00E5F5] hover:to-[#00A3BA] text-[#051115] font-bold text-sm sm:text-base tracking-wide rounded-xl transition-all flex items-center gap-2.5 cursor-pointer hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#00C9D8]/20"
+              className="px-8 py-3.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] hover:from-[#00E5F5] hover:to-[#00A3BA] text-[#051115] font-bold text-sm sm:text-base tracking-wide rounded-xl transition-all flex items-center gap-2.5 cursor-pointer hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#00C9D8]/20"
             >
               <span>Analyze a Document</span>
               <ArrowRight className="w-4 h-4 fill-current" />
-            </button>
-
-            <button
-              onClick={goToDemo}
-              className="px-6 py-3.5 bg-[#0D151D]/85 backdrop-blur-2xl hover:bg-[#121E2A]/90 border border-white/[0.12] hover:border-[#00C9D8]/40 text-[#FFFFFF] font-medium text-sm sm:text-base rounded-xl transition-all flex items-center gap-2.5 cursor-pointer shadow-sm"
-            >
-              <div className="w-6 h-6 rounded-lg bg-[#00C9D8] text-[#051115] shadow-sm flex items-center justify-center">
-                <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
-              </div>
-              <span>Explore the Demo</span>
             </button>
           </motion.div>
 
@@ -391,72 +374,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
 
 
         {/* =========================================================================
-            FAQ SECTION
-           ========================================================================= */}
-        <section id="faq" className="mb-20 max-w-4xl mx-auto pt-4">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#00D5E5] text-[10px] font-mono tracking-widest uppercase font-bold mb-3">
-              FREQUENTLY ASKED QUESTIONS
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold tracking-tight text-[#FFFFFF]">
-              Common Questions & Answers
-            </h2>
-          </div>
-
-          <div className="space-y-3.5">
-            {[
-              { 
-                q: 'How does ModernBERT V5 improve AI detection?', 
-                a: 'ModernBERT V5 features a 1024-token sequence context with native flash attention, allowing it to process full-length paragraphs without loss of context. It is fused with a 20-dimensional stylometrics layer that flags syntactic repetition and low human variance.' 
-              },
-              { 
-                q: 'How does the 20-Dimensional Stylometric Fusion work?', 
-                a: 'We evaluate 20 linguistic signals—including syntactic burstiness variance, Simpson diversity index, punctuation entropy, sentence length standard deviation, and Type-Token Ratio—and fuse them with deep semantic embeddings to evaluate text flow holistically.' 
-              },
-              { 
-                q: 'Can it detect paraphrased or humanized AI text?', 
-                a: 'Yes. While basic classifiers suffer steep accuracy degradation against reworded text, VERITY inspects structural cadences, syntactic predictability, and sentence length variance that automated rewriters cannot easily disguise.' 
-              },
-              { 
-                q: 'How does Paraphrasing preserve factual integrity?', 
-                a: 'Our writing intelligence pipeline isolates proper nouns, dates, statistics, and domain formulas as immutable anchors. Transitional tropes (such as "delve into" or "testament to") are refactored into natural prose without changing factual assertions.' 
-              },
-              { 
-                q: 'What document formats and file sizes are supported?', 
-                a: 'VERITY supports DOCX, PDF, and plain TXT files with up to 100,000 characters. Files exceeding 20,000 characters automatically partition into bounded segments with overlap to prevent truncation errors.' 
-              },
-              { 
-                q: 'What is Verification Provenance and the QR verification portal?', 
-                a: 'Every evaluated document receives a verifiable SHA-256 cryptographic fingerprint, tamper-evident classification timestamp, and a shareable QR code that allows clients, teachers, or editors to audit authentic results independently.' 
-              },
-              { 
-                q: 'How does VERITY safeguard against false positives on formal writing?', 
-                a: 'VERITY employs a calibrated decision threshold of 0.70 for ModernBERT V5 specifically to protect legitimate formal human writing. Scores between 0.50 and 0.70 are categorized as moderate uncertainty rather than outright AI generation.' 
-              },
-              { 
-                q: 'Is my text stored or used to train external AI models?', 
-                a: 'No. VERITY processes text strictly in-memory during inference. Uploaded documents and analyzed text are never shared with third-party LLM providers for model training.' 
-              }
-            ].map((faq, i) => (
-              <div 
-                key={i} 
-                onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                className="bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-5 hover:border-[#00C9D8]/35 transition-all cursor-pointer overflow-hidden shadow-sm"
-              >
-                <div className="flex justify-between items-center">
-                  <h4 className="text-sm font-semibold text-white font-sans">{faq.q}</h4>
-                  <ChevronDown className={`w-4 h-4 text-[#00D5E5] fill-current transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`} />
-                </div>
-                <div className={`transition-all duration-300 ease-in-out ${openFaq === i ? 'max-h-60 mt-3 opacity-100' : 'max-h-0 opacity-0'}`}>
-                  <p className="text-xs text-[#8DA2AA] leading-relaxed pr-6 font-sans">{faq.a}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-
-        {/* =========================================================================
             BOTTOM CLOSING CTA
            ========================================================================= */}
         <section className="text-center py-16 px-8 sm:px-12 bg-[#0D151D]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl mb-16 relative overflow-hidden shadow-xl">
@@ -471,19 +388,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             <p className="text-[#8DA2AA] mb-8 text-sm sm:text-base leading-relaxed">
               Join researchers, publishers, and educators who verify text authenticity with VERITY.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex justify-center">
               <button 
                 onClick={() => handleCTA('/analyze')}
                 className="px-8 py-3.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] hover:from-[#00E5F5] hover:to-[#00A3BA] text-[#051115] font-bold rounded-full transition-all inline-flex items-center gap-2 cursor-pointer text-sm shadow-lg shadow-[#00C9D8]/25"
               >
                 <span>Start Analyzing Now</span>
                 <ArrowRight className="w-4 h-4 fill-current" />
-              </button>
-              <button 
-                onClick={() => onNavigate('/docs')}
-                className="px-6 py-3.5 bg-[#070D12]/90 hover:bg-[#101923] backdrop-blur-2xl text-[#FFFFFF] border border-[#1C2633] hover:border-[#00C9D8]/40 font-medium rounded-full transition-all text-sm cursor-pointer"
-              >
-                <span>Read Documentation</span>
               </button>
             </div>
           </div>
@@ -502,9 +413,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           </div>
 
           <div className="flex items-center gap-6">
-            <button onClick={() => onNavigate('/docs')} className="hover:text-[#00D5E5] transition-colors cursor-pointer">
-              Documentation
-            </button>
             <button onClick={() => handleCTA('/analyze')} className="hover:text-[#00D5E5] transition-colors cursor-pointer">
               Analyzer
             </button>

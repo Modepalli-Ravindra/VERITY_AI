@@ -52,9 +52,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
   const publicLinks = [
     { name: 'Home', route: '#home' },
     { name: 'Why VERITY', route: '#why-verity' },
-    { name: 'How it Works', route: '#how-it-works' },
-    { name: 'FAQ', route: '#faq' },
-    { name: 'Documentation', route: '/docs' }
+    { name: 'How it Works', route: '#how-it-works' }
   ];
 
   const appLinks = [
