@@ -76,23 +76,20 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
     : 0;
 
   return (
-    <div className="flex-1 w-full text-[#F3F8F8] px-4 sm:px-6 lg:px-8 py-5 font-sans relative selection:bg-[#00C9D8]/30">
+    <div className="flex-1 w-full text-[#F3F8F8] px-4 sm:px-6 lg:px-8 pt-2.5 pb-5 font-sans relative selection:bg-[#00C9D8]/30">
       
       {/* Precision Background Glows */}
       <div className="absolute top-[-100px] right-[-80px] w-[500px] h-[500px] bg-[#00C9D8]/5 rounded-full blur-[140px] pointer-events-none -z-10" />
       <div className="absolute bottom-[-100px] left-[-80px] w-[500px] h-[500px] bg-[#008FA3]/5 rounded-full blur-[140px] pointer-events-none -z-10" />
 
-      <div className="max-w-[1520px] mx-auto space-y-6">
+      <div className="max-w-[1520px] mx-auto space-y-4">
 
         {/* 1. Header Bar with System Status & Fast Launchers */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-[rgba(0,201,216,0.14)]">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-[rgba(0,201,216,0.14)]">
           <div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#F3F8F8] leading-tight">
               Welcome back, <span className="text-[#00C9D8] font-black">{getUserDisplayName(user)}</span>.
             </h1>
-            <p className="text-sm sm:text-base lg:text-lg text-[#9BB2B7] mt-1.5 font-sans font-medium">
-              Live monitoring for semantic detection & adversarial evaluation.
-            </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2.5">
