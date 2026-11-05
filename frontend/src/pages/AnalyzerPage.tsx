@@ -267,7 +267,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="flex-1 min-h-0 h-full text-[#F3F8F8] px-3 sm:px-6 lg:px-8 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#00C9D8]/30">
+    <div className="flex-1 min-h-0 h-full text-[#CCD0CF] px-3 sm:px-6 lg:px-8 pb-3 relative overflow-hidden font-sans bg-transparent flex flex-col selection:bg-[#253745]">
       
       {/* Background Ambient Glows */}
       
@@ -275,22 +275,22 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
       <div className="max-w-[1600px] w-full mx-auto flex flex-col flex-1 relative z-10 min-h-0 gap-3">
         
         {/* Workspace Toolbar / Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shrink-0 py-1.5 border-b border-[#1C2633]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shrink-0 py-1.5 border-b border-[#253745]">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="text-xs sm:text-sm font-mono font-bold text-[#00C9D8] tracking-[0.25em] uppercase">
+            <span className="text-xs sm:text-sm font-mono font-bold text-[#CCD0CF] tracking-[0.25em] uppercase">
               ANALYZE WORKSPACE
             </span>
-            <span className="text-[#00C9D8]/30 text-xs">•</span>
+            <span className="text-[#CCD0CF]/30 text-xs">•</span>
             <div className="flex items-center gap-1.5 text-xs font-mono text-[#9BB2B7]">
-              <Cpu className="w-4 h-4 text-[#00C9D8]" />
+              <Cpu className="w-4 h-4 text-[#CCD0CF]" />
               <span>ModernBERT-V5</span>
             </div>
-            <span className="text-[#00C9D8]/30 text-xs">•</span>
-            <span className="text-xs font-mono text-[#6F8B91]">Threshold: 0.70</span>
+            <span className="text-[#CCD0CF]/30 text-xs">•</span>
+            <span className="text-xs font-mono text-[#4A5C6A]">Threshold: 0.70</span>
             {savedSuccess && (
               <>
-                <span className="text-[#00C9D8]/30 text-xs">•</span>
-                <span className="text-xs font-mono text-[#00C9D8] flex items-center gap-1.5 font-semibold">
+                <span className="text-[#CCD0CF]/30 text-xs">•</span>
+                <span className="text-xs font-mono text-[#CCD0CF] flex items-center gap-1.5 font-semibold">
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   <span>RECORDED</span>
                 </span>
@@ -306,7 +306,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 setResult(null);
                 setError('');
               }}
-              className="px-3.5 py-2 text-xs font-mono text-[#9BB2B7] hover:text-[#F3F8F8] transition-colors uppercase tracking-widest cursor-pointer rounded-xl border border-[#1C2633] bg-[#0A0E13] hover:border-[#00C9D8]/40"
+              className="px-3.5 py-2 text-xs font-mono text-[#9BB2B7] hover:text-[#CCD0CF] transition-colors uppercase tracking-widest cursor-pointer rounded-xl border border-[#253745] bg-[#0A1821] hover:border-[#00C9D8]/40"
             >
               CLEAR
             </button>
@@ -314,7 +314,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
               onClick={handleAnalyze}
               disabled={loading || (inputMode === 'paste' ? !text.trim() : !selectedFile)}
               id="analyze-run-btn"
-              className="px-6 py-2.5 bg-[#00D5E5] hover:bg-[#25E0EE] text-[#040D10] font-bold text-xs sm:text-sm font-mono uppercase tracking-widest rounded-xl flex items-center gap-2.5 transition-all disabled:opacity-50 disabled:hover:bg-[#00D5E5] cursor-pointer shadow-sm"
+              className="px-6 py-2.5 bg-[#CCD0CF] hover:bg-white text-[#06141B] font-bold text-xs sm:text-sm font-mono uppercase tracking-widest rounded-xl flex items-center gap-2.5 transition-all disabled:opacity-50 disabled:hover:bg-[#CCD0CF] cursor-pointer shadow-sm"
             >
               {loading ? (
                 <>
@@ -338,9 +338,9 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-[#06090C]/85"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-[#06141B]/85"
             >
-              <div className="bg-[#0A2023] p-8 rounded-2xl border border-[#223142] flex items-center justify-center shadow-2xl">
+              <div className="bg-[#0A2023] p-8 rounded-2xl border border-[#253745] flex items-center justify-center shadow-2xl">
                 <ThinkingOrbs 
                   title={inputMode === 'upload' ? 'DOCUMENT INFERENCE ACTIVE' : 'INFERENCE ACTIVE'} 
                   stages={inputMode === 'upload' ? documentStages : detectorStages} 
@@ -382,25 +382,25 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-1 min-h-[520px]">
           
           {/* Left Pane: Original Sequence / Input */}
-          <div className="bg-[#10161D] rounded-2xl border border-[#1C2633] flex flex-col h-full overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.35)] relative">
+          <div className="bg-[#11212D] rounded-2xl border border-[#253745] flex flex-col h-full overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.35)] relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
-            <div className="flex items-center justify-between px-5 py-3.5 bg-[#0C1116] border-b border-[#1C2633] shrink-0">
+            <div className="flex items-center justify-between px-5 py-3.5 bg-[#06141B] border-b border-[#253745] shrink-0">
               <div className="flex items-center gap-2.5">
-                <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#F3F8F8] uppercase font-semibold">
+                <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#CCD0CF] uppercase font-semibold">
                   {inputMode === 'paste' ? 'ORIGINAL SEQUENCE' : 'DOCUMENT SOURCE'}
                 </span>
-                <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg bg-[#0A0E13] border border-[#1C2633] text-[#9BB2B7]" id="input-word-count">
+                <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg bg-[#0A1821] border border-[#253745] text-[#9BB2B7]" id="input-word-count">
                   {inputMode === 'paste' ? (
-                    <><span>Words: </span><strong className="text-[#00C9D8]">{wordCount}</strong></>
+                    <><span>Words: </span><strong className="text-[#CCD0CF]">{wordCount}</strong></>
                   ) : (
                     selectedFile ? formatFileSize(selectedFile.size) : 'NO FILE'
                   )}
                 </span>
-                <div className="inline-flex p-1 rounded-xl bg-[#0A0E13] border border-[#1C2633] text-xs font-mono ml-2">
+                <div className="inline-flex p-1 rounded-xl bg-[#0A1821] border border-[#253745] text-xs font-mono ml-2">
                   <button
                     onClick={() => { setInputMode('paste'); setError(''); }}
                     className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
-                      inputMode === 'paste' ? 'bg-[#00D5E5] text-[#040D10] font-bold shadow-sm' : 'text-[#9BB2B7] hover:text-[#F3F8F8]'
+                      inputMode === 'paste' ? 'bg-[#CCD0CF] text-[#06141B] font-bold shadow-sm' : 'text-[#9BB2B7] hover:text-[#CCD0CF]'
                     }`}
                   >
                     Paste Text
@@ -408,7 +408,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                   <button
                     onClick={() => { setInputMode('upload'); setError(''); }}
                     className={`px-3 py-1 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
-                      inputMode === 'upload' ? 'bg-[#00D5E5] text-[#040D10] font-bold shadow-sm' : 'text-[#9BB2B7] hover:text-[#F3F8F8]'
+                      inputMode === 'upload' ? 'bg-[#CCD0CF] text-[#06141B] font-bold shadow-sm' : 'text-[#9BB2B7] hover:text-[#CCD0CF]'
                     }`}
                   >
                     <UploadCloud className="w-3.5 h-3.5" />
@@ -421,7 +421,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 {inputMode === 'paste' && (
                   <button 
                     onClick={() => { navigator.clipboard.writeText(text); setCopiedInput(true); setTimeout(() => setCopiedInput(false), 2000); }} 
-                    className="px-3 py-1.5 text-xs font-mono text-[#9BB2B7] hover:text-[#00C9D8] transition-colors uppercase tracking-widest flex items-center gap-1.5 cursor-pointer rounded-lg hover:bg-[rgba(0,201,216,0.08)]"
+                    className="px-3 py-1.5 text-xs font-mono text-[#9BB2B7] hover:text-[#CCD0CF] transition-colors uppercase tracking-widest flex items-center gap-1.5 cursor-pointer rounded-lg hover:bg-[rgba(0,201,216,0.08)]"
                   >
                     {copiedInput ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copiedInput ? 'COPIED' : 'COPY'}</span>
@@ -434,7 +434,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                     setResult(null); 
                     setError(''); 
                   }} 
-                  className="px-3 py-1.5 text-xs font-mono text-[#6F8B91] hover:text-rose-400 transition-colors uppercase tracking-widest cursor-pointer rounded-lg hover:bg-rose-500/10"
+                  className="px-3 py-1.5 text-xs font-mono text-[#4A5C6A] hover:text-rose-400 transition-colors uppercase tracking-widest cursor-pointer rounded-lg hover:bg-rose-500/10"
                 >
                   CLEAR
                 </button>
@@ -446,7 +446,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Paste or type original sequence here to analyze its semantic and stylometric signals..."
-                className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#F3F8F8] text-base sm:text-lg font-sans leading-relaxed resize-none placeholder-[#6F8B91] focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[350px]"
+                className="flex-1 w-full p-5 sm:p-6 bg-transparent focus:outline-none text-[#CCD0CF] text-base sm:text-lg font-sans leading-relaxed resize-none placeholder-[#4A5C6A] focus:ring-1 focus:ring-[#00C9D8]/30 min-h-[350px]"
               />
             ) : (
               <div 
@@ -469,15 +469,15 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 />
 
                 {selectedFile ? (
-                  <div className="w-full max-w-lg p-8 rounded-2xl bg-[#0B0F14] border border-[#223142] flex flex-col items-center gap-4 shadow-xl relative overflow-hidden">
+                  <div className="w-full max-w-lg p-8 rounded-2xl bg-[#0A1821] border border-[#253745] flex flex-col items-center gap-4 shadow-xl relative overflow-hidden">
                     <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
-                    <div className="w-16 h-16 rounded-2xl bg-[#00C9D8]/10 border border-[#00C9D8]/20 flex items-center justify-center text-[#00C9D8]">
+                    <div className="w-16 h-16 rounded-2xl bg-[#00C9D8]/10 border border-[#00C9D8]/20 flex items-center justify-center text-[#CCD0CF]">
                       <FileText className="w-8 h-8" />
                     </div>
                     <div className="flex flex-col items-center text-center">
-                      <span className="text-base sm:text-lg font-medium text-[#F3F8F8] truncate max-w-sm">{selectedFile.name}</span>
+                      <span className="text-base sm:text-lg font-medium text-[#CCD0CF] truncate max-w-sm">{selectedFile.name}</span>
                       <div className="flex items-center gap-2.5 mt-1.5">
-                        <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg bg-[#00C9D8]/10 text-[#00C9D8] uppercase tracking-wider font-semibold border border-[#00C9D8]/20">
+                        <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg bg-[#00C9D8]/10 text-[#CCD0CF] uppercase tracking-wider font-semibold border border-[#00C9D8]/20">
                           {selectedFile.name.split('.').pop()?.toUpperCase()}
                         </span>
                         <span className="text-xs sm:text-sm text-[#9BB2B7] font-mono">{formatFileSize(selectedFile.size)}</span>
@@ -486,7 +486,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                     <div className="flex items-center gap-3 mt-3">
                       <button
                         onClick={() => fileInputRef.current?.click()}
-                        className="px-4 py-2 rounded-xl border border-[#202E3E] text-xs font-mono text-[#9BB2B7] hover:text-[#00C9D8] hover:border-[#00C9D8]/40 transition-all uppercase tracking-widest cursor-pointer bg-[#121922]"
+                        className="px-4 py-2 rounded-xl border border-[#253745] text-xs font-mono text-[#9BB2B7] hover:text-[#CCD0CF] hover:border-[#00C9D8]/40 transition-all uppercase tracking-widest cursor-pointer bg-[#11212D]"
                       >
                         Change File
                       </button>
@@ -502,19 +502,19 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 ) : (
                   <div
                     onClick={() => fileInputRef.current?.click()}
-                    className={`w-full max-w-lg h-72 flex flex-col items-center justify-center border-2 border-dashed ${dragActive ? 'border-[#00C9D8] bg-[#00C9D8]/5' : 'border-[#202E3E] hover:border-[#00C9D8]/50'} rounded-2xl p-8 cursor-pointer transition-all group shadow-md bg-[#0A0E13]`}
+                    className={`w-full max-w-lg h-72 flex flex-col items-center justify-center border-2 border-dashed ${dragActive ? 'border-[#00C9D8] bg-[#00C9D8]/5' : 'border-[#253745] hover:border-[#00C9D8]/50'} rounded-2xl p-8 cursor-pointer transition-all group shadow-md bg-[#0A1821]`}
                   >
-                    <div className="w-16 h-16 rounded-2xl bg-[#00C9D8]/10 group-hover:bg-[#00C9D8]/15 border border-[#202E3E] group-hover:border-[#00C9D8]/40 flex items-center justify-center text-[#00C9D8]/60 group-hover:text-[#00C9D8] transition-all mb-4">
+                    <div className="w-16 h-16 rounded-2xl bg-[#00C9D8]/10 group-hover:bg-[#00C9D8]/15 border border-[#253745] group-hover:border-[#00C9D8]/40 flex items-center justify-center text-[#CCD0CF]/60 group-hover:text-[#CCD0CF] transition-all mb-4">
                       <UploadCloud className="w-8 h-8" />
                     </div>
-                    <h3 className="text-[#F3F8F8] text-base sm:text-lg font-medium mb-1.5">Click to upload or drag & drop</h3>
+                    <h3 className="text-[#CCD0CF] text-base sm:text-lg font-medium mb-1.5">Click to upload or drag & drop</h3>
                     <p className="text-xs sm:text-sm text-[#9BB2B7] max-w-sm mb-4 leading-relaxed">
                       Multi-page PDF, DOCX, or TXT documents. Evaluated with bounded segment chunking.
                     </p>
                     <div className="flex items-center gap-2.5">
-                      <span className="px-3 py-1 rounded-lg bg-[#0A0E13] border border-[#1C2633] text-xs font-mono text-[#00C9D8] font-medium">PDF</span>
-                      <span className="px-3 py-1 rounded-lg bg-[#0A0E13] border border-[#1C2633] text-xs font-mono text-[#00C9D8] font-medium">DOCX</span>
-                      <span className="px-3 py-1 rounded-lg bg-[#0A0E13] border border-[#1C2633] text-xs font-mono text-[#00C9D8] font-medium">TXT</span>
+                      <span className="px-3 py-1 rounded-lg bg-[#0A1821] border border-[#253745] text-xs font-mono text-[#CCD0CF] font-medium">PDF</span>
+                      <span className="px-3 py-1 rounded-lg bg-[#0A1821] border border-[#253745] text-xs font-mono text-[#CCD0CF] font-medium">DOCX</span>
+                      <span className="px-3 py-1 rounded-lg bg-[#0A1821] border border-[#253745] text-xs font-mono text-[#CCD0CF] font-medium">TXT</span>
                     </div>
                   </div>
                 )}
@@ -523,19 +523,19 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
           </div>
 
           {/* Right Pane: Detection Diagnostics */}
-          <div className="bg-[#10161D] rounded-2xl border border-[#1C2633] flex flex-col h-full overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.35)] relative">
+          <div className="bg-[#11212D] rounded-2xl border border-[#253745] flex flex-col h-full overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.35)] relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
-            <div className="flex items-center justify-between px-5 py-3.5 bg-[#0C1116] border-b border-[#1C2633] shrink-0">
+            <div className="flex items-center justify-between px-5 py-3.5 bg-[#06141B] border-b border-[#253745] shrink-0">
               <div className="flex items-center gap-2.5">
-                <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#00C9D8] uppercase font-semibold">
+                <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#CCD0CF] uppercase font-semibold">
                   DETECTION DIAGNOSTICS
                 </span>
                 {result && (
                   <>
-                    <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg bg-[#0A0E13] border border-[#1C2633] text-[#9BB2B7] font-medium">
+                    <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg bg-[#0A1821] border border-[#253745] text-[#9BB2B7] font-medium">
                       {result.classification}
                     </span>
-                    <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg bg-[#00C9D8]/10 border border-[#00C9D8]/20 text-[#00C9D8] font-semibold">
+                    <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg bg-[#00C9D8]/10 border border-[#00C9D8]/20 text-[#CCD0CF] font-semibold">
                       {Math.round(result.ai_probability * 100)}% AI
                     </span>
                   </>
@@ -546,7 +546,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 <div className="flex items-center gap-2">
                   <button 
                     onClick={handleDownloadReport} 
-                    className="px-3.5 py-1.5 text-xs font-mono text-[#9BB2B7] hover:text-[#00C9D8] transition-colors uppercase tracking-widest flex items-center gap-1.5 cursor-pointer rounded-xl hover:bg-[rgba(0,201,216,0.08)] border border-[#202E3E] font-medium"
+                    className="px-3.5 py-1.5 text-xs font-mono text-[#9BB2B7] hover:text-[#CCD0CF] transition-colors uppercase tracking-widest flex items-center gap-1.5 cursor-pointer rounded-xl hover:bg-[rgba(0,201,216,0.08)] border border-[#253745] font-medium"
                   >
                     <Download className="w-4 h-4" />
                     <span>REPORT</span>
@@ -560,15 +560,15 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
               <div className="flex-1 overflow-y-auto p-5 sm:p-6 flex flex-col gap-5">
                 {/* Document Meta Banner (if document result) */}
                 {result.document_meta && (
-                  <div className="p-4 rounded-xl bg-[#0C1116] border border-[#1C2633] flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm font-mono">
-                    <div className="flex items-center gap-2.5 text-[#F3F8F8]">
-                      <FileText className="w-4 h-4 text-[#00C9D8]" />
+                  <div className="p-4 rounded-xl bg-[#06141B] border border-[#253745] flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm font-mono">
+                    <div className="flex items-center gap-2.5 text-[#CCD0CF]">
+                      <FileText className="w-4 h-4 text-[#CCD0CF]" />
                       <span className="font-medium truncate max-w-xs">{result.document_meta.filename}</span>
                     </div>
                     <div className="flex items-center gap-3.5 text-[#9BB2B7] text-xs uppercase tracking-wider">
                       <span>{result.document_meta.total_words} Words</span>
                       <span>{result.document_meta.total_characters} Chars</span>
-                      <span className="text-[#00C9D8] font-semibold">{result.document_meta.chunks_analyzed} Evaluated Chunks</span>
+                      <span className="text-[#CCD0CF] font-semibold">{result.document_meta.chunks_analyzed} Evaluated Chunks</span>
                     </div>
                   </div>
                 )}
@@ -580,7 +580,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                   return (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 shrink-0">
                       {/* AI Probability Card */}
-                      <div className="bg-[#061519]/80 border border-[#1C2633] rounded-2xl p-4 flex flex-col justify-between shadow-sm relative overflow-hidden group hover:border-[#00C9D8]/40 transition-all">
+                      <div className="bg-[#061519]/80 border border-[#253745] rounded-2xl p-4 flex flex-col justify-between shadow-sm relative overflow-hidden group hover:border-[#00C9D8]/40 transition-all">
                         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/20 to-transparent" />
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-[11px] font-mono tracking-widest uppercase text-[#9BB2B7] font-bold">
@@ -589,7 +589,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                           <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-lg ${
                             aiPercent >= 50 
                               ? 'bg-amber-500/15 text-amber-300 border border-amber-500/20' 
-                              : 'bg-[#00C9D8]/10 text-[#00C9D8] border border-[#00C9D8]/20'
+                              : 'bg-[#00C9D8]/10 text-[#CCD0CF] border border-[#00C9D8]/20'
                           }`}>
                             {aiPercent >= 70 ? 'HIGH RISK' : aiPercent >= 40 ? 'MODERATE' : 'LOW RISK'}
                           </span>
@@ -597,10 +597,10 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                         
                         <div className="flex items-center justify-between gap-3 my-0.5">
                           <div className="flex items-baseline gap-1">
-                            <span className="text-3xl sm:text-4xl font-black font-sans text-[#00C9D8] tracking-tight">
+                            <span className="text-3xl sm:text-4xl font-black font-sans text-[#CCD0CF] tracking-tight">
                               {aiPercent}
                             </span>
-                            <span className="text-xl font-bold font-sans text-[#00C9D8]/70">%</span>
+                            <span className="text-xl font-bold font-sans text-[#CCD0CF]/70">%</span>
                           </div>
 
                           {/* Circular Radial Gauge */}
@@ -630,7 +630,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                               />
                             </svg>
                             <div className="absolute inset-0 flex items-center justify-center">
-                              <span className="text-[11px] font-black font-sans text-[#00C9D8]">
+                              <span className="text-[11px] font-black font-sans text-[#CCD0CF]">
                                 {aiPercent}%
                               </span>
                             </div>
@@ -643,7 +643,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                       </div>
 
                       {/* Human Probability Card */}
-                      <div className="bg-[#061519]/80 border border-[#1C2633] rounded-2xl p-4 flex flex-col justify-between shadow-sm relative overflow-hidden group hover:border-emerald-400/40 transition-all">
+                      <div className="bg-[#061519]/80 border border-[#253745] rounded-2xl p-4 flex flex-col justify-between shadow-sm relative overflow-hidden group hover:border-emerald-400/40 transition-all">
                         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent" />
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-[11px] font-mono tracking-widest uppercase text-[#9BB2B7] font-bold">
@@ -709,11 +709,11 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 })()}
 
                 {/* Primary Classification & Assessment Card */}
-                <div className="p-5 sm:p-6 rounded-2xl bg-[#061519]/80 border border-[#1C2633] flex flex-col gap-2.5 shrink-0 shadow-md relative overflow-hidden">
+                <div className="p-5 sm:p-6 rounded-2xl bg-[#061519]/80 border border-[#253745] flex flex-col gap-2.5 shrink-0 shadow-md relative overflow-hidden">
                   <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
                   <div className="flex items-center justify-between flex-wrap gap-2.5">
                     <div className="flex items-center gap-3">
-                      <h2 className="text-2xl sm:text-3xl font-sans font-medium text-[#F3F8F8] tracking-tight">
+                      <h2 className="text-2xl sm:text-3xl font-sans font-medium text-[#CCD0CF] tracking-tight">
                         {result.classification}
                       </h2>
                       <span className={`px-2.5 py-1 rounded-lg text-xs uppercase font-mono tracking-widest font-semibold border ${
@@ -727,18 +727,18 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                     </div>
                   </div>
                   {result.risk_scoring?.assessment && (
-                    <p className="text-xs sm:text-sm text-[#00C9D8] font-mono leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[#CCD0CF] font-mono leading-relaxed">
                       {result.risk_scoring.assessment}
                     </p>
                   )}
                 </div>
 
                 {/* Interactive Diagnostic Indicators */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-[#061519]/80 border border-[#1C2633] flex flex-col gap-3.5 shrink-0 shadow-md relative overflow-hidden">
+                <div className="p-4 sm:p-5 rounded-2xl bg-[#061519]/80 border border-[#253745] flex flex-col gap-3.5 shrink-0 shadow-md relative overflow-hidden">
                   <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/20 to-transparent" />
-                  <div className="flex items-center justify-between border-b border-[#1C2633] pb-2.5">
-                    <span className="text-xs font-mono tracking-widest uppercase text-[#F3F8F8] font-semibold flex items-center gap-2">
-                      <Activity className="w-4 h-4 text-[#00C9D8]" />
+                  <div className="flex items-center justify-between border-b border-[#253745] pb-2.5">
+                    <span className="text-xs font-mono tracking-widest uppercase text-[#CCD0CF] font-semibold flex items-center gap-2">
+                      <Activity className="w-4 h-4 text-[#CCD0CF]" />
                       <span>Diagnostic Signals</span>
                     </span>
                     <span className="text-[11px] font-mono text-[#9BB2B7]">
@@ -748,10 +748,10 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {/* Signal 1: Vocabulary Variety */}
-                    <div className="p-3 rounded-xl bg-[#030B0D]/60 border border-[#1C2633] hover:border-[#00C9D8]/40 transition-all">
+                    <div className="p-3 rounded-xl bg-[#030B0D]/60 border border-[#253745] hover:border-[#00C9D8]/40 transition-all">
                       <div className="flex items-center justify-between text-xs font-mono mb-1.5">
                         <span className="text-[#9BB2B7]">Vocabulary Variety</span>
-                        <span className="text-[#00C9D8] font-semibold">
+                        <span className="text-[#CCD0CF] font-semibold">
                           {result.stylometric_features?.vocabulary_diversity 
                             ? `${Math.round(result.stylometric_features.vocabulary_diversity * 100)}%` 
                             : (result.ai_probability > 0.5 ? 'Repetitive' : 'High')}
@@ -763,13 +763,13 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                           style={{ width: `${result.stylometric_features?.vocabulary_diversity ? Math.min(100, Math.round(result.stylometric_features.vocabulary_diversity * 100)) : (result.ai_probability > 0.5 ? 28 : 86)}%` }}
                         />
                       </div>
-                      <span className="text-[10px] text-[#6F8B91] font-sans block mt-1.5">
+                      <span className="text-[10px] text-[#4A5C6A] font-sans block mt-1.5">
                         {result.ai_probability > 0.5 ? 'Predictable word choice' : 'Rich human lexical range'}
                       </span>
                     </div>
 
                     {/* Signal 2: Sentence Burstiness */}
-                    <div className="p-3 rounded-xl bg-[#030B0D]/60 border border-[#1C2633] hover:border-emerald-400/40 transition-all">
+                    <div className="p-3 rounded-xl bg-[#030B0D]/60 border border-[#253745] hover:border-emerald-400/40 transition-all">
                       <div className="flex items-center justify-between text-xs font-mono mb-1.5">
                         <span className="text-[#9BB2B7]">Sentence Flow</span>
                         <span className="text-emerald-400 font-semibold">
@@ -782,16 +782,16 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                           style={{ width: `${result.ai_probability > 0.5 ? 32 : 88}%` }}
                         />
                       </div>
-                      <span className="text-[10px] text-[#6F8B91] font-sans block mt-1.5">
+                      <span className="text-[10px] text-[#4A5C6A] font-sans block mt-1.5">
                         {result.ai_probability > 0.5 ? 'Robotic length cadence' : 'Natural sentence rhythm'}
                       </span>
                     </div>
 
                     {/* Signal 3: Model Confidence */}
-                    <div className="p-3 rounded-xl bg-[#030B0D]/60 border border-[#1C2633] hover:border-teal-400/40 transition-all">
+                    <div className="p-3 rounded-xl bg-[#030B0D]/60 border border-[#253745] hover:border-teal-400/40 transition-all">
                       <div className="flex items-center justify-between text-xs font-mono mb-1.5">
                         <span className="text-[#9BB2B7]">Model Certainty</span>
-                        <span className="text-[#00C9D8] font-semibold">
+                        <span className="text-[#CCD0CF] font-semibold">
                           {result.confidence || 'High'}
                         </span>
                       </div>
@@ -801,7 +801,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                           style={{ width: `${result.confidence === 'High' ? 95 : result.confidence === 'Medium' ? 70 : 45}%` }}
                         />
                       </div>
-                      <span className="text-[10px] text-[#6F8B91] font-sans block mt-1.5">
+                      <span className="text-[10px] text-[#4A5C6A] font-sans block mt-1.5">
                         Distance from 0.70 threshold
                       </span>
                     </div>
@@ -811,11 +811,11 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 {/* Multi-Section Breakdown ONLY if document has multiple chunks (> 1) */}
                 {result.segments && result.segments.length > 1 && (
                   <div className="flex flex-col gap-2.5 shrink-0">
-                    <div className="flex items-center justify-between border-b border-[#1C2633] pb-1.5">
+                    <div className="flex items-center justify-between border-b border-[#253745] pb-1.5">
                       <span className="text-xs font-mono tracking-[0.2em] text-[#9BB2B7] uppercase font-semibold">
                         Segment Breakdown ({result.segments.length} Sections)
                       </span>
-                      <span className="text-xs font-mono text-[#6F8B91] uppercase tracking-widest">
+                      <span className="text-xs font-mono text-[#4A5C6A] uppercase tracking-widest">
                         Multi-Page Analysis
                       </span>
                     </div>
@@ -866,24 +866,24 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 </div>
               </div>
             ) : (
-              <div className="flex-1 p-8 sm:p-10 flex flex-col items-center justify-center text-center text-[#6F8B91]">
-                <div className="w-14 h-14 rounded-2xl bg-[#00C9D8]/10 border border-[#202E3E] flex items-center justify-center text-[#00C9D8] mb-4 shadow-[0_0_20px_rgba(0,201,216,0.15)]">
+              <div className="flex-1 p-8 sm:p-10 flex flex-col items-center justify-center text-center text-[#4A5C6A]">
+                <div className="w-14 h-14 rounded-2xl bg-[#00C9D8]/10 border border-[#253745] flex items-center justify-center text-[#CCD0CF] mb-4 shadow-[0_0_20px_rgba(0,201,216,0.15)]">
                   <ShieldCheck className="w-7 h-7" />
                 </div>
-                <h3 className="text-sm sm:text-base font-mono uppercase tracking-widest text-[#F3F8F8] mb-2 font-semibold">
+                <h3 className="text-sm sm:text-base font-mono uppercase tracking-widest text-[#CCD0CF] mb-2 font-semibold">
                   Detection Diagnostics Ready
                 </h3>
                 <p className="text-xs sm:text-sm text-[#9BB2B7] max-w-sm leading-relaxed mb-6 font-sans">
                   Input text on the left or upload a DOCX/PDF to evaluate semantic representations and stylometric burstiness.
                 </p>
-                <div className="grid grid-cols-2 gap-3 w-full max-w-sm text-left text-xs font-mono border-t border-[#1C2633] pt-4">
-                  <div className="text-[#6F8B91]">Primary Engine:</div>
-                  <div className="text-[#F3F8F8] text-right font-medium">ModernBERT V5</div>
-                  <div className="text-[#6F8B91]">Decision Threshold:</div>
-                  <div className="text-[#00C9D8] text-right font-semibold">0.70 Calibrated</div>
-                  <div className="text-[#6F8B91]">Context Window:</div>
-                  <div className="text-[#F3F8F8] text-right font-medium">1024 Tokens</div>
-                  <div className="text-[#6F8B91]">Preservation:</div>
+                <div className="grid grid-cols-2 gap-3 w-full max-w-sm text-left text-xs font-mono border-t border-[#253745] pt-4">
+                  <div className="text-[#4A5C6A]">Primary Engine:</div>
+                  <div className="text-[#CCD0CF] text-right font-medium">ModernBERT V5</div>
+                  <div className="text-[#4A5C6A]">Decision Threshold:</div>
+                  <div className="text-[#CCD0CF] text-right font-semibold">0.70 Calibrated</div>
+                  <div className="text-[#4A5C6A]">Context Window:</div>
+                  <div className="text-[#CCD0CF] text-right font-medium">1024 Tokens</div>
+                  <div className="text-[#4A5C6A]">Preservation:</div>
                   <div className="text-emerald-400 text-right font-medium">100% Full Document</div>
                 </div>
               </div>

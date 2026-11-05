@@ -56,7 +56,7 @@ export const LogoutPage: React.FC<LogoutPageProps> = ({ onNavigate }) => {
   }, [signOut, onNavigate]);
 
   return (
-    <div className="min-h-screen bg-[#090D11] text-[#F3F8F8] flex flex-col items-center justify-center p-4 relative overflow-hidden font-sans select-none">
+    <div className="min-h-screen bg-[#06141B] text-[#CCD0CF] flex flex-col items-center justify-center p-4 relative overflow-hidden font-sans select-none">
       {/* Ambient background glows */}
       
 
@@ -67,7 +67,7 @@ export const LogoutPage: React.FC<LogoutPageProps> = ({ onNavigate }) => {
         initial={{ opacity: 0, y: 20, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="w-full max-w-md bg-[#10161D] border border-[#1C2633] rounded-2xl p-8 sm:p-9 text-center shadow-[0_8px_32px_rgba(0,0,0,0.5)] relative overflow-hidden z-10"
+        className="w-full max-w-md bg-[#11212D] border border-[#253745] rounded-2xl p-8 sm:p-9 text-center shadow-[0_8px_32px_rgba(0,0,0,0.5)] relative overflow-hidden z-10"
       >
         {/* Glowing top cyan accent line */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#00C9D8] to-transparent shadow-[0_0_15px_#00C9D8]" />
@@ -75,7 +75,7 @@ export const LogoutPage: React.FC<LogoutPageProps> = ({ onNavigate }) => {
         {/* Brand Header */}
         <div className="flex items-center justify-center gap-2.5 mb-7">
           <VerityLogo className="h-9 w-auto" />
-          <span className="font-mono text-base font-bold tracking-widest text-[#F4F7F8]">VERITY</span>
+          <span className="font-mono text-base font-bold tracking-widest text-[#CCD0CF]">VERITY</span>
         </div>
 
         {/* High-tech Multi-Ring Spinning Loader */}
@@ -98,13 +98,13 @@ export const LogoutPage: React.FC<LogoutPageProps> = ({ onNavigate }) => {
           />
 
           {/* Inner center badge */}
-          <div className="w-11 h-11 rounded-2xl bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#00C9D8] shadow-[0_0_16px_rgba(0,201,216,0.3)]">
+          <div className="w-11 h-11 rounded-2xl bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#CCD0CF] shadow-[0_0_16px_rgba(0,201,216,0.3)]">
             <LogOut className="w-5 h-5 stroke-[2.2]" />
           </div>
         </div>
 
         {/* Text descriptions */}
-        <h2 className="text-2xl font-bold font-sans tracking-tight text-[#F3F8F8] mb-2">
+        <h2 className="text-2xl font-bold font-sans tracking-tight text-[#CCD0CF] mb-2">
           Signing Out
         </h2>
         <p className="text-xs sm:text-sm font-sans text-[#9BB2B7] mb-5 leading-relaxed min-h-[38px] flex items-center justify-center">
@@ -122,8 +122,8 @@ export const LogoutPage: React.FC<LogoutPageProps> = ({ onNavigate }) => {
         </div>
 
         {/* Security badge pill */}
-        <div className="p-2.5 rounded-xl bg-[#030B0D]/80 border border-[rgba(0,201,216,0.15)] flex items-center justify-center gap-2 text-xs font-mono text-[#00C9D8]">
-          <ShieldCheck className="w-4 h-4 text-[#00C9D8]" />
+        <div className="p-2.5 rounded-xl bg-[#030B0D]/80 border border-[rgba(0,201,216,0.15)] flex items-center justify-center gap-2 text-xs font-mono text-[#CCD0CF]">
+          <ShieldCheck className="w-4 h-4 text-[#CCD0CF]" />
           <span>Session Invalidation Verified</span>
         </div>
 
@@ -131,7 +131,7 @@ export const LogoutPage: React.FC<LogoutPageProps> = ({ onNavigate }) => {
         <div className="mt-5">
           <button
             onClick={() => onNavigate('/')}
-            className="text-[11px] font-mono text-[#6F8B91] hover:text-[#00C9D8] transition-colors cursor-pointer uppercase tracking-wider"
+            className="text-[11px] font-mono text-[#4A5C6A] hover:text-[#CCD0CF] transition-colors cursor-pointer uppercase tracking-wider"
           >
             Immediate Return to Home →
           </button>

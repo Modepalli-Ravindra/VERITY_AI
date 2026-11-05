@@ -2,35 +2,44 @@
 @import "tailwindcss";
 
 @theme {
-  --color-obsidian-950: #06090C;
-  --color-obsidian-900: #090D11;
-  --color-obsidian-850: #0C1116;
-  --color-obsidian-800: #10161D;
-  --color-obsidian-750: #141C25;
-  --color-obsidian-700: #1A2430;
-  --color-obsidian-600: #223040;
-  
-  --color-electric-cyan: #00D5E5;
-  --color-cyan-glow: #38E1EE;
-  --color-cyan-dim: #0E6B7A;
-  
-  --color-slate-text-900: #F8FAFC;
-  --color-slate-text-800: #E2E8F0;
-  --color-slate-text-700: #CBD5E1;
-  --color-slate-text-500: #8899A6;
-  --color-slate-text-400: #627282;
+  --color-canvas: #06141B;
+  --color-surface: #11212D;
+  --color-surface-hover: #172836;
+  --color-border: #253745;
+  --color-border-hover: #364C5E;
+  --color-muted: #4A5C6A;
+  --color-secondary: #9BA8AB;
+  --color-primary: #CCD0CF;
 
-  /* Backward-compatible aliases */
-  --color-charcoal-teal: #090D11;
-  --color-dark-teal: #10161D;
-  --color-teal-blue: #0E6B7A;
-  --color-soft-white: #F8FAFC;
-  --color-muted-blue: #8899A6;
-  --color-input-bg: #0A0E13;
-  --color-lime-sprout: #00D5E5;
-  --color-fresh-canopy: #10161D;
+  /* Backward-compatible theme aliases */
+  --color-obsidian-950: #06141B;
+  --color-obsidian-900: #06141B;
+  --color-obsidian-850: #0A1A24;
+  --color-obsidian-800: #11212D;
+  --color-obsidian-750: #172836;
+  --color-obsidian-700: #253745;
+  --color-obsidian-600: #364C5E;
+  
+  --color-electric-cyan: #CCD0CF;
+  --color-cyan-glow: #CCD0CF;
+  --color-cyan-dim: #253745;
+  
+  --color-slate-text-900: #CCD0CF;
+  --color-slate-text-800: #CCD0CF;
+  --color-slate-text-700: #9BA8AB;
+  --color-slate-text-500: #9BA8AB;
+  --color-slate-text-400: #4A5C6A;
 
-  /* Unified Single Premium Sans-Serif Font */
+  --color-charcoal-teal: #06141B;
+  --color-dark-teal: #11212D;
+  --color-teal-blue: #253745;
+  --color-soft-white: #CCD0CF;
+  --color-muted-blue: #9BA8AB;
+  --color-input-bg: #0A1821;
+  --color-lime-sprout: #CCD0CF;
+  --color-fresh-canopy: #11212D;
+
+  /* Single Unified Premium Sans-Serif Font */
   --font-display: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -42,8 +51,8 @@
     scroll-padding-top: 100px;
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'tnum';
-    background-color: #090D11;
-    color: #F8FAFC;
+    background-color: #06141B !important;
+    color: #CCD0CF;
     overflow-x: hidden;
     margin: 0;
     min-height: 100vh;
@@ -52,92 +61,76 @@
   }
   
   :root {
-    --bg-base: #090D11;
-    --bg-dark: #090D11;
-    --bg-card: #10161D;
-    --bg-card-elevated: #141C25;
-    --bg-input: #0A0E13;
-    --border-subtle: #1C2633;
-    --border-hover: #2B3B4E;
-    --accent-primary: #00D5E5;
-    --accent-glow: #00D5E5;
-    --text-primary: #F8FAFC;
-    --text-secondary: #CBD5E1;
-    --text-muted: #8899A6;
+    --bg-base: #06141B;
+    --bg-dark: #06141B;
+    --bg-card: #11212D;
+    --bg-card-elevated: #172836;
+    --bg-input: #0A1821;
+    --border-subtle: #253745;
+    --border-hover: #364C5E;
+    --accent-primary: #CCD0CF;
+    --accent-glow: #CCD0CF;
+    --text-primary: #CCD0CF;
+    --text-secondary: #9BA8AB;
+    --text-muted: #4A5C6A;
   }
 
-  /* Unified premium sans-serif typography across code, badges, numbers */
+  /* Unified sans-serif font across code, badges, numbers */
   code, kbd, samp, pre, .font-mono {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
     font-feature-settings: 'tnum' on, 'zero' on;
   }
 }
 
-/* Hallmark Solid Craft Cards */
-.hallmark-card {
-  background-color: #10161D;
-  border: 1px solid #1C2633;
+/* Solid Minimal Component Cards: #11212D on #06141B */
+.hallmark-card, .verity-card, .verity-glass {
+  background-color: #11212D !important;
+  border: 1px solid #253745 !important;
   border-radius: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 10px 24px rgba(0, 0, 0, 0.25);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.hallmark-card:hover {
-  border-color: #2D3E52;
+.hallmark-card:hover, .verity-card:hover {
+  border-color: #364C5E !important;
 }
 
 .hallmark-card-elevated {
-  background-color: #141C25;
-  border: 1px solid #233142;
+  background-color: #172836 !important;
+  border: 1px solid #253745 !important;
   border-radius: 1rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .hallmark-well {
-  background-color: #0A0E13;
-  border: 1px solid #1A2430;
+  background-color: #0A1821 !important;
+  border: 1px solid #253745 !important;
   border-radius: 0.75rem;
 }
 
-/* Legacy compatibility classes mapped to crisp Hallmark styles */
-.verity-card {
-  background-color: #10161D;
-  border: 1px solid #1C2633;
-  border-radius: 1rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.verity-card:hover {
-  border-color: #2D3E52;
-}
-
-.verity-glass {
-  background-color: #10161D;
-  border: 1px solid #1C2633;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-}
-
 .text-gradient-purple {
-  color: #F8FAFC;
+  color: #CCD0CF;
 }
 
-/* Custom Scrollbar - Precision Engineering */
+/* Custom Scrollbar - Minimal Design */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #090D11;
+  background: #06141B;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1C2633;
+  background: #253745;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2D3E52;
+  background: #4A5C6A;
 }
 
 /* Chrome/Safari autofill override */
@@ -145,8 +138,8 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 1000px #0A0E13 inset !important;
-  -webkit-text-fill-color: #F8FAFC !important;
-  caret-color: #00D5E5 !important;
+  -webkit-box-shadow: 0 0 0 1000px #0A1821 inset !important;
+  -webkit-text-fill-color: #CCD0CF !important;
+  caret-color: #CCD0CF !important;
   transition: background-color 5000s ease-in-out 0s;
 }

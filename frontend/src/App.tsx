@@ -144,7 +144,7 @@ const MainRouter: React.FC = () => {
   const isSingleScreenRoute = protectedRoutes.includes(currentRoute) || currentRoute === '/docs';
 
   return (
-    <div className={`${isSingleScreenRoute ? 'h-screen' : 'min-h-screen'} bg-[#090D11] text-[#F8FAFC] flex flex-col justify-between overflow-hidden relative`}>
+    <div className={`${isSingleScreenRoute ? 'h-screen' : 'min-h-screen'} bg-[#06141B] text-[#CCD0CF] flex flex-col justify-between overflow-hidden relative`}>
       
       {/* 
         Layout Logic:
@@ -155,7 +155,7 @@ const MainRouter: React.FC = () => {
       
       {isSingleScreenRoute && (
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 bg-[#090D11]" />
+          <div className="absolute inset-0 bg-[#06141B]" />
         </div>
       )}
 
@@ -177,7 +177,7 @@ const MainRouter: React.FC = () => {
 
       {/* Remotion Product Demo Video Modal */}
       {showDemoVideo && (
-        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-lg flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/90  flex items-center justify-center p-4">
           <div className="w-full max-w-4xl bg-[#0e0e14] border border-indigo-500/30 rounded-3xl p-4 sm:p-6 space-y-4 relative shadow-2xl">
             <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <div className="flex items-center gap-2 text-xs font-mono font-semibold text-indigo-300">
