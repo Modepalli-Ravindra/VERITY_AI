@@ -87,20 +87,11 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
         {/* 1. Header Bar with System Status & Fast Launchers */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-[rgba(0,201,216,0.14)]">
           <div>
-            <div className="flex items-center gap-2.5 mb-1.5">
-              <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00C9D8] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00C9D8]"></span>
-              </span>
-              <span className="text-[11px] font-mono tracking-[0.22em] text-[#00C9D8] uppercase font-bold">
-                Operational Telemetry • Engine Active
-              </span>
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#F3F8F8]">
-              Intelligence Dashboard
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#F3F8F8] leading-tight">
+              Welcome back, <span className="text-[#00C9D8] font-black">{getUserDisplayName(user)}</span>.
             </h1>
-            <p className="text-xs sm:text-sm text-[#9BB2B7] mt-0.5 font-sans">
-              Welcome back, <span className="text-[#F3F8F8] font-semibold">{getUserDisplayName(user)}</span>. Live monitoring for semantic detection & adversarial evaluation.
+            <p className="text-sm sm:text-base lg:text-lg text-[#9BB2B7] mt-1.5 font-sans font-medium">
+              Live monitoring for semantic detection & adversarial evaluation.
             </p>
           </div>
 
