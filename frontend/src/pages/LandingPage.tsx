@@ -49,20 +49,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
            ========================================================================= */}
         <section className="flex flex-col items-center justify-center text-center max-w-4xl xl:max-w-5xl mx-auto pt-6 lg:pt-14 pb-20 min-h-[58vh] relative z-20">
 
-          {/* Eyebrow Label Pill */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="relative mb-6"
-          >
-            <div className="relative px-4 py-1.5 rounded-full bg-[#0D151D]/85 backdrop-blur-2xl border border-white/[0.1] flex items-center gap-2 text-[11px] sm:text-xs font-mono tracking-[0.18em] text-[#FFFFFF] uppercase font-bold shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00D5E5] animate-pulse" />
-              <span>AI DETECTION</span>
-              <span className="text-white/30 font-normal">/</span>
-              <span>DOCUMENT INTELLIGENCE</span>
-            </div>
-          </motion.div>
 
           {/* Headline — Centered, Two Lines with Antigravity Vintage Decorative Serif */}
           <motion.h1
