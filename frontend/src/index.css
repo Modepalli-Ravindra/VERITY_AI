@@ -1,5 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Redaction+10:ital,wght@0,400;0,700;1,400&family=Redaction:ital,wght@0,400;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'Redaction 10';
+  src: url('/fonts/redaction10-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Redaction 10';
+  src: url('/fonts/redaction10-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Redaction 10';
+  src: url('/fonts/redaction10-italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Redaction';
+  src: url('/fonts/redaction-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Redaction';
+  src: url('/fonts/redaction-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 @font-face {
   font-family: 'The Jungle';
@@ -30,10 +70,11 @@
   /* Aliasing lime-sprout to electric cyan for seamless backwards-compatibility across components */
   --color-lime-sprout: #00D5E5;
   --color-fresh-canopy: #0A1117;
-  --font-jungle: 'The Jungle', 'Antigravity', 'Fraunces', 'Playfair Display', serif;
-  --font-antigravity: 'The Jungle', 'Antigravity', 'Fraunces', 'Playfair Display', serif;
-  --font-serif: 'The Jungle', 'Antigravity', 'Fraunces', 'Playfair Display', serif;
-  --font-display: 'The Jungle', 'Antigravity', 'Fraunces', 'Playfair Display', serif;
+  --font-redaction: 'Redaction 10', 'Redaction', 'Playfair Display', Georgia, serif;
+  --font-jungle: 'Redaction 10', 'The Jungle', 'Playfair Display', Georgia, serif;
+  --font-antigravity: 'Redaction 10', 'Antigravity', 'Playfair Display', Georgia, serif;
+  --font-serif: 'Redaction 10', 'Redaction', 'Playfair Display', Georgia, serif;
+  --font-display: 'Redaction 10', 'Redaction', 'Playfair Display', Georgia, serif;
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
@@ -70,9 +111,9 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Headings use The Jungle / vintage display serif */
-  h1, h2, h3, h4, .font-serif, .font-display, .font-jungle {
-    font-family: 'The Jungle', 'Antigravity', 'Fraunces', 'Playfair Display', Georgia, serif;
+  /* Headings use Redaction 10 premium editorial serif */
+  h1, h2, h3, h4, .font-serif, .font-display, .font-redaction, .font-jungle {
+    font-family: 'Redaction 10', 'Redaction', 'Playfair Display', Georgia, serif;
   }
 
   /* Monospaced elements use JetBrains Mono */
@@ -81,9 +122,9 @@
   }
 }
 
-/* The Jungle Display & Vintage Serif Font Utility */
-.font-jungle, .font-serif, .font-display, .font-antigravity {
-  font-family: 'The Jungle', 'Antigravity', 'Fraunces', 'Playfair Display', Georgia, serif !important;
+/* Redaction 10 Premium Editorial Serif Font Utility */
+.font-redaction, .font-jungle, .font-serif, .font-display, .font-antigravity {
+  font-family: 'Redaction 10', 'Redaction', 'Playfair Display', Georgia, serif !important;
 }
 
 /* Calm, Clean Card Container */

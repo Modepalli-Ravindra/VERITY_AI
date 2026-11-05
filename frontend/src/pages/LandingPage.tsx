@@ -42,32 +42,32 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[70vw] h-[40vw] bg-[radial-gradient(ellipse_at_top,rgba(0,201,216,0.14)_0%,transparent_70%)] blur-2xl pointer-events-none" />
       </div>
 
-      <main id="home" className="relative z-10 pt-32 lg:pt-36 pb-24 max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-6 lg:px-8">
+      <main id="home" className="relative z-10 pt-20 sm:pt-24 lg:pt-24 pb-16 max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-6 lg:px-8">
 
         {/* =========================================================================
             3. HERO SECTION (Full-Width Centered Editorial Layout with Studio Lighting)
            ========================================================================= */}
-        <section className="flex flex-col items-center justify-center text-center max-w-5xl xl:max-w-6xl mx-auto pt-6 lg:pt-14 pb-20 min-h-[58vh] relative z-20">
+        <section className="flex flex-col items-center justify-center text-center max-w-5xl xl:max-w-6xl mx-auto pt-2 lg:pt-4 pb-10 relative z-20">
 
-          {/* Headline — Centered, Two Lines with The Jungle Serif Display Font (Decreased 5px) */}
+          {/* Headline — Centered, Two Lines with Redaction 10 Premium Editorial Font */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-[39px] sm:text-[53px] md:text-[67px] lg:text-[83px] xl:text-[95px] 2xl:text-[107px] font-jungle tracking-[0.01em] text-[#FFFFFF] leading-[1.12] mb-8 max-w-5xl"
+            className="text-[38px] sm:text-[50px] md:text-[62px] lg:text-[76px] xl:text-[88px] 2xl:text-[96px] font-redaction tracking-tight text-[#FFFFFF] leading-[1.14] mb-5 max-w-5xl"
           >
-            <span className="block">Detect AI. Verify Truth.</span>
+            <span className="block">Verify Truth in Every Word.</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#FFFFFF] via-[#A5F3FC] to-[#00D5E5]">
-              Power Your Work.
+              Precision AI Detection.
             </span>
           </motion.h1>
 
-          {/* Supporting Copy — Centered & Zoomed */}
+          {/* Supporting Copy — Centered & Elevated */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-[#8DA2AA] text-lg sm:text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed mb-10 font-normal"
+            className="text-[#8DA2AA] text-base sm:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed mb-6 font-normal"
           >
             Detect AI-generated content, inspect document-level signals, and evaluate text transformations with VERITY’s intelligent analysis tools.
           </motion.p>
@@ -77,7 +77,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap items-center justify-center gap-4 mb-10"
+            className="flex flex-wrap items-center justify-center gap-4 mb-7"
           >
             <button
               onClick={() => handleCTA('/analyze')}
@@ -124,8 +124,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         {/* =========================================================================
             7. REFINED BENTO GRID & CORE CAPABILITIES
            ========================================================================= */}
-        <section id="why-verity" className="mb-32 pt-8">
-          <div className="text-center max-w-2xl mx-auto mb-12">
+        <section id="why-verity" className="mb-20 pt-4">
+          <div className="text-center max-w-2xl mx-auto mb-8">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#00D5E5] text-[10px] font-mono tracking-widest uppercase font-bold mb-3">
               SYSTEM CAPABILITIES
             </div>
@@ -344,7 +344,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         {/* =========================================================================
             6. WORKFLOW PIPELINE — EMPIRICAL ANALYSIS IN 4 STEPS
            ========================================================================= */}
-        <section id="how-it-works" className="mb-32 pt-8">
+        <section id="how-it-works" className="mb-20 pt-4">
           <div className="text-center max-w-3xl mx-auto mb-10">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#00D5E5] text-[10px] font-mono tracking-widest uppercase font-bold mb-3">
               WORKFLOW PIPELINE
@@ -393,7 +393,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         {/* =========================================================================
             FAQ SECTION
            ========================================================================= */}
-        <section id="faq" className="mb-32 max-w-4xl mx-auto pt-8">
+        <section id="faq" className="mb-20 max-w-4xl mx-auto pt-4">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#00D5E5] text-[10px] font-mono tracking-widest uppercase font-bold mb-3">
               FREQUENTLY ASKED QUESTIONS
