@@ -342,7 +342,11 @@ def auth_resend(req: AuthResendRequest):
 
 @router.get("/auth/me")
 def auth_me(user=Depends(get_current_user)):
+    if not user or user.role == "guest" or user.id == "guest" or not user.email:
+        return {"data": None, "error": None}
     prof = get_user_profile(user.id)
+    if not prof:
+        return {"data": None, "error": None}
     return {"data": {"user": prof}, "error": None}
 
 @router.put("/auth/profile")

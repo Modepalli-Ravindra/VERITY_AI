@@ -172,21 +172,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           const cachedUser = localStorage.getItem('verity_session_user');
           if (cachedUser) {
             const parsed = JSON.parse(cachedUser);
-            if (parsed && parsed.id) {
+            if (
+              parsed &&
+              parsed.id &&
+              parsed.id !== 'guest' &&
+              !parsed.id.startsWith('guest_') &&
+              parsed.email !== 'guest@verity.local'
+            ) {
               setUser(parsed);
               // Asynchronously verify against InsForge backend
               insforge.auth.getCurrentUser().then(res => {
-                if (res.data?.user) {
+                if (res.data?.user && res.data.user.id !== 'guest' && res.data.user.email !== 'guest@verity.local') {
                   fetchUserProfile(res.data.user).then(full => {
                     setUser(full);
                     try {
                       localStorage.setItem('verity_session_user', JSON.stringify(full));
                     } catch {}
                   });
+                } else {
+                  setUser(null);
+                  clearAuthTokens();
                 }
               }).catch(() => {});
               setLoading(false);
               return;
+            } else {
+              localStorage.removeItem('verity_session_user');
+              localStorage.removeItem('verity_guest_id');
             }
           }
         } catch {}
@@ -196,7 +208,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setTimeout(() => resolve({ data: null }), 3500)
         );
         const { data } = await Promise.race([fetchUserPromise, timeoutPromise]);
-        if (data?.user) {
+        if (data?.user && data.user.id !== 'guest' && data.user.email !== 'guest@verity.local' && data.user.role !== 'guest') {
           const email = data.user.email;
           if (email) {
             await applyPendingNameIfAny(data.user.id, email);

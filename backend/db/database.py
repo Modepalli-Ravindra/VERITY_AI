@@ -226,13 +226,7 @@ def get_user_profile(user_id: str) -> Optional[Dict[str, Any]]:
         cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
         user_row = cursor.fetchone()
         if not user_row:
-            # Check if this is a guest
-            return {
-                "id": user_id,
-                "email": f"{user_id}@verity.local",
-                "name": "Guest User",
-                "profile": {"full_name": "Guest User", "display_name": "Guest User"}
-            }
+            return None
 
         cursor.execute("SELECT * FROM profiles WHERE user_id = ?", (user_id,))
         prof = cursor.fetchone()

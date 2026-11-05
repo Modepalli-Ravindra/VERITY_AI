@@ -55,46 +55,57 @@ export const saveAuthTokens = (accessToken?: string | null, refreshToken?: strin
   }
 };
 
+export const isGuestToken = (token: string | null): boolean => {
+  if (!token) return true;
+  if (token === 'guest' || token.startsWith('guest_')) return true;
+  try {
+    const parts = token.split('.');
+    if (parts.length === 3) {
+      const payload = JSON.parse(atob(parts[1]));
+      if (
+        payload.role === 'guest' ||
+        payload.email === 'guest@verity.local' ||
+        payload.sub === 'guest' ||
+        (typeof payload.sub === 'string' && payload.sub.startsWith('guest_'))
+      ) {
+        return true;
+      }
+    }
+  } catch {}
+  return false;
+};
+
 export const clearAuthTokens = () => {
   inMemoryToken = null;
   try {
     localStorage.removeItem('verity_access_token');
     localStorage.removeItem('verity_refresh_token');
+    localStorage.removeItem('verity_guest_id');
+    localStorage.removeItem('verity_session_user');
   } catch {}
 };
 
 export const getAuthToken = async (): Promise<string | null> => {
   if (inMemoryToken && !isTokenExpired(inMemoryToken)) {
+    if (isGuestToken(inMemoryToken)) {
+      clearAuthTokens();
+      return null;
+    }
     return inMemoryToken;
   }
   try {
     const stored = localStorage.getItem('verity_access_token');
     if (stored && !isTokenExpired(stored)) {
+      if (isGuestToken(stored)) {
+        clearAuthTokens();
+        return null;
+      }
       inMemoryToken = stored;
       return stored;
     }
   } catch {}
 
-  // Guest token fallback for unauthenticated workspace access
-  try {
-    let guestId = localStorage.getItem('verity_guest_id');
-    if (!guestId) {
-      guestId = 'guest_' + Math.random().toString(36).substring(2, 10);
-      localStorage.setItem('verity_guest_id', guestId);
-    }
-    const header = btoa(JSON.stringify({ alg: "HS256", typ: "JWT" }));
-    const payload = btoa(JSON.stringify({
-      sub: guestId,
-      email: 'guest@verity.local',
-      role: 'guest',
-      exp: Math.floor(Date.now() / 1000) + 86400 * 365
-    }));
-    const guestToken = `${header}.${payload}.sig`;
-    saveAuthTokens(guestToken);
-    return guestToken;
-  } catch {
-    return null;
-  }
+  return null;
 };
 
 class SQLiteQueryBuilder {
@@ -290,7 +301,7 @@ export const insforge = {
     getCurrentUser: async () => {
       try {
         const token = await getAuthToken();
-        if (!token) return { data: null, error: null };
+        if (!token || isGuestToken(token)) return { data: null, error: null };
         const res = await fetch(`${API_BASE_URL}/auth/me`, {
           method: 'GET',
           headers: {
@@ -298,7 +309,13 @@ export const insforge = {
             'Authorization': `Bearer ${token}`
           }
         });
-        return await res.json();
+        const json = await res.json();
+        const user = json?.data?.user;
+        if (!user || user.id === 'guest' || user.email === 'guest@verity.local' || user.role === 'guest') {
+          clearAuthTokens();
+          return { data: null, error: null };
+        }
+        return json;
       } catch (err: any) {
         return { data: null, error: { message: err.message } };
       }
