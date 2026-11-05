@@ -81,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
           className="flex items-center gap-2.5 cursor-pointer group"
         >
           <VerityLogo className="h-8 md:h-9 w-auto" />
-          <span className="font-display tracking-[0.15em] text-[#F3F8F8] text-xl group-hover:text-[#00C9D8] transition-colors drop-shadow-[0_0_10px_rgba(0,201,216,0)] group-hover:drop-shadow-[0_0_12px_rgba(0,201,216,0.5)]">
+          <span className="font-display tracking-[0.15em] text-[#F3F8F8] text-xl group-hover:text-[#00C9D8] transition-colors ">
             VERITY
           </span>
         </div>
@@ -173,7 +173,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                   className="flex items-center gap-2 cursor-pointer ml-1 group p-1 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-[rgba(0,201,216,0.2)]"
                   title="Account menu"
                 >
-                  <div className="w-8 h-8 rounded-xl bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#00C9D8] text-sm font-bold font-sans group-hover:bg-[#00C9D8]/25 transition-colors shadow-[0_0_10px_rgba(0,201,216,0.15)]">
+                  <div className="w-8 h-8 rounded-xl bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#00C9D8] text-sm font-bold font-sans group-hover:bg-[#00C9D8]/25 transition-colors ">
                     {user.email?.charAt(0).toUpperCase()}
                   </div>
                   <ChevronDown className={`w-3.5 h-3.5 text-[#9BB2B7] group-hover:text-[#F3F8F8] transition-transform duration-200 ${profileMenuOpen ? 'rotate-180' : ''}`} />
@@ -200,7 +200,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                           {user.email}
                         </p>
                         <div className="flex items-center gap-1.5 mt-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 " />
                           <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-semibold">Active Session</span>
                         </div>
                       </div>
@@ -230,7 +230,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                           setProfileMenuOpen(false);
                           handleNav('/logout');
                         }}
-                        className="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold bg-gradient-to-r from-rose-500/20 to-red-500/10 border border-rose-500/35 hover:border-rose-400 hover:bg-rose-500/30 text-rose-300 hover:text-white transition-all flex items-center justify-between shadow-[0_0_16px_rgba(244,63,94,0.18)] hover:shadow-[0_0_24px_rgba(244,63,94,0.3)] cursor-pointer"
+                        className="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-300 hover:text-white transition-all flex items-center justify-between shadow-sm cursor-pointer"
                       >
                         <div className="flex items-center gap-2.5">
                           <div className="w-6 h-6 rounded-lg bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-300">
@@ -267,7 +267,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="md:hidden pointer-events-auto w-full max-w-7xl mt-3 bg-[#0E141B] border border-[#1C2633] shadow-[0_20px_40px_rgba(0,0,0,0.6)] rounded-2xl overflow-hidden relative"
+            className="md:hidden pointer-events-auto w-full max-w-7xl mt-3 bg-[#0E141B] border border-[#1C2633] shadow-[0_8px_30px_rgba(0,0,0,0.4)] rounded-2xl overflow-hidden relative"
           >
             
             <div className="px-6 py-6 flex flex-col gap-4">
@@ -291,7 +291,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                   </button>
                   <button
                     onClick={() => handleNav('/signup')}
-                    className="w-full py-3 mt-2 text-sm font-bold bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] rounded-xl shadow-[0_0_20px_rgba(0,201,216,0.25)]"
+                    className="w-full py-3 mt-2 text-sm font-bold bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] rounded-xl shadow-sm"
                   >
                     Get Started
                   </button>
@@ -314,7 +314,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                   <div className="w-full h-px bg-white/5 my-2" />
                   <button
                     onClick={() => handleNav('/dashboard')}
-                    className="w-full py-3 mt-2 text-sm font-bold bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] rounded-xl shadow-[0_0_20px_rgba(0,201,216,0.25)]"
+                    className="w-full py-3 mt-2 text-sm font-bold bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] rounded-xl shadow-sm"
                   >
                     Go to Dashboard
                   </button>
