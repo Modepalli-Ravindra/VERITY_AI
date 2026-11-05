@@ -52,13 +52,13 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-[#090406] text-[#FFFFFF] font-sans flex flex-col relative selection:bg-[#A64C61]/35">
+    <div className="h-screen w-screen overflow-hidden bg-transparent text-[#FFFFFF] font-sans flex flex-col relative selection:bg-[#A64C61]/35">
       
       {/* Ambient background glows */}
       
 
       {/* Top Header Bar */}
-      <header className="shrink-0 px-4 sm:px-6 py-2.5 flex items-center justify-between border-b border-[rgba(0,201,216,0.18)] bg-[#090406] relative z-20">
+      <header className="shrink-0 px-4 sm:px-6 py-2.5 flex items-center justify-between border-b border-[rgba(0,201,216,0.18)] bg-[#1D1015]/90 backdrop-blur-xl relative z-20">
         <button
           onClick={() => onNavigate('/')}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0A2023]/80 border border-[rgba(0,201,216,0.25)] hover:border-[#00C9D8]/60 text-xs font-mono text-[#9BB2B7] hover:text-[#FFFFFF] transition-all cursor-pointer group"
@@ -141,7 +141,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
               {['01. Ingestion', '02. 20-D Stylometrics', '03. ModernBERT V5', '04. SHA-256 Provenance'].map((stage, i) => (
                 <span 
                   key={i} 
-                  className="px-2 py-0.5 rounded-lg bg-[#090406] border border-[rgba(0,201,216,0.2)] text-[#FFFFFF] text-[10px] font-semibold whitespace-nowrap"
+                  className="px-2 py-0.5 rounded-lg bg-[#180C13] border border-[rgba(0,201,216,0.2)] text-[#FFFFFF] text-[10px] font-semibold whitespace-nowrap"
                 >
                   {stage}
                 </span>
@@ -172,7 +172,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
               return (
                 <div 
                   key={i}
-                  className="p-2.5 rounded-xl bg-[#090406]/70 border border-[rgba(0,201,216,0.18)] hover:border-[#00C9D8]/45 transition-colors"
+                  className="p-2.5 rounded-xl bg-[#180C13]/80 border border-[rgba(0,201,216,0.18)] hover:border-[#00C9D8]/45 transition-colors"
                 >
                   <div className="flex items-center justify-between mb-1">
                     <span className={`text-[9px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#00C9D8]/10 border border-[#00C9D8]/20 ${card.color}`}>
@@ -191,7 +191,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
           </div>
 
           {/* Bottom Call to Action Card */}
-          <div className="shrink-0 mt-2.5 pt-2.5 border-t border-[rgba(0,201,216,0.18)] bg-[#090406]/60 p-2.5 rounded-xl border border-white/5 text-center">
+          <div className="shrink-0 mt-2.5 pt-2.5 border-t border-[rgba(0,201,216,0.18)] bg-[#180C13]/70 p-2.5 rounded-xl border border-white/5 text-center">
             <h4 className="text-xs font-bold text-white mb-0.5">Ready to Test Your Documents?</h4>
             <p className="text-[10px] text-[#9BB2B7] mb-2 leading-relaxed">
               Verify authenticity with ModernBERT V5 and 20-D stylometrics in real time.

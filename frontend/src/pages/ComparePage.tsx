@@ -337,7 +337,7 @@ export const ComparePage: React.FC<ComparePageProps> = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-[#090406]/85"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-[#1D1015]/85"
             >
               <div className="bg-[#140A10]/80 backdrop-blur-2xl p-8 rounded-2xl border border-white/[0.08] flex items-center justify-center shadow-2xl">
                 <ThinkingOrbs title="EVALUATING SIGNAL DIFFERENTIAL" stages={compareStages} durationMs={450} />

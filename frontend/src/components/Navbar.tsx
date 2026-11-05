@@ -70,8 +70,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
   return (
     <div className="fixed top-0 w-full z-50 flex flex-col items-center pt-2 sm:pt-3 px-3 sm:px-6 pointer-events-none">
       <nav className={`pointer-events-auto transition-all duration-300 rounded-2xl w-full max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] flex items-center justify-between px-5 sm:px-7 py-2 sm:py-2.5 relative ${scrolled || mobileMenuOpen
-          ? 'bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.45)]'
-          : 'bg-[#090406] border border-white/[0.08] shadow-[0_2px_16px_rgba(0,0,0,0.35)]'
+          ? 'bg-[#1D1015]/90 backdrop-blur-2xl border border-white/[0.1] shadow-[0_8px_32px_rgba(0,0,0,0.5)]'
+          : 'bg-[#1D1015]/80 backdrop-blur-xl border border-white/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.4)]'
         }`}>
         
 

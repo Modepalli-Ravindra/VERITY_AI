@@ -19,13 +19,9 @@ interface LandingPageProps {
   onNavigate: (route: string) => void;
 }
 
-type PreviewTab = 'analyze' | 'paraphrase' | 'compare';
-
 export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
   const { user } = useAuth();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [previewTab, setPreviewTab] = useState<PreviewTab>('analyze');
-  const [previewTone, setPreviewTone] = useState<string>('natural');
 
   const handleCTA = (route: string) => {
     onNavigate(user ? route : '/login');
@@ -36,356 +32,109 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#090406] text-[#FFFFFF] font-sans overflow-x-hidden selection:bg-[#F1DDE0]/30">
+    <div className="min-h-screen bg-transparent text-[#FFFFFF] font-sans overflow-x-hidden selection:bg-[#F1DDE0]/30">
 
-      {/* Architectural Clean Background */}
-      <div className="absolute top-0 left-0 right-0 h-[100vh] z-0 pointer-events-none overflow-hidden bg-[#090406]">
-        <div className="absolute inset-0 opacity-[0.025] bg-[radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:24px_24px]" />
+      {/* Studio Ambient Gradient Lighting Background */}
+      <div className="absolute top-0 left-0 right-0 h-[110vh] z-0 pointer-events-none overflow-hidden">
+        {/* Soft upper-left studio beam */}
+        <div className="absolute -top-[10%] -left-[10%] w-[55vw] h-[55vw] rounded-full bg-[radial-gradient(circle,rgba(166,76,97,0.24)_0%,rgba(112,43,64,0.12)_40%,transparent_70%)] blur-3xl pointer-events-none" />
+        {/* Soft upper-center glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[70vw] h-[40vw] bg-[radial-gradient(ellipse_at_top,rgba(142,40,72,0.25)_0%,transparent_70%)] blur-2xl pointer-events-none" />
       </div>
 
       <main id="home" className="relative z-10 pt-32 lg:pt-36 pb-24 max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-6 lg:px-8">
 
         {/* =========================================================================
-            3. HERO SECTION (2-Column Desktop Layout + Halo + Two-line Headline)
+            3. HERO SECTION (Full-Width Centered Editorial Layout with Studio Lighting)
            ========================================================================= */}
-        <section className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10 xl:gap-12 mb-24 min-h-[78vh]">
+        <section className="flex flex-col items-center justify-center text-center max-w-4xl xl:max-w-5xl mx-auto pt-6 lg:pt-14 pb-20 min-h-[58vh] relative z-20">
 
-          {/* Left Column (Eyebrow with illuminated cylindrical halo, Headline, Copy, Actions) */}
-          <div className="w-full lg:w-[42%] xl:w-[40%] flex flex-col items-start z-20 shrink-0">
-            
-            {/* Eyebrow with Cylindrical Illuminated Halo */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="relative mb-6"
+          {/* Eyebrow Label Pill */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="relative mb-6"
+          >
+            <div className="relative px-4 py-1.5 rounded-full bg-[#1D1015]/85 backdrop-blur-2xl border border-white/[0.1] flex items-center gap-2 text-[11px] sm:text-xs font-mono tracking-[0.18em] text-[#FFFFFF] uppercase font-bold shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D28B96] animate-pulse" />
+              <span>AI DETECTION</span>
+              <span className="text-white/30 font-normal">/</span>
+              <span>DOCUMENT INTELLIGENCE</span>
+            </div>
+          </motion.div>
+
+          {/* Headline — Centered, Two Lines */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.2rem] font-extrabold tracking-tight text-[#FFFFFF] leading-[1.12] mb-6 max-w-4xl"
+          >
+            <span className="block">Detect AI. Verify Truth.</span>
+            <span className="block text-[#F1DDE0]">
+              Power Your Work.
+            </span>
+          </motion.h1>
+
+          {/* Supporting Copy — Centered & Refined */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-[#D28B96] text-base sm:text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed mb-9 font-normal"
+          >
+            Detect AI-generated content, inspect document-level signals, and evaluate text transformations with VERITY’s intelligent analysis tools.
+          </motion.p>
+
+          {/* Hero Actions */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-wrap items-center justify-center gap-4 mb-10"
+          >
+            <button
+              onClick={() => handleCTA('/analyze')}
+              className="px-7 py-3.5 bg-gradient-to-r from-[#8E2848] to-[#5C182D] hover:from-[#A23054] hover:to-[#701E37] text-white border border-white/20 shadow-[0_4px_24px_rgba(142,40,72,0.4)] font-bold text-sm sm:text-base tracking-wide rounded-xl transition-all shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex items-center gap-2.5 cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
             >
-              {/* Layered cylindrical/elliptical halo glow behind eyebrow */}
-              
-              
+              <span>Analyze a Document</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
 
-              {/* Eyebrow Label Pill */}
-              <div className="relative px-4 py-1.5 rounded-full bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] flex items-center gap-2 text-[11px] sm:text-xs font-mono tracking-[0.18em] text-[#FFFFFF] uppercase font-bold shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00D4E5] " />
-                <span>AI DETECTION</span>
-                <span className="text-[#202E3E] font-normal">/</span>
-                <span>DOCUMENT INTELLIGENCE</span>
+            <button
+              onClick={goToDemo}
+              className="px-6 py-3.5 bg-[#1D1015]/85 backdrop-blur-2xl hover:bg-[#2A1420]/90 border border-white/[0.12] hover:border-[#D28B96]/40 text-[#FFFFFF] font-medium text-sm sm:text-base rounded-xl transition-all flex items-center gap-2.5 cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+            >
+              <div className="w-6 h-6 rounded-lg bg-[#F1DDE0]/15 border border-[#D28B96]/30 flex items-center justify-center text-[#FFFFFF]">
+                <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
               </div>
-            </motion.div>
+              <span>Explore the Demo</span>
+            </button>
+          </motion.div>
 
-            {/* Headline — Exactly Two Lines on Desktop */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-3xl sm:text-4xl lg:text-[2.5rem] xl:text-[2.85rem] 2xl:text-[3.2rem] font-bold tracking-tight text-[#FFFFFF] leading-[1.16] mb-6"
-            >
-              <span className="block whitespace-normal lg:whitespace-nowrap">Detect AI. Verify Truth.</span>
-              <span className="block whitespace-normal lg:whitespace-nowrap text-[#FFFFFF] ">
-                Power Your Work.
-              </span>
-            </motion.h1>
-
-            {/* Supporting Copy — Exactly ~Two lines on Desktop */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-[#D28B96] text-base sm:text-lg max-w-xl leading-relaxed mb-8 font-normal"
-            >
-              Detect AI-generated content, inspect document-level signals, and evaluate text transformations with VERITY’s intelligent analysis tools.
-            </motion.p>
-
-            {/* Hero Actions */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-wrap items-center gap-4 mb-8"
-            >
-              <button
-                onClick={() => onNavigate('/docs')}
-                className="px-6 py-3 bg-gradient-to-r from-[#8E2848] to-[#5C182D] hover:from-[#A23054] hover:to-[#701E37] text-white border border-white/15 shadow-[0_4px_20px_rgba(142,40,72,0.35)] font-bold text-sm tracking-wide rounded-xl transition-all shadow-[0_8px_32px_rgba(0,0,0,0.6)] flex items-center gap-2 cursor-pointer"
-              >
-                <span>Analyze a Document</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-
-              <button
-                onClick={goToDemo}
-                className="px-5 py-3 bg-[#140A10]/80 backdrop-blur-2xl hover:bg-[#1C0F17]/85 backdrop-blur-2xl border border-white/[0.08] hover:border-[#D28B96]/35 text-[#FFFFFF] font-medium text-sm rounded-xl transition-all flex items-center gap-2.5 cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
-              >
-                <div className="w-6 h-6 rounded-xl bg-[#F1DDE0]/20 border border-[#00D4E5]/40 flex items-center justify-center text-[#FFFFFF]">
-                  <Play className="w-3 h-3 fill-current ml-0.5" />
-                </div>
-                <span>Explore the Demo</span>
-              </button>
-            </motion.div>
-
-            {/* Metric pill notes */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex items-center gap-6 text-xs text-[#D28B96] font-mono"
-            >
-              <div className="flex items-center gap-1.5">
-                <CheckCircle className="w-4 h-4 text-[#FFFFFF]" />
-                <span>ModernBERT V5 (0.70 Calibrated)</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle className="w-4 h-4 text-[#FFFFFF]" />
-                <span>100% Fact Preservation</span>
-              </div>
-            </motion.div>
-
-          </div>
-
-          {/* =========================================================================
-              4. RIGHT COLUMN — REFINED PRODUCT PREVIEW (Analyze / Paraphrase / Compare) - ZOOMED & WIDER
-             ========================================================================= */}
-          <div className="w-full lg:w-[58%] xl:w-[60%] relative z-30">
-            <motion.div
-              initial={{ opacity: 0, x: 25 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-6 sm:p-7 shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex flex-col relative overflow-hidden transition-all w-full"
-            >
-              {/* Window Header with App Tabs */}
-              <div className="flex items-center justify-between pb-4 mb-4 sm:mb-5 border-b border-white/[0.08] shrink-0">
-                <div className="flex items-center gap-2.5">
-                  <VerityLogo className="h-6 w-auto" />
-                  <span className="text-sm font-mono font-bold tracking-widest text-[#FFFFFF]">VERITY</span>
-                  <span className="text-xs font-mono px-2.5 py-1 rounded-md bg-[#148BA6]/20 text-[#FFFFFF] border border-[#00D4E5]/30 font-semibold">
-                    Interactive Preview
-                  </span>
-                </div>
-
-                {/* Switchable Preview Modes: Analyze, Paraphrase, Compare */}
-                <div className="flex items-center gap-1.5 bg-[#090406] p-1.5 rounded-xl border border-white/[0.08] text-xs font-mono">
-                  <button
-                    onClick={() => setPreviewTab('analyze')}
-                    className={`px-3.5 py-1.5 rounded-lg transition-all cursor-pointer font-medium ${
-                      previewTab === 'analyze' 
-                        ? 'bg-gradient-to-r from-[#8E2848] to-[#5C182D] text-white border border-white/15 shadow-[0_4px_20px_rgba(142,40,72,0.35)] font-bold shadow-[0_8px_32px_rgba(0,0,0,0.6)]' 
-                        : 'text-[#D28B96] hover:text-white'
-                    }`}
-                  >
-                    Analyze
-                  </button>
-                  <button
-                    onClick={() => setPreviewTab('paraphrase')}
-                    className={`px-3.5 py-1.5 rounded-lg transition-all cursor-pointer font-medium ${
-                      previewTab === 'paraphrase' 
-                        ? 'bg-gradient-to-r from-[#8E2848] to-[#5C182D] text-white border border-white/15 shadow-[0_4px_20px_rgba(142,40,72,0.35)] font-bold shadow-[0_8px_32px_rgba(0,0,0,0.6)]' 
-                        : 'text-[#D28B96] hover:text-white'
-                    }`}
-                  >
-                    Paraphrase
-                  </button>
-                  <button
-                    onClick={() => setPreviewTab('compare')}
-                    className={`px-3.5 py-1.5 rounded-lg transition-all cursor-pointer font-medium ${
-                      previewTab === 'compare' 
-                        ? 'bg-gradient-to-r from-[#8E2848] to-[#5C182D] text-white border border-white/15 shadow-[0_4px_20px_rgba(142,40,72,0.35)] font-bold shadow-[0_8px_32px_rgba(0,0,0,0.6)]' 
-                        : 'text-[#D28B96] hover:text-white'
-                    }`}
-                  >
-                    Compare
-                  </button>
-                </div>
-              </div>
-
-              {/* Dynamic Tab Body */}
-              {previewTab === 'analyze' && (
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6">
-                  {/* Left inner column: Document Analysis Input */}
-                  <div className="md:col-span-6 bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs sm:text-sm font-mono font-bold uppercase text-white">Document Input</span>
-                        <span className="text-xs font-mono text-[#FFFFFF] font-semibold">145 words</span>
-                      </div>
-                      <p className="text-xs sm:text-[13px] text-[#FFFFFF] leading-relaxed font-sans bg-[#090406]/70 p-3.5 sm:p-4 rounded-xl border border-white/5">
-                        Artificial intelligence is transforming how research is conducted. While generative tools provide unprecedented drafting velocity, maintaining transparent attribution and scholarly authenticity remains essential for critical peer review.
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-between pt-4 mt-4 border-t border-white/[0.08]">
-                      <span className="text-xs text-[#D28B96] font-mono">Format: DOCX / Text</span>
-                      <div className="flex items-center gap-2 text-xs font-mono text-[#FFFFFF] font-semibold">
-                        <span className="w-2 h-2 rounded-full bg-[#00D4E5] animate-ping" />
-                        <span>Analysis Ready</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Right inner column: Analysis Result */}
-                  <div className="md:col-span-6 bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs sm:text-sm font-mono font-bold uppercase text-white">Analysis Result</span>
-                        <span className="text-xs font-mono px-2.5 py-1 rounded-md bg-[#148BA6]/25 text-[#FFFFFF] border border-[#00D4E5]/30 font-bold">
-                          ModernBERT V5
-                        </span>
-                      </div>
-
-                      {/* Donut and classification */}
-                      <div className="flex items-center gap-3.5 p-2.5 rounded-xl bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] mb-3.5">
-                        <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center shrink-0">
-                          <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                            <circle cx="18" cy="18" r="15" className="stroke-white/10" strokeWidth="3.5" fill="transparent" />
-                            <circle cx="18" cy="18" r="15" stroke="#00D4E5" strokeWidth="3.5" strokeDasharray="94.2" strokeDashoffset="82.9" strokeLinecap="round" fill="transparent" />
-                          </svg>
-                          <span className="absolute text-xs sm:text-sm font-black text-white">12%</span>
-                        </div>
-                        <div>
-                          <div className="text-sm sm:text-base font-bold text-white leading-tight">Likely Human Written</div>
-                          <div className="text-xs text-[#D28B96] leading-tight mt-1">Low probability of AI generation</div>
-                        </div>
-                      </div>
-
-                      {/* Probability rows */}
-                      <div className="space-y-2 text-xs sm:text-sm font-mono border-b border-white/[0.08] pb-3 mb-3">
-                        <div className="flex items-center justify-between text-[#D28B96]">
-                          <span>AI Probability</span>
-                          <span className="font-bold text-[#FFFFFF]">12%</span>
-                        </div>
-                        <div className="flex items-center justify-between text-[#D28B96]">
-                          <span>Human Probability</span>
-                          <span className="font-bold text-[#FFFFFF]">88%</span>
-                        </div>
-                      </div>
-
-                      {/* Segment Analysis breakdown */}
-                      <div>
-                        <div className="text-[11px] font-mono uppercase tracking-wider text-[#D28B96] mb-1.5 font-semibold">Segment Analysis</div>
-                        <div className="space-y-1.5 text-xs font-mono">
-                          <div className="flex items-center justify-between">
-                            <span className="text-[#D28B96]">1. Intro Clause</span>
-                            <div className="flex items-center gap-2 w-28 sm:w-32">
-                              <div className="flex-1 bg-white/10 h-2 rounded-full overflow-hidden">
-                                <div className="bg-[#00D4E5] h-full w-[8%]" />
-                              </div>
-                              <span className="text-[#D28B96] text-[10px] w-7 text-right">8%</span>
-                            </div>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="text-[#D28B96]">2. Core Content</span>
-                            <div className="flex items-center gap-2 w-28 sm:w-32">
-                              <div className="flex-1 bg-white/10 h-2 rounded-full overflow-hidden">
-                                <div className="bg-[#00D4E5] h-full w-[14%]" />
-                              </div>
-                              <span className="text-[#D28B96] text-[10px] w-7 text-right">14%</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {previewTab === 'paraphrase' && (
-                <div className="space-y-3.5">
-                  <div className="flex items-center justify-between bg-[#0A0407]/90 backdrop-blur-md p-2.5 rounded-xl border border-white/[0.08]">
-                    <span className="text-xs font-mono text-[#D28B96]">Target Tone Profile:</span>
-                    <div className="flex gap-1.5">
-                      {['natural', 'professional', 'academic', 'casual'].map(t => (
-                        <button
-                          key={t}
-                          onClick={() => setPreviewTone(t)}
-                          className={`px-2.5 py-1 rounded-md text-xs font-mono capitalize transition-all cursor-pointer ${
-                            previewTone === t ? 'bg-gradient-to-r from-[#8E2848] to-[#5C182D] text-white border border-white/15 shadow-[0_4px_20px_rgba(142,40,72,0.35)] font-bold shadow-[0_8px_32px_rgba(0,0,0,0.6)]' : 'text-[#D28B96] hover:text-white'
-                          }`}
-                        >
-                          {t}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 text-xs sm:text-[13px] font-sans">
-                    <div className="p-3.5 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/5 space-y-2">
-                      <div className="flex justify-between text-xs font-mono text-[#D28B96]">
-                        <span>ORIGINAL TEXT</span>
-                        <span className="text-rose-400 font-bold">89% AI Probability</span>
-                      </div>
-                      <p className="text-[#D28B96] leading-relaxed">
-                        It is imperative to delve into the testament of modern computational paradigms, as they facilitate substantial operational efficacy...
-                      </p>
-                    </div>
-
-                    <div className="p-3.5 rounded-xl bg-[#140A10]/80 backdrop-blur-2xl border border-[#00D4E5]/30 space-y-2">
-                      <div className="flex justify-between text-xs font-mono text-[#FFFFFF]">
-                        <span className="font-bold">PARAPHRASED ({previewTone.toUpperCase()})</span>
-                        <span className="text-[#FFFFFF] font-bold">14% AI Probability</span>
-                      </div>
-                      <p className="text-[#FFFFFF] leading-relaxed">
-                        Examining modern computing architectures shows clear operational gains without overcomplicating day-to-day workflow processes.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between text-xs font-mono text-[#D28B96] pt-1.5 border-t border-white/[0.08]">
-                    <span>Anchors Preserved: 100% facts & citations</span>
-                    <span className="text-[#FFFFFF] font-semibold">Decoupled LLM Architecture</span>
-                  </div>
-                </div>
-              )}
-
-              {previewTab === 'compare' && (
-                <div className="space-y-3.5">
-                  <div className="grid grid-cols-3 gap-3 text-center text-xs font-mono">
-                    <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08]">
-                      <div className="text-[11px] text-[#D28B96] mb-1">Original AI Score</div>
-                      <div className="text-lg font-bold text-rose-400">88%</div>
-                    </div>
-                    <div className="p-3 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08]">
-                      <div className="text-[11px] text-[#D28B96] mb-1">Paraphrased AI Score</div>
-                      <div className="text-lg font-bold text-[#FFFFFF]">14%</div>
-                    </div>
-                    <div className="p-3 rounded-xl bg-[#140A10]/80 backdrop-blur-2xl border border-[#00D4E5]/40">
-                      <div className="text-[11px] text-[#FFFFFF] mb-1">Signal Delta (Δ)</div>
-                      <div className="text-lg font-bold text-[#FFFFFF]">-74%</div>
-                    </div>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] text-xs sm:text-[13px] font-mono space-y-2">
-                    <div className="text-xs text-[#D28B96] uppercase font-semibold">Syntactic Diversity Metric Shift</div>
-                    <div className="flex justify-between">
-                      <span className="text-[#D28B96]">Burstiness Variance:</span>
-                      <span className="text-[#FFFFFF] font-bold">Increased (+42%)</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-[#D28B96]">Type-Token Ratio (TTR):</span>
-                      <span className="text-[#FFFFFF] font-bold">Expanded (+18%)</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Action Banner inside Preview */}
-              <div className="mt-4 pt-3.5 border-t border-white/[0.08] flex items-center justify-between">
-                <span className="text-xs sm:text-sm text-[#D28B96] font-medium">Ready to test with your documents?</span>
-                <button
-                  onClick={() => handleCTA('/analyze')}
-                  className="px-5 py-2 rounded-full bg-[#F1DDE0] hover:bg-white text-[#061619] hover:text-[#061619] font-bold text-xs sm:text-sm transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(20,139,166,0.35)] cursor-pointer"
-                >
-                  <span>Launch Analyzer</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-
-            </motion.div>
-          </div>
+          {/* Metric Badges */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs sm:text-sm text-[#D28B96]"
+          >
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-[#F1DDE0]" />
+              <span>ModernBERT V5 (0.70 Calibrated)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-[#F1DDE0]" />
+              <span>100% Fact Preservation</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-[#F1DDE0]" />
+              <span>Enterprise-Grade Privacy</span>
+            </div>
+          </motion.div>
 
         </section>
-
-
-
-
 
         {/* =========================================================================
             7. REFINED BENTO GRID & CORE CAPABILITIES
@@ -650,7 +399,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                   <span className="text-[10px] font-mono text-[#FFFFFF] mb-3 bg-[#148BA6]/20 px-2.5 py-1 rounded inline-block font-bold">
                     STEP {s.step}
                   </span>
-                  <div className="w-10 h-10 rounded-xl border border-[#00D4E5]/30 bg-[#090406] flex items-center justify-center mb-3 text-[#FFFFFF]">
+                  <div className="w-10 h-10 rounded-xl border border-[#00D4E5]/30 bg-[#1D1015] flex items-center justify-center mb-3 text-[#FFFFFF]">
                     <s.icon className="w-5 h-5" />
                   </div>
                   <h4 className="text-sm font-semibold text-white mb-1.5">{s.title}</h4>
@@ -753,7 +502,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               </button>
               <button 
                 onClick={() => onNavigate('/docs')}
-                className="px-6 py-3.5 bg-[#090406] hover:bg-[#140A10]/80 backdrop-blur-2xl text-[#FFFFFF] border border-[#148BA6]/40 hover:border-[#00D4E5] font-medium rounded-full transition-all text-sm cursor-pointer"
+                className="px-6 py-3.5 bg-[#1D1015]/85 hover:bg-[#2A1420]/90 backdrop-blur-2xl text-[#FFFFFF] border border-[#148BA6]/40 hover:border-[#00D4E5] font-medium rounded-full transition-all text-sm cursor-pointer"
               >
                 <span>Read Documentation</span>
               </button>
@@ -764,7 +513,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
       </main>
 
       {/* FOOTER */}
-      <footer className="relative z-10 border-t border-white/[0.08] bg-[#090406] py-8 px-6 lg:px-8">
+      <footer className="relative z-10 border-t border-white/[0.08] bg-[#1D1015]/95 backdrop-blur-xl py-8 px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#D28B96] font-mono">
           <div className="flex items-center gap-2">
             <VerityLogo className="h-5 w-auto" />

@@ -208,7 +208,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
               
               {/* Table Header */}
-              <div className="hidden md:grid grid-cols-12 gap-4 px-8 py-4 border-b border-white/[0.08] bg-[#090406] text-xs font-mono font-bold text-[#D28B96] uppercase tracking-[0.15em] shrink-0">
+              <div className="hidden md:grid grid-cols-12 gap-4 px-8 py-4 border-b border-white/[0.08] bg-[#1D1015]/95 text-xs font-mono font-bold text-[#D28B96] uppercase tracking-[0.15em] shrink-0">
                 <div className="col-span-2">Date</div>
                 <div className="col-span-6">Excerpt</div>
                 <div className="col-span-2">Classification</div>
@@ -277,7 +277,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 bg-[#090406]/85 flex items-center justify-center p-4 sm:p-6"
+              className="fixed inset-0 z-50 bg-[#1D1015]/85 flex items-center justify-center p-4 sm:p-6"
             >
               <motion.div 
                 initial={{ scale: 0.95, opacity: 0 }}

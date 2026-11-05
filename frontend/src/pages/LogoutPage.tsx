@@ -56,7 +56,7 @@ export const LogoutPage: React.FC<LogoutPageProps> = ({ onNavigate }) => {
   }, [signOut, onNavigate]);
 
   return (
-    <div className="min-h-screen bg-[#090406] text-[#FFFFFF] flex flex-col items-center justify-center p-4 relative overflow-hidden font-sans select-none">
+    <div className="min-h-screen bg-transparent text-[#FFFFFF] flex flex-col items-center justify-center p-4 relative overflow-hidden font-sans select-none">
       {/* Ambient background glows */}
       
 

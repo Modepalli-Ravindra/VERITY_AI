@@ -72,10 +72,10 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#090406] text-[#FFFFFF] flex flex-col justify-between relative overflow-hidden font-sans selection:bg-[#A64C61]/35">
+    <div className="min-h-screen bg-transparent text-[#FFFFFF] flex flex-col justify-between relative overflow-hidden font-sans selection:bg-[#A64C61]/35">
       
       {/* Subtle technical grid background */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden bg-[#090406]">
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#CBD5E1_1px,transparent_1px)] [background-size:24px_24px]" />
       </div>
 
@@ -181,7 +181,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
                       value={otp}
                       onChange={(e) => setOtp(e.target.value)}
                       placeholder="000000"
-                      className="w-full pl-11 pr-4 py-3 bg-[#090406] border border-white/[0.08] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#FFFFFF] tracking-[0.3em] font-mono text-center text-lg transition-all placeholder-[#D28B96]/45"
+                      className="w-full pl-11 pr-4 py-3 bg-[#180C13] border border-white/[0.08] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#FFFFFF] tracking-[0.3em] font-mono text-center text-lg transition-all placeholder-[#D28B96]/45"
                     />
                   </div>
                 </div>
@@ -210,7 +210,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="researcher@organization.org"
-                      className="w-full pl-10 pr-4 py-2.5 bg-[#090406] border border-white/[0.08] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#FFFFFF] placeholder-[#D28B96]/45 text-xs sm:text-sm transition-all"
+                      className="w-full pl-10 pr-4 py-2.5 bg-[#180C13] border border-white/[0.08] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#FFFFFF] placeholder-[#D28B96]/45 text-xs sm:text-sm transition-all"
                     />
                   </div>
                 </div>
@@ -237,7 +237,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full pl-10 pr-10 py-2.5 bg-[#090406] border border-white/[0.08] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#FFFFFF] placeholder-[#D28B96]/45 text-xs sm:text-sm transition-all"
+                      className="w-full pl-10 pr-10 py-2.5 bg-[#180C13] border border-white/[0.08] rounded-xl focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8] focus:outline-none text-[#FFFFFF] placeholder-[#D28B96]/45 text-xs sm:text-sm transition-all"
                     />
                     <button
                       type="button"

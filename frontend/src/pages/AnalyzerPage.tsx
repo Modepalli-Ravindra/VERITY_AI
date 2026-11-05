@@ -338,7 +338,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-[#090406]/85"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-[#1D1015]/85"
             >
               <div className="bg-[#0A2023] p-8 rounded-2xl border border-white/[0.08] flex items-center justify-center shadow-2xl">
                 <ThinkingOrbs 
@@ -384,7 +384,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
           {/* Left Pane: Original Sequence / Input */}
           <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.35)] relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
-            <div className="flex items-center justify-between px-5 py-3.5 bg-[#090406] border-b border-white/[0.08] shrink-0">
+            <div className="flex items-center justify-between px-5 py-3.5 bg-[#1D1015] border-b border-white/[0.08] shrink-0">
               <div className="flex items-center gap-2.5">
                 <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#FFFFFF] uppercase font-semibold">
                   {inputMode === 'paste' ? 'ORIGINAL SEQUENCE' : 'DOCUMENT SOURCE'}
@@ -525,7 +525,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
           {/* Right Pane: Detection Diagnostics */}
           <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.35)] relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
-            <div className="flex items-center justify-between px-5 py-3.5 bg-[#090406] border-b border-white/[0.08] shrink-0">
+            <div className="flex items-center justify-between px-5 py-3.5 bg-[#1D1015] border-b border-white/[0.08] shrink-0">
               <div className="flex items-center gap-2.5">
                 <span className="text-xs sm:text-sm font-mono tracking-[0.2em] text-[#FFFFFF] uppercase font-semibold">
                   DETECTION DIAGNOSTICS
@@ -560,7 +560,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
               <div className="flex-1 overflow-y-auto p-5 sm:p-6 flex flex-col gap-5">
                 {/* Document Meta Banner (if document result) */}
                 {result.document_meta && (
-                  <div className="p-4 rounded-xl bg-[#090406] border border-white/[0.08] flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm font-mono">
+                  <div className="p-4 rounded-xl bg-[#180C13] border border-white/[0.08] flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm font-mono">
                     <div className="flex items-center gap-2.5 text-[#FFFFFF]">
                       <FileText className="w-4 h-4 text-[#FFFFFF]" />
                       <span className="font-medium truncate max-w-xs">{result.document_meta.filename}</span>
