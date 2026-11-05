@@ -83,7 +83,7 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
             VERITY employs a dual-engine architecture: a primary deep contextual transformer fine-tuned for nuanced document comprehension, and a lightweight hot-standby model ensuring sub-second fallback with zero service interruption.
           </p>
 
-          <div className="border border-white/[0.08] rounded-xl overflow-hidden shadow-md">
+          <div className="border border-white/[0.08] rounded-xl overflow-hidden ">
             <table className="w-full text-left text-xs sm:text-sm font-sans">
               <thead className="bg-[#0A0407]/90 backdrop-blur-md text-[#FFFFFF] font-mono border-b border-white/[0.08]">
                 <tr>
@@ -399,7 +399,7 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
         {/* Compact Header Bar - Moved Down with Breathing Room Below Navbar */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 shrink-0 py-1.5 border-b border-[rgba(0,201,216,0.18)]">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/25 text-[#FFFFFF] text-[10px] sm:text-xs font-mono tracking-widest uppercase font-semibold mb-1 shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/25 text-[#FFFFFF] text-[10px] sm:text-xs font-mono tracking-widest uppercase font-semibold mb-1 ">
               <span>TECHNICAL DOCUMENTATION</span>
               <span className="text-white/30">•</span>
               <span>VERITY AI ARCHITECTURE</span>
@@ -477,7 +477,7 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
         <div className="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-12 gap-3 lg:gap-4 overflow-hidden">
           
           {/* Left Table of Contents */}
-          <aside className="hidden md:flex md:col-span-4 lg:col-span-3 h-full flex-col bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-xl p-3 shadow-lg overflow-hidden">
+          <aside className="hidden md:flex md:col-span-4 lg:col-span-3 h-full flex-col bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-xl p-3 overflow-hidden">
             <div className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-[#FFFFFF] font-bold mb-2 px-1 shrink-0">
               Navigation ({filteredSections.length} Sections)
             </div>
@@ -492,7 +492,7 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
                     onClick={() => setActiveSectionId(s.id)}
                     className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs sm:text-[13px] text-left transition-all cursor-pointer ${
                       isActive 
-                        ? 'bg-[#148BA6]/25 text-[#FFFFFF] font-bold border border-[#00D4E5]/40 shadow-[0_0_10px_rgba(0,213,229,0.1)]' 
+                        ? 'bg-[#148BA6]/25 text-[#FFFFFF] font-bold border border-[#00D4E5]/40 ' 
                         : 'text-[#D28B96] hover:text-[#FFFFFF] hover:bg-white/[0.03]'
                     }`}
                   >
@@ -505,7 +505,7 @@ export const DocumentationPage: React.FC<DocumentationPageProps> = ({ onNavigate
           </aside>
 
           {/* Right Active Section Reader */}
-          <main className="md:col-span-8 lg:col-span-9 h-full flex flex-col bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-xl shadow-lg overflow-hidden">
+          <main className="md:col-span-8 lg:col-span-9 h-full flex flex-col bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-xl overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeSection.id}

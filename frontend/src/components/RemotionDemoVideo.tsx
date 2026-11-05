@@ -42,7 +42,7 @@ export const DemoVideoComposition: React.FC = () => {
       {/* Top Floating HUD Indicator */}
       <div className="absolute top-6 left-8 right-8 flex items-center justify-between text-xs font-mono text-[#6F8B91] border-b border-[rgba(0,201,216,0.15)] pb-3 z-30">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#00C9D8] animate-pulse shadow-[0_0_8px_#00C9D8]" />
+          <span className="w-2 h-2 rounded-full bg-[#00C9D8] animate-pulse " />
           <span className="text-[#00C9D8] font-bold tracking-widest uppercase text-[11px]">VERITY NEURAL RUNTIME</span>
           <span className="text-white/20">|</span>
           <span className="text-[10px] text-[#9BB2B7]">ModernBERT V5 Calibrated</span>
@@ -67,7 +67,7 @@ export const DemoVideoComposition: React.FC = () => {
           </div>
 
           <h1 className="text-5xl sm:text-6xl font-black tracking-tight text-[#F3F8F8] leading-tight">
-            See Beyond <span className="text-[#00C9D8] drop-shadow-[0_0_25px_rgba(0,201,216,0.4)]">Synthetic Text</span>.
+            See Beyond <span className="text-[#00C9D8] drop-">Synthetic Text</span>.
           </h1>
 
           <p className="text-lg text-[#9BB2B7] max-w-xl mx-auto leading-relaxed">
@@ -89,7 +89,7 @@ export const DemoVideoComposition: React.FC = () => {
          ========================================================================= */}
       {frame >= 130 && frame < 290 && (
         <div 
-          className="w-full max-w-2xl bg-[#0A2023]/90 border border-[rgba(0,201,216,0.3)] rounded-3xl p-7 shadow-[0_25px_60px_rgba(0,0,0,0.7)] backdrop-blur-2xl space-y-6 z-20"
+          className="w-full max-w-2xl bg-[#0A2023]/90 border border-[rgba(0,201,216,0.3)] rounded-3xl p-7 backdrop-blur-2xl space-y-6 z-20"
           style={{ opacity: detectOpacity }}
         >
           <div className="flex items-center justify-between pb-3.5 border-b border-[rgba(0,201,216,0.15)]">
@@ -146,7 +146,7 @@ export const DemoVideoComposition: React.FC = () => {
          ========================================================================= */}
       {frame >= 280 && frame < 440 && (
         <div 
-          className="w-full max-w-2xl bg-[#0A2023]/90 border border-[rgba(0,201,216,0.3)] rounded-3xl p-7 shadow-[0_25px_60px_rgba(0,0,0,0.7)] backdrop-blur-2xl space-y-6 z-20"
+          className="w-full max-w-2xl bg-[#0A2023]/90 border border-[rgba(0,201,216,0.3)] rounded-3xl p-7 backdrop-blur-2xl space-y-6 z-20"
           style={{ opacity: rewriteOpacity }}
         >
           <div className="flex items-center justify-between pb-3.5 border-b border-[rgba(0,201,216,0.15)]">
@@ -206,7 +206,7 @@ export const DemoVideoComposition: React.FC = () => {
           className="text-center space-y-6 max-w-2xl z-20"
           style={{ opacity: finalOpacity }}
         >
-          <div className="w-16 h-16 rounded-2xl bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center mx-auto text-[#00C9D8] shadow-[0_0_25px_rgba(0,201,216,0.3)]">
+          <div className="w-16 h-16 rounded-2xl bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center mx-auto text-[#00C9D8] ">
             <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>

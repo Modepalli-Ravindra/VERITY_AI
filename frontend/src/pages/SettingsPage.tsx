@@ -119,7 +119,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
       
 
       {/* Single Unified Card Container - Zero Spacing Boxes */}
-      <div className="max-w-4xl mx-auto w-full bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] p-5 sm:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)] relative overflow-hidden space-y-4">
+      <div className="max-w-4xl mx-auto w-full bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] p-5 sm:p-6 relative overflow-hidden space-y-4">
         
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-[rgba(0,201,216,0.15)]">
@@ -213,7 +213,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
                   onClick={() => handleUpdatePreference('defaultModel', m.id)}
                   className={`px-3 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                     active 
-                      ? 'bg-[#00C9D8]/15 border border-[#00C9D8]/35 text-[#FFFFFF] font-bold shadow-[0_8px_32px_rgba(0,0,0,0.6)]' 
+                      ? 'bg-[#00C9D8]/15 border border-[#00C9D8]/35 text-[#FFFFFF] font-bold ' 
                       : 'text-[#D28B96] hover:text-white border border-transparent'
                   }`}
                 >
@@ -245,7 +245,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
                   onClick={() => handleUpdatePreference('sensitivityThreshold', s.id)}
                   className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                     active 
-                      ? 'bg-[#00C9D8]/15 border border-[#00C9D8]/35 text-[#FFFFFF] font-bold shadow-[0_8px_32px_rgba(0,0,0,0.6)]' 
+                      ? 'bg-[#00C9D8]/15 border border-[#00C9D8]/35 text-[#FFFFFF] font-bold ' 
                       : 'text-[#D28B96] hover:text-white border border-transparent'
                   }`}
                 >

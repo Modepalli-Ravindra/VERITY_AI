@@ -425,7 +425,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
             <span className="text-[#FFFFFF]/30 text-xs">•</span>
             
             {/* Tone Selector Pills */}
-            <div className="inline-flex p-1 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] gap-1.5 shadow-inner">
+            <div className="inline-flex p-1 rounded-xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] gap-1.5 ">
               {tones.map((t) => {
                 const isActive = tone === t.id;
                 return (
@@ -436,7 +436,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                     title={t.desc}
                     className={`px-3 py-1.5 rounded-lg text-xs font-mono tracking-wider transition-all cursor-pointer flex items-center gap-1.5 ${
                       isActive
-                        ? 'bg-[#00C9D8] text-[#061416] font-bold shadow-md'
+                        ? 'bg-[#00C9D8] text-[#061416] font-bold '
                         : 'text-[#9BB2B7] hover:text-[#FFFFFF]'
                     }`}
                   >
@@ -454,7 +454,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
               <select
                 value={provider}
                 onChange={(e) => setProvider(e.target.value)}
-                className="bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] rounded-lg px-3 py-1 text-xs font-mono text-[#FFFFFF] focus:outline-none cursor-pointer uppercase shadow-inner"
+                className="bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] rounded-lg px-3 py-1 text-xs font-mono text-[#FFFFFF] focus:outline-none cursor-pointer uppercase "
               >
                 <option value="auto" className="bg-[#140A10]/80 backdrop-blur-2xl text-white">Auto Select</option>
                 <option value="google" className="bg-[#140A10]/80 backdrop-blur-2xl text-white">Google Gemini</option>
@@ -481,7 +481,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
               onClick={() => handleParaphrase()}
               disabled={loading || !originalText.trim()}
               id="humanize-run-btn"
-              className="px-6 py-2.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] hover:brightness-110 text-[#061416] font-bold text-xs sm:text-sm font-mono uppercase tracking-widest rounded-xl flex items-center gap-2.5 transition-all disabled:opacity-50 disabled:hover:brightness-100 cursor-pointer shadow-[0_0_24px_rgba(0,201,216,0.25)]"
+              className="px-6 py-2.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] hover:brightness-110 text-[#061416] font-bold text-xs sm:text-sm font-mono uppercase tracking-widest rounded-xl flex items-center gap-2.5 transition-all disabled:opacity-50 disabled:hover:brightness-100 cursor-pointer "
             >
               {loading ? (
                 <>
@@ -524,7 +524,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
               exit={{ opacity: 0 }}
               className="fixed inset-0 z-50 flex items-center justify-center bg-[#061416]/80 "
             >
-              <div className="bg-[#140A10]/80 backdrop-blur-2xl p-8 rounded-2xl border border-white/[0.08] flex flex-col items-center justify-center shadow-2xl">
+              <div className="bg-[#140A10]/80 backdrop-blur-2xl p-8 rounded-2xl border border-white/[0.08] flex flex-col items-center justify-center ">
                 <ThinkingOrbs 
                   title={chunkProgress && chunkProgress.total > 1
                     ? `SECTION ${chunkProgress.current}/${chunkProgress.total} (${chunkProgress.percent}%)`
@@ -536,7 +536,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                   <div className="w-full max-w-xs mt-6 flex flex-col gap-2" id="chunk-progress-container">
                     <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
                       <div 
-                        className="h-full bg-[#00C9D8] transition-all duration-300 rounded-full shadow-[0_0_10px_rgba(0,201,216,0.5)]" 
+                        className="h-full bg-[#00C9D8] transition-all duration-300 rounded-full " 
                         style={{ width: `${chunkProgress.percent}%` }}
                       />
                     </div>
@@ -568,7 +568,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                   <button
                     onClick={() => handleParaphrase(failedSectionIndex)}
                     disabled={loading}
-                    className="px-3.5 py-1.5 bg-[#00C9D8] text-[#061416] font-bold text-xs font-mono uppercase rounded-xl hover:brightness-110 transition-all cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.6)] shrink-0 flex items-center gap-1.5 disabled:opacity-50"
+                    className="px-3.5 py-1.5 bg-[#00C9D8] text-[#061416] font-bold text-xs font-mono uppercase rounded-xl hover:brightness-110 transition-all cursor-pointer shrink-0 flex items-center gap-1.5 disabled:opacity-50"
                     id="retry-failed-section-btn"
                   >
                     <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
@@ -584,7 +584,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-1 min-h-[520px]">
           
           {/* Left Pane: Original Sequence */}
-          <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
+          <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div className="flex items-center justify-between px-5 py-3.5 bg-[#0A0407]/90 backdrop-blur-md/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
               <div className="flex items-center gap-2.5">
@@ -619,7 +619,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
           </div>
 
           {/* Right Pane: Adversarial Sequence */}
-          <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.4)] relative">
+          <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div className="flex items-center justify-between px-5 py-3.5 bg-[#0A0407]/90 backdrop-blur-md/50 border-b border-[rgba(0,201,216,0.12)] shrink-0">
               <div className="flex items-center gap-2.5">
@@ -693,7 +693,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
             <div className="flex-1 w-full overflow-hidden relative flex flex-col min-h-0">
               {!paraphrasedText ? (
                 <div className="flex-1 p-8 sm:p-10 flex flex-col items-center justify-center text-center text-[#9BB2B7]">
-                  <div className="w-14 h-14 rounded-2xl bg-[#00C9D8]/10 flex items-center justify-center text-[#FFFFFF] mb-4 border border-[#00C9D8]/25 shadow-lg">
+                  <div className="w-14 h-14 rounded-2xl bg-[#00C9D8]/10 flex items-center justify-center text-[#FFFFFF] mb-4 border border-[#00C9D8]/25 ">
                     <Sparkles className="w-7 h-7 text-[#FFFFFF]" />
                   </div>
                   <h3 className="text-sm sm:text-base font-mono uppercase tracking-widest text-[#FFFFFF] mb-2 font-bold">
@@ -802,7 +802,7 @@ export const ParaphrasePage: React.FC<ParaphrasePageProps> = ({ onNavigate, init
                     origResult: initialResult,
                     humResult: recheckResult
                   })}
-                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#00C9D8] to-[#008FA3] hover:brightness-110 text-[#061416] uppercase tracking-wider flex items-center gap-2 cursor-pointer font-bold text-xs transition-all shadow-[0_0_20px_rgba(0,201,216,0.25)]"
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#00C9D8] to-[#008FA3] hover:brightness-110 text-[#061416] uppercase tracking-wider flex items-center gap-2 cursor-pointer font-bold text-xs transition-all "
                 >
                   <Activity className="w-4 h-4 text-[#061416]" />
                   <span>COMPARE IN WORKSPACE</span>

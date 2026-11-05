@@ -93,7 +93,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
             <button
               onClick={() => loadData(true)}
               disabled={refreshing}
-              className="p-2.5 rounded-xl bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] text-[#D28B96] hover:text-[#FFFFFF] hover:border-[#D28B96]/35 transition-all cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+              className="p-2.5 rounded-xl bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] text-[#D28B96] hover:text-[#FFFFFF] hover:border-[#D28B96]/35 transition-all cursor-pointer "
               title="Refresh Data"
             >
               <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin text-[#FFFFFF]' : ''}`} />
@@ -101,7 +101,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
 
             <button
               onClick={() => onNavigate('/paraphrase')}
-              className="px-4 py-2 rounded-xl bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] text-xs font-medium text-[#FFFFFF] hover:text-[#FFFFFF] hover:border-[#D28B96]/35 transition-all flex items-center gap-2 cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+              className="px-4 py-2 rounded-xl bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] text-xs font-medium text-[#FFFFFF] hover:text-[#FFFFFF] hover:border-[#D28B96]/35 transition-all flex items-center gap-2 cursor-pointer "
             >
               <Wand2 className="w-3.5 h-3.5 text-[#D28B96]" />
               <span>Rewrite Text</span>
@@ -109,7 +109,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
 
             <button
               onClick={() => onNavigate('/compare')}
-              className="px-4 py-2 rounded-xl bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] text-xs font-medium text-[#FFFFFF] hover:text-[#FFFFFF] hover:border-[#D28B96]/35 transition-all flex items-center gap-2 cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+              className="px-4 py-2 rounded-xl bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] text-xs font-medium text-[#FFFFFF] hover:text-[#FFFFFF] hover:border-[#D28B96]/35 transition-all flex items-center gap-2 cursor-pointer "
             >
               <Activity className="w-3.5 h-3.5 text-[#D28B96]" />
               <span>Compare Signals</span>
@@ -117,7 +117,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
 
             <button
               onClick={() => onNavigate('/analyze')}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#8E2848] to-[#5C182D] hover:from-[#A23054] hover:to-[#701E37] text-white border border-white/15 shadow-[0_4px_20px_rgba(142,40,72,0.35)] font-semibold text-xs flex items-center gap-2 transition-all cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#8E2848] to-[#5C182D] hover:from-[#A23054] hover:to-[#701E37] text-white border border-white/15 font-semibold text-xs flex items-center gap-2 transition-all cursor-pointer "
             >
               <Search className="w-3.5 h-3.5 text-[#421B29]" />
               <span>New Analysis</span>
@@ -132,7 +132,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
           <motion.div
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-5 shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:border-[#D28B96]/35 transition-all flex flex-col justify-between"
+            className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-5 hover:border-[#D28B96]/35 transition-all flex flex-col justify-between"
           >
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-medium text-[#D28B96] tracking-wide">
@@ -156,7 +156,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.04 }}
-            className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-5 shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:border-[#D28B96]/35 transition-all flex flex-col justify-between"
+            className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-5 hover:border-[#D28B96]/35 transition-all flex flex-col justify-between"
           >
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-medium text-[#D28B96] tracking-wide">
@@ -187,7 +187,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.08 }}
-            className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-5 shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:border-[#D28B96]/35 transition-all flex flex-col justify-between"
+            className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-5 hover:border-[#D28B96]/35 transition-all flex flex-col justify-between"
           >
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-medium text-[#D28B96] tracking-wide">
@@ -218,7 +218,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.12 }}
-            className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-5 shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:border-[#D28B96]/35 transition-all flex flex-col justify-between"
+            className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-5 hover:border-[#D28B96]/35 transition-all flex flex-col justify-between"
           >
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-medium text-[#D28B96] tracking-wide">
@@ -243,7 +243,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
 
           {/* Left Bento: 7-Day Request Volume (5 Cols) */}
-          <div className="lg:col-span-5 bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] p-5 shadow-[0_8px_32px_rgba(0,0,0,0.6)] flex flex-col justify-between">
+          <div className="lg:col-span-5 bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] p-5 flex flex-col justify-between">
             <div className="flex items-center justify-between border-b border-white/[0.08] pb-3 mb-4">
               <div>
                 <h3 className="text-sm font-semibold text-[#FFFFFF]">
@@ -263,7 +263,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
               {telemetry.volumeByDay.map((d, i) => (
                 <div key={i} className="flex-1 flex flex-col justify-end items-center gap-2 h-full group">
                   <div className="w-full flex justify-center items-end h-full relative">
-                    <div className="opacity-0 group-hover:opacity-100 absolute -top-8 bg-[#182330] border border-[#27384E] text-[#FFFFFF] text-[11px] font-medium px-2 py-0.5 rounded shadow-lg transition-opacity pointer-events-none whitespace-nowrap z-20">
+                    <div className="opacity-0 group-hover:opacity-100 absolute -top-8 bg-[#182330] border border-[#27384E] text-[#FFFFFF] text-[11px] font-medium px-2 py-0.5 rounded transition-opacity pointer-events-none whitespace-nowrap z-20">
                       {d.count} {d.count === 1 ? 'call' : 'calls'}
                     </div>
                     <motion.div
@@ -294,7 +294,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
           </div>
 
           {/* Right Bento: Recent Activity Feed (7 Cols) */}
-          <div className="lg:col-span-7 bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] p-5 shadow-[0_8px_32px_rgba(0,0,0,0.6)] flex flex-col">
+          <div className="lg:col-span-7 bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] p-5 flex flex-col">
             <div className="flex items-center justify-between border-b border-white/[0.08] pb-3 mb-4">
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-[#D28B96]" />
@@ -335,7 +335,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
                       else if (act.type === 'humanization') onNavigate('/paraphrase');
                       else onNavigate('/compare');
                     }}
-                    className="p-3.5 rounded-xl bg-[#0A0407]/90 backdrop-blur-md hover:bg-[#1C0F17]/85 backdrop-blur-2xl border border-white/[0.08] hover:border-white/[0.08] transition-all flex items-center justify-between gap-4 cursor-pointer group shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+                    className="p-3.5 rounded-xl bg-[#0A0407]/90 backdrop-blur-md hover:bg-[#1C0F17]/85 backdrop-blur-2xl border border-white/[0.08] hover:border-white/[0.08] transition-all flex items-center justify-between gap-4 cursor-pointer group "
                   >
                     <div className="flex items-center gap-3.5 min-w-0">
                       <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border ${

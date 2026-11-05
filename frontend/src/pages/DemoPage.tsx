@@ -86,7 +86,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
           </button>
           <button
             onClick={() => onNavigate('/analyze')}
-            className="px-3.5 py-1.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] font-bold text-xs rounded-xl flex items-center gap-1.5 transition-all shadow-[0_0_15px_rgba(0,201,216,0.3)] hover:brightness-110 cursor-pointer"
+            className="px-3.5 py-1.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] font-bold text-xs rounded-xl flex items-center gap-1.5 transition-all hover:brightness-110 cursor-pointer"
           >
             <span>Try Analyzer</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -98,7 +98,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
       <div className="flex-1 min-h-0 flex flex-col lg:flex-row gap-3 sm:gap-4 p-3 sm:p-4 max-w-[1700px] w-full mx-auto overflow-hidden">
         
         {/* Left: Cinema Video Player Theater */}
-        <section className="flex-1 min-h-0 flex flex-col bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-2.5 sm:p-3 shadow-2xl overflow-hidden justify-between">
+        <section className="flex-1 min-h-0 flex flex-col bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-2.5 sm:p-3 overflow-hidden justify-between">
           
           {/* Theater Header Bar */}
           <div className="flex items-center justify-between pb-2 mb-2 border-b border-[rgba(0,201,216,0.15)] shrink-0">
@@ -121,7 +121,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
           </div>
 
           {/* Player Container */}
-          <div className="flex-1 min-h-0 w-full relative rounded-xl overflow-hidden bg-black/90 border border-white/10 flex items-center justify-center shadow-inner">
+          <div className="flex-1 min-h-0 w-full relative rounded-xl overflow-hidden bg-black/90 border border-white/10 flex items-center justify-center ">
             <Player
               component={DemoVideoComposition}
               durationInFrames={600}
@@ -156,7 +156,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
         </section>
 
         {/* Right: Architectural Telemetry & Phase Cards (Locked to Height, Zero Page Scroll) */}
-        <aside className="w-full lg:w-80 xl:w-96 shrink-0 flex flex-col bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-3 shadow-xl overflow-hidden justify-between">
+        <aside className="w-full lg:w-80 xl:w-96 shrink-0 flex flex-col bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-3 overflow-hidden justify-between">
           
           <div className="shrink-0 mb-2 pb-1.5 border-b border-[rgba(0,201,216,0.15)]">
             <span className="text-[10px] font-mono text-[#FFFFFF] uppercase tracking-wider font-bold block">
@@ -199,7 +199,7 @@ export const DemoPage: React.FC<DemoPageProps> = ({ onNavigate }) => {
             <div className="flex items-center gap-2 justify-center">
               <button
                 onClick={() => onNavigate('/analyze')}
-                className="px-3 py-1.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] font-bold text-xs rounded-lg flex items-center justify-center gap-1 transition-all shadow-[0_0_12px_rgba(0,201,216,0.25)] hover:brightness-110 cursor-pointer w-full"
+                className="px-3 py-1.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] font-bold text-xs rounded-lg flex items-center justify-center gap-1 transition-all hover:brightness-110 cursor-pointer w-full"
               >
                 <span>Launch Analyzer</span>
                 <ArrowRight className="w-3 h-3" />

@@ -168,7 +168,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search archive..."
-                className="w-full pl-10 pr-4 py-2 bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] rounded-xl text-xs sm:text-sm text-[#FFFFFF] placeholder-[#D28B96]/45 focus:outline-none focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8]/30 transition-all shadow-inner font-sans"
+                className="w-full pl-10 pr-4 py-2 bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] rounded-xl text-xs sm:text-sm text-[#FFFFFF] placeholder-[#D28B96]/45 focus:outline-none focus:border-[#00C9D8] focus:ring-1 focus:ring-[#00C9D8]/30 transition-all font-sans"
               />
             </div>
 
@@ -177,7 +177,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
               <select
                 value={filterClass}
                 onChange={(e) => setFilterClass(e.target.value)}
-                className="pl-9 pr-8 py-2 bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] rounded-xl text-xs sm:text-sm text-[#FFFFFF] focus:outline-none focus:border-[#00C9D8] appearance-none cursor-pointer transition-all shadow-inner font-sans"
+                className="pl-9 pr-8 py-2 bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] rounded-xl text-xs sm:text-sm text-[#FFFFFF] focus:outline-none focus:border-[#00C9D8] appearance-none cursor-pointer transition-all font-sans"
               >
                 <option value="all" className="bg-[#140A10]/80 backdrop-blur-2xl text-[#FFFFFF]">All Records</option>
                 <option value="ai" className="bg-[#140A10]/80 backdrop-blur-2xl text-amber-300">AI Generated</option>
@@ -204,7 +204,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
               <span className="text-sm font-medium">{search || filterClass !== 'all' ? 'No records match your criteria.' : 'Archive is empty.'}</span>
             </div>
           ) : (
-            <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.35)] flex flex-col flex-1 min-h-[500px] relative">
+            <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] overflow-hidden flex flex-col flex-1 min-h-[500px] relative">
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
               
               {/* Table Header */}
@@ -283,7 +283,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
-                className="w-full max-w-4xl bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] p-6 sm:p-10 shadow-[0_24px_64px_rgba(0,0,0,0.8)] relative max-h-[90vh] flex flex-col overflow-hidden"
+                className="w-full max-w-4xl bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] p-6 sm:p-10 relative max-h-[90vh] flex flex-col overflow-hidden"
               >
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/40 to-transparent" />
                 
@@ -357,7 +357,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
                       setSelectedItem(null);
                       onNavigate('/paraphrase', { text });
                     }}
-                    className="px-6 py-2.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] hover:brightness-110 font-bold text-xs sm:text-sm rounded-xl flex items-center gap-2 transition cursor-pointer shadow-[0_0_20px_rgba(0,201,216,0.25)]"
+                    className="px-6 py-2.5 bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] hover:brightness-110 font-bold text-xs sm:text-sm rounded-xl flex items-center gap-2 transition cursor-pointer "
                   >
                     <Wand2 className="w-4 h-4 text-[#061416]" />
                     <span>Test Robustness (Paraphrase)</span>

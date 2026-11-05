@@ -70,8 +70,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
   return (
     <div className="fixed top-0 w-full z-50 flex flex-col items-center pt-2 sm:pt-3 px-3 sm:px-6 pointer-events-none">
       <nav className={`pointer-events-auto transition-all duration-300 rounded-2xl w-full max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1536px] flex items-center justify-between px-5 sm:px-7 py-2 sm:py-2.5 relative ${scrolled || mobileMenuOpen
-          ? 'bg-[#1D1015]/90 backdrop-blur-2xl border border-white/[0.1] shadow-[0_8px_32px_rgba(0,0,0,0.5)]'
-          : 'bg-[#1D1015]/80 backdrop-blur-xl border border-white/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.4)]'
+          ? 'bg-[#1D1015]/90 backdrop-blur-2xl border border-white/[0.1] '
+          : 'bg-[#1D1015]/80 backdrop-blur-xl border border-white/[0.08] '
         }`}>
         
 
@@ -95,7 +95,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                 key={link.route}
                 onClick={() => handleNav(link.route)}
                 className={`px-3.5 py-1.5 rounded-xl text-sm font-medium transition-all duration-300 cursor-pointer relative border ${isActive
-                    ? 'text-[#FFFFFF] bg-[#1C0F17]/85 backdrop-blur-2xl border-white/[0.08] font-semibold shadow-[0_8px_32px_rgba(0,0,0,0.6)]'
+                    ? 'text-[#FFFFFF] bg-[#1C0F17]/85 backdrop-blur-2xl border-white/[0.08] font-semibold '
                     : 'text-[#D28B96] border-transparent hover:text-[#FFFFFF] hover:bg-[#121820] hover:border-white/[0.08]'
                   }`}
               >
@@ -123,7 +123,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
               </button>
               <button
                 onClick={() => handleNav('/signup')}
-                className="px-5 py-2 text-sm font-bold bg-gradient-to-r from-[#8E2848] to-[#5C182D] hover:from-[#A23054] hover:to-[#701E37] text-white border border-white/15 shadow-[0_4px_20px_rgba(142,40,72,0.35)] rounded-xl transition-all shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:shadow-[0_2px_10px_rgba(0,213,229,0.25)] cursor-pointer"
+                className="px-5 py-2 text-sm font-bold bg-gradient-to-r from-[#8E2848] to-[#5C182D] hover:from-[#A23054] hover:to-[#701E37] text-white border border-white/15 rounded-xl transition-all cursor-pointer"
               >
                 Get Started
               </button>
@@ -133,7 +133,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
               {currentRoute === '/' ? (
                 <button
                   onClick={() => handleNav('/dashboard')}
-                  className="px-5 py-2 text-sm font-bold bg-gradient-to-r from-[#8E2848] to-[#5C182D] hover:from-[#A23054] hover:to-[#701E37] text-white border border-white/15 shadow-[0_4px_20px_rgba(142,40,72,0.35)] rounded-xl transition-all shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:shadow-[0_2px_10px_rgba(0,213,229,0.25)] cursor-pointer"
+                  className="px-5 py-2 text-sm font-bold bg-gradient-to-r from-[#8E2848] to-[#5C182D] hover:from-[#A23054] hover:to-[#701E37] text-white border border-white/15 rounded-xl transition-all cursor-pointer"
                 >
                   Go to Dashboard
                 </button>
@@ -187,7 +187,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 8, scale: 0.96 }}
                       transition={{ duration: 0.15, ease: 'easeOut' }}
-                      className="absolute right-0 mt-3 w-60 bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.6)] p-2.5 z-50 flex flex-col gap-1.5 overflow-hidden"
+                      className="absolute right-0 mt-3 w-60 bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-2.5 z-50 flex flex-col gap-1.5 overflow-hidden"
                     >
                       
 
@@ -230,7 +230,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                           setProfileMenuOpen(false);
                           handleNav('/logout');
                         }}
-                        className="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-300 hover:text-white transition-all flex items-center justify-between shadow-[0_8px_32px_rgba(0,0,0,0.6)] cursor-pointer"
+                        className="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-300 hover:text-white transition-all flex items-center justify-between cursor-pointer"
                       >
                         <div className="flex items-center gap-2.5">
                           <div className="w-6 h-6 rounded-lg bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-300">
@@ -267,7 +267,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="md:hidden pointer-events-auto w-full max-w-7xl mt-3 bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] shadow-[0_8px_30px_rgba(0,0,0,0.4)] rounded-2xl overflow-hidden relative"
+            className="md:hidden pointer-events-auto w-full max-w-7xl mt-3 bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden relative"
           >
             
             <div className="px-6 py-6 flex flex-col gap-4">
@@ -291,7 +291,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                   </button>
                   <button
                     onClick={() => handleNav('/signup')}
-                    className="w-full py-3 mt-2 text-sm font-bold bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+                    className="w-full py-3 mt-2 text-sm font-bold bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] rounded-xl "
                   >
                     Get Started
                   </button>
@@ -314,7 +314,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                   <div className="w-full h-px bg-white/5 my-2" />
                   <button
                     onClick={() => handleNav('/dashboard')}
-                    className="w-full py-3 mt-2 text-sm font-bold bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+                    className="w-full py-3 mt-2 text-sm font-bold bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] rounded-xl "
                   >
                     Go to Dashboard
                   </button>

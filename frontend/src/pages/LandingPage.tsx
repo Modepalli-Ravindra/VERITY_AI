@@ -56,7 +56,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             transition={{ duration: 0.5 }}
             className="relative mb-6"
           >
-            <div className="relative px-4 py-1.5 rounded-full bg-[#1D1015]/85 backdrop-blur-2xl border border-white/[0.1] flex items-center gap-2 text-[11px] sm:text-xs font-mono tracking-[0.18em] text-[#FFFFFF] uppercase font-bold shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+            <div className="relative px-4 py-1.5 rounded-full bg-[#1D1015]/85 backdrop-blur-2xl border border-white/[0.1] flex items-center gap-2 text-[11px] sm:text-xs font-mono tracking-[0.18em] text-[#FFFFFF] uppercase font-bold ">
               <span className="w-1.5 h-1.5 rounded-full bg-[#D28B96] animate-pulse" />
               <span>AI DETECTION</span>
               <span className="text-white/30 font-normal">/</span>
@@ -69,7 +69,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.2rem] font-extrabold tracking-tight text-[#FFFFFF] leading-[1.12] mb-6 max-w-4xl"
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.25rem] 2xl:text-[6.75rem] font-extrabold tracking-[-0.035em] text-[#FFFFFF] leading-[1.03] mb-8 max-w-5xl"
           >
             <span className="block">Detect AI. Verify Truth.</span>
             <span className="block text-[#F1DDE0]">
@@ -96,7 +96,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           >
             <button
               onClick={() => handleCTA('/analyze')}
-              className="px-7 py-3.5 bg-gradient-to-r from-[#8E2848] to-[#5C182D] hover:from-[#A23054] hover:to-[#701E37] text-white border border-white/20 shadow-[0_4px_24px_rgba(142,40,72,0.4)] font-bold text-sm sm:text-base tracking-wide rounded-xl transition-all shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex items-center gap-2.5 cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+              className="px-7 py-3.5 bg-gradient-to-r from-[#8E2848] to-[#5C182D] hover:from-[#A23054] hover:to-[#701E37] text-white border border-white/20 font-bold text-sm sm:text-base tracking-wide rounded-xl transition-all flex items-center gap-2.5 cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
             >
               <span>Analyze a Document</span>
               <ArrowRight className="w-4 h-4" />
@@ -104,7 +104,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
 
             <button
               onClick={goToDemo}
-              className="px-6 py-3.5 bg-[#1D1015]/85 backdrop-blur-2xl hover:bg-[#2A1420]/90 border border-white/[0.12] hover:border-[#D28B96]/40 text-[#FFFFFF] font-medium text-sm sm:text-base rounded-xl transition-all flex items-center gap-2.5 cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+              className="px-6 py-3.5 bg-[#1D1015]/85 backdrop-blur-2xl hover:bg-[#2A1420]/90 border border-white/[0.12] hover:border-[#D28B96]/40 text-[#FFFFFF] font-medium text-sm sm:text-base rounded-xl transition-all flex items-center gap-2.5 cursor-pointer "
             >
               <div className="w-6 h-6 rounded-lg bg-[#F1DDE0]/15 border border-[#D28B96]/30 flex items-center justify-center text-[#FFFFFF]">
                 <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
@@ -141,7 +141,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
            ========================================================================= */}
         <section id="why-verity" className="mb-32 pt-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#FFFFFF] text-[10px] font-mono tracking-widest uppercase font-bold mb-3 shadow-[0_0_12px_rgba(0,201,216,0.15)]">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#FFFFFF] text-[10px] font-mono tracking-widest uppercase font-bold mb-3 ">
               SYSTEM CAPABILITIES
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#FFFFFF] mb-3">
@@ -155,16 +155,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           {/* Symmetrical Capabilities Layout: 1st Box Full Width + 3 Equal Boxes Below */}
           <div className="space-y-5">
                 {/* Primary Feature: ModernBERT V5 Deep Feature Fusion (Full Width - Compact) */}
-            <div className="w-full bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-[0_8px_32px_rgba(0,0,0,0.6)] relative overflow-hidden group hover:border-[#D28B96]/35 transition-all">
+            <div className="w-full bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-4 sm:p-5 flex flex-col justify-between relative overflow-hidden group hover:border-[#D28B96]/35 transition-all">
               
               
               
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#FFFFFF] shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+                  <div className="w-8 h-8 rounded-lg bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#FFFFFF] ">
                     <Cpu className="w-4 h-4" />
                   </div>
-                  <span className="px-2.5 py-0.5 rounded-full bg-[#00C9D8]/15 text-[#FFFFFF] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#00C9D8]/35 shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#00C9D8]/15 text-[#FFFFFF] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#00C9D8]/35 ">
                     Primary Engine
                   </span>
                 </div>
@@ -201,7 +201,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
               
               {/* Box 1: Full Document Intelligence */}
-              <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-[0_8px_32px_rgba(0,0,0,0.6)] relative overflow-hidden group hover:border-[#D28B96]/35 transition-all h-full">
+              <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between relative overflow-hidden group hover:border-[#D28B96]/35 transition-all h-full">
                 
                 <div>
                   <div className="w-7 h-7 rounded-md bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#FFFFFF] mb-2">
@@ -226,7 +226,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               </div>
 
               {/* Box 2: Writing Intelligence & Paraphrasing */}
-              <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-[0_8px_32px_rgba(0,0,0,0.6)] relative overflow-hidden group hover:border-[#D28B96]/35 transition-all h-full">
+              <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between relative overflow-hidden group hover:border-[#D28B96]/35 transition-all h-full">
                 
                 <div>
                   <div className="w-7 h-7 rounded-md bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#FFFFFF] mb-2">
@@ -250,7 +250,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               </div>
 
               {/* Box 3: Verifiable Provenance & QR Codes */}
-              <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between shadow-[0_8px_32px_rgba(0,0,0,0.6)] relative overflow-hidden group hover:border-[#D28B96]/35 transition-all h-full">
+              <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between relative overflow-hidden group hover:border-[#D28B96]/35 transition-all h-full">
                 
                 <div>
                   <div className="w-7 h-7 rounded-md bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#FFFFFF] mb-2">
@@ -284,7 +284,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
            ========================================================================= */}
         <section id="architecture" className="mb-32 pt-8">
           <div className="text-center max-w-3xl mx-auto mb-10 flex flex-col items-center gap-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#FFFFFF] text-[10px] font-mono tracking-widest uppercase font-bold shadow-[0_0_12px_rgba(0,201,216,0.15)]">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#FFFFFF] text-[10px] font-mono tracking-widest uppercase font-bold ">
               <Cpu className="w-3.5 h-3.5" /> Empirical Architecture
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#FFFFFF]">
@@ -297,7 +297,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Model Card 1: ModernBERT V5 */}
-            <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+            <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-6 sm:p-8 flex flex-col justify-between ">
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <span className="px-3 py-1 rounded-xl bg-[#F1DDE0] text-[#061619] font-bold text-[10px] uppercase tracking-wider font-mono">
@@ -327,7 +327,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             </div>
 
             {/* Model Card 2: DistilRoBERTa V2 */}
-            <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+            <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-6 sm:p-8 flex flex-col justify-between ">
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <span className="px-3 py-1 rounded-full bg-[#00C9D8]/15 text-[#FFFFFF] border border-[#00C9D8]/30 font-bold text-[10px] uppercase tracking-wider font-mono">
@@ -367,7 +367,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
            ========================================================================= */}
         <section id="how-it-works" className="mb-32 pt-8">
           <div className="text-center max-w-3xl mx-auto mb-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#FFFFFF] text-[10px] font-mono tracking-widest uppercase font-bold mb-3 shadow-[0_0_12px_rgba(0,201,216,0.15)]">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#FFFFFF] text-[10px] font-mono tracking-widest uppercase font-bold mb-3 ">
               WORKFLOW PIPELINE
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#FFFFFF] mb-4">
@@ -379,7 +379,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             <div className="flex justify-center items-center">
               <button
                 onClick={() => handleCTA('/analyze')}
-                className="px-8 py-3.5 bg-[#F1DDE0] hover:bg-white text-[#061619] font-bold text-sm rounded-full flex items-center gap-2 transition-all shadow-[0_0_25px_rgba(20,139,166,0.35)] hover:shadow-[0_0_30px_rgba(0,212,229,0.5)] cursor-pointer"
+                className="px-8 py-3.5 bg-[#F1DDE0] hover:bg-white text-[#061619] font-bold text-sm rounded-full flex items-center gap-2 transition-all cursor-pointer"
               >
                 <span>Get Started</span>
                 <ArrowRight className="w-4 h-4" />
@@ -394,7 +394,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               { step: '03', title: 'Feature Fusion Verdict', desc: 'ModernBERT V5 produces an overall probability donut and segment-by-segment ratings.', icon: BarChart2 },
               { step: '04', title: 'Paraphrase or Compare', desc: 'Optionally adapt tone with preserved facts or run a side-by-side differential comparison.', icon: Wand2 },
             ].map((s, i) => (
-              <div key={i} className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-6 hover:border-[#D28B96]/35 transition-colors flex flex-col justify-between shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+              <div key={i} className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-6 hover:border-[#D28B96]/35 transition-colors flex flex-col justify-between ">
                 <div>
                   <span className="text-[10px] font-mono text-[#FFFFFF] mb-3 bg-[#148BA6]/20 px-2.5 py-1 rounded inline-block font-bold">
                     STEP {s.step}
@@ -416,7 +416,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
            ========================================================================= */}
         <section id="faq" className="mb-32 max-w-4xl mx-auto pt-8">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#FFFFFF] text-[10px] font-mono tracking-widest uppercase font-bold mb-3 shadow-[0_0_12px_rgba(0,201,216,0.15)]">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#FFFFFF] text-[10px] font-mono tracking-widest uppercase font-bold mb-3 ">
               FREQUENTLY ASKED QUESTIONS
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#FFFFFF]">
@@ -462,7 +462,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               <div 
                 key={i} 
                 onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-5 hover:border-[#D28B96]/35 transition-all cursor-pointer overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+                className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-5 hover:border-[#D28B96]/35 transition-all cursor-pointer overflow-hidden "
               >
                 <div className="flex justify-between items-center">
                   <h4 className="text-sm font-semibold text-white">{faq.q}</h4>
@@ -480,10 +480,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         {/* =========================================================================
             BOTTOM CLOSING CTA
            ========================================================================= */}
-        <section className="text-center py-16 px-8 sm:px-12 bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] mb-16 relative overflow-hidden">
+        <section className="text-center py-16 px-8 sm:px-12 bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl mb-16 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,212,229,0.06),transparent_60%)]" />
           <div className="relative z-10 max-w-xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#FFFFFF] text-[10px] font-mono tracking-widest uppercase font-bold mb-3 shadow-[0_0_12px_rgba(0,201,216,0.15)]">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C9D8]/10 border border-[#00C9D8]/30 text-[#FFFFFF] text-[10px] font-mono tracking-widest uppercase font-bold mb-3 ">
               VERITY PRODUCTION SUITE
             </div>
             <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#FFFFFF] mb-4">
@@ -495,7 +495,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             <div className="flex flex-wrap items-center justify-center gap-4">
               <button 
                 onClick={() => handleCTA('/analyze')}
-                className="px-8 py-3.5 bg-[#F1DDE0] hover:bg-white text-[#061619] font-bold rounded-full transition-all shadow-[0_0_25px_rgba(20,139,166,0.4)] hover:shadow-[0_0_35px_rgba(0,212,229,0.5)] inline-flex items-center gap-2 cursor-pointer text-sm"
+                className="px-8 py-3.5 bg-[#F1DDE0] hover:bg-white text-[#061619] font-bold rounded-full transition-all inline-flex items-center gap-2 cursor-pointer text-sm"
               >
                 <span>Start Analyzing Now</span>
                 <ArrowRight className="w-4 h-4" />

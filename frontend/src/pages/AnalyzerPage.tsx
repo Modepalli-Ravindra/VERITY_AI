@@ -314,7 +314,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
               onClick={handleAnalyze}
               disabled={loading || (inputMode === 'paste' ? !text.trim() : !selectedFile)}
               id="analyze-run-btn"
-              className="px-6 py-2.5 bg-gradient-to-r from-[#8E2848] to-[#5C182D] hover:from-[#A23054] hover:to-[#701E37] text-white border border-white/15 shadow-[0_4px_20px_rgba(142,40,72,0.35)] font-bold text-xs sm:text-sm font-mono uppercase tracking-widest rounded-xl flex items-center gap-2.5 transition-all disabled:opacity-50 disabled:hover:bg-[#F1DDE0] cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+              className="px-6 py-2.5 bg-gradient-to-r from-[#8E2848] to-[#5C182D] hover:from-[#A23054] hover:to-[#701E37] text-white border border-white/15 font-bold text-xs sm:text-sm font-mono uppercase tracking-widest rounded-xl flex items-center gap-2.5 transition-all disabled:opacity-50 disabled:hover:bg-[#F1DDE0] cursor-pointer "
             >
               {loading ? (
                 <>
@@ -340,7 +340,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
               exit={{ opacity: 0 }}
               className="fixed inset-0 z-50 flex items-center justify-center bg-[#1D1015]/85"
             >
-              <div className="bg-[#0A2023] p-8 rounded-2xl border border-white/[0.08] flex items-center justify-center shadow-2xl">
+              <div className="bg-[#0A2023] p-8 rounded-2xl border border-white/[0.08] flex items-center justify-center ">
                 <ThinkingOrbs 
                   title={inputMode === 'upload' ? 'DOCUMENT INFERENCE ACTIVE' : 'INFERENCE ACTIVE'} 
                   stages={inputMode === 'upload' ? documentStages : detectorStages} 
@@ -368,7 +368,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 {(error.toLowerCase().includes('sign in') || error.toLowerCase().includes('session') || error.toLowerCase().includes('authorization')) && (
                   <button
                     onClick={() => onNavigate('/login')}
-                    className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] font-mono font-bold text-xs uppercase tracking-wider hover:shadow-[0_0_12px_rgba(0,201,216,0.3)] transition-all cursor-pointer shrink-0"
+                    className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] font-mono font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shrink-0"
                   >
                     Sign In
                   </button>
@@ -382,7 +382,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 flex-1 min-h-[520px]">
           
           {/* Left Pane: Original Sequence / Input */}
-          <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.35)] relative">
+          <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div className="flex items-center justify-between px-5 py-3.5 bg-[#1D1015] border-b border-white/[0.08] shrink-0">
               <div className="flex items-center gap-2.5">
@@ -400,7 +400,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                   <button
                     onClick={() => { setInputMode('paste'); setError(''); }}
                     className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
-                      inputMode === 'paste' ? 'bg-gradient-to-r from-[#8E2848] to-[#5C182D] text-white border border-white/15 shadow-[0_4px_20px_rgba(142,40,72,0.35)] font-bold shadow-[0_8px_32px_rgba(0,0,0,0.6)]' : 'text-[#9BB2B7] hover:text-[#FFFFFF]'
+                      inputMode === 'paste' ? 'bg-gradient-to-r from-[#8E2848] to-[#5C182D] text-white border border-white/15 font-bold ' : 'text-[#9BB2B7] hover:text-[#FFFFFF]'
                     }`}
                   >
                     Paste Text
@@ -408,7 +408,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                   <button
                     onClick={() => { setInputMode('upload'); setError(''); }}
                     className={`px-3 py-1 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
-                      inputMode === 'upload' ? 'bg-gradient-to-r from-[#8E2848] to-[#5C182D] text-white border border-white/15 shadow-[0_4px_20px_rgba(142,40,72,0.35)] font-bold shadow-[0_8px_32px_rgba(0,0,0,0.6)]' : 'text-[#9BB2B7] hover:text-[#FFFFFF]'
+                      inputMode === 'upload' ? 'bg-gradient-to-r from-[#8E2848] to-[#5C182D] text-white border border-white/15 font-bold ' : 'text-[#9BB2B7] hover:text-[#FFFFFF]'
                     }`}
                   >
                     <UploadCloud className="w-3.5 h-3.5" />
@@ -469,7 +469,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 />
 
                 {selectedFile ? (
-                  <div className="w-full max-w-lg p-8 rounded-2xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] flex flex-col items-center gap-4 shadow-xl relative overflow-hidden">
+                  <div className="w-full max-w-lg p-8 rounded-2xl bg-[#0A0407]/90 backdrop-blur-md border border-white/[0.08] flex flex-col items-center gap-4 relative overflow-hidden">
                     <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
                     <div className="w-16 h-16 rounded-2xl bg-[#00C9D8]/10 border border-[#00C9D8]/20 flex items-center justify-center text-[#FFFFFF]">
                       <FileText className="w-8 h-8" />
@@ -502,7 +502,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 ) : (
                   <div
                     onClick={() => fileInputRef.current?.click()}
-                    className={`w-full max-w-lg h-72 flex flex-col items-center justify-center border-2 border-dashed ${dragActive ? 'border-[#00C9D8] bg-[#00C9D8]/5' : 'border-white/[0.08] hover:border-[#00C9D8]/50'} rounded-2xl p-8 cursor-pointer transition-all group shadow-md bg-[#0A0407]/90 backdrop-blur-md`}
+                    className={`w-full max-w-lg h-72 flex flex-col items-center justify-center border-2 border-dashed ${dragActive ? 'border-[#00C9D8] bg-[#00C9D8]/5' : 'border-white/[0.08] hover:border-[#00C9D8]/50'} rounded-2xl p-8 cursor-pointer transition-all group bg-[#0A0407]/90 backdrop-blur-md`}
                   >
                     <div className="w-16 h-16 rounded-2xl bg-[#00C9D8]/10 group-hover:bg-[#00C9D8]/15 border border-white/[0.08] group-hover:border-[#00C9D8]/40 flex items-center justify-center text-[#FFFFFF]/60 group-hover:text-[#FFFFFF] transition-all mb-4">
                       <UploadCloud className="w-8 h-8" />
@@ -523,7 +523,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
           </div>
 
           {/* Right Pane: Detection Diagnostics */}
-          <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.35)] relative">
+          <div className="bg-[#140A10]/80 backdrop-blur-2xl rounded-2xl border border-white/[0.08] flex flex-col h-full overflow-hidden relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
             <div className="flex items-center justify-between px-5 py-3.5 bg-[#1D1015] border-b border-white/[0.08] shrink-0">
               <div className="flex items-center gap-2.5">
@@ -580,7 +580,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                   return (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 shrink-0">
                       {/* AI Probability Card */}
-                      <div className="bg-[#061519]/80 border border-white/[0.08] rounded-2xl p-4 flex flex-col justify-between shadow-[0_8px_32px_rgba(0,0,0,0.6)] relative overflow-hidden group hover:border-[#00C9D8]/40 transition-all">
+                      <div className="bg-[#061519]/80 border border-white/[0.08] rounded-2xl p-4 flex flex-col justify-between relative overflow-hidden group hover:border-[#00C9D8]/40 transition-all">
                         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/20 to-transparent" />
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-[11px] font-mono tracking-widest uppercase text-[#9BB2B7] font-bold">
@@ -643,7 +643,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                       </div>
 
                       {/* Human Probability Card */}
-                      <div className="bg-[#061519]/80 border border-white/[0.08] rounded-2xl p-4 flex flex-col justify-between shadow-[0_8px_32px_rgba(0,0,0,0.6)] relative overflow-hidden group hover:border-emerald-400/40 transition-all">
+                      <div className="bg-[#061519]/80 border border-white/[0.08] rounded-2xl p-4 flex flex-col justify-between relative overflow-hidden group hover:border-emerald-400/40 transition-all">
                         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent" />
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-[11px] font-mono tracking-widest uppercase text-[#9BB2B7] font-bold">
@@ -709,7 +709,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 })()}
 
                 {/* Primary Classification & Assessment Card */}
-                <div className="p-5 sm:p-6 rounded-2xl bg-[#061519]/80 border border-white/[0.08] flex flex-col gap-2.5 shrink-0 shadow-md relative overflow-hidden">
+                <div className="p-5 sm:p-6 rounded-2xl bg-[#061519]/80 border border-white/[0.08] flex flex-col gap-2.5 shrink-0 relative overflow-hidden">
                   <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/30 to-transparent" />
                   <div className="flex items-center justify-between flex-wrap gap-2.5">
                     <div className="flex items-center gap-3">
@@ -734,7 +734,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                 </div>
 
                 {/* Interactive Diagnostic Indicators */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-[#061519]/80 border border-white/[0.08] flex flex-col gap-3.5 shrink-0 shadow-md relative overflow-hidden">
+                <div className="p-4 sm:p-5 rounded-2xl bg-[#061519]/80 border border-white/[0.08] flex flex-col gap-3.5 shrink-0 relative overflow-hidden">
                   <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00C9D8]/20 to-transparent" />
                   <div className="flex items-center justify-between border-b border-white/[0.08] pb-2.5">
                     <span className="text-xs font-mono tracking-widest uppercase text-[#FFFFFF] font-semibold flex items-center gap-2">
@@ -858,7 +858,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
                         documentMeta: result?.document_meta
                       });
                     }}
-                    className="w-full py-4 px-5 rounded-xl bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] text-xs sm:text-sm font-bold uppercase tracking-[0.2em] font-mono hover:shadow-[0_0_24px_rgba(0,201,216,0.4)] transition-all flex items-center justify-center gap-2.5 cursor-pointer shadow-[0_0_18px_rgba(0,201,216,0.25)]"
+                    className="w-full py-4 px-5 rounded-xl bg-gradient-to-r from-[#00C9D8] to-[#008FA3] text-[#061416] text-xs sm:text-sm font-bold uppercase tracking-[0.2em] font-mono transition-all flex items-center justify-center gap-2.5 cursor-pointer "
                   >
                     <span>ADVERSARIAL REWRITE</span>
                     <ArrowRight className="w-4 h-4 stroke-[2.5]" />
@@ -867,7 +867,7 @@ export const AnalyzerPage: React.FC<AnalyzerPageProps> = ({ onNavigate }) => {
               </div>
             ) : (
               <div className="flex-1 p-8 sm:p-10 flex flex-col items-center justify-center text-center text-[#D28B96]">
-                <div className="w-14 h-14 rounded-2xl bg-[#00C9D8]/10 border border-white/[0.08] flex items-center justify-center text-[#FFFFFF] mb-4 shadow-[0_0_20px_rgba(0,201,216,0.15)]">
+                <div className="w-14 h-14 rounded-2xl bg-[#00C9D8]/10 border border-white/[0.08] flex items-center justify-center text-[#FFFFFF] mb-4 ">
                   <ShieldCheck className="w-7 h-7" />
                 </div>
                 <h3 className="text-sm sm:text-base font-mono uppercase tracking-widest text-[#FFFFFF] mb-2 font-semibold">

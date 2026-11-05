@@ -153,7 +153,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
           className="w-full max-w-[460px]"
         >
           {/* Main Form Surface */}
-          <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-6 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.5)] relative overflow-hidden">
+          <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-6 sm:p-8 relative overflow-hidden">
 
             {/* Top decorative subtle hairline glow */}
             
@@ -218,7 +218,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 px-4 bg-[#F1DDE0] hover:bg-white active:bg-[#D28B96] text-[#421B29] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_8px_32px_rgba(0,0,0,0.6)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  className="w-full py-3 px-4 bg-[#F1DDE0] hover:bg-white active:bg-[#D28B96] text-[#421B29] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   <span>{loading ? 'Verifying Code...' : 'Complete Registration'}</span>
                   {!loading && <ArrowRight className="w-4 h-4" />}
@@ -364,7 +364,7 @@ export const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-3 px-4 bg-[#F1DDE0] hover:bg-white active:bg-[#D28B96] text-[#421B29] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_8px_32px_rgba(0,0,0,0.6)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                    className="w-full py-3 px-4 bg-[#F1DDE0] hover:bg-white active:bg-[#D28B96] text-[#421B29] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                   >
                     <span>{loading ? 'Creating Account...' : 'Create Account'}</span>
                     {!loading && <ArrowRight className="w-4 h-4" />}

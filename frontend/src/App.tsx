@@ -67,7 +67,7 @@ const MainRouter: React.FC = () => {
               times: [0, 0.5, 1],
               repeat: Infinity,
             }}
-            className="w-16 h-16 border-[3px] border-[var(--color-lime-sprout)]/20 border-t-[var(--color-lime-sprout)] border-l-[var(--color-lime-sprout)] shadow-[0_0_30px_rgba(0, 213, 229,0.2)]"
+            className="w-16 h-16 border-[3px] border-[var(--color-lime-sprout)]/20 border-t-[var(--color-lime-sprout)] border-l-[var(--color-lime-sprout)] "
           />
           <div className="flex flex-col items-center gap-2">
             <motion.p 
@@ -179,7 +179,7 @@ const MainRouter: React.FC = () => {
       {/* Remotion Product Demo Video Modal */}
       {showDemoVideo && (
         <div className="fixed inset-0 z-50 bg-black/90  flex items-center justify-center p-4">
-          <div className="w-full max-w-4xl bg-[#0e0e14] border border-indigo-500/30 rounded-3xl p-4 sm:p-6 space-y-4 relative shadow-2xl">
+          <div className="w-full max-w-4xl bg-[#0e0e14] border border-indigo-500/30 rounded-3xl p-4 sm:p-6 space-y-4 relative ">
             <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <div className="flex items-center gap-2 text-xs font-mono font-semibold text-indigo-300">
                 <Play className="w-4 h-4 text-indigo-400" />
@@ -193,7 +193,7 @@ const MainRouter: React.FC = () => {
               </button>
             </div>
 
-            <div className="w-full aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-inner bg-black">
+            <div className="w-full aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black">
               <Player
                 component={DemoVideoComposition}
                 durationInFrames={150}

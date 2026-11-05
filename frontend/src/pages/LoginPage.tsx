@@ -124,7 +124,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
           className="w-full max-w-[440px]"
         >
           {/* Main Form Surface */}
-          <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-7 sm:p-9 shadow-[0_8px_32px_rgba(0,0,0,0.5)] relative overflow-hidden">
+          <div className="bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-7 sm:p-9 relative overflow-hidden">
             
             {/* Top decorative subtle hairline glow */}
             
@@ -189,7 +189,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 px-4 bg-[#F1DDE0] hover:bg-white active:bg-[#D28B96] text-[#421B29] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_8px_32px_rgba(0,0,0,0.6)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  className="w-full py-3 px-4 bg-[#F1DDE0] hover:bg-white active:bg-[#D28B96] text-[#421B29] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   <span>{loading ? 'Verifying Session...' : 'Verify & Continue'}</span>
                   {!loading && <ArrowRight className="w-4 h-4" />}
@@ -255,7 +255,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-3 px-4 bg-[#F1DDE0] hover:bg-white active:bg-[#D28B96] text-[#421B29] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_8px_32px_rgba(0,0,0,0.6)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                    className="w-full py-3 px-4 bg-[#F1DDE0] hover:bg-white active:bg-[#D28B96] text-[#421B29] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                   >
                     <span>{loading ? 'Authenticating...' : 'Sign In'}</span>
                     {!loading && <ArrowRight className="w-4 h-4" />}

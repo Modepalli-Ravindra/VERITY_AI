@@ -67,10 +67,10 @@ export const LogoutPage: React.FC<LogoutPageProps> = ({ onNavigate }) => {
         initial={{ opacity: 0, y: 20, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="w-full max-w-md bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-8 sm:p-9 text-center shadow-[0_8px_32px_rgba(0,0,0,0.5)] relative overflow-hidden z-10"
+        className="w-full max-w-md bg-[#140A10]/80 backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-8 sm:p-9 text-center relative overflow-hidden z-10"
       >
         {/* Glowing top cyan accent line */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#00C9D8] to-transparent shadow-[0_0_15px_#00C9D8]" />
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#00C9D8] to-transparent " />
 
         {/* Brand Header */}
         <div className="flex items-center justify-center gap-2.5 mb-7">
@@ -98,7 +98,7 @@ export const LogoutPage: React.FC<LogoutPageProps> = ({ onNavigate }) => {
           />
 
           {/* Inner center badge */}
-          <div className="w-11 h-11 rounded-2xl bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#FFFFFF] shadow-[0_0_16px_rgba(0,201,216,0.3)]">
+          <div className="w-11 h-11 rounded-2xl bg-[#00C9D8]/15 border border-[#00C9D8]/30 flex items-center justify-center text-[#FFFFFF] ">
             <LogOut className="w-5 h-5 stroke-[2.2]" />
           </div>
         </div>
@@ -114,7 +114,7 @@ export const LogoutPage: React.FC<LogoutPageProps> = ({ onNavigate }) => {
         {/* Animated Progress Bar */}
         <div className="w-full bg-[#0A0407]/90 backdrop-blur-md h-2 rounded-full overflow-hidden border border-[rgba(0,201,216,0.15)] mb-5 p-0.5">
           <motion.div
-            className="h-full bg-gradient-to-r from-[#008FA3] via-[#00C9D8] to-[#00E5FF] rounded-full shadow-[0_0_10px_#00C9D8]"
+            className="h-full bg-gradient-to-r from-[#008FA3] via-[#00C9D8] to-[#00E5FF] rounded-full "
             initial={{ width: '10%' }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.35, ease: 'easeOut' }}
