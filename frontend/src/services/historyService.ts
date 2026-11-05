@@ -5,7 +5,7 @@
  * 1. Authenticated user scoping.
  * 2. Instant synchronization between Analyze, Paraphrase, Compare and Dashboard.
  * 3. Prevention of duplicate records via deterministic request hashing.
- * 4. Dual-layer persistence: InsForge PostgreSQL database + resilient user-scoped local fallback.
+ * 4. Dual-layer persistence: SQLite database + resilient user-scoped local fallback.
  * 5. Distinct classification of analyses, transformations, and comparisons.
  * 6. Honest empty/unavailable state representation (zero invented metrics).
  */
@@ -59,28 +59,49 @@ function getStoredRecords(userId: string): ActivityRecord[] {
   }
 }
 
-function saveStoredRecords(userId: string, records: ActivityRecord[]): void {
+function saveStoredRecords(userId: string, records: ActivityRecord[], notify = true): void {
   try {
-    // Keep last 150 records per user
+    const key = getStorageKey(userId);
+    const prevRaw = localStorage.getItem(key);
     const trimmed = records.slice(0, 150);
-    localStorage.setItem(getStorageKey(userId), JSON.stringify(trimmed));
-    window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: { userId } }));
+    const nextRaw = JSON.stringify(trimmed);
+    
+    // Prevent redundant storage writes and infinite re-dispatch loops
+    if (prevRaw === nextRaw) {
+      return;
+    }
+    
+    localStorage.setItem(key, nextRaw);
+    if (notify) {
+      window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: { userId } }));
+    }
   } catch (err) {
     console.warn('[HistoryService] Failed to persist local history:', err);
   }
 }
 
 export const HistoryService = {
+  getStoredRecords(userId: string): ActivityRecord[] {
+    return getStoredRecords(userId);
+  },
+
   /**
    * Subscribe to history updates from anywhere in the app.
    */
   subscribe(callback: () => void): () => void {
-    const handler = () => callback();
-    window.addEventListener(EVENT_NAME, handler);
-    window.addEventListener('focus', handler);
+    let lastCall = 0;
+    const throttledHandler = () => {
+      const now = Date.now();
+      if (now - lastCall > 500) {
+        lastCall = now;
+        callback();
+      }
+    };
+    window.addEventListener(EVENT_NAME, throttledHandler);
+    window.addEventListener('focus', throttledHandler);
     return () => {
-      window.removeEventListener(EVENT_NAME, handler);
-      window.removeEventListener('focus', handler);
+      window.removeEventListener(EVENT_NAME, throttledHandler);
+      window.removeEventListener('focus', throttledHandler);
     };
   },
 
@@ -126,10 +147,10 @@ export const HistoryService = {
       Math.abs(new Date(r.createdAt).getTime() - new Date(record.createdAt).getTime()) < 3000
     );
     if (!isDupe) {
-      saveStoredRecords(uid, [record, ...existing]);
+      saveStoredRecords(uid, [record, ...existing], true);
     }
 
-    // 2. Persist to InsForge database if user is authenticated
+    // 2. Persist to SQLite database if user is authenticated
     if (params.userId) {
       try {
         await insforge.database.from('analyses').insert([{
@@ -145,7 +166,7 @@ export const HistoryService = {
           character_count: params.characterCount
         }]);
       } catch (err) {
-        console.warn('[HistoryService] InsForge analyses insert fallback to local:', err);
+        console.warn('[HistoryService] Analyses insert fallback to local:', err);
       }
     }
   },
@@ -178,7 +199,7 @@ export const HistoryService = {
       Math.abs(new Date(r.createdAt).getTime() - new Date(record.createdAt).getTime()) < 3000
     );
     if (!isDupe) {
-      saveStoredRecords(uid, [record, ...existing]);
+      saveStoredRecords(uid, [record, ...existing], true);
     }
 
     if (params.userId) {
@@ -190,7 +211,7 @@ export const HistoryService = {
           model_used: `${params.provider} (${params.tone})`
         }]);
       } catch (err) {
-        console.warn('[HistoryService] InsForge humanizations insert fallback to local:', err);
+        console.warn('[HistoryService] Humanizations insert fallback to local:', err);
       }
     }
   },
@@ -225,7 +246,7 @@ export const HistoryService = {
       Math.abs(new Date(r.createdAt).getTime() - new Date(record.createdAt).getTime()) < 3000
     );
     if (!isDupe) {
-      saveStoredRecords(uid, [record, ...existing]);
+      saveStoredRecords(uid, [record, ...existing], true);
     }
   },
 
@@ -236,7 +257,7 @@ export const HistoryService = {
     const uid = userId || 'guest';
     let localRecords = getStoredRecords(uid);
 
-    // Try merging with InsForge if authenticated
+    // Try merging with SQLite backend if authenticated
     if (userId) {
       try {
         const [analysesRes, humanizationsRes] = await Promise.all([
@@ -286,8 +307,8 @@ export const HistoryService = {
 
         // Sort descending
         localRecords.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-        // Cache back merged state
-        saveStoredRecords(uid, localRecords);
+        // Cache back merged state silently without triggering re-render loops
+        saveStoredRecords(uid, localRecords, false);
       } catch (err) {
         console.warn('[HistoryService] Remote fetch failed, using local records:', err);
       }

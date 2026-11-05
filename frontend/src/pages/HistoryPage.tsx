@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { insforge } from '../lib/insforge';
 import { 
@@ -20,47 +20,66 @@ interface HistoryPageProps {
 
 export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSearch = '' }) => {
   const { user } = useAuth();
+  const userId = user?.id || 'guest';
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState(initialSearch);
   const [filterClass, setFilterClass] = useState('all');
   const [selectedItem, setSelectedItem] = useState<any | null>(null);
 
-  const fetchHistory = useCallback(async () => {
-    if (!user) return;
-    setLoading(true);
+  const isInitialRef = useRef(true);
+  const isFetchingRef = useRef(false);
+
+  const fetchHistory = useCallback(async (isBackground = false) => {
+    if (isFetchingRef.current) return;
+    isFetchingRef.current = true;
+
+    // Only display full-screen loading spinner on the first initial empty load
+    if (!isBackground && isInitialRef.current) {
+      setLoading(true);
+    }
+
     try {
       const { data, error } = await insforge.database
         .from('analyses')
         .select('*')
-        .eq('user_id', user.id)
+        .eq('user_id', userId)
         .order('created_at', { ascending: false });
 
-      if (!error && data && data.length > 0) {
+      if (!error && Array.isArray(data) && data.length > 0) {
         setItems(data);
       } else {
-        const t = await HistoryService.getDashboardTelemetry(user.id);
-        const mapped = t.recentActivity.map(a => ({
-          id: a.id,
-          original_text: a.snippet,
-          ai_probability: a.aiProbability,
-          classification: a.classification,
-          model_used: a.modelUsed,
-          created_at: a.createdAt,
-          word_count: a.wordCount
-        }));
-        setItems(mapped);
+        // Fallback to local user cache synchronously without triggering background loops
+        const local = HistoryService.getStoredRecords(userId);
+        if (local && local.length > 0) {
+          const mapped = local.map(a => ({
+            id: a.id,
+            original_text: a.snippet,
+            ai_probability: a.aiProbability ?? 0,
+            classification: a.classification || 'Analyzed',
+            model_used: a.modelUsed || 'ModernBERT-V5',
+            created_at: a.createdAt,
+            word_count: a.wordCount
+          }));
+          setItems(mapped);
+        } else {
+          setItems([]);
+        }
       }
     } catch (err) {
       console.error('Fetch history error:', err);
     } finally {
       setLoading(false);
+      isInitialRef.current = false;
+      isFetchingRef.current = false;
     }
-  }, [user]);
+  }, [userId]);
 
   useEffect(() => {
-    fetchHistory();
-    const unsub = HistoryService.subscribe(fetchHistory);
+    fetchHistory(false);
+    const unsub = HistoryService.subscribe(() => {
+      fetchHistory(true);
+    });
     return () => unsub();
   }, [fetchHistory]);
 
@@ -76,7 +95,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
 
     try {
       await insforge.database.from('analyses').delete().eq('id', id);
-      setItems(items.filter(item => item.id !== id));
+      setItems(prev => prev.filter(item => item.id !== id));
       if (selectedItem?.id === id) setSelectedItem(null);
     } catch (err) {
       console.error('Delete error:', err);
@@ -84,23 +103,20 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
   };
 
   const handleClearAll = async () => {
-    if (!user) return;
     if (!confirm('Are you sure you want to permanently delete ALL your analysis history? This cannot be undone.')) return;
     
     try {
-      setLoading(true);
-      await insforge.database.from('analyses').delete().eq('user_id', user.id);
+      await insforge.database.from('analyses').delete().eq('user_id', userId);
       setItems([]);
       setSelectedItem(null);
     } catch (err) {
       console.error('Clear all error:', err);
-    } finally {
-      setLoading(false);
     }
   };
 
   const filteredItems = items.filter(item => {
-    const matchesSearch = item.original_text.toLowerCase().includes(search.toLowerCase());
+    const text = item.original_text || '';
+    const matchesSearch = text.toLowerCase().includes(search.toLowerCase());
     const matchesFilter = filterClass === 'all' || 
       (filterClass === 'ai' && item.classification?.includes('AI')) ||
       (filterClass === 'human' && item.classification?.includes('Human'));
@@ -210,7 +226,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
                     className="group flex flex-col md:grid md:grid-cols-12 gap-4 md:items-center px-6 md:px-8 py-4 sm:py-5 hover:bg-[#00C9D8]/[0.03] transition-colors cursor-pointer"
                   >
                     <div className="md:col-span-2 text-xs sm:text-sm text-[#9BB2B7] font-mono">
-                      {new Date(item.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                      {item.created_at ? new Date(item.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent'}
                     </div>
                     
                     <div className="md:col-span-6">
@@ -231,7 +247,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
 
                     <div className="md:col-span-1 flex items-center md:justify-end">
                       <span className="text-sm sm:text-base font-mono font-bold text-[#F3F8F8]">
-                        {Math.round(item.ai_probability * 100)}%
+                        {typeof item.ai_probability === 'number' ? `${Math.round(item.ai_probability * 100)}%` : '--'}
                       </span>
                     </div>
 
@@ -276,7 +292,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
                   <div>
                     <div className="flex items-center gap-2 mb-1.5">
                       <span className="text-xs text-[#9BB2B7] uppercase tracking-widest font-mono">
-                        {new Date(selectedItem.created_at).toLocaleString()}
+                        {selectedItem.created_at ? new Date(selectedItem.created_at).toLocaleString() : 'Recent'}
                       </span>
                     </div>
                     <h3 className="text-2xl font-bold text-[#F3F8F8] tracking-tight">{selectedItem.classification}</h3>
@@ -296,13 +312,15 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ onNavigate, initialSea
                     <div className="bg-[#030B0D]/80 p-4 rounded-xl border border-[rgba(0,201,216,0.15)] flex-1 min-w-[160px]">
                       <span className="text-xs text-[#9BB2B7] uppercase tracking-[0.2em] font-mono block mb-1">AI Probability</span>
                       <span className="text-4xl font-bold text-[#00C9D8] font-mono">
-                        {Math.round(selectedItem.ai_probability * 100)}%
+                        {typeof selectedItem.ai_probability === 'number' ? `${Math.round(selectedItem.ai_probability * 100)}%` : '--'}
                       </span>
                     </div>
                     <div className="bg-[#030B0D]/80 p-4 rounded-xl border border-[rgba(0,201,216,0.15)] flex-1 min-w-[160px]">
                       <span className="text-xs text-[#9BB2B7] uppercase tracking-[0.2em] font-mono block mb-1">Human Probability</span>
                       <span className="text-4xl font-bold text-[#008FA3] font-mono">
-                        {Math.round((selectedItem.human_probability ?? (1 - selectedItem.ai_probability)) * 100)}%
+                        {typeof selectedItem.ai_probability === 'number'
+                          ? `${Math.round((selectedItem.human_probability ?? (1 - selectedItem.ai_probability)) * 100)}%`
+                          : '--'}
                       </span>
                     </div>
                   </div>
