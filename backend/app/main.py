@@ -20,10 +20,25 @@ try:
 except ModuleNotFoundError:
     from api.router import router, limiter
 
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info("VERITY backend startup: Preloading ModernBERT ML model into RAM...")
+    try:
+        from backend.ml.experimental.v5_inference import V5InferenceService
+        V5InferenceService.get_instance()
+        logger.info("ModernBERT model preloaded successfully! Inference is hot and ready.")
+    except Exception as e:
+        logger.warning(f"Failed to preload ModernBERT at startup: {e}")
+    yield
+    logger.info("VERITY backend shutting down.")
+
 app = FastAPI(
     title="VERITY AI/ML Service",
     description="Transformer Semantic Representation + Stylometric Feature Fusion Detection API with SQLite Persistence",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 )
 
 from slowapi.errors import RateLimitExceeded

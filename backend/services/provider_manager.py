@@ -282,7 +282,8 @@ class ProviderManager:
                     stylo = None
 
                 ai_prob = float(res["ai_probability"])
-                diff = abs(ai_prob - res.get("threshold", 0.70))
+                threshold = float(res.get("threshold", 0.50))
+                diff = abs(ai_prob - threshold)
                 confidence = "High" if diff >= 0.25 else ("Medium" if diff >= 0.12 else "Low")
 
                 return {
@@ -300,7 +301,7 @@ class ProviderManager:
                     "selected_model": "ModernBERT-V5",
                     "active_model": "ModernBERT-V5",
                     "fallback_reason": None,
-                    "threshold": float(res.get("threshold", 0.70))
+                    "threshold": threshold
                 }
             except Exception as e:
                 logger.warning(f"V5 ModernBERT evaluation exception: {e}. Executing verified rollback to DistilRoBERTa-V2.")

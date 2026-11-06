@@ -1,1 +1,9 @@
-{"model_name": "distilroberta-base", "semantic_dim": 768, "stylometric_dim": 20, "sem_proj_dim": 256, "sty_proj_dim": 64, "selected_threshold": 0.7, "training_stage": "v4_experiment", "unfrozen_layers": 2}
+{
+  "model_name": "answerdotai/ModernBERT-base",
+  "semantic_dim": 768,
+  "stylometric_dim": 20,
+  "sem_proj_dim": 256,
+  "sty_proj_dim": 64,
+  "selected_threshold": 0.5,
+  "max_sequence_length": 512
+}

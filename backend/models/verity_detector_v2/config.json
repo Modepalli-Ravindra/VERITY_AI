@@ -1,0 +1,8 @@
+{
+  "model_name": "distilroberta-base",
+  "semantic_dim": 768,
+  "stylometric_dim": 20,
+  "sem_proj_dim": 256,
+  "sty_proj_dim": 64,
+  "selected_threshold": 0.5
+}
